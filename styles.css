@@ -1,0 +1,10 @@
+﻿body, input, button {
+	font-family: Tahoma;
+	font-size: small;
+}
+.imagelink {
+	border-width: 0px;
+}
+h1 {
+	font-size: 140%;
+}
