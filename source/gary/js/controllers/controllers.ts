@@ -1,0 +1,112 @@
+﻿module Controllers {
+
+    export interface ITheaterScope extends ng.IScope {
+        shows: IProduction[]
+    }
+
+    var producerData: Dto.IProducer[] = [
+        {
+            "name": "Curtain Call Repertory",
+            "productions": [
+                { "show": "Sweeney Todd", "opening": "1999-11-12T20:00:00-06:00", "role": "Ensemble" },
+                { "show": "Jesus Christ Superstar", "opening": "2000-02-04T20:00:00-06:00", "role": "Ensemble" },
+                { "show": "Baby", "opening": "2000-04-07T20:00:00-05:00", "role": "Ensemble" },
+                { "show": "Annie", "opening": "2000-06-23T20:00:00-05:00", "role": "Bert Healy, Ensemble" },
+                { "show": "Evita", "opening": "2000-09-15T20:00:00-05:00", "role": "Ensemble" },
+                { "show": "Phantom", "opening": "2000-11-10T20:00:00-06:00", "role": "Ensemble" },
+                { "show": "Mame", "opening": "2001-02-09T20:00:00-06:00", "role": "Ensemble" },
+                { "show": "A Little Night Music", "opening": "2001-03-30T20:00:00-05:00", "role": "Mr. Erlanson" },
+                { "show": "Passion", "opening": "2002-11-08T20:00:00-06:00", "role": "Ensemble" },
+                { "show": "Jekyll & Hyde", "opening": "2003-03-28T20:00:00-05:00", "role": "Bisset, Ensemble" },
+                { "show": "Sweeney Todd", "opening": "2005-02-25T20:00:00-06:00", "role": "Ensemble" },
+                { "show": "Side Show", "opening": "2005-11-11T20:00:00-06:00", "role": "Fakir" }
+            ]
+        },
+        {
+            "name": "Hawthorne Players",
+            "productions": [
+                { "show": "South Pacific", "opening": "2001-07-27T20:00:00-05:00", "role": "Ensemble" },
+                { "show": "1776", "opening": "2002-07-26T20:00:00-05:00", "role": "Livingston, Ensemble" },
+                { "show": "The Producers", "opening": "2010-07-30T20:00:00-05:00", "role": "Ensemble" }
+            ]
+        },
+        {
+            "name": "Spotlight Productions",
+            "productions": [
+                { "show": "Man of La Mancha", "opening": "2001-11-09T20:00:00-06:00", "role": "Padre, Ensemble" },
+                { "show": "Titanic", "opening": "2003-07-25T20:00:00-05:00", "role": "Mr. Thayer, Ensemble" },
+                { "show": "Jekyll & Hyde", "opening": "2004-07-30T20:00:00-05:00", "role": "Stride" },
+                { "show": "Big, the Musical", "opening": "2008-07-25T20:00:00-05:00", "role": "Mr. Baskin" }
+            ]
+        },
+        {
+            "name": "O'Fallon Community Theatre",
+            "productions": [
+                { "show": "Camelot", "opening": "2002-02-22T20:00:00-06:00", "role": "Merlyn, Sir Ian, Ensemble" }
+            ]
+        },
+        {
+            "name": "K's Theatrical Korps",
+            "productions": [
+                { "show": "She Loves Me", "opening": "2002-06-14T20:00:00-05:00", "role": "Georg" }
+            ]
+        },
+        {
+            "name": "Alpha Players",
+            "productions": [
+                { "show": "Chess", "opening": "2002-10-04T20:00:00-05:00", "role": "Ensemble" }
+            ]
+        },
+        {
+            "name": "Kirkwood Theater Guild",
+            "productions": [
+                { "show": "City of Angels", "opening": "2004-05-07T20:00:00-05:00", "role": "Pasco, Gene, Ensemble" },
+                { "show": "Bells are Ringing", "opening": "2005-05-06T20:00:00-05:00", "role": "Francis" },
+                { "show": "How to Succeed in Business Without Really Trying", "opening": "2006-05-04T20:00:00-05:00", "role": "Twimble" },
+                { "show": "There Goes the Bride", "opening": "2008-10-31T20:00:00-05:00", "role": "Charles Babcock" },
+                { "show": "Damn Yankees", "opening": "2009-05-01T20:00:00-05:00", "role": "The Comissioner" },
+                { "show": "Dirty Rotten Scoundrels", "opening": "2012-05-04T20:00:00-05:00", "role": "Ensemble" },
+                { "show": "9 To 5", "opening": "2014-05-02T20:00:00-05:00", "role": "Detective, Ensemble" }
+            ]
+        },
+        {
+            "name": "Family Musical Theater",
+            "productions": [
+                { "show": "Brigadoon", "opening": "2007-07-05T20:00:00-05:00", "role": "Mr. Lundie" },
+                { "show": "Guys and Dolls", "opening": "2011-06-17T20:00:00-05:00", "role": "Arvide Abernathy" }
+            ]
+        },
+        {
+            "name": "Christ Memorial Productions",
+            "productions": [
+                { "show": "Annie", "opening": "2009-09-18T20:00:00-05:00", "role": "Bert Healy" },
+                { "show": "Oliver", "opening": "2012-09-28T20:00:00-05:00", "role": "Mr. Sowerberry" }
+            ]
+        }
+    ];
+
+
+    export class TheaterCtrl {
+        constructor($scop: ITheaterScope) {
+
+            var shows: IProduction[] = [];
+
+            producerData.forEach((producer) => {
+                producer.productions.forEach((production) => {
+                    shows.push({
+                        show: production.show,
+                        opening: new Date(production.opening),
+                        producer: producer.name,
+                        role: production.role
+                    })
+                })
+            });
+
+            $scop.shows = shows;
+
+        }
+    }
+}
+    
+angular.module("app.controllers", ["app.services"])
+    .controller("TheaterCtrl", ["$scope", Controllers.TheaterCtrl]);

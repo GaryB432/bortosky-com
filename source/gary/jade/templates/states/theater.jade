@@ -1,0 +1,8 @@
+﻿.theater
+    h2 Theater Resume
+    table.theater
+        tr(ng-repeat='show in shows | orderBy: \'opening\':true')
+            td {{show.show}}
+            td {{show.opening | date : 'medium'}}
+            td {{show.producer}}
+            td {{show.role}}
