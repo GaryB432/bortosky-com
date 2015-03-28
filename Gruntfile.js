@@ -110,6 +110,10 @@ module.exports = function (grunt) {
         grunt.task.run('jade');
     });
 
+    grunt.registerTask('copyproducers', 'Copy producers json', function () {
+        grunt.file.copy('source/gary/producers.json', 'app/gary/producers.json');
+    });
+
     grunt.registerTask('jade-app', ['jadeall:source/jade/:app/','jadeall:source/gary/jade/:app/gary/']);
-    grunt.registerTask('default', ['jade-app', 'less', 'typescript']);
+    grunt.registerTask('default', ['jade-app', 'less', 'typescript', 'copyproducers']);
 };
