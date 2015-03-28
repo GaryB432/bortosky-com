@@ -1,14 +1,14 @@
 {
-  "name": "bortoskyCom",
-  "version": "2.0.0",
-  "description": "sdf",
-  "license": "MIT",
-  "dependencies": {
-    "angular-animate": "~1.2.26",
-    "angular-mocks": "~1.2.26",
-    "angular-route": "~1.2.26",
-    "angular": "~1.2.26",
-    "jasmine": "~2.0.4",
-    "angulartics": "~0.17.0"
-  }
+    "name": "bortoskyCom",
+    "version": "2.1.0",
+    "description": "The personal website of the only Bortosky family",
+    "license": "MIT",
+    "dependencies": {
+        "angular-animate": "^1.4.0",
+        "angular-mocks": "^1.4.0",
+        "angular-route": "^1.4.0",
+        "angular": "^1.4.0",
+        "jasmine": "^2.2.1",
+        "angulartics": "^0.17.2"
+    }
 }
