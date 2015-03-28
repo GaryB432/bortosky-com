@@ -49,6 +49,7 @@
     <Content Include="source\gary\less\states.less" />
     <Content Include="source\gary\less\states\main.less" />
     <Content Include="source\gary\less\states\theater.less" />
+    <Content Include="source\gary\jade\templates\directives\role.jade" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -59,12 +60,12 @@
   <ItemGroup>
     <TypeScriptCompile Include="source\gary\js\app.ts" />
     <TypeScriptCompile Include="source\gary\js\controllers\controllers.ts" />
+    <TypeScriptCompile Include="source\gary\js\directives\directives.ts" />
     <TypeScriptCompile Include="source\gary\js\models\models.ts" />
     <TypeScriptCompile Include="source\gary\js\services\services.ts" />
     <TypeScriptCompile Include="test\tests.ts" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="source\gary\jade\templates\directives\" />
     <Folder Include="source\gary\less\directives\" />
     <Folder Include="source\less\directives\" />
     <Folder Include="source\less\states\" />
