@@ -1,25 +1,40 @@
 ﻿var gulp = require('gulp'),
-    ts = require('gulp-typescript'),
-    eventStream = require('event-stream'),
+    typescript = require('gulp-typescript'),
     less = require('gulp-less'),
     path = require('path'),
     del = require('del'),
     concat = require('gulp-concat'),
     jade = require('gulp-jade');
 
+var garyts = [
+    './source/gary/js/app.ts',
+    './source/gary/js/models/**/*.ts',
+    './source/gary/js/services/**/*.ts',
+    './source/gary/js/controllers/**/*.ts',
+    './source/gary/js/filters/**/*.ts',
+    './source/gary/js/directives/**/*.ts'
+];
+
+var tsProject = typescript.createProject({
+    target: 'ES5',
+    module: 'commonjs',
+    noImplicitAny: true,
+    out: 'main.js'
+});
+
 gulp.task('scripts-gary', function () {
-    var garyts = [
-            './source/gary/js/app.ts',
-            './source/gary/js/models/**/*.ts',
-            './source/gary/js/services/**/*.ts',
-            './source/gary/js/controllers/**/*.ts',
-            './source/gary/js/filters/**/*.ts',
-            './source/gary/js/directives/**/*.ts'
-    ];
-    return gulp
-        .src(garyts)
-        .pipe(ts({ noImplicitAny: true, out: 'main.js' }))
-        .pipe(gulp.dest('./app/gary/js'));
+    var tsResult = gulp.src(garyts)
+                  //.pipe(plugins.sourcemaps.init())
+                  .pipe(typescript(tsProject));
+
+    tsResult.removeAllListeners('error');
+    tsResult.on('error', function (err) {
+        result.emit('error', new gutil.PluginError('gulp-typescript', err.toString()));
+    });
+    var result = tsResult.js
+    //.pipe(plugins.sourcemaps.write('.'))
+    .pipe(gulp.dest('./app/gary/js'));
+    return result;
 });
 
 gulp.task('less', function () {

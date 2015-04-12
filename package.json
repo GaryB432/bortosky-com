@@ -1,22 +1,21 @@
 {
-    "name": "bortoskyCom",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/GaryB432/bortosky-com.git"
-    },
-    "author": "Gary Bortosky <gary@bortosky.com>",
-    "version": "2.0.0",
-    "description": "Personal website of the only Bortosky family",
-    "main": "gulpfile.js",
-    "license": "MIT",
-    "devDependencies": {
-        "del": "^1.1.1",
-        "event-stream": "^3.3.0",
-        "gulp": "^3.8.11",
-        "gulp-concat": "^2.5.2",
-        "gulp-jade": "^1.0.0",
-        "gulp-less": "^3.0.2",
-        "gulp-typescript": "^2.5.0",
-        "typescript": "^1.4.1"
-    }
+  "name": "bortoskyCom",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GaryB432/bortosky-com.git"
+  },
+  "author": "Gary Bortosky <gary@bortosky.com>",
+  "version": "2.0.0",
+  "description": "Personal website of the only Bortosky family",
+  "main": "gulpfile.js",
+  "license": "MIT",
+  "devDependencies": {
+    "del": "^1.1.1",
+    "gulp": "^3.8.11",
+    "gulp-concat": "^2.5.2",
+    "gulp-jade": "^1.0.0",
+    "gulp-less": "^3.0.2",
+    "gulp-typescript": "^2.5.0",
+    "typescript": "^1.4.1"
+  }
 }
