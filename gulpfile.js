@@ -17,7 +17,7 @@ var garyts = [
 
 var tsProject = typescript.createProject({
     target: 'ES5',
-    module: 'commonjs',
+    module: 'amd',
     noImplicitAny: true,
     out: 'main.js'
 });
