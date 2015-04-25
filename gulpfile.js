@@ -100,18 +100,14 @@ gulp.task('jade-all', ['jade', 'jade-gary']);
 
 gulp.task('less.all', ['less', 'less-gary']);
 
-gulp.task('default', ['scripts-gary', 'jade-all', 'less-gary', 'copy-gary', 'tdd']);
-
 gulp.task('watch-gary', function () {
     gulp.watch('./source/gary/**/*.js', ['scripts-gary']);
 
 });
 
-gulp.task('watch', function () {
+gulp.task('watch-others', function () {
 
     gulp.watch('./source/gary/less/**/*.less', ['less-gary']);
-
-    gulp.watch('./source/gary/**/*.js', ['scripts-gary']);
 
     gulp.watch('./source/gary/jade/**/*.jade', ['jade-gary']);
 
@@ -119,3 +115,9 @@ gulp.task('watch', function () {
 
     gulp.watch('./source/jade/**/*.jade', ['jade']);
 });
+
+gulp.task('dev', ['scripts-gary', 'watch-others', 'tdd']);
+
+gulp.task('build', ['scripts-gary', 'jade-all', 'less-gary', 'copy-gary', 'test']);
+
+gulp.task('default', ['build']);

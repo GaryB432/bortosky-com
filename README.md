@@ -1,13 +1,24 @@
 # bortoskyCom
-sdf
+Family website and playground
 
 ## how to use
+
+You relly won't be using this at all.
+
+This will start file watching during development
+
+> gulp dev
+
+This will update the app folder for deploying
+
+> gulp build
 
 ### You'll need
 
 - npm
 - Grunt
 - bower
+- TypeScript >=1.4
 
 
 ### Getting started
