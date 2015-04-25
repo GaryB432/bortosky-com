@@ -4,7 +4,9 @@
     path = require('path'),
     del = require('del'),
     concat = require('gulp-concat'),
-    jade = require('gulp-jade');
+    jade = require('gulp-jade'),
+    karma = require('karma').server;
+
 
 var garyts = [
     './source/gary/js/app.ts',
@@ -73,15 +75,37 @@ gulp.task('copy-gary', function () {
     return gulp.src('./source/gary/producers.json').pipe(gulp.dest('./app/gary'));
 });
 
-gulp.task('wtf', function () {
-    console.log('wtf');
+/**
+ * Run test once and exit
+ */
+gulp.task('test', function (done) {
+    karma.start({
+        configFile: __dirname + '/karma.conf.js',
+        singleRun: true
+    }, done);
+});
+
+/**
+ * Watch for file changes and re-run tests on each change
+ */
+gulp.task('tdd', ['watch-gary'], function (done) {
+    gulp.watch('./source/gary/**/*.js', ['scripts-gary']);
+
+    karma.start({
+        configFile: __dirname + '/karma.conf.js'
+    }, done);
 });
 
 gulp.task('jade-all', ['jade', 'jade-gary']);
 
 gulp.task('less.all', ['less', 'less-gary']);
 
-gulp.task('default', ['scripts-gary',  'jade-all', 'less-gary', 'copy-gary']);
+gulp.task('default', ['scripts-gary', 'jade-all', 'less-gary', 'copy-gary', 'tdd']);
+
+gulp.task('watch-gary', function () {
+    gulp.watch('./source/gary/**/*.js', ['scripts-gary']);
+
+});
 
 gulp.task('watch', function () {
 

@@ -1,6 +1,6 @@
 ﻿module Utilities {
-    export function flatten(arrays: any[]): any[] {
-        var merged: any[] = [];
+    export function flatten<T>(arrays: T[][]): T[] {
+        var merged: T[] = [];
         return merged = merged.concat.apply(merged, arrays);
     }
 

@@ -23,6 +23,7 @@
     <Content Include=".gitignore" />
     <Content Include="bower.json" />
     <Content Include="gulpfile.js" />
+    <Content Include="karma.conf.js" />
     <Content Include="package.json" />
     <Content Include="README.md" />
     <Content Include="source\jade\index.jade" />
