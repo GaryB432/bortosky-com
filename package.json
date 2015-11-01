@@ -5,11 +5,12 @@
     "url": "https://github.com/GaryB432/bortosky-com.git"
   },
   "author": "Gary Bortosky <gary@bortosky.com>",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Personal website of the only Bortosky family",
   "main": "gulpfile.js",
   "license": "MIT",
   "devDependencies": {
+    "connect": "^3.4.0",
     "del": "^1.1.1",
     "gulp": "^3.8.11",
     "gulp-concat": "^2.5.2",
@@ -20,6 +21,7 @@
     "karma": "^0.12.31",
     "karma-chrome-launcher": "^0.1.8",
     "karma-jasmine": "^0.3.5",
+    "serve-static": "^1.10.0",
     "typescript": "^1.4.1"
   }
 }
