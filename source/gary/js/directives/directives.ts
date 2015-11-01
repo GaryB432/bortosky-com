@@ -1,4 +1,5 @@
-﻿module Directives {
+﻿/// <reference path="../../../../typings/tsd.d.ts" />
+namespace Directives {
 
     export class Factory {
 

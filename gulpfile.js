@@ -89,7 +89,7 @@ gulp.task('test', function (done) {
 /**
  * Watch for file changes and re-run tests on each change
  */
-gulp.task('tdd', ['watch-gary'], function (done) {
+gulp.task('tdd-old-unused', ['watch-gary'], function (done) {
     gulp.watch('./source/gary/**/*.js', ['scripts-gary']);
 
     karma.start({
@@ -102,7 +102,7 @@ gulp.task('jade-all', ['jade', 'jade-gary']);
 gulp.task('less.all', ['less', 'less-gary']);
 
 gulp.task('watch-gary', function () {
-    gulp.watch('./source/gary/**/*.js', ['scripts-gary']);
+    gulp.watch(garyts, ['scripts-gary']);
 
 });
 
@@ -117,7 +117,7 @@ gulp.task('watch-others', function () {
     gulp.watch('./source/jade/**/*.jade', ['jade']);
 });
 
-gulp.task('dev', ['scripts-gary', 'watch-others', 'tdd']);
+gulp.task('dev', ['watch-gary', 'watch-others']);
 
 gulp.task('build', ['scripts-gary', 'jade-all', 'less-gary', 'copy-gary', 'test']);
 

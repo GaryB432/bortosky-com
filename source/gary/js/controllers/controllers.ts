@@ -1,4 +1,7 @@
-﻿module Controllers {
+﻿/// <reference path="../../../../typings/tsd.d.ts" />
+/// <reference path="../models/models.ts" />
+/// <reference path="../services/services.ts" />
+namespace Controllers {
 
     export interface ITheaterScope extends ng.IScope {
         shows: IProduction[]
