@@ -15,7 +15,7 @@
     "gulp": "^3.8.11",
     "gulp-concat": "^2.5.2",
     "gulp-jade": "^1.0.0",
-    "gulp-less": "^3.0.2",
+    "gulp-sass": "^2.1.0",
     "gulp-typescript": "^2.5.0",
     "jasmine-core": "^2.2.0",
     "karma": "^0.12.31",

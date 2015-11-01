@@ -1,6 +1,6 @@
 ﻿var gulp = require('gulp'),
     typescript = require('gulp-typescript'),
-    less = require('gulp-less'),
+    sass = require('gulp-sass'),
     path = require('path'),
     del = require('del'),
     concat = require('gulp-concat'),
@@ -37,20 +37,6 @@ gulp.task('scripts-gary', function () {
     //.pipe(plugins.sourcemaps.write('.'))
     .pipe(gulp.dest('./app/gary/js'));
     return result;
-});
-
-gulp.task('less', function () {
-    return gulp.src('./source/less/main.less')
-        .pipe(less({ paths: ['./source/less'] }))
-        .pipe(concat('style.css'))
-        .pipe(gulp.dest('./app/css'));
-});
-
-gulp.task('less-gary', function () {
-    return gulp.src('./source/gary/less/main.less')
-        .pipe(less({ paths: ['./source/gary/less'] }))
-        .pipe(concat('style.css'))
-        .pipe(gulp.dest('./app/gary/css'));
 });
 
 gulp.task('jade', function () {
@@ -96,9 +82,23 @@ gulp.task('tdd-old-unused', ['watch-gary'], function (done) {
     }, done);
 });
 
+gulp.task('sass-gary', function () {
+    gulp.src('./source/gary/sass/style.scss')
+        .pipe(sass({ outputStyle: 'nested' })
+            .on('error', sass.logError))
+        .pipe(gulp.dest('./app/gary/css'));
+});
+
+gulp.task('sass', function () {
+    gulp.src('./source/sass/style.scss')
+        .pipe(sass({ outputStyle: 'nested' })
+            .on('error', sass.logError))
+        .pipe(gulp.dest('./app/css'));
+});
+
 gulp.task('jade-all', ['jade', 'jade-gary']);
 
-gulp.task('less.all', ['less', 'less-gary']);
+gulp.task('sass-all', ['sass', 'sass-gary']);
 
 gulp.task('watch-gary', function () {
     gulp.watch(garyts, ['scripts-gary']);
@@ -107,17 +107,17 @@ gulp.task('watch-gary', function () {
 
 gulp.task('watch-others', function () {
 
-    gulp.watch('./source/gary/less/**/*.less', ['less-gary']);
+    gulp.watch('./source/gary/sass/**/*.scss', ['sass-gary']);
 
     gulp.watch('./source/gary/jade/**/*.jade', ['jade-gary']);
 
-    gulp.watch('./source/less/**/*.less', ['less']);
+    gulp.watch('./source/sass/**/*.scss', ['sass']);
 
     gulp.watch('./source/jade/**/*.jade', ['jade']);
 });
 
 gulp.task('dev', ['watch-gary', 'watch-others']);
 
-gulp.task('build', ['scripts-gary', 'jade-all', 'less-gary', 'copy-gary', 'test']);
+gulp.task('build', ['scripts-gary', 'jade-all', 'sass-gary', 'copy-gary']);
 
 gulp.task('default', ['build']);
