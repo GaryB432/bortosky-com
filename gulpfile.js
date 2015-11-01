@@ -31,7 +31,8 @@ gulp.task('scripts-gary', function () {
 
     tsResult.removeAllListeners('error');
     tsResult.on('error', function (err) {
-        result.emit('error', new gutil.PluginError('gulp-typescript', err.toString()));
+        result.emit(err);
+        //result.emit('error', new gutil.PluginError('gulp-typescript', err.toString()));
     });
     var result = tsResult.js
     //.pipe(plugins.sourcemaps.write('.'))
@@ -56,7 +57,7 @@ gulp.task('less-gary', function () {
 gulp.task('jade', function () {
     return gulp.src('./source/jade/**/*.jade')
       .pipe(jade({
-          locals: { fun: true },
+          locals: { fun: false, revDate: new Date() },
           pretty: true
       }))
       .pipe(gulp.dest('./app'))
@@ -65,7 +66,7 @@ gulp.task('jade', function () {
 gulp.task('jade-gary', function () {
     return gulp.src('./source/gary/jade/**/*.jade')
       .pipe(jade({
-          locals: { fun: true },
+          locals: { fun: false, revDate: true, hi:"there" },
           pretty: true
       }))
       .pipe(gulp.dest('./app/gary'))
