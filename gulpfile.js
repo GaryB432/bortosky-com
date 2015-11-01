@@ -10,11 +10,10 @@
 
 var garyts = [
     './source/gary/js/app.ts',
-    './source/gary/js/models/**/*.ts',
-    './source/gary/js/services/**/*.ts',
-    './source/gary/js/controllers/**/*.ts',
-    './source/gary/js/filters/**/*.ts',
-    './source/gary/js/directives/**/*.ts'
+    './source/gary/js/controllers.ts',
+    './source/gary/js/directives.ts',
+    './source/gary/js/models.ts',
+    './source/gary/js/services.ts'
 ];
 
 var tsProject = typescript.createProject({

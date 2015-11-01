@@ -1,6 +1,6 @@
-﻿/// <reference path="../../../../typings/tsd.d.ts" />
-/// <reference path="../models/models.ts" />
-/// <reference path="../services/services.ts" />
+﻿/// <reference path="../../../typings/tsd.d.ts" />
+/// <reference path="models.ts" />
+/// <reference path="services.ts" />
 namespace Controllers {
 
     export interface ITheaterScope extends ng.IScope {
