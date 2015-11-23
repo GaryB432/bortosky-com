@@ -1,4 +1,6 @@
 /// <reference path="../typings/tsd.d.ts" />
+/// <reference path="../source/gary/js/services" />
+/// <reference path="../source/gary/js/models" />
 // thanks http://www.benlesh.com/2013/06/angular-js-unit-testing-services.html
 // https://raw.githubusercontent.com/yearofmoo/fitc-rtec-angularjs-demo/master/test/unit/homePagesSpec.js
 

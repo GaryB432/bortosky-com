@@ -2,8 +2,6 @@
     typescript = require('gulp-typescript'),
     sass = require('gulp-sass'),
     path = require('path'),
-    del = require('del'),
-    concat = require('gulp-concat'),
     jade = require('gulp-jade'),
     karma = require('karma').server;
 
