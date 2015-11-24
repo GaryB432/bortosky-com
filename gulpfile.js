@@ -116,6 +116,6 @@ gulp.task('watch-others', function () {
 
 gulp.task('dev', ['watch-gary', 'watch-others']);
 
-gulp.task('build', ['scripts-gary', 'jade-all', 'sass-gary', 'copy-gary']);
+gulp.task('build', ['scripts-gary', 'jade-all', 'sass-all', 'copy-gary']);
 
 gulp.task('default', ['build']);
