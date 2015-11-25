@@ -1,30 +1,16 @@
-body {
-  color: #444444;
-  background-color: #E5F2FF;
-  font-family: verdana;
-  margin: 0
+#services {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	.box {
+		padding: 30px;
+	}
+	h2 {
+		font-size: 110%;
+		font-weight: bold;
+		margin: 10px 0;
+	}
+	p {
+		margin: 14px 0;
+	}
 }
-
-#PageOutline {
-  text-align: center;
-  margin-top: 300px;
-}
-
-a {
-  color: #0153A4;
-}
-
-h1 {
-  font-size: 16pt;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-h2 {
-  font-size: 14pt;
-  margin-bottom: 4px;
-  font-weight: normal; 
-}
-
-a.gary {
-  font-size: 10pt; }
