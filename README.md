@@ -3,7 +3,7 @@ Family website and playground
 
 ## how to use
 
-You relly won't be using this at all.
+You really won't be using this at all.
 
 This will start file watching during development
 
@@ -16,7 +16,7 @@ This will update the app folder for deploying
 ### You'll need
 
 - npm
-- Grunt
+- gulp
 - bower
 - TypeScript >=1.4
 
@@ -28,7 +28,13 @@ From the command line in your project directory
 - run npm update
 - run bower update
 - run tsd reinstall --overwrite --save
-- run grunt
+- run gulp
 
+## subfolders
 
-
+| Path | Repo |
+|----------------|-------------|
+| gary | This repo |
+| map | https://github.com/GaryB432/gb-map |
+| mobile/grocery | https://github.com/GaryB432/gb-grocery |
+| mobile/homer | https://github.com/GaryB432/homer-ng |
