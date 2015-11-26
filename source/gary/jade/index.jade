@@ -9,11 +9,11 @@ html(lang="en", ng-app="app")
         meta(name="viewport", content="width=device-width")
         link(rel="stylesheet", href="css/style.css")
     body
-        ul.menu
-            li
-                a(href="../") Bortosky.com
-            li
-                a(href="#/") Gary
+        nav
+            a(href="../") Bortosky.com
+            a(href="#/") Gary
+            a(href="../mobile/homer") homer
+            a(href="../map") map
         div(ng-view="")
         script(src="../bower_components/angular/angular.js")
         script(src="../bower_components/angular-animate/angular-animate.js")
