@@ -1,24 +1,25 @@
+@mixin margin-guy {
+    margin: 8px 0;
+}
+
 div.main { 
-    margin: 10px;
+    margin: 20px;
+    section {
+        margin: 20px 0;
+    }
     h1 {
         font-size: 1.2em;
         font-weight: bold;
+        margin-bottom: 4px;
     }
     ul {
         list-style-type: none;
-        padding: 0;
-        margin: 10px auto;
         li {
-            padding-left: 14px; 
-            div.desc {
-                padding:8px;
-            }
+            @include margin-guy;
         }
-        &.detail {
-            li {
-                padding:4px 20px;
-            }
-        }
+    }
+    p {
+        @include margin-guy;
     }
 
 }
