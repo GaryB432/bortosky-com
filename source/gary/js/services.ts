@@ -16,21 +16,29 @@ class MathService {
 
 type TheaterProfile = Dto.IProfile;
 
-class ProductionDataService {
+class DataService {
     private profileDeferred: ng.IDeferred<TheaterProfile>;
 
     constructor($q: ng.IQService, $http: ng.IHttpService) {
         this.profileDeferred = $q.defer<TheaterProfile>();
 
         $http.get("theater.json")
-            .success((profile: TheaterProfile) => {
-                this.profileDeferred.resolve(profile);
-            })
+            .success((profile: TheaterProfile) => { this.profileDeferred.resolve(profile); })
             .error((result, status) => this.profileDeferred.reject(status));
+    }
+    getData(): ng.IPromise<TheaterProfile> {
+        return this.profileDeferred.promise;
+    }
+
+}
+
+class TheaterService {
+    constructor(private pds: DataService) {
+
     }
 
     getProductions(): ng.IPromise<IProduction[]> {
-        return this.profileDeferred.promise.then((d) => Utilities.flatten(
+        return this.pds.getData().then((d) => Utilities.flatten(
             d.producers.map((producer) => producer.productions.map((show) => {
                 return <IProduction>{
                     show: show.show,
@@ -44,4 +52,5 @@ class ProductionDataService {
 
 angular.module('app.services', [])
     .service('MathService', MathService)
-    .service('ProductionDataService', ["$q", "$http", ProductionDataService]);
+    .service('DataService', ["$q", "$http", DataService])
+    .service('TheaterService', ["DataService", TheaterService]);

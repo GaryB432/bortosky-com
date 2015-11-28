@@ -20,14 +20,14 @@ describe('testing Math service', function () {
     });
 });
 
-describe('ProductionDataService', function () {
-    var svc: ProductionDataService;
+describe('DataService', function () {
+    var svc: DataService;
 
     beforeEach(function () {
         angular.mock.module('app.services');
 
-        inject(function (_ProductionDataService_: ProductionDataService) {
-            svc = _ProductionDataService_;
+        inject(function (_DataService_: DataService) {
+            svc = _DataService_;
         });
     });
 
@@ -43,8 +43,8 @@ describe('ProductionDataService', function () {
                 { show: 'S3', opening: new Date('2010-07-30T20:00:00-05:00'), producer: 'P2', role: 'R3' }
             ];
 
-            svc.getProductions().then((resultShows) => {
-                expect(resultShows).toEqual(expectedShows);
+            svc.getData().then((resultShows) => {
+                expect(resultShows.producers.length).toEqual(2);
             });
 
             $httpBackend.flush();
@@ -52,6 +52,7 @@ describe('ProductionDataService', function () {
         });
     });
 });
+
 
 describe('array flattener',() => {
     it('should flatten correctly',() => {

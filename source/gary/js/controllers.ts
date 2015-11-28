@@ -8,7 +8,7 @@ namespace Controllers {
     }
 
     export class TheaterCtrl {
-        constructor($scop: ITheaterScope, data: ProductionDataService) {
+        constructor($scop: ITheaterScope, data: TheaterService) {
             data.getProductions()
                 .then((shows) => $scop.shows = shows)
                 .catch((status) => window.alert(status));
@@ -17,4 +17,4 @@ namespace Controllers {
 }
 
 angular.module("app.controllers", ["app.services"])
-    .controller("TheaterCtrl", ["$scope", "ProductionDataService", Controllers.TheaterCtrl]);
+    .controller("TheaterCtrl", ["$scope", "TheaterService", Controllers.TheaterCtrl]);
