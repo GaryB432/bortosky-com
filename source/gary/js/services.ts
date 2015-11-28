@@ -8,6 +8,10 @@ namespace Utilities {
 
 }
 
+interface IDataService {
+    getData(): ng.IPromise<TheaterProfile>
+}
+
 class MathService {
     add(addend1: number, addend2: number) {
         return addend1 + addend2;
@@ -16,7 +20,7 @@ class MathService {
 
 type TheaterProfile = Dto.IProfile;
 
-class DataService {
+class DataService implements IDataService {
     private profileDeferred: ng.IDeferred<TheaterProfile>;
 
     constructor($q: ng.IQService, $http: ng.IHttpService) {
@@ -33,20 +37,20 @@ class DataService {
 }
 
 class TheaterService {
-    constructor(private pds: DataService) {
-
+    constructor(private dataSvc: IDataService) {
     }
 
     getProductions(): ng.IPromise<IProduction[]> {
-        return this.pds.getData().then((d) => Utilities.flatten(
-            d.producers.map((producer) => producer.productions.map((show) => {
+        return this.dataSvc.getData().then((d) =>
+            Utilities.flatten(d.producers.map((producer) => producer.productions.map((show) => {
                 return <IProduction>{
                     show: show.show,
                     opening: new Date(show.opening),
                     producer: producer.name,
                     role: show.role
                 };
-            }))));
+            })))
+        );
     }
 }
 
