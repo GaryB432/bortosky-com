@@ -1,4 +1,6 @@
-﻿module Utilities {
+﻿/// <reference path="../../../typings/tsd.d.ts" />
+/// <reference path="models.ts" />
+namespace Utilities {
     export function flatten<T>(arrays: T[][]): T[] {
         var merged: T[] = [];
         return merged = merged.concat.apply(merged, arrays);
@@ -12,28 +14,31 @@ class MathService {
     }
 }
 
+type TheaterProfile = Dto.IProfile;
+
 class ProductionDataService {
-    private productionDeferred: ng.IDeferred<IProduction[]>;
+    private profileDeferred: ng.IDeferred<TheaterProfile>;
 
     constructor($q: ng.IQService, $http: ng.IHttpService) {
-        this.productionDeferred = $q.defer<IProduction[]>();
+        this.profileDeferred = $q.defer<TheaterProfile>();
 
-        $http.get("producers.json")
-            .success((producers: Dto.IProducer[]) => {
-                this.productionDeferred.resolve(Utilities.flatten(producers.map((producer) => producer.productions.map((show) => {
-                    return <IProduction>{
-                        show: show.show,
-                        opening: new Date(show.opening),
-                        producer: producer.name,
-                        role: show.role
-                    };
-                }))));
+        $http.get("theater.json")
+            .success((profile: TheaterProfile) => {
+                this.profileDeferred.resolve(profile);
             })
-            .error((result, status) => this.productionDeferred.reject(status));
+            .error((result, status) => this.profileDeferred.reject(status));
     }
 
     getProductions(): ng.IPromise<IProduction[]> {
-        return this.productionDeferred.promise;
+        return this.profileDeferred.promise.then((d) => Utilities.flatten(
+            d.producers.map((producer) => producer.productions.map((show) => {
+                return <IProduction>{
+                    show: show.show,
+                    opening: new Date(show.opening),
+                    producer: producer.name,
+                    role: show.role
+                };
+            }))));
     }
 }
 

@@ -1,4 +1,7 @@
 ﻿namespace Dto {
+    export interface IProfile {
+        producers: IProducer[];
+    }
     export interface IProducer {
         name: string;
         productions: IProduction[]

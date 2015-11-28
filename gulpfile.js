@@ -56,13 +56,34 @@ gulp.task('jade-gary', function () {
 });
 
 gulp.task('copy-gary', function () {
-    return gulp.src('./source/gary/producers.json').pipe(gulp.dest('./app/gary'));
+    return gulp.src('./source/gary/theater.json').pipe(gulp.dest('./app/gary'));
 });
 
-/**
- * Run test once and exit
- */
-gulp.task('test', function (done) {
+var tsTestProject = typescript.createProject({
+    target: 'ES5',
+    module: 'amd',
+    noImplicitAny: true,
+    out: 'tests.js'
+});
+
+gulp.task('test-ts-gary', function () {
+    var tsResult = gulp.src("./test/**/*.ts")
+                  //.pipe(plugins.sourcemaps.init())
+                  .pipe(typescript(tsTestProject));
+
+    tsResult.removeAllListeners('error');
+    tsResult.on('error', function (err) {
+        result.emit(err);
+        //result.emit('error', new gutil.PluginError('gulp-typescript', err.toString()));
+    });
+    var result = tsResult.js
+    //.pipe(plugins.sourcemaps.write('.'))
+    .pipe(gulp.dest('./test'));
+    return result;
+});
+
+
+gulp.task('test', ['test-ts-gary'], function (done) {
     karma.start({
         configFile: __dirname + '/karma.conf.js',
         singleRun: true
