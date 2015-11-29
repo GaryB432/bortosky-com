@@ -81,6 +81,8 @@ var tsTestProject = typescript.createProject({
 
 gulp.task('test-ts-gary', function () {
     var tsResult = gulp.src("./test/**/*.ts")
+        .pipe(tslint())
+        .pipe(tslint.report('verbose'))
         .pipe(typescript(tsTestProject));
 
     return tsResult.js.pipe(gulp.dest('./test'));

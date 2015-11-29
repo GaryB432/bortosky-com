@@ -1,43 +1,69 @@
 /// <reference path="../typings/tsd.d.ts" />
 /// <reference path="../source/gary/js/services" />
 /// <reference path="../source/gary/js/models" />
-describe('testing Math service', function() {
-    var svc: MathService;
 
-    beforeEach(function() {
-        angular.mock.module('app.services');
+/* tslint:disable variable-name */
 
-        inject(function(_MathService_: MathService) {
+const PROFILE: TheaterProfile = {
+    producers: [
+        {
+            name: "P1",
+            productions: [
+                { opening: "2001-02-03T20:00:00-05:00", role: "R1", show: "S1" },
+                { opening: "2004-02-03T20:00:00-05:00", role: "R2", show: "S2" },
+                { opening: "2003-02-03T20:00:00-05:00", role: "R3", show: "S3" },
+            ]
+        },
+        {
+            name: "P2",
+            productions: []
+        },
+        {
+            name: "P3",
+            productions: [
+                { opening: "2001-02-03T20:00:00-05:00", role: "R4", show: "S4" },
+                { opening: "2004-02-03T20:00:00-05:00", role: "R5", show: "S5" },
+
+            ]
+        }]
+};
+
+describe("testing Math service", () => {
+    let svc: MathService;
+
+    beforeEach(() => {
+        angular.mock.module("app.services");
+
+        inject((_MathService_: MathService) => {
             svc = _MathService_;
         });
     });
 
-    it('should add properly.', function() {
+    it("should add properly.", () => {
         expect(svc.add(3, -1)).toEqual(2);
     });
 });
 
-describe('DataService', function() {
-    var svc: DataService;
+describe("DataService", () => {
+    let svc: DataService;
 
-    beforeEach(function() {
-        angular.mock.module('app.services');
+    beforeEach(() => {
+        angular.mock.module("app.services");
 
-        inject(function(_DataService_: DataService) {
+        inject((_DataService_: DataService) => {
             svc = _DataService_;
         });
     });
 
-    it('should get theater profile properly.', function() {
+    it("should get theater profile properly.", () => {
 
         inject(($httpBackend: ng.IHttpBackendService) => {
-            $httpBackend.expect('GET', 'theater.json')
-                .respond(200, '{ "producers": [{"name": "P1","productions": [{ "show": "S1", "opening": "1999-11-12T20:00:00-06:00", "role": "R1" },{ "show": "S2", "opening": "2005-11-11T20:00:00-06:00", "role": "R2" }]},{"name": "P2","productions": [{ "show": "S3", "opening": "2010-07-30T20:00:00-05:00", "role":"R3" }]}] }');
 
-            svc.getData().then((profile) => {
-                expect(profile.producers.length).toEqual(2);
+            $httpBackend.expect("GET", "theater.json").respond(200, angular.toJson(PROFILE));
+
+            svc.getData().then((profile: Dto.IProfile) => {
+                expect(profile).toEqual(PROFILE);
             });
-
             $httpBackend.flush();
 
         });
@@ -47,46 +73,46 @@ describe('DataService', function() {
 class FakeDataService implements IDataService {
     constructor(private $q: ng.IQService) { }
 
-    getData() {
-        let d = this.$q.defer<TheaterProfile>();
-        d.resolve({
-            producers: [{ name: "hi", productions: [{ show: "S1", opening: "2002", role: "R1" }] }]
-        });
+    public getData(): ng.IPromise<Dto.IProfile> {
+        let d: ng.IDeferred<TheaterProfile> = this.$q.defer<TheaterProfile>();
+        d.resolve(PROFILE);
         return d.promise;
     }
 }
 
-describe('TheaterService', () => {
+describe("TheaterService", () => {
     let scope: ng.IRootScopeService;
     let bs: TheaterService;
-    let result: IProduction[];
+    let resultingProductions: IProduction[];
     let yrs: IAnnualCount[];
-    beforeEach(function() {
-        //angular.mock.module('app.services');
-
-        inject(function($rootScope: ng.IRootScopeService, $q: ng.IQService) {
+    beforeEach(() => {
+        inject(($rootScope: ng.IRootScopeService, $q: ng.IQService) => {
             bs = new TheaterService(new FakeDataService($q));
             scope = $rootScope;
         });
     });
-    it('should get productions', () => {
-        bs.getProductions().then((productions) => {
-            result = productions;
+    it("should get productions", () => {
+        bs.getProductions().then((productions: IProduction[]) => {
+            resultingProductions = productions;
         });
         scope.$apply();
-        expect(result.length).toEqual(1);
+        expect(resultingProductions.length).toEqual(5);
     });
-    it('should get annuals', () => {
-        bs.getYears().then((years) => {
+    it("should get annuals", () => {
+        bs.getYears().then((years: IAnnualCount[]) => {
             yrs = years;
         });
         scope.$apply();
-        expect(yrs).toEqual([{ year: "2001", count: 1 }]);
+        expect(yrs).toEqual([
+            { count: 2, year: "2001" },
+            { count: 1, year: "2003" },
+            { count: 2, year: "2004" },
+        ]);
     });
 });
 
-describe('array flattener', () => {
-    it('should flatten correctly', () => {
+describe("array flattener", () => {
+    it("should flatten correctly", () => {
         expect(Utilities.flatten([[1, 2], [3, 4], [5, 6]])).toEqual([1, 2, 3, 4, 5, 6]);
     });
 });
