@@ -61,7 +61,7 @@ class TheaterService {
                 }
             });
 
-        for (var year in map) {
+        for (let year in map) {
             years.push({ count: map[year], year: year });
         }
         return years;
@@ -75,7 +75,7 @@ class TheaterService {
                     opening: new Date(show.opening),
                     producer: producer.name,
                     role: show.role,
-                    show: show.show,
+                    show: show.show
                 };
             })))
         );

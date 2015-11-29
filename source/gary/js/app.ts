@@ -1,7 +1,5 @@
 ﻿/// <reference path="../../../typings/tsd.d.ts" />
 
-/* tslint:disable:trailing-comma */
-
 angular.module(
     "app",
     [
