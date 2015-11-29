@@ -1,7 +1,4 @@
 ﻿/// <reference path="../../../typings/tsd.d.ts" />
-
-/* tslint:disable:trailing-comma */
-
 namespace Directives {
 
     "use strict";

@@ -1,8 +1,5 @@
 ﻿/// <reference path="../../../typings/tsd.d.ts" />
 /// <reference path="models.ts" />
-
-/* tslint:disable:forin no-constructor-vars */
-
 namespace Utilities {
 
     "use strict";
