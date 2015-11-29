@@ -2,9 +2,10 @@
 /// <reference path="models.ts" />
 /// <reference path="services.ts" />
 namespace Controllers {
-    
+
     export interface ITheaterCtrl {
-        shows: IProduction[]
+        shows: IProduction[],
+        annualReport: IAnnualCount[]
     }
 
     export interface ITheaterScope extends ng.IScope, ITheaterCtrl {
@@ -12,10 +13,15 @@ namespace Controllers {
 
     export class TheaterCtrl implements ITheaterCtrl {
         shows: IProduction[]
-        
-        constructor($scop: ITheaterScope, private data: TheaterService) {
-            this.data.getProductions()
+
+        annualReport: IAnnualCount[]
+
+        constructor($scop: ITheaterScope, private svc: TheaterService) {
+            this.svc.getProductions()
                 .then((shows) => this.shows = shows)
+                .catch((status) => window.alert(status));
+            this.svc.getYears()
+                .then((years) => this.annualReport = years)
                 .catch((status) => window.alert(status));
         }
     }

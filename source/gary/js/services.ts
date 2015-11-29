@@ -52,6 +52,35 @@ class TheaterService {
             })))
         );
     }
+
+    getYears(): ng.IPromise<IAnnualCount[]> {
+        return this.getProductions().then((p) => TheaterService.toAnnualReport(p));
+    }
+
+    static toAnnualReport(productions: IProduction[]): IAnnualCount[] {
+        let map: { [year: string]: number; } = {}
+
+        let years: IAnnualCount[] = [];
+
+        productions.map((p) => {
+            return {
+                year: p.opening.getFullYear().toFixed()
+            }
+        }).forEach((j) => {
+            if (map[j.year]) {
+                map[j.year]++
+            } else {
+                map[j.year] = 1
+            }
+        });
+
+        for (var f in map) {
+            years.push({ year: f, count: map[f] })
+        }
+        return years;
+
+    }
+
 }
 
 angular.module('app.services', [])

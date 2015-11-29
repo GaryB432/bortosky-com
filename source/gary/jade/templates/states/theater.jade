@@ -9,3 +9,12 @@
                 th Role
         tbody
             tr(gb-role ng-repeat="show in vm.shows | orderBy: 'opening':true")
+    table.shows
+        thead
+            tr
+                th Year
+                th Shows
+        tbody
+            tr(ng-repeat="rpt in vm.annualReport")
+                td {{rpt.year}}
+                td {{rpt.count}}

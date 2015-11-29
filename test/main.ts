@@ -63,6 +63,7 @@ describe('TheaterService', () => {
     let scope: ng.IRootScopeService;
     let bs: TheaterService;
     let result: IProduction[];
+    let yrs: IAnnualCount[];
     beforeEach(function() {
         //angular.mock.module('app.services');
 
@@ -77,6 +78,13 @@ describe('TheaterService', () => {
         });
         scope.$apply();
         expect(result.length).toEqual(1);
+    });
+    it('should get annuals', () => {
+        bs.getYears().then((years) => {
+            yrs = years;
+        });
+        scope.$apply();
+        expect(yrs).toEqual([{ year: "2001", count: 1 }]);
     });
 });
 

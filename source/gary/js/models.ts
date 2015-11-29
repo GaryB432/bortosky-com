@@ -20,3 +20,9 @@ interface IProduction {
     opening: Date;
     role: string;
 }
+
+interface IAnnualCount {
+    year: string,
+    count: number
+}
+
