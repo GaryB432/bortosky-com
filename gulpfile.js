@@ -3,7 +3,7 @@
     sass = require('gulp-sass'),
     path = require('path'),
     jade = require('gulp-jade'),
-    karma = require('karma').server;
+    Server = require('karma').Server;
 
 
 var garyts = [
@@ -23,8 +23,8 @@ var tsProject = typescript.createProject({
 
 gulp.task('scripts-gary', function () {
     var tsResult = gulp.src(garyts)
-                  //.pipe(plugins.sourcemaps.init())
-                  .pipe(typescript(tsProject));
+    //.pipe(plugins.sourcemaps.init())
+        .pipe(typescript(tsProject));
 
     tsResult.removeAllListeners('error');
     tsResult.on('error', function (err) {
@@ -33,26 +33,26 @@ gulp.task('scripts-gary', function () {
     });
     var result = tsResult.js
     //.pipe(plugins.sourcemaps.write('.'))
-    .pipe(gulp.dest('./app/gary/js'));
+        .pipe(gulp.dest('./app/gary/js'));
     return result;
 });
 
 gulp.task('jade', function () {
     return gulp.src('./source/jade/**/*.jade')
-      .pipe(jade({
-          locals: { fun: false, revDate: new Date() },
-          pretty: true
-      }))
-      .pipe(gulp.dest('./app'))
+        .pipe(jade({
+            locals: { fun: false, revDate: new Date() },
+            pretty: true
+        }))
+        .pipe(gulp.dest('./app'))
 });
 
 gulp.task('jade-gary', function () {
     return gulp.src('./source/gary/jade/**/*.jade')
-      .pipe(jade({
-          locals: { fun: false, revDate: true, hi:"there" },
-          pretty: true
-      }))
-      .pipe(gulp.dest('./app/gary'))
+        .pipe(jade({
+            locals: { fun: false, revDate: true, hi: "there" },
+            pretty: true
+        }))
+        .pipe(gulp.dest('./app/gary'))
 });
 
 gulp.task('copy-gary', function () {
@@ -68,8 +68,8 @@ var tsTestProject = typescript.createProject({
 
 gulp.task('test-ts-gary', function () {
     var tsResult = gulp.src("./test/**/*.ts")
-                  //.pipe(plugins.sourcemaps.init())
-                  .pipe(typescript(tsTestProject));
+    //.pipe(plugins.sourcemaps.init())
+        .pipe(typescript(tsTestProject));
 
     tsResult.removeAllListeners('error');
     tsResult.on('error', function (err) {
@@ -78,27 +78,17 @@ gulp.task('test-ts-gary', function () {
     });
     var result = tsResult.js
     //.pipe(plugins.sourcemaps.write('.'))
-    .pipe(gulp.dest('./test'));
+        .pipe(gulp.dest('./test'));
     return result;
 });
 
 
 gulp.task('test', ['test-ts-gary'], function (done) {
-    karma.start({
+    var server = new Server({
         configFile: __dirname + '/karma.conf.js',
         singleRun: true
     }, done);
-});
-
-/**
- * Watch for file changes and re-run tests on each change
- */
-gulp.task('tdd-old-unused', ['watch-gary'], function (done) {
-    gulp.watch('./source/gary/**/*.js', ['scripts-gary']);
-
-    karma.start({
-        configFile: __dirname + '/karma.conf.js'
-    }, done);
+    server.start();
 });
 
 gulp.task('sass-gary', function () {
