@@ -2,15 +2,20 @@
 /// <reference path="models.ts" />
 /// <reference path="services.ts" />
 namespace Controllers {
-
-    export interface ITheaterScope extends ng.IScope {
+    
+    export interface ITheaterCtrl {
         shows: IProduction[]
     }
 
-    export class TheaterCtrl {
-        constructor($scop: ITheaterScope, data: TheaterService) {
-            data.getProductions()
-                .then((shows) => $scop.shows = shows)
+    export interface ITheaterScope extends ng.IScope, ITheaterCtrl {
+    }
+
+    export class TheaterCtrl implements ITheaterCtrl {
+        shows: IProduction[]
+        
+        constructor($scop: ITheaterScope, private data: TheaterService) {
+            this.data.getProductions()
+                .then((shows) => this.shows = shows)
                 .catch((status) => window.alert(status));
         }
     }

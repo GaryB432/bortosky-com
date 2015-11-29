@@ -8,6 +8,7 @@ angular.module("app",
     ]).config(["$routeProvider", ($routeProvider: ng.route.IRouteProvider): void => {
         $routeProvider
             .when("/", { templateUrl: "templates/states/main.html" })
-            .when("/theater", { templateUrl: "templates/states/theater.html", controller: "TheaterCtrl" })
+            .when("/theater", { templateUrl: "templates/states/theater.html", controller: "TheaterCtrl", controllerAs: "vm" })
             .otherwise({ redirectTo: "/" });
     }]);
+ 

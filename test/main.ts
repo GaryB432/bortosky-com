@@ -4,7 +4,7 @@
 // thanks http://www.benlesh.com/2013/06/angular-js-unit-testing-services.html
 // https://raw.githubusercontent.com/yearofmoo/fitc-rtec-angularjs-demo/master/test/unit/homePagesSpec.js
 
-xdescribe('testing Math service', function() {
+describe('testing Math service', function() {
     var svc: MathService;
 
     beforeEach(function() {
@@ -20,7 +20,7 @@ xdescribe('testing Math service', function() {
     });
 });
 
-xdescribe('DataService', function() {
+describe('DataService', function() {
     var svc: DataService;
 
     beforeEach(function() {
