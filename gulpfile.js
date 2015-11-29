@@ -3,6 +3,7 @@
     sass = require('gulp-sass'),
     path = require('path'),
     jade = require('gulp-jade'),
+    sourcemaps = require('gulp-sourcemaps'),
     Server = require('karma').Server;
 
 
@@ -18,23 +19,26 @@ var tsProject = typescript.createProject({
     target: 'ES5',
     module: 'amd',
     noImplicitAny: true,
+    sortOutput: true,
     out: 'main.js'
 });
 
-gulp.task('scripts-gary', function () {
+gulp.task('scripts-gary-dev', function () {
     var tsResult = gulp.src(garyts)
-    //.pipe(plugins.sourcemaps.init())
+        .pipe(sourcemaps.init())
         .pipe(typescript(tsProject));
 
-    tsResult.removeAllListeners('error');
-    tsResult.on('error', function (err) {
-        result.emit(err);
-        //result.emit('error', new gutil.PluginError('gulp-typescript', err.toString()));
-    });
-    var result = tsResult.js
-    //.pipe(plugins.sourcemaps.write('.'))
+    return tsResult.js
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest('./app/gary/js'));
-    return result;
+});
+
+gulp.task('scripts-gary-prod', function () {
+    var tsResult = gulp.src(garyts)
+        .pipe(typescript(tsProject));
+
+    return tsResult.js
+        .pipe(gulp.dest('app/gary/js'));
 });
 
 gulp.task('jade', function () {
@@ -68,18 +72,9 @@ var tsTestProject = typescript.createProject({
 
 gulp.task('test-ts-gary', function () {
     var tsResult = gulp.src("./test/**/*.ts")
-    //.pipe(plugins.sourcemaps.init())
         .pipe(typescript(tsTestProject));
 
-    tsResult.removeAllListeners('error');
-    tsResult.on('error', function (err) {
-        result.emit(err);
-        //result.emit('error', new gutil.PluginError('gulp-typescript', err.toString()));
-    });
-    var result = tsResult.js
-    //.pipe(plugins.sourcemaps.write('.'))
-        .pipe(gulp.dest('./test'));
-    return result;
+    return tsResult.js.pipe(gulp.dest('./test'));
 });
 
 
@@ -110,7 +105,7 @@ gulp.task('jade-all', ['jade', 'jade-gary']);
 gulp.task('sass-all', ['sass', 'sass-gary']);
 
 gulp.task('watch-gary', function () {
-    gulp.watch(garyts, ['scripts-gary']);
+    gulp.watch(garyts, ['scripts-gary-dev']);
 
 });
 
@@ -127,6 +122,6 @@ gulp.task('watch-others', function () {
 
 gulp.task('dev', ['watch-gary', 'watch-others']);
 
-gulp.task('build', ['scripts-gary', 'jade-all', 'sass-all', 'copy-gary']);
+gulp.task('build', ['scripts-gary-prod', 'jade-all', 'sass-all', 'copy-gary']);
 
 gulp.task('default', ['build']);
