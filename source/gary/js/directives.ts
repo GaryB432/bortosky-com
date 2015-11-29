@@ -1,12 +1,14 @@
 ﻿/// <reference path="../../../typings/tsd.d.ts" />
 namespace Directives {
 
+    "use strict";
+
     export class Factory {
 
-        static RoleDirective(): ng.IDirective {
+        public static RoleDirective(): ng.IDirective {
             return {
-                restrict: 'A',
-                templateUrl: 'templates/directives/role.html'
+                restrict: "A",
+                templateUrl: "templates/directives/role.html"
             };
         }
 
@@ -15,4 +17,4 @@ namespace Directives {
 }
 
 angular.module("app.directives", [])
-    .directive('gbRole', Directives.Factory.RoleDirective);
+    .directive("gbRole", Directives.Factory.RoleDirective);

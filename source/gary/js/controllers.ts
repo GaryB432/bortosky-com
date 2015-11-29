@@ -1,28 +1,33 @@
 ﻿/// <reference path="../../../typings/tsd.d.ts" />
 /// <reference path="models.ts" />
 /// <reference path="services.ts" />
+
+"use strict";
+
 namespace Controllers {
 
+    "use strict";
+
     export interface ITheaterCtrl {
-        shows: IProduction[],
-        annualReport: IAnnualCount[]
+        shows: IProduction[];
+        annualReport: IAnnualCount[];
     }
 
     export interface ITheaterScope extends ng.IScope, ITheaterCtrl {
     }
 
     export class TheaterCtrl implements ITheaterCtrl {
-        shows: IProduction[]
+        public shows: IProduction[];
 
-        annualReport: IAnnualCount[]
+        public annualReport: IAnnualCount[];
 
-        constructor($scop: ITheaterScope, private svc: TheaterService) {
-            this.svc.getProductions()
-                .then((shows) => this.shows = shows)
-                .catch((status) => window.alert(status));
-            this.svc.getYears()
-                .then((years) => this.annualReport = years)
-                .catch((status) => window.alert(status));
+        constructor($scop: ITheaterScope, svc: TheaterService) {
+            svc.getProductions()
+                .then((shows: IProduction[]) => this.shows = shows)
+                .catch((status: any) => window.alert(status));
+            svc.getYears()
+                .then((years: IAnnualCount[]) => this.annualReport = years)
+                .catch((status: any) => window.alert(status));
         }
     }
 }

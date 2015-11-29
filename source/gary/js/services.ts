@@ -1,19 +1,25 @@
 ﻿/// <reference path="../../../typings/tsd.d.ts" />
 /// <reference path="models.ts" />
+
+/* tslint:disable:forin no-constructor-vars */
+
 namespace Utilities {
+
+    "use strict";
+
     export function flatten<T>(arrays: T[][]): T[] {
-        var merged: T[] = [];
+        let merged: T[] = [];
         return merged = merged.concat.apply(merged, arrays);
     }
 
 }
 
 interface IDataService {
-    getData(): ng.IPromise<TheaterProfile>
+    getData(): ng.IPromise<TheaterProfile>;
 }
 
 class MathService {
-    add(addend1: number, addend2: number) {
+    public add(addend1: number, addend2: number): number {
         return addend1 + addend2;
     }
 }
@@ -28,9 +34,9 @@ class DataService implements IDataService {
 
         $http.get("theater.json")
             .success((profile: TheaterProfile) => { this.profileDeferred.resolve(profile); })
-            .error((result, status) => this.profileDeferred.reject(status));
+            .error((result: any, status: any) => this.profileDeferred.reject(status));
     }
-    getData(): ng.IPromise<TheaterProfile> {
+    public getData(): ng.IPromise<TheaterProfile> {
         return this.profileDeferred.promise;
     }
 
@@ -40,50 +46,47 @@ class TheaterService {
     constructor(private dataSvc: IDataService) {
     }
 
-    getProductions(): ng.IPromise<IProduction[]> {
-        return this.dataSvc.getData().then((d) =>
-            Utilities.flatten(d.producers.map((producer) => producer.productions.map((show) => {
-                return <IProduction>{
-                    show: show.show,
-                    opening: new Date(show.opening),
-                    producer: producer.name,
-                    role: show.role
-                };
-            })))
-        );
-    }
-
-    getYears(): ng.IPromise<IAnnualCount[]> {
-        return this.getProductions().then((p) => TheaterService.toAnnualReport(p));
-    }
-
-    static toAnnualReport(productions: IProduction[]): IAnnualCount[] {
-        let map: { [year: string]: number; } = {}
+    public static toAnnualReport(productions: IProduction[]): IAnnualCount[] {
+        let map: { [year: string]: number; } = {};
 
         let years: IAnnualCount[] = [];
 
-        productions.map((p) => {
-            return {
-                year: p.opening.getFullYear().toFixed()
-            }
-        }).forEach((j) => {
-            if (map[j.year]) {
-                map[j.year]++
-            } else {
-                map[j.year] = 1
-            }
-        });
+        productions
+            .map((p: IProduction) => p.opening.getFullYear().toFixed())
+            .forEach((year: string) => {
+                if (map[year]) {
+                    map[year]++;
+                } else {
+                    map[year] = 1;
+                }
+            });
 
-        for (var f in map) {
-            years.push({ year: f, count: map[f] })
+        for (var year in map) {
+            years.push({ count: map[year], year: year });
         }
         return years;
 
     }
 
+    public getProductions(): ng.IPromise<IProduction[]> {
+        return this.dataSvc.getData().then((d: TheaterProfile) =>
+            Utilities.flatten(d.producers.map((producer: Dto.IProducer) => producer.productions.map((show: Dto.IProduction) => {
+                return <IProduction>{
+                    opening: new Date(show.opening),
+                    producer: producer.name,
+                    role: show.role,
+                    show: show.show,
+                };
+            })))
+        );
+    }
+
+    public getYears(): ng.IPromise<IAnnualCount[]> {
+        return this.getProductions().then((p: IProduction[]) => TheaterService.toAnnualReport(p));
+    }
 }
 
-angular.module('app.services', [])
-    .service('MathService', MathService)
-    .service('DataService', ["$q", "$http", DataService])
-    .service('TheaterService', ["DataService", TheaterService]);
+angular.module("app.services", [])
+    .service("MathService", MathService)
+    .service("DataService", ["$q", "$http", DataService])
+    .service("TheaterService", ["DataService", TheaterService]);

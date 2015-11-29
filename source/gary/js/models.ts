@@ -1,10 +1,13 @@
 ﻿namespace Dto {
+
+    "use strict";
+
     export interface IProfile {
         producers: IProducer[];
     }
     export interface IProducer {
         name: string;
-        productions: IProduction[]
+        productions: IProduction[];
     }
 
     export interface IProduction {
@@ -22,7 +25,7 @@ interface IProduction {
 }
 
 interface IAnnualCount {
-    year: string,
-    count: number
+    year: string;
+    count: number;
 }
 

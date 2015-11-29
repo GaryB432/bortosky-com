@@ -4,6 +4,7 @@
     path = require('path'),
     jade = require('gulp-jade'),
     sourcemaps = require('gulp-sourcemaps'),
+    tslint = require('gulp-tslint'),
     Server = require('karma').Server;
 
 
@@ -15,6 +16,12 @@ var garyts = [
     './source/gary/js/services.ts'
 ];
 
+gulp.task('tslint', function () {
+    return gulp.src(garyts)
+        .pipe(tslint())
+        .pipe(tslint.report('verbose'));
+});
+
 var tsProject = typescript.createProject({
     target: 'ES5',
     module: 'amd',
@@ -25,6 +32,8 @@ var tsProject = typescript.createProject({
 
 gulp.task('scripts-gary-dev', function () {
     var tsResult = gulp.src(garyts)
+        .pipe(tslint())
+        .pipe(tslint.report('verbose'))
         .pipe(sourcemaps.init())
         .pipe(typescript(tsProject));
 

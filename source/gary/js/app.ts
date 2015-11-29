@@ -1,5 +1,6 @@
 ﻿/// <reference path="../../../typings/tsd.d.ts" />
-angular.module("app",
+angular.module(
+    "app",
     [
         "ngRoute",
         "app.services",
@@ -8,7 +9,6 @@ angular.module("app",
     ]).config(["$routeProvider", ($routeProvider: ng.route.IRouteProvider): void => {
         $routeProvider
             .when("/", { templateUrl: "templates/states/main.html" })
-            .when("/theater", { templateUrl: "templates/states/theater.html", controller: "TheaterCtrl", controllerAs: "vm" })
+            .when("/theater", { controller: "TheaterCtrl", controllerAs: "vm", templateUrl: "templates/states/theater.html" })
             .otherwise({ redirectTo: "/" });
     }]);
- 
