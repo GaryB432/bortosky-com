@@ -1,5 +1,8 @@
 ﻿/// <reference path="../../../typings/tsd.d.ts" />
 /// <reference path="models" />
+
+/* tslint:disable:typedef */
+
 angular.module("app", [
     "ngRoute",
     "app.services",
@@ -14,42 +17,53 @@ angular.module("app", [
 
 namespace Google {
     "use strict";
-    export class Viz {
-        private started: boolean = false;
+    interface IChartModel {
+        element: HTMLElement;
+        years: IAnnualCount[];
+    }
 
-        private element: HTMLElement;
-        private years: IAnnualCount[];
+    export class Viz {
+        private started: Promise<string>;
+
+        private infoAccepted: Promise<IChartModel>;
 
         public start(): void {
-            google.load("visualization", "1.0", { packages: ["corechart"] });
-            google.setOnLoadCallback(() => {
-                console.log("started");
-                this.started = true;
-                this.draw();
+            this.started = new Promise<string>((resolve, reject) => {
+                google.load("visualization", "1.0", { packages: ["corechart"] });
+                google.setOnLoadCallback(() => {
+                    console.log("started");
+                    resolve("ready");
+                });
             });
             console.log("starting....");
+            this.draw();
         }
         public acceptData(elem: HTMLElement, years: IAnnualCount[]): void {
-            elem.innerText = "TBD";
-            this.element = elem;
-            this.years = years;
+            this.infoAccepted = new Promise<IChartModel>((resolve, reject) => {
+                resolve({ element: elem, years: years });
+            });
             this.draw();
+        }
+        private draw(): void {
+            this.started.then((r) => {
+                console.log(r);
+                if (this.infoAccepted) {
+                    this.infoAccepted.then((j) => {
+                        j.element.innerText = j.years.length.toString();
+                        console.log(j);
+                        console.log(this.createDataTable(j.years));
+                    });
+                } else {
+                    console.log("no data");
+                }
+            });
         }
         private createDataTable(years: IAnnualCount[]): google.visualization.DataTable {
             let data: google.visualization.DataTable = new google.visualization.DataTable();
             data.addColumn("string", "Year");
             data.addColumn("number", "Shows");
-            data.addRows(years.map((y: IAnnualCount) => [y.year, y.count ]));
+            data.addRows(years.map((y: IAnnualCount) => [y.year, y.count]));
             return data;
-        }
-        private draw(): void {
-            if (!this.started || this.years === void 0) {
-                console.log("No charts for now");
-            } else {
-                let d: google.visualization.DataTable = this.createDataTable(this.years);
-                console.log(this.years, d);
-                this.element.innerText = this.years.length.toString();
-            }
         }
     }
 }
