@@ -21,15 +21,13 @@ namespace Google {
         private years: IAnnualCount[];
 
         public start(): void {
-            if (google !== void 0) {
-                google.load("visualization", "1.0", { packages: ["corechart"] });
-                google.setOnLoadCallback(() => {
-                    console.log("started....");
-                    this.started = true;
-                    this.draw();
-                });
-                console.log("starting....");
-            }
+            google.load("visualization", "1.0", { packages: ["corechart"] });
+            google.setOnLoadCallback(() => {
+                console.log("started");
+                this.started = true;
+                this.draw();
+            });
+            console.log("starting....");
         }
         public acceptData(elem: HTMLElement, years: IAnnualCount[]): void {
             elem.innerText = "TBD";
@@ -37,24 +35,19 @@ namespace Google {
             this.years = years;
             this.draw();
         }
-        public createDataTable(years: IAnnualCount[]): google.visualization.DataTable {
+        private createDataTable(years: IAnnualCount[]): google.visualization.DataTable {
             let data: google.visualization.DataTable = new google.visualization.DataTable();
-            data.addColumn("string", "Task");
-            data.addColumn("number", "Hours per Day");
-            data.addRows([
-                ["Work", 11],
-                ["Eat", 2],
-                ["Commute", 2],
-                ["Watch TV", 2],
-                ["Sleep", { f: "7.000", v: 7 }]
-            ]);
+            data.addColumn("string", "Year");
+            data.addColumn("number", "Shows");
+            data.addRows(years.map((y: IAnnualCount) => [y.year, y.count ]));
             return data;
         }
         private draw(): void {
             if (!this.started || this.years === void 0) {
                 console.log("No charts for now");
             } else {
-                console.log(this.years);
+                let d: google.visualization.DataTable = this.createDataTable(this.years);
+                console.log(this.years, d);
                 this.element.innerText = this.years.length.toString();
             }
         }
