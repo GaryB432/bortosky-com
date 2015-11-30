@@ -1,9 +1,6 @@
 ﻿/// <reference path="../../../typings/tsd.d.ts" />
 /// <reference path="models.ts" />
 /// <reference path="services.ts" />
-
-"use strict";
-
 namespace Controllers {
 
     "use strict";

@@ -18,3 +18,5 @@
             tr(ng-repeat="rpt in vm.annualReport")
                 td {{rpt.year}}
                 td {{rpt.count}}
+    production-chart(years="vm.annualReport")
+    
