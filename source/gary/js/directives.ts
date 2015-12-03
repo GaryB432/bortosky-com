@@ -17,7 +17,7 @@ namespace Directives {
             };
         }
 
-        public static ProductionChartDirective($q: ng.IQService): ng.IDirective {
+        public static ProductionChartDirective(): ng.IDirective {
             return {
                 link: (scope: ng.IScope, element: ng.IAugmentedJQuery, attributes: ng.IAttributes) => {
                     scope.$watch("years", (newValue: IAnnualCount[]) => {
@@ -37,4 +37,4 @@ namespace Directives {
 
 angular.module("app.directives", [])
     .directive("gbRole", Directives.Factory.RoleDirective)
-    .directive("productionChart", ["$q", Directives.Factory.ProductionChartDirective]);
+    .directive("productionChart", Directives.Factory.ProductionChartDirective);
