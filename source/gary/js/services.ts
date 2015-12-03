@@ -44,25 +44,29 @@ class TheaterService {
     }
 
     public static toAnnualReport(productions: IProduction[]): IAnnualCount[] {
-        let map: { [year: string]: number; } = {};
+        type IYearMap = { [year: string]: number; };
 
         let years: IAnnualCount[] = [];
 
-        productions
-            .map((p: IProduction) => p.opening.getFullYear().toFixed())
-            .forEach((year: string) => {
-                if (map[year]) {
+        let mapped: IYearMap = productions
+            .map((p: IProduction) => {
+                return p.opening.getFullYear().toFixed();
+            })
+            .reduce<IYearMap>(
+            (map: IYearMap, year: string) => {
+                if (year in map) {
                     map[year]++;
                 } else {
                     map[year] = 1;
                 }
-            });
+                return map;
+            },
+            {});
 
-        for (let year in map) {
-            years.push({ count: map[year], year: year });
+        for (let year in mapped) {
+            years.push({ count: mapped[year], year: year });
         }
         return years;
-
     }
 
     public getProductions(): ng.IPromise<IProduction[]> {
