@@ -28,7 +28,7 @@ namespace Directives {
                 },
                 restrict: "E",
                 scope: { years: "=" },
-                template: "<div />"
+                template: "<div id=\"chart\" />"
             };
         }
     }

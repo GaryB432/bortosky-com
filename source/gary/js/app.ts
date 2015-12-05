@@ -30,6 +30,14 @@ namespace Google {
 
         private infoAccepted: Promise<IChartModel>;
 
+        private columnChartOptions: google.visualization.ColumnChartOptions = {
+            legend: { position: "none" },
+            title: "Productions by Year",
+            vAxis: {
+                format: "0"
+            }
+        };
+
         public start(): void {
             this.started = new Promise<MapLoadState>((resolve: (value?: MapLoadState) => void, reject: (error?: any) => void) => {
                 google.load("visualization", "1.0", { packages: ["corechart"] });
@@ -48,13 +56,13 @@ namespace Google {
             this.draw();
         }
         private draw(): void {
-            this.started.then((r: MapLoadState) => {
-                console.log(MapLoadState[r]);
+            this.started.then((state: MapLoadState) => {
+                console.log(MapLoadState[state]);
                 if (this.infoAccepted) {
-                    this.infoAccepted.then((j: IChartModel) => {
-                        j.element.innerText = j.years.length.toString();
-                        console.log(j);
-                        console.log(this.createDataTable(j.years));
+                    this.infoAccepted.then((data: IChartModel) => {
+                        console.log(data);
+                        let chart: google.visualization.ColumnChart = new google.visualization.ColumnChart(data.element);
+                        chart.draw(this.createDataTable(data.years), this.columnChartOptions);
                     });
                 } else {
                     console.log("no data");
