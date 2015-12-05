@@ -115,7 +115,7 @@ gulp.task('jade-all', ['jade', 'jade-gary']);
 
 gulp.task('sass-all', ['sass', 'sass-gary']);
 
-gulp.task('watch-gary', function () {
+gulp.task('watch-gary', ['scripts-gary-dev'], function () {
     gulp.watch(garyts, ['scripts-gary-dev']);
 
 });

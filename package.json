@@ -6,7 +6,7 @@
   },
   "author": "Gary Bortosky <gary@bortosky.com>",
   "version": "3.0.0",
-  "description": "Personal website of the only Bortosky family",
+  "description": "Personal website of the only Bortosky family AFAIK",
   "scripts": {
     "test": "gulp test"
   },
