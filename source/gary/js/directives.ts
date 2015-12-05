@@ -1,9 +1,6 @@
 ﻿/// <reference path="../../../typings/tsd.d.ts" />
 /// <reference path="models" />
 /// <reference path="app" />
-
-/* tslint:disable:typedef */
-
 namespace Directives {
 
     "use strict";
@@ -19,7 +16,7 @@ namespace Directives {
 
         public static ProductionChartDirective(): ng.IDirective {
             return {
-                link: (scope: ng.IScope, element: ng.IAugmentedJQuery, attributes: ng.IAttributes) => {
+                link: (scope: ng.IScope, element: ng.IAugmentedJQuery, attributes: ng.IAttributes): void => {
                     scope.$watch("years", (newValue: IAnnualCount[]) => {
                         if (newValue) {
                             outsideAngularViz.acceptData(element.children()[0], newValue);
