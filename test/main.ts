@@ -104,7 +104,10 @@ describe("TheaterService", () => {
         });
         scope.$apply();
         expect(yrs).toEqual([
+            { count: 0, year: "1999" },
+            { count: 0, year: "2000" },
             { count: 2, year: "2001" },
+            { count: 0, year: "2002" },
             { count: 1, year: "2003" },
             { count: 2, year: "2004" },
         ]);

@@ -44,24 +44,32 @@ class TheaterService {
     }
 
     public static toAnnualReport(productions: IProduction[]): IAnnualCount[] {
-        type IYearMap = { [year: string]: number; };
+        type YearMap = { [year: string]: number };
 
         let years: IAnnualCount[] = [];
 
-        let mapped: IYearMap = productions
+        let startMap: YearMap = {};
+
+        let finalYear: number = productions
+            .map((p: IProduction) => p.opening.getFullYear())
+            .reduce((a: number, b: number) => Math.max(a, b), 1972);
+
+        for (let y: number = 1999; y < finalYear; y++) { startMap[y.toFixed()] = 0; }
+
+        let mapped: YearMap = productions
             .map((p: IProduction) => {
                 return p.opening.getFullYear().toFixed();
             })
-            .reduce<IYearMap>(
-            (map: IYearMap, year: string) => {
-                if (year in map) {
-                    map[year]++;
+            .reduce<YearMap>(
+            (ymap: YearMap, year: string) => {
+                if (year in ymap) {
+                    ymap[year]++;
                 } else {
-                    map[year] = 1;
+                    ymap[year] = 1;
                 }
-                return map;
+                return ymap;
             },
-            {});
+            startMap);
 
         for (let year in mapped) {
             years.push({ count: mapped[year], year: year });
