@@ -54,7 +54,9 @@ class TheaterService {
             .map((p: IProduction) => p.opening.getFullYear())
             .reduce((a: number, b: number) => Math.max(a, b), 1972);
 
-        for (let y: number = 1999; y < finalYear; y++) { startMap[y.toFixed()] = 0; }
+        for (let y: number = 1999; y < finalYear + 1; y++) {
+            startMap[y.toFixed()] = 0;
+        }
 
         let mapped: YearMap = productions
             .map((p: IProduction) => {
@@ -62,11 +64,7 @@ class TheaterService {
             })
             .reduce<YearMap>(
             (ymap: YearMap, year: string) => {
-                if (year in ymap) {
-                    ymap[year]++;
-                } else {
-                    ymap[year] = 1;
-                }
+                ymap[year]++;
                 return ymap;
             },
             startMap);
