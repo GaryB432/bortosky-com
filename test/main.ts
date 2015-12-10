@@ -82,24 +82,24 @@ class FakeDataService implements IDataService {
 
 describe("TheaterService", () => {
     let scope: ng.IRootScopeService;
-    let bs: TheaterService;
+    let svc: TheaterService;
     let resultingProductions: IProduction[];
     let yrs: IAnnualCount[];
     beforeEach(() => {
         inject(($rootScope: ng.IRootScopeService, $q: ng.IQService) => {
-            bs = new TheaterService(new FakeDataService($q));
+            svc = new TheaterService(new FakeDataService($q));
             scope = $rootScope;
         });
     });
     it("should get productions", () => {
-        bs.getProductions().then((productions: IProduction[]) => {
+        svc.getProductions().then((productions: IProduction[]) => {
             resultingProductions = productions;
         });
         scope.$apply();
         expect(resultingProductions.length).toEqual(5);
     });
     it("should get annuals", () => {
-        bs.getYears().then((years: IAnnualCount[]) => {
+        svc.getYears().then((years: IAnnualCount[]) => {
             yrs = years;
         });
         scope.$apply();

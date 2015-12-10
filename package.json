@@ -8,7 +8,6 @@
   "version": "3.0.0",
   "description": "Personal website of the only Bortosky family AFAIK",
   "scripts": {
-    "pretest": "gulp scripts-gary-dev",
     "test": "gulp test"
   },
   "main": "gulpfile.js",

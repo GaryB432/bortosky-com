@@ -7,7 +7,6 @@
             'app/bower_components/angular-animate/angular-animate.js',
             'app/bower_components/angular-route/angular-route.js',
             'app/bower_components/angular-mocks/angular-mocks.js',
-            'app/gary/js/main.js',
             'test/tests.js'
         ]
     });
