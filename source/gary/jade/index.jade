@@ -18,18 +18,8 @@ html(lang="en", ng-app="app")
         script(src="../bower_components/angular/angular.js")
         script(src="../bower_components/angular-animate/angular-animate.js")
         script(src="../bower_components/angular-route/angular-route.js")
-        script(src="../bower_components/angular-route/angular-route.js")
         script(src="https://www.google.com/jsapi")
         script(src="js/main.js")
-        script.
-            window.twttr = (function (d, s, id) {
-                var t, js, fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id)) return;
-                js = d.createElement(s); js.id = id;
-                js.src= "https://platform.twitter.com/widgets.js";
-                fjs.parentNode.insertBefore(js, fjs);
-                return window.twttr || (t = { _e: [], ready: function (f) { t._e.push(f) } });
-                }(document, "script", "twitter-wjs"));
         script.
             var outsideAngularViz = new Google.Viz();
             outsideAngularViz.start();
