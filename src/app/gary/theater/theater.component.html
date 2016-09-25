@@ -12,7 +12,7 @@
     <tbody>
       <tr *ngFor="let show of shows">
         <td>{{show.show}}</td>
-        <td>{{show.opening | gbCustomDate:'full'}}</td>
+        <td [title]="show.opening | gbCustomDate:'long'">{{show.opening | gbCustomDate:'medium'}}</td>
         <td>{{show.producer}}</td>
         <td>{{show.role}}</td>
       </tr>

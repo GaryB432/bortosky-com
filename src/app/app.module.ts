@@ -2,16 +2,13 @@ import { NgModule, ApplicationRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { GaryModule } from './gary/gary.module';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
-import { GaryComponent } from './gary/gary.component';
-import { TheaterComponent } from './gary/theater/theater.component';
-import { OverviewComponent } from './gary/overview/overview.component';
-import { ProductionService } from './gary/theater/production.service';
-import { CustomDatePipe } from './shared';
-import { routing } from './app.routing';
+import { appRouting } from './app.routing';
 
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 
@@ -20,35 +17,32 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
     BrowserModule,
     HttpModule,
     FormsModule,
-    routing
+    RouterModule,
+    GaryModule,
+    appRouting
   ],
   declarations: [
     AppComponent,
     HomeComponent,
-    AboutComponent,
-    GaryComponent,
-    TheaterComponent,
-    OverviewComponent,
-    CustomDatePipe
+    AboutComponent
   ],
   providers: [
-    ProductionService
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
   constructor(public appRef: ApplicationRef) { }
-  hmrOnInit(store) {
+  public hmrOnInit(store) {
     console.log('HMR store', store);
   }
-  hmrOnDestroy(store) {
+  public hmrOnDestroy(store) {
     let cmpLocation = this.appRef.components.map(cmp => cmp.location.nativeElement);
     // recreate elements
     store.disposeOldHosts = createNewHosts(cmpLocation);
     // remove styles
     removeNgStyles();
   }
-  hmrAfterDestroy(store) {
+  public hmrAfterDestroy(store) {
     // display new elements
     store.disposeOldHosts();
     delete store.disposeOldHosts;

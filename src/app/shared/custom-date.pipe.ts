@@ -1,19 +1,16 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { DateFormatter, FormatString } from 'gb-date-formatter';
 
 @Pipe({ name: 'gbCustomDate' })
 export class CustomDatePipe implements PipeTransform {
-    transform(value: Date, format: string): string {
-        return value.toDateString();
+  private static namedFormats: { [name: string]: FormatString; } = {
+    'medium': 'MMMM y',
+    'long': 'EEE MMM d, y h:mm a'
+  };
+  private formatter = new DateFormatter('en-US');
 
-        // var d = new Date(date),
-        //     month = '' + (d.getMonth() + 1),
-        //     day = '' + d.getDate(),
-        //     year = d.getFullYear();
+  public transform(value: Date, fmt: string): string {
+    return this.formatter.format(value, CustomDatePipe.namedFormats[fmt]);
 
-        // if (month.length < 2) month = '0' + month;
-        // if (day.length < 2) day = '0' + day;
-
-        // return [year, month, day].join('-');
-
-    }
+  }
 }

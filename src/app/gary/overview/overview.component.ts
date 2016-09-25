@@ -3,24 +3,24 @@ import { ActivatedRoute } from '@angular/router';
 // import { Subscription } from 'rxjs';
 
 @Component({
-    selector: 'gb-overviasdf',
+  selector: 'gb-overviasdf',
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.scss']
 })
 export class OverviewComponent implements OnInit, OnDestroy {
-    // id: number;
+  // id: number;
 
-    // sub: Subscription;
+  // sub: Subscription;
 
-    constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute) { }
 
-    ngOnInit() {
-        // this.sub = this.route.params.subscribe(params => {
-        //     this.id = +params['id']; // (+) converts string 'id' to a number
-        // });
-    }
+  public ngOnInit() {
+    // this.sub = this.route.params.subscribe(params => {
+    //     this.id = +params['id']; // (+) converts string 'id' to a number
+    // });
+  }
 
-    ngOnDestroy() {
-        // this.sub.unsubscribe();
-    }
+  public ngOnDestroy() {
+    // this.sub.unsubscribe();
+  }
 }
