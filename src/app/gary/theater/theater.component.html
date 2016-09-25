@@ -1,0 +1,25 @@
+
+<div class="theater">
+    <h2>Theater Resume</h2>
+    <table class="shows">
+        <thead>
+            <tr>
+                <th>Show</th>
+                <th>Opening</th>
+                <th>Company</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let show of shows">
+                <td>{{show.show}}</td>
+                <td>{{show.opening | gbCustomDate:'full'}}</td>
+                <td>{{show.producer}}</td>
+                <td>{{show.role}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <!--<production-chart years="vm.annualReport"></production-chart>-->
+</div>
+
+<a [routerLink]="['../overview']">Back</a>
