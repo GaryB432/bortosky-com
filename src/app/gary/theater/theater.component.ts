@@ -43,9 +43,8 @@ export class TheaterComponent implements OnInit {
     return productions.sort((a, b) => { return b.opening.valueOf() - a.opening.valueOf(); });
   }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     console.log('Hello Theater');
   }
 
 }
-

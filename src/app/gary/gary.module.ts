@@ -32,7 +32,7 @@ import { CustomDatePipe } from '../shared';
 })
 export class GaryModule {
   constructor(public appRef: ApplicationRef) { }
-  public hmrOnInit(store) {
+  public hmrOnInit(store: any): void {
     console.log('HMR Gary store', store);
   }
   //   hmrOnDestroy(store) {

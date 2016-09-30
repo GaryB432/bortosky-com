@@ -14,13 +14,13 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute) { }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     // this.sub = this.route.params.subscribe(params => {
     //     this.id = +params['id']; // (+) converts string 'id' to a number
     // });
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     // this.sub.unsubscribe();
   }
 }

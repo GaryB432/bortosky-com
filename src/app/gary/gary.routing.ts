@@ -1,3 +1,4 @@
+import { ModuleWithProviders } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { GaryComponent } from './gary.component';
@@ -15,4 +16,4 @@ const routes: Routes = [
 
 ];
 
-export const garyRouting = RouterModule.forChild(routes);
+export const garyRouting: ModuleWithProviders = RouterModule.forChild(routes);

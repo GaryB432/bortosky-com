@@ -11,7 +11,7 @@ export class GaryComponent implements OnInit {
     // Do stuff
   }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     console.log('Hello Gary');
   }
 

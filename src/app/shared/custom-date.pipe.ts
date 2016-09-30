@@ -7,7 +7,7 @@ export class CustomDatePipe implements PipeTransform {
     'medium': 'MMMM y',
     'long': 'EEE MMM d, y h:mm a'
   };
-  private formatter = new DateFormatter('en-US');
+  private formatter: DateFormatter = new DateFormatter('en-US');
 
   public transform(value: Date, fmt: string): string {
     return this.formatter.format(value, CustomDatePipe.namedFormats[fmt]);
