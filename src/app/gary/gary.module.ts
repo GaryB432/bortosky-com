@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { GaryComponent } from './gary.component';
 import { TheaterComponent } from './theater/theater.component';
 import { OverviewComponent } from './overview/overview.component';
+import { ChartComponent } from './theater/chart.component';
 import { ProductionService } from './theater/production.service';
 import { garyRouting } from './gary.routing';
 import { CustomDatePipe } from '../shared';
@@ -23,6 +24,7 @@ import { CustomDatePipe } from '../shared';
     GaryComponent,
     TheaterComponent,
     OverviewComponent,
+    ChartComponent,
     CustomDatePipe,
   ],
   providers: [
