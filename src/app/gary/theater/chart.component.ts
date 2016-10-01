@@ -1,5 +1,3 @@
-/// <reference path="../../../../node_modules/@types/google.visualization/index.d.ts"/>
-
 import { Component, OnInit, OnChanges, SimpleChanges, Input, ElementRef } from '@angular/core';
 import { IProduction, IAnnualCount } from './models';
 
