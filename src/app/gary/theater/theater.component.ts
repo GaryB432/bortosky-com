@@ -2,12 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IProduction, Dto } from './models';
 import { ProductionService } from './production.service';
 
-namespace Utilities {
-  export function flatten<T>(arrays: T[][]): T[] {
-    let merged: T[] = [];
-    return merged = merged.concat.apply(merged, arrays);
-  }
-}
+import * as flatten from 'array-flatten';
 
 @Component({
   selector: 'gb-theater',
@@ -20,8 +15,8 @@ export class TheaterComponent implements OnInit {
 
   public annualReport: string;
 
-  constructor(private p: ProductionService) {
-    this.p.getProfile().subscribe(profile => {
+  constructor(private svc: ProductionService) {
+    this.svc.getProfile().subscribe(profile => {
       this.shows = this.getProductions(profile);
     });
   }
@@ -32,19 +27,20 @@ export class TheaterComponent implements OnInit {
 
   public getProductions(profile: Dto.IProfile): IProduction[] {
     return this.sortProductions(
-      Utilities.flatten(profile.producers.map(
-        (producer: Dto.IProducer) => producer.productions.map((show: Dto.IProduction) => {
-          return <IProduction>{
-            opening: new Date(show.opening),
-            producer: producer.name,
-            role: show.role,
-            show: show.show
-          };
-        }))
+      flatten<IProduction>(profile.producers.map(
+        (producer: Dto.IProducer) =>
+          producer.productions.map((show: Dto.IProduction) => {
+            return {
+              opening: new Date(show.opening),
+              producer: producer.name,
+              role: show.role,
+              show: show.show
+            };
+          }))
       ));
   }
 
-  public sortProductions(productions: IProduction[]): IProduction[] {
+  private sortProductions(productions: IProduction[]): IProduction[] {
     return productions.sort((a, b) => b.opening.valueOf() - a.opening.valueOf());
   }
 
