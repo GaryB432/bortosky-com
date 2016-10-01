@@ -1,6 +1,9 @@
+/// <reference path="../../../../node_modules/@types/google.visualization/index.d.ts"/>
+
 import { Component, OnInit, OnChanges, SimpleChanges, Input, ElementRef } from '@angular/core';
-import { } from 'google.visualization';
 import { IProduction, IAnnualCount } from './models';
+
+type GoogleColumnChart = google.visualization.ColumnChart;
 
 @Component({
     selector: 'gb-production-chart',
@@ -10,7 +13,7 @@ import { IProduction, IAnnualCount } from './models';
 export class ChartComponent implements OnInit, OnChanges {
     @Input() public shows: IProduction[];
 
-    private started: Promise<boolean>;
+    private started: Promise<GoogleColumnChart>;
 
     private columnChartOptions: google.visualization.ColumnChartOptions = {
         legend: { position: 'none' },
@@ -32,9 +35,7 @@ export class ChartComponent implements OnInit, OnChanges {
         type YearMap = { [year: string]: number };
 
         const years: IAnnualCount[] = [];
-
         const startMap: YearMap = {};
-
         const finalYear: number = productions
             .map((p: IProduction) => p.opening.getFullYear())
             .reduce((a: number, b: number) => Math.max(a, b), 1972);
@@ -67,26 +68,22 @@ export class ChartComponent implements OnInit, OnChanges {
 
     public ngOnChanges(changes: SimpleChanges): void {
         if (changes['shows'].isFirstChange()) {
-            this.started = new Promise<boolean>((resolve: (value?: boolean) => void, reject: (error?: any) => void) => {
+            this.started = new Promise<GoogleColumnChart>((resolve: (value?: GoogleColumnChart) => void, reject: (error?: any) => void) => {
                 google.charts.load('current', { packages: ['corechart'] });
                 google.charts.setOnLoadCallback(() => {
-                    console.log('started');
-                    resolve(true);
+                    resolve(new google.visualization.ColumnChart(this.element.nativeElement));
                 });
             });
         } else {
-            this.draw();
-        };
+            this.drawChart();
+        }
     }
 
-    private draw(): void {
-        console.log('gonna draw');
-        this.started.then(() => {
-            const chart: google.visualization.ColumnChart = new google.visualization.ColumnChart(this.element.nativeElement);
+    private drawChart(): void {
+        this.started.then(chart => {
             chart.draw(
                 ChartComponent.createDataTable(ChartComponent.toAnnualReport(this.shows)),
                 this.columnChartOptions);
-            console.log('gonna drawed');
         });
 
     }
