@@ -45,7 +45,7 @@ export class TheaterComponent implements OnInit {
         return ymap;
       },
       startMap);
-
+    /* tslint:disable:forin */
     for (const year in mapped) {
       years.push({ count: mapped[year], year: year });
     }
@@ -59,7 +59,7 @@ export class TheaterComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.annualReport = "almost there";
+    console.log('Hello Theater');
   }
 
   public getProductions(profile: Dto.IProfile): IProduction[] {
