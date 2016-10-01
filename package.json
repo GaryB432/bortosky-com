@@ -1,6 +1,6 @@
 {
-  "name": "app",
-  "version": "0.0.0",
+  "name": "bortosky-com",
+  "version": "3.0.0",
   "license": "MIT",
   "scripts": {
     "stage": "stage-externals",
