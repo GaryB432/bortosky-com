@@ -18,7 +18,8 @@ export class ChartComponent implements OnInit, OnChanges {
         title: 'Productions by Year',
         vAxis: {
             format: '0'
-        }
+        },
+        colors: ['#007bc4']
     };
 
     private static createDataTable(years: IAnnualCount[]): google.visualization.DataTable {
