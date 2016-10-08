@@ -2,6 +2,10 @@
   "name": "bortosky-com",
   "version": "3.1.0",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GaryB432/bortosky-com.git"
+  },
   "scripts": {
     "stage": "stage-externals",
     "clean": "rimraf node_modules doc dist && npm cache clean",
@@ -93,5 +97,8 @@
     "url-loader": "^0.5.6",
     "webpack": "^2.1.0-beta.25",
     "webpack-dev-server": "^2.1.0-beta.8"
+  },
+  "bugs": {
+    "url": "https://github.com/GaryB432/bortosky-com/issues"
   }
 }
