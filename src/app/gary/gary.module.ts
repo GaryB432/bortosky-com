@@ -8,7 +8,7 @@ import { OverviewComponent } from './overview/overview.component';
 import { ChartComponent } from './theater/chart.component';
 import { ProductionService } from './theater/production.service';
 import { garyRouting } from './gary.routing';
-import { CustomDatePipe } from '../shared';
+import { CustomDatePipe } from '../shared/custom-date.pipe';
 
 @NgModule({
   imports: [

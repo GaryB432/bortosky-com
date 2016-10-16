@@ -51,7 +51,7 @@ export class ChartComponent implements OnInit, OnChanges {
                 return ymap;
             },
             startMap);
-        /* tslint:disable:forin */
+        /* tslint:disable-next-line:forin */
         for (const year in mapped) {
             years.push({ count: mapped[year], year: year });
         }
