@@ -10,7 +10,9 @@ export class CustomDatePipe implements PipeTransform {
   private formatter: DateFormatter = new DateFormatter('en-US');
 
   public transform(value: Date, fmt: string): string {
-    return this.formatter.format(value, CustomDatePipe.namedFormats[fmt]);
-
+    if (CustomDatePipe.namedFormats.hasOwnProperty(fmt)) {
+      return this.formatter.format(value, CustomDatePipe.namedFormats[fmt]);
+    }
+    throw new Error(`fmt ${fmt} is unrecognized.`);
   }
 }

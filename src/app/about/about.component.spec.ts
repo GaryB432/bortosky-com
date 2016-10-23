@@ -7,10 +7,10 @@ describe('About Component', () => {
     TestBed.configureTestingModule({ declarations: [AboutComponent] });
   });
 
-  it('should ...', () => {
+  it('should say stuff', () => {
     const fixture: ComponentFixture<AboutComponent> = TestBed.createComponent(AboutComponent);
     fixture.detectChanges();
-    expect(fixture.nativeElement.children[0].textContent).toContain('About the Bortosky family');
+    expect(fixture.nativeElement.children[0].textContent).toContain('About the Bortosky Family');
   });
 
 });
