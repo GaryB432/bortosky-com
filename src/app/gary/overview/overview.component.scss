@@ -1,24 +1,30 @@
 :host {
     display: block;
+    margin: 8px;
 }
 
-@mixin margin-guy {
-    margin: 8px 0;
+h1 {
+    font-size: 1.5rem;
+    margin-bottom: .5rem;
 }
-
-div.main { 
-    margin: 20px;
-    section {
-        margin: 20px 0;
+a {
+    color: inherit;
+    font-weight: bold;
+    &:hover {
+        background-color: silver;
     }
-    ul {
-        list-style-type: none;
-        li {
-            @include margin-guy;
-        }
+}
+section {
+    margin-bottom: 2rem;
+}
+article {
+    display: block;
+    margin-bottom: 1rem;
+    h1 {
+        font-size: 1.1rem;
+        margin-bottom: .5rem;
     }
     p {
-        @include margin-guy;
+        margin: .7rem 0;
     }
-
 }
