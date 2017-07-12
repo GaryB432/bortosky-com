@@ -1,8 +1,8 @@
-import { TestBed, inject, tick, fakeAsync } from "@angular/core/testing";
+import { TestBed, inject } from '@angular/core/testing';
 
-import { CustomDatePipe } from "./custom-date.pipe";
+import { CustomDatePipe } from './custom-date.pipe';
 
-describe("Custom Date Pipe", () => {
+describe('Custom Date Pipe', () => {
     beforeEach(() => {
 
         TestBed.configureTestingModule({
@@ -12,15 +12,15 @@ describe("Custom Date Pipe", () => {
         });
     });
 
-    it("should transform to something",
+    it('should transform to something',
         inject([CustomDatePipe], (sut: CustomDatePipe) => {
-            expect(sut.transform(new Date(), "long")).toBeDefined();
+            expect(sut.transform(new Date(), 'long')).toBeDefined();
         })
     );
 
-    it("should throw on bad fmt",
+    it('should throw on bad fmt',
         inject([CustomDatePipe], (sut: CustomDatePipe) => {
-            expect(() => sut.transform(new Date(), "wtf")).toThrow(new Error("fmt wtf is unrecognized."));
+            expect(() => sut.transform(new Date(), 'wtf')).toThrow(new Error('fmt wtf is unrecognized.'));
         })
     );
 

@@ -1,26 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-// import { Subscription } from 'rxjs';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'gb-overviasdf',
+  selector: 'gb-overview',
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.scss']
 })
-export class OverviewComponent implements OnInit, OnDestroy {
-  // id: number;
-
-  // sub: Subscription;
-
-  constructor(private route: ActivatedRoute) { }
-
-  public ngOnInit(): void {
-    // this.sub = this.route.params.subscribe(params => {
-    //     this.id = +params['id']; // (+) converts string 'id' to a number
-    // });
-  }
-
-  public ngOnDestroy(): void {
-    // this.sub.unsubscribe();
-  }
-}
+export class OverviewComponent { }

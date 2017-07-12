@@ -67,12 +67,13 @@ export class ChartComponent implements OnInit, OnChanges {
 
     public ngOnChanges(changes: SimpleChanges): void {
         if (changes['shows'].isFirstChange()) {
-            this.started = new Promise<GoogleColumnChart>((resolve: (value?: GoogleColumnChart) => void, reject: (error?: any) => void) => {
-                google.charts.load('current', { packages: ['corechart'] });
-                google.charts.setOnLoadCallback(() => {
-                    resolve(new google.visualization.ColumnChart(this.element.nativeElement));
+            this.started = new Promise<GoogleColumnChart>(
+                (resolve: (value?: GoogleColumnChart) => void, _reject: (error?: any) => void) => {
+                    google.charts.load('current', { packages: ['corechart'] });
+                    google.charts.setOnLoadCallback(() => {
+                        resolve(new google.visualization.ColumnChart(this.element.nativeElement));
+                    });
                 });
-            });
         } else {
             this.drawChart();
         }
