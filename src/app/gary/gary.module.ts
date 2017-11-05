@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { CustomDatePipe } from '../shared/custom-date.pipe';
+import { CustomDatePipe } from './custom-date.pipe';
 import { GaryRoutingModule } from './gary-routing.module';
 import { GaryComponent } from './gary.component';
 import { OverviewComponent } from './overview/overview.component';

@@ -2,9 +2,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-// import {} from '@angular/'
-
 import { DataService } from './data.service';
+import { DistancePipe } from './distance.pipe';
 import { GeoService } from './geo.service';
 import { GoogleService } from './google/google.service';
 import { HomerComponent } from './homer.component';
@@ -18,7 +17,13 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [HomerComponent, LocationComponent, SpotComponent, MomentPipe],
+  declarations: [
+    HomerComponent,
+    LocationComponent,
+    SpotComponent,
+    MomentPipe,
+    DistancePipe,
+  ],
   imports: [CommonModule, RouterModule.forChild(routes)],
   providers: [DataService, GeoService, GoogleService, HomerService],
 })
