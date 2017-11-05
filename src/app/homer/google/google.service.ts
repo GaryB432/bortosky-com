@@ -6,6 +6,7 @@ export interface MappingService {
     to: Coordinates,
     radius?: number
   ): number;
+  getAddressPromise(coords: Coordinates): Promise<string>;
   getAddress(
     coords: Coordinates,
     done: (s: string) => void,
@@ -26,6 +27,11 @@ export class GoogleService implements MappingService {
       GoogleService.getLatLng(to),
       radius
     );
+  }
+  public async getAddressPromise(coords: Coordinates): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      this.getAddress(coords, address => resolve(address), e => reject(e));
+    });
   }
   public getAddress(
     coords: Coordinates,

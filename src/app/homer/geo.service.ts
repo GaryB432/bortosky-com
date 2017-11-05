@@ -47,22 +47,18 @@ export class GeoService {
   }
 
   public async getLocation(coords: Coordinates): Promise<Location> {
-    return new Promise<Location>((resolve, reject) => {
-      this.goog.getAddress(
-        coords,
-        address => {
-          resolve({
-            address,
-            coordinates: coords,
-            dms: `${Dms.toLat(coords.latitude)},${Dms.toLon(coords.longitude)}`,
-            latLon: StaticMap.stringifyCoords(coords),
-          });
-        },
-        status => {
-          reject(status);
-        }
-      );
-    });
+    let address: string;
+    try {
+      address = await this.goog.getAddressPromise(coords);
+    } catch (e) {
+      address = e;
+    }
+    return {
+      address,
+      coordinates: coords,
+      dms: `${Dms.toLat(coords.latitude)},${Dms.toLon(coords.longitude)}`,
+      latLon: StaticMap.stringifyCoords(coords),
+    };
   }
 
   public getMapUrl(home: Coordinates, current: Coordinates): string {
