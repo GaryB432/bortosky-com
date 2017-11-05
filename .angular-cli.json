@@ -8,11 +8,11 @@
       "root": "src",
       "outDir": "dist",
       "assets": [
-        "assets",
-        "favicon.ico",
-        "google205693fa2992ae8a.html",
-        "theater.json",
-        "web.config"
+        {
+          "glob": "**/*",
+          "input": "./assets/",
+          "output": "./"
+        }
       ],
       "index": "index.html",
       "main": "main.ts",
@@ -22,7 +22,7 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "bfam",
       "styles": [
-        "styles.scss"
+        "styles/styles.scss"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",

@@ -31,7 +31,8 @@ export class ChartComponent implements OnChanges {
   constructor(private element: ElementRef) {}
 
   public ngOnChanges(changes: SimpleChanges): void {
-    if (changes['shows'].isFirstChange()) { // tslint:disable-line:no-string-literal
+    // tslint:disable-next-line:no-string-literal
+    if (changes['shows'].isFirstChange()) {
       this.started = new Promise<
         GoogleColumnChart
       >(

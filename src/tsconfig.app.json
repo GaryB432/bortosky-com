@@ -5,10 +5,10 @@
     "baseUrl": "./",
     "module": "es2015",
     "types": [
-      "node",
       "googlemaps",
       "google.visualization",
-      "hammerjs"
+      "hammerjs",
+      "node"
     ]
   },
   "exclude": [
