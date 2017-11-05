@@ -1,0 +1,23 @@
+<div *ngIf="ready; else elseBlock">
+  <h2>
+    Current
+  </h2>
+  <bfam-spot [spot]="last"></bfam-spot>
+  <div class="distance">{{ distance | number:'1.3' }}</div>
+  <button (click)="setCurrent()">Set Current</button>
+  <div>
+    <img id="map" [src]="mapUrl">
+  </div>
+  <h2>
+    Home
+  </h2>
+  <bfam-location [location]="home"></bfam-location>
+</div>
+<button (click)="setHome()">Set Home</button>
+<ng-template #elseBlock>
+  <div>
+    Click
+    <i>Set Home</i> when you are at home!
+  </div>
+</ng-template>
+<footer>v11.17</footer>

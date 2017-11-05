@@ -11,14 +11,14 @@
     </thead>
     <tbody>
       <tr *ngFor="let show of shows">
-        <td>{{show.show}}</td>
-        <td [title]="show.opening | gbCustomDate:'long'">{{show.opening | gbCustomDate:'medium'}}</td>
-        <td>{{show.producer}}</td>
-        <td>{{show.role}}</td>
+        <td>{{ show.show }}</td>
+        <td [title]="show.opening | bfamCustomDate:'long'">{{ show.opening | bfamCustomDate:'medium' }}</td>
+        <td>{{ show.producer }}</td>
+        <td>{{ show.role }}</td>
       </tr>
     </tbody>
   </table>
-  <gb-production-chart [shows]="shows"></gb-production-chart>
+  <bfam-production-chart [shows]="shows"></bfam-production-chart>
 </div>
 
 <a [routerLink]="['../overview']">Back</a>

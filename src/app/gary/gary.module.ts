@@ -1,21 +1,15 @@
-import { NgModule, ApplicationRef } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
+import { CustomDatePipe } from '../shared/custom-date.pipe';
+import { GaryRoutingModule } from './gary-routing.module';
 import { GaryComponent } from './gary.component';
-import { TheaterComponent } from './theater/theater.component';
 import { OverviewComponent } from './overview/overview.component';
 import { ChartComponent } from './theater/chart.component';
 import { ProductionService } from './theater/production.service';
-import { garyRouting } from './gary.routing';
-import { CustomDatePipe } from '../shared/custom-date.pipe';
+import { TheaterComponent } from './theater/theater.component';
 
 @NgModule({
-  imports: [
-    RouterModule,
-    BrowserModule,
-    garyRouting
-  ],
   declarations: [
     GaryComponent,
     TheaterComponent,
@@ -23,11 +17,7 @@ import { CustomDatePipe } from '../shared/custom-date.pipe';
     ChartComponent,
     CustomDatePipe,
   ],
-  providers: [
-    ProductionService
-  ],
-  exports: [GaryComponent]
+  imports: [CommonModule, GaryRoutingModule],
+  providers: [ProductionService],
 })
-export class GaryModule {
-  constructor(public appRef: ApplicationRef) { }
-}
+export class GaryModule {}

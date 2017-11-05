@@ -1,10 +1,8 @@
-<header>
-  <nav>
-    <a [routerLinkActive]="['active']" [routerLink]="['home']">Home</a>
-    <a [routerLinkActive]="['active']" [routerLink]="['gary']">Gary</a>
-    <a [routerLinkActive]="['active']" [routerLink]="['about']">About</a>
-  </nav>
-</header>
-<main>
-  <router-outlet></router-outlet>
-</main>
+<h1>bortosky.com</h1>
+<a routerLink="/">Home</a>
+<a routerLink="/homer">Homer</a>
+<a routerLink="/gary">Gary</a>
+<a routerLink="/lazy">Lazy</a>
+<a routerLink="/lazy/nested">Lazy_Nested</a>
+<router-outlet></router-outlet>
+<div class="stamp">11-5-17 11:27</div>

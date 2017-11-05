@@ -1,18 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'gb-gary',
+  selector: 'bfam-gary',
+  styleUrls: ['./gary.component.scss'],
   templateUrl: './gary.component.html',
-  styleUrls: ['./gary.component.scss']
 })
-export class GaryComponent implements OnInit {
-
-  constructor() {
-    // Do stuff
-  }
-
-  public ngOnInit(): void {
-    console.log('Hello Gary');
-  }
-
-}
+export class GaryComponent {}

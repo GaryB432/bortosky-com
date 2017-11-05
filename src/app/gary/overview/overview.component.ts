@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'gb-overview',
+  selector: 'bfam-overview',
+  styleUrls: ['./overview.component.scss'],
   templateUrl: './overview.component.html',
-  styleUrls: ['./overview.component.scss']
 })
-export class OverviewComponent { }
+export class OverviewComponent {}

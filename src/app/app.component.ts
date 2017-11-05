@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-
-import '../style/app.scss';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
-  selector: 'gb-app',
+  selector: 'bfam-root',
+  styles: ['./app.component.scss'],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
 })
-
-export class AppComponent { }
+export class AppComponent {
+  public title = 'bfam';
+}

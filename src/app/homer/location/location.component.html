@@ -1,0 +1,7 @@
+<div class="cd">
+	<div class="track" [@addrState]="state" (swipe)="toggleState()">
+		<div>{{ location.address }}</div>
+		<div>{{ location.latLon }}</div>
+	</div>
+</div>
+<div class="coords">{{ location.dms }}</div>

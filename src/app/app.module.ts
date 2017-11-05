@@ -1,50 +1,24 @@
-import { NgModule, ApplicationRef } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule } from '@angular/http';
-import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { GaryModule } from './gary/gary.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { GaryModule } from './gary/gary.module';
 import { HomeComponent } from './home/home.component';
-import { AboutComponent } from './about/about.component';
-import { appRouting } from './app.routing';
-
-import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
+// import { CustomDatePipe } from './shared/custom-date.pipe';
 
 @NgModule({
+  bootstrap: [AppComponent],
+  declarations: [AppComponent, HomeComponent],
   imports: [
-    BrowserModule,
-    HttpModule,
-    FormsModule,
-    RouterModule,
+    AppRoutingModule,
     GaryModule,
-    appRouting
+    HttpClientModule,
+    BrowserModule.withServerTransition({ appId: 'my-bfam' }),
+    BrowserAnimationsModule,
   ],
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    AboutComponent
-  ],
-  providers: [
-  ],
-  bootstrap: [AppComponent]
+  providers: [],
 })
-export class AppModule {
-  constructor(public appRef: ApplicationRef) { }
-  public hmrOnInit(store: any): void {
-    console.log('HMR store', store);
-  }
-  public hmrOnDestroy(store: any): void {
-    let cmpLocation: any = this.appRef.components.map(cmp => cmp.location.nativeElement);
-    // recreate elements
-    store.disposeOldHosts = createNewHosts(cmpLocation);
-    // remove styles
-    removeNgStyles();
-  }
-  public hmrAfterDestroy(store: any): void {
-    // display new elements
-    store.disposeOldHosts();
-    delete store.disposeOldHosts;
-  }
-}
+export class AppModule {}

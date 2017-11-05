@@ -1,11 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { DateFormatter, FormatString } from 'gb-date-formatter';
 
-@Pipe({ name: 'gbCustomDate' })
+@Pipe({ name: 'bfamCustomDate' })
 export class CustomDatePipe implements PipeTransform {
-  private static namedFormats: { [name: string]: FormatString; } = {
-    'medium': 'MMMM y',
-    'long': 'EEE MMM d, y h:mm a'
+  private static namedFormats: { [name: string]: FormatString } = {
+    long: 'EEE MMM d, y h:mm a',
+    medium: 'MMMM y',
   };
   private formatter: DateFormatter = new DateFormatter('en-US');
 
