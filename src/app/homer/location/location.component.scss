@@ -1,12 +1,12 @@
 .cd {
   overflow: hidden;
-  width: 304px;
+  width: 300px;
 }
 .track {
   display: flex;
   > div {
     flex: 1 0 auto;
-    margin: 12px 2px;
+    margin: .5em auto;
     width: 300px;
   }
 }

@@ -1,5 +1,23 @@
+@import 'reset';
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 body,
 html {
   font-family: 'Roboto';
+}
+
+h1,
+h2,
+h3 {
+  font-weight: bold;
+  margin: 6px 0;
+}
+
+h1 {
+  font-size: 160%;
+}
+h2 {
+  font-size: 130%;
+}
+h3 {
+  font-size: 110%;
 }

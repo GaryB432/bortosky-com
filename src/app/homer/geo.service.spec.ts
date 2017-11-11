@@ -11,6 +11,11 @@ class MockMappingService implements MappingService {
   ): number {
     throw new Error('Method not implemented.');
   }
+  public getAddressPromise(coords: Coordinates): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      this.getAddress(coords, address => resolve(address), e => reject(e));
+    });
+  }
   public getAddress(
     _coords: Coordinates,
     _done: (s: string) => void,
