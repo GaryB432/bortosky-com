@@ -34,7 +34,7 @@ import { Location } from '../models';
 export class LocationComponent {
   public state: 'latlon' | 'addr' = 'addr';
   @Input() public location: Location;
-  public toggleState() {
+  public toggleState(_e: MouseEvent) {
     this.state = this.state === 'addr' ? 'latlon' : 'addr';
   }
 }

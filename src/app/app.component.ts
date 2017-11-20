@@ -8,4 +8,11 @@ import { Meta, Title } from '@angular/platform-browser';
 })
 export class AppComponent {
   public title = 'bfam';
+  constructor(meta: Meta, title: Title) {
+    meta.addTags([
+      { charset: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+    ]);
+    title.setTitle('Bortosky Family');
+  }
 }

@@ -1,5 +1,5 @@
 <div class="cd">
-	<div class="track" [@addrState]="state" (swipe)="toggleState()">
+	<div class="track" [@addrState]="state" (swipe)="toggleState($event)">
 		<div>{{ location.address }}</div>
 		<div>{{ location.latLon }}</div>
 	</div>

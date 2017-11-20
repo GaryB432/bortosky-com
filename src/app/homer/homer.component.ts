@@ -67,15 +67,18 @@ export class HomerComponent implements OnInit {
       this.last.location.coordinates
     );
   }
-  public async setHome() {
-    return this.setCurrent(true);
+  public async setHome(e: MouseEvent) {
+    return this.setCurrent(e, true);
   }
-  public async setCurrent(home: boolean = false): Promise<void> {
-    const loc = await this.svc.getCurrentLocation();
-    this.last.location = loc;
+  public async setCurrent(
+    _e: MouseEvent,
+    home: boolean = false
+  ): Promise<void> {
+    const current = await this.svc.getCurrentLocation();
+    this.last.location = current;
     this.last.stamp = Number(new Date());
     if (home) {
-      this.home = loc;
+      this.home = current;
     }
     this.computeDistance();
     this.saveInfo();

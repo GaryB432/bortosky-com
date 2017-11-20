@@ -7,7 +7,7 @@
     <span class="km">{{ distance | bfamDistance:'km' }} km</span>
     <span class="mi">{{ distance | bfamDistance:'mi' }} mi</span>
   </div>
-  <button (click)="setCurrent()">Set Current</button>
+  <button (click)="setCurrent($event)">Set Current</button>
   <div>
     <img id="map" [src]="mapUrl">
   </div>
@@ -16,7 +16,7 @@
   </h2>
   <bfam-location [location]="home"></bfam-location>
 </div>
-<button (click)="setHome()">Set Home</button>
+<button (click)="setHome($event)">Set Home</button>
 <ng-template #elseBlock>
   <div>
     Click
