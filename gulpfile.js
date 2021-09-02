@@ -1,0 +1,43 @@
+const { dest, src, parallel, series, watch } = require('gulp');
+const { transform } = require('gulp-insert');
+const sass = require('gulp-sass')(require('sass'));
+const { createProject } = require('gulp-typescript');
+const del = require('del');
+
+function assets() {
+  return src(['assets/**/*', 'src/**/*', '!**/*.{t,scs}s']).pipe(dest('dist'));
+}
+
+function clean() {
+  return del(['dist']);
+}
+
+function styles() {
+  return src('src/**/*.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(dest('dist'));
+}
+
+function javascript() {
+  const tsProject = createProject('tsconfig.json');
+  return tsProject
+    .src()
+    .pipe(tsProject())
+    .js.pipe(
+      transform((content) =>
+        content.replace(/(import\s+.*(?<!\.[tj]s))(['"];?\s*$)/gm, '$1.js$2')
+      )
+    )
+    .pipe(dest('dist'));
+}
+
+function watcher(cb) {
+  watch('src/**/*.html', assets);
+  watch('src/**/!(*.spec).ts', javascript);
+  watch('src/**/*.scss', styles);
+  cb();
+}
+
+exports.watch = watcher;
+
+exports.default = series(clean, parallel(assets, javascript, styles));

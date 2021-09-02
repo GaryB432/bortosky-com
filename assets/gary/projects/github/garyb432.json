@@ -1,0 +1,1316 @@
+[
+  {
+    "path": "angular-pwa",
+    "json": {
+      "name": "angular-pwa",
+      "version": "0.0.0",
+      "scripts": {
+        "ng": "ng",
+        "start": "ng serve",
+        "build": "ng build",
+        "test": "ng test",
+        "lint": "ng lint",
+        "e2e": "ng e2e"
+      },
+      "private": true,
+      "dependencies": {
+        "@angular/animations": "~11.0.9",
+        "@angular/common": "~11.0.9",
+        "@angular/compiler": "~11.0.9",
+        "@angular/core": "~11.0.9",
+        "@angular/forms": "~11.0.9",
+        "@angular/platform-browser": "~11.0.9",
+        "@angular/platform-browser-dynamic": "~11.0.9",
+        "@angular/router": "~11.0.9",
+        "@angular/service-worker": "~11.0.9",
+        "font-awesome": "^4.7.0",
+        "rxjs": "~6.6.0",
+        "tslib": "^2.0.0",
+        "zone.js": "~0.10.2"
+      },
+      "devDependencies": {
+        "@angular-devkit/build-angular": "~0.1100.7",
+        "@angular/cli": "~11.0.7",
+        "@angular/compiler-cli": "~11.0.9",
+        "@types/jasmine": "~3.6.0",
+        "@types/node": "^12.11.1",
+        "codelyzer": "^6.0.0",
+        "jasmine-core": "~3.6.0",
+        "jasmine-spec-reporter": "~5.0.0",
+        "karma": "~5.1.0",
+        "karma-chrome-launcher": "~3.1.0",
+        "karma-coverage": "~2.0.3",
+        "karma-jasmine": "~4.0.0",
+        "karma-jasmine-html-reporter": "^1.5.0",
+        "protractor": "~7.0.0",
+        "ts-node": "~8.3.0",
+        "tslint": "~6.1.0",
+        "typescript": "~4.0.2"
+      }
+    },
+    "features": {
+      "management": {
+        "nx": false,
+        "lerna": false,
+        "rush": false
+      },
+      "devOps": {
+        "azure": false,
+        "github": false
+      },
+      "angular": true,
+      "rxjs": true,
+      "devkit": false,
+      "webpack": false
+    },
+    "monorepo": []
+  },
+  {
+    "path": "asdf7",
+    "json": {
+      "name": "web-module-starter",
+      "version": "1.0.0",
+      "description": "",
+      "main": "index.js",
+      "scripts": {
+        "build": "gulp",
+        "pretest": "eslint . --ext .ts",
+        "test": "jest",
+        "format": "prettier --write ."
+      },
+      "keywords": [],
+      "author": "",
+      "license": "ISC",
+      "devDependencies": {
+        "@types/jest": "^26.0.22",
+        "@typescript-eslint/eslint-plugin": "^4.22.0",
+        "@typescript-eslint/parser": "^4.22.0",
+        "del": "^6.0.0",
+        "eslint": "^7.24.0",
+        "eslint-config-prettier": "^8.2.0",
+        "eslint-plugin-prettier": "^3.4.0",
+        "gulp": "^4.0.2",
+        "gulp-sass": "^4.1.0",
+        "gulp-typescript": "^6.0.0-alpha.1",
+        "jest": "^26.6.3",
+        "jest-junit": "^12.0.0",
+        "prettier": "^2.2.1",
+        "sass": "^1.32.8",
+        "ts-jest": "^26.5.5",
+        "typescript": "^4.2.4"
+      }
+    },
+    "features": {
+      "management": {
+        "nx": false,
+        "lerna": false,
+        "rush": false
+      },
+      "devOps": {
+        "azure": true,
+        "github": false
+      },
+      "angular": false,
+      "rxjs": false,
+      "devkit": false,
+      "webpack": false
+    },
+    "monorepo": []
+  },
+  {
+    "path": "GaryB432.github.dev",
+    "json": {
+      "name": "garyb432-github-dev",
+      "version": "0.0.1",
+      "description": "garyb432-github-dev",
+      "main": "index.js",
+      "scripts": {
+        "build": "gulp",
+        "pretest": "npm run lint",
+        "test": "jest",
+        "format": "prettier --write .",
+        "lint": "eslint \"**/*.ts\""
+      },
+      "license": "ISC",
+      "devDependencies": {
+        "@types/jest": "^27.0.1",
+        "del": "^6.0.0",
+        "gulp": "^4.0.2",
+        "gulp-insert": "^0.5.0",
+        "gulp-sass": "^5.0.0",
+        "gulp-typescript": "^6.0.0-alpha.1",
+        "jest": "^27.0.6",
+        "jest-junit": "^12.2.0",
+        "sass": "^1.38.1",
+        "ts-jest": "^27.0.4",
+        "typescript": "^4.3.5",
+        "prettier": "^2.3.2",
+        "@typescript-eslint/eslint-plugin": "^4.29.1",
+        "@typescript-eslint/parser": "^4.29.1",
+        "eslint": "^7.32.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-prettier": "^3.4.0",
+        "eslint-plugin-jest": "^24.4.0"
+      }
+    },
+    "features": {
+      "management": {
+        "nx": false,
+        "lerna": false,
+        "rush": false
+      },
+      "devOps": {
+        "azure": true,
+        "github": true
+      },
+      "angular": false,
+      "rxjs": false,
+      "devkit": false,
+      "webpack": false
+    },
+    "monorepo": []
+  },
+  {
+    "path": "gb-generators",
+    "json": {
+      "name": "root",
+      "private": true,
+      "devDependencies": {
+        "@types/jest": "^27.0.1",
+        "@types/node": "^16.6.1",
+        "@types/yeoman-generator": "^5.2.2",
+        "@types/yeoman-test": "^4.0.2",
+        "@typescript-eslint/eslint-plugin": "^4.29.1",
+        "@typescript-eslint/parser": "^4.29.1",
+        "eslint": "^7.32.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-prettier": "^3.4.0",
+        "jest": "^27.0.6",
+        "lerna": "^4.0.0",
+        "prettier": "^2.3.2",
+        "ts-jest": "^27.0.4",
+        "typescript": "^4.3.5",
+        "yeoman-environment": "^3.5.1",
+        "yeoman-generator": "^5.4.1",
+        "yeoman-test": "^6.2.0"
+      },
+      "scripts": {
+        "build": "tsc --pretty --listEmittedFiles",
+        "prepare": "npm run build",
+        "pretest": "eslint \"packages/**/*.ts\"",
+        "test": "jest",
+        "test-ci": "jest --coverage",
+        "format": "prettier --write \"**/*.ts\"  \"!**/templates/**\""
+      }
+    },
+    "features": {
+      "management": {
+        "nx": false,
+        "lerna": true,
+        "rush": false
+      },
+      "devOps": {
+        "azure": false,
+        "github": true
+      },
+      "angular": false,
+      "rxjs": false,
+      "devkit": false,
+      "webpack": false
+    },
+    "monorepo": [
+      {
+        "path": "gb-generators/packages/generator-gb-utility/package.json",
+        "json": {
+          "name": "generator-gb-utility",
+          "version": "1.7.0",
+          "description": "Utility subgenerators",
+          "files": [
+            "generators/**/*.js",
+            "generators/**/templates/",
+            "util/**/*.js"
+          ],
+          "private": false,
+          "scripts": {
+            "test": "echo \"Error: run tests from root\" && exit 1"
+          },
+          "keywords": ["yeoman-generator"],
+          "author": "Gary Bortosky <garybort@gmail.com>",
+          "license": "ISC",
+          "dependencies": {
+            "case": "^1.6.3",
+            "chalk": "^4.0.0",
+            "yeoman-environment": "^3.2.0",
+            "yeoman-generator": "^5.2.0"
+          },
+          "repository": {
+            "type": "git",
+            "url": "https://github.com/GaryB432/gb-generators.git"
+          },
+          "bugs": {
+            "url": "https://github.com/GaryB432/gb-generators/issues"
+          },
+          "homepage": "https://github.com/GaryB432/gb-generators/tree/master/packages/generator-gb-utility",
+          "gitHead": "347e389b2c6f24414b460547d9840d70201c2717"
+        },
+        "monorepo": [],
+        "features": {
+          "management": {
+            "nx": false,
+            "lerna": false,
+            "rush": false
+          },
+          "devOps": {
+            "azure": false,
+            "github": false
+          },
+          "angular": false,
+          "rxjs": false,
+          "devkit": false,
+          "webpack": false
+        }
+      },
+      {
+        "path": "gb-generators/packages/generator-lerna-typescript/package.json",
+        "json": {
+          "name": "generator-lerna-typescript",
+          "version": "2.8.0",
+          "description": "Get started with Lerna using TypeScript",
+          "files": ["{generators,utils}/**/*.js", "generators/**/templates/"],
+          "private": false,
+          "scripts": {
+            "test": "echo \"Error: run tests from root\" && exit 1"
+          },
+          "keywords": ["lerna", "typescript", "monorepo", "yeoman-generator"],
+          "author": "Gary Bortosky <garybort@gmail.com>",
+          "license": "ISC",
+          "engines": {
+            "node": ">=10"
+          },
+          "dependencies": {
+            "case": "^1.6.3",
+            "chalk": "^4.0.0",
+            "generator-gb-utility": "^1.7.0",
+            "yeoman-environment": "^3.2.0",
+            "yeoman-generator": "^5.2.0"
+          },
+          "repository": {
+            "type": "git",
+            "url": "https://github.com/GaryB432/gb-generators.git"
+          },
+          "bugs": {
+            "url": "https://github.com/GaryB432/gb-generators/issues"
+          },
+          "homepage": "https://github.com/GaryB432/gb-generators/tree/master/packages/generator-lerna-typescript",
+          "gitHead": "347e389b2c6f24414b460547d9840d70201c2717"
+        },
+        "monorepo": [],
+        "features": {
+          "management": {
+            "nx": false,
+            "lerna": false,
+            "rush": false
+          },
+          "devOps": {
+            "azure": false,
+            "github": false
+          },
+          "angular": false,
+          "rxjs": false,
+          "devkit": false,
+          "webpack": false
+        }
+      },
+      {
+        "path": "gb-generators/packages/generator-web-modules/package.json",
+        "json": {
+          "name": "generator-web-modules",
+          "version": "1.4.0",
+          "description": "A Yeoman Generator for creating websites with TypeScript, Sass and ES6 modules",
+          "files": ["generators/**/*.js", "generators/**/templates/"],
+          "private": false,
+          "scripts": {
+            "test": "echo \"Error: run tests from root\" && exit 1"
+          },
+          "keywords": [
+            "yeoman-generator",
+            "typescript",
+            "es6",
+            "modules",
+            "sass",
+            "scss",
+            "eslint"
+          ],
+          "author": "Gary Bortosky <garybort@gmail.com>",
+          "license": "ISC",
+          "engines": {
+            "node": ">=10"
+          },
+          "dependencies": {
+            "case": "^1.6.3",
+            "chalk": "^4.0.0",
+            "generator-gb-utility": "^1.7.0",
+            "yeoman-environment": "^3.2.0",
+            "yeoman-generator": "^5.2.0"
+          },
+          "repository": {
+            "type": "git",
+            "url": "https://github.com/GaryB432/gb-generators.git"
+          },
+          "bugs": {
+            "url": "https://github.com/GaryB432/gb-generators/issues"
+          },
+          "homepage": "https://github.com/GaryB432/gb-generators/tree/master/packages/generator-web-modules"
+        },
+        "monorepo": [],
+        "features": {
+          "management": {
+            "nx": false,
+            "lerna": false,
+            "rush": false
+          },
+          "devOps": {
+            "azure": false,
+            "github": false
+          },
+          "angular": false,
+          "rxjs": false,
+          "devkit": false,
+          "webpack": false
+        }
+      },
+      {
+        "path": "gb-generators/packages/generator-webpack-ts/package.json",
+        "json": {
+          "name": "generator-webpack-ts",
+          "version": "6.22.0",
+          "description": "A Yeoman Generator for creating websites with TypeScript, Sass and Webpack",
+          "files": ["generators/**/*.js", "generators/**/templates/"],
+          "private": false,
+          "scripts": {
+            "test": "echo \"Error: run tests from root\" && exit 1"
+          },
+          "keywords": [
+            "yeoman-generator",
+            "typescript",
+            "webpack",
+            "workbox",
+            "sass",
+            "scss",
+            "eslint"
+          ],
+          "author": "Gary Bortosky <garybort@gmail.com>",
+          "license": "ISC",
+          "engines": {
+            "node": ">=10"
+          },
+          "dependencies": {
+            "case": "^1.6.3",
+            "chalk": "^4.0.0",
+            "generator-gb-utility": "^1.7.0",
+            "yeoman-environment": "^3.2.0",
+            "yeoman-generator": "^5.2.0"
+          },
+          "repository": {
+            "type": "git",
+            "url": "https://github.com/GaryB432/gb-generators.git"
+          },
+          "bugs": {
+            "url": "https://github.com/GaryB432/gb-generators/issues"
+          },
+          "homepage": "https://github.com/GaryB432/gb-generators/tree/master/packages/generator-webpack-ts",
+          "gitHead": "347e389b2c6f24414b460547d9840d70201c2717"
+        },
+        "monorepo": [],
+        "features": {
+          "management": {
+            "nx": false,
+            "lerna": false,
+            "rush": false
+          },
+          "devOps": {
+            "azure": false,
+            "github": false
+          },
+          "angular": false,
+          "rxjs": false,
+          "devkit": false,
+          "webpack": false
+        }
+      }
+    ]
+  },
+  {
+    "path": "gb-generators0",
+    "json": {
+      "name": "root",
+      "private": true,
+      "devDependencies": {
+        "@types/chalk": "^2.2.0",
+        "@types/jest": "^26.0.22",
+        "@types/node": "^14.14.37",
+        "@types/yeoman-assert": "^3.1.1",
+        "@types/yeoman-generator": "^4.11.3",
+        "@types/yeoman-test": "^4.0.0",
+        "@types/yosay": "^2.0.0",
+        "@typescript-eslint/eslint-plugin": "^4.20.0",
+        "@typescript-eslint/parser": "^4.20.0",
+        "eslint": "^7.23.0",
+        "eslint-config-prettier": "^8.1.0",
+        "eslint-formatter-friendly": "^7.0.0",
+        "eslint-plugin-prettier": "^3.3.1",
+        "jest": "^26.6.3",
+        "lerna": "^4.0.0",
+        "prettier": "^2.2.1",
+        "ts-jest": "^26.5.4",
+        "typescript": "^4.2.3",
+        "yeoman-assert": "^3.1.1",
+        "yeoman-environment": "^3.2.0",
+        "yeoman-generator": "^4.12.0",
+        "yeoman-test": "^5.1.0"
+      },
+      "scripts": {
+        "build": "tsc --pretty --listEmittedFiles",
+        "prepare": "npm run build",
+        "pretest-f": "npm run pretest -- -f eslint-formatter-friendly",
+        "pretest": "eslint \"packages/**/*.ts\"",
+        "test": "jest",
+        "test-ci": "jest --coverage",
+        "format": "prettier --write \"**/*.ts\"  \"!**/templates/**\""
+      }
+    },
+    "features": {
+      "management": {
+        "nx": false,
+        "lerna": true,
+        "rush": false
+      },
+      "devOps": {
+        "azure": false,
+        "github": true
+      },
+      "angular": false,
+      "rxjs": false,
+      "devkit": false,
+      "webpack": false
+    },
+    "monorepo": [
+      {
+        "path": "gb-generators0/packages/generator-gb-utility/package.json",
+        "json": {
+          "name": "generator-gb-utility",
+          "version": "1.4.3",
+          "description": "Utility subgenerators",
+          "files": [
+            "generators/**/*.js",
+            "generators/**/templates/",
+            "util/**/*.js"
+          ],
+          "private": false,
+          "scripts": {
+            "test": "echo \"Error: run tests from root\" && exit 1"
+          },
+          "keywords": ["yeoman-generator"],
+          "author": "Gary Bortosky <garybort@gmail.com>",
+          "license": "ISC",
+          "dependencies": {
+            "case": "^1.6.3",
+            "chalk": "^4.0.0",
+            "yeoman-generator": "^4.12.0",
+            "yosay": "^2.0.2"
+          },
+          "repository": {
+            "type": "git",
+            "url": "https://github.com/GaryB432/gb-generators.git"
+          },
+          "bugs": {
+            "url": "https://github.com/GaryB432/gb-generators/issues"
+          },
+          "homepage": "https://github.com/GaryB432/gb-generators/tree/master/packages/generator-gb-utility"
+        },
+        "monorepo": [],
+        "features": {
+          "management": {
+            "nx": false,
+            "lerna": false,
+            "rush": false
+          },
+          "devOps": {
+            "azure": false,
+            "github": false
+          },
+          "angular": false,
+          "rxjs": false,
+          "devkit": false,
+          "webpack": false
+        }
+      },
+      {
+        "path": "gb-generators0/packages/generator-lerna-typescript/package.json",
+        "json": {
+          "name": "generator-lerna-typescript",
+          "version": "2.6.3",
+          "description": "Get started with Lerna using TypeScript",
+          "files": ["{generators,utils}/**/*.js", "generators/**/templates/"],
+          "private": false,
+          "scripts": {
+            "test": "echo \"Error: run tests from root\" && exit 1"
+          },
+          "keywords": ["lerna", "typescript", "monorepo", "yeoman-generator"],
+          "author": "Gary Bortosky <garybort@gmail.com>",
+          "license": "ISC",
+          "engines": {
+            "node": ">=10"
+          },
+          "dependencies": {
+            "case": "^1.6.3",
+            "chalk": "^4.0.0",
+            "generator-gb-utility": "^1.4.3",
+            "yeoman-generator": "^4.12.0",
+            "yosay": "^2.0.2"
+          },
+          "repository": {
+            "type": "git",
+            "url": "https://github.com/GaryB432/gb-generators.git"
+          },
+          "bugs": {
+            "url": "https://github.com/GaryB432/gb-generators/issues"
+          },
+          "homepage": "https://github.com/GaryB432/gb-generators/tree/master/packages/generator-lerna-typescript"
+        },
+        "monorepo": [],
+        "features": {
+          "management": {
+            "nx": false,
+            "lerna": false,
+            "rush": false
+          },
+          "devOps": {
+            "azure": false,
+            "github": false
+          },
+          "angular": false,
+          "rxjs": false,
+          "devkit": false,
+          "webpack": false
+        }
+      },
+      {
+        "path": "gb-generators0/packages/generator-webpack-ts/package.json",
+        "json": {
+          "name": "generator-webpack-ts",
+          "version": "6.18.3",
+          "description": "A Yeoman Generator for creating websites with TypeScript, Sass and Webpack",
+          "files": ["generators/**/*.js", "generators/**/templates/"],
+          "private": false,
+          "scripts": {
+            "test": "echo \"Error: run tests from root\" && exit 1"
+          },
+          "keywords": [
+            "yeoman-generator",
+            "typescript",
+            "webpack",
+            "workbox",
+            "sass",
+            "scss",
+            "eslint"
+          ],
+          "author": "Gary Bortosky <garybort@gmail.com>",
+          "license": "ISC",
+          "engines": {
+            "node": ">=10"
+          },
+          "dependencies": {
+            "case": "^1.6.3",
+            "chalk": "^4.0.0",
+            "generator-gb-utility": "^1.4.3",
+            "yeoman-generator": "^4.12.0",
+            "yosay": "^2.0.2"
+          },
+          "repository": {
+            "type": "git",
+            "url": "https://github.com/GaryB432/gb-generators.git"
+          },
+          "bugs": {
+            "url": "https://github.com/GaryB432/gb-generators/issues"
+          },
+          "homepage": "https://github.com/GaryB432/gb-generators/tree/master/packages/generator-webpack-ts"
+        },
+        "monorepo": [],
+        "features": {
+          "management": {
+            "nx": false,
+            "lerna": false,
+            "rush": false
+          },
+          "devOps": {
+            "azure": false,
+            "github": false
+          },
+          "angular": false,
+          "rxjs": false,
+          "devkit": false,
+          "webpack": false
+        }
+      }
+    ]
+  },
+  {
+    "path": "gb-cost-basis-single",
+    "json": {
+      "name": "gb-cost-basis",
+      "description": "cost basis calculator",
+      "version": "0.0.0",
+      "author": "Gary Bortosky @GaryB432",
+      "bin": {
+        "gb-cost-basis": "./bin/run"
+      },
+      "bugs": "https://github.com/GaryB432/gb-cost-basis/issues",
+      "dependencies": {
+        "@oclif/command": "^1.5.18",
+        "@oclif/config": "^1.13.2",
+        "@oclif/plugin-help": "^2.2.0",
+        "tslib": "^1.10.0"
+      },
+      "devDependencies": {
+        "@oclif/test": "^1.2.4",
+        "@oclif/tslint": "^3.1.1",
+        "@types/chai": "^4.1.7",
+        "@types/mocha": "^5.2.7",
+        "@types/node": "^10.14.13",
+        "chai": "^4.2.0",
+        "mocha": "^5.2.0",
+        "nyc": "^13.3.0",
+        "prettier": "^1.18.2",
+        "rimraf": "^2.6.3",
+        "ts-node": "^8.3.0",
+        "tslint": "^5.18.0",
+        "typescript": "^3.5.3"
+      },
+      "engines": {
+        "node": ">=8.0.0"
+      },
+      "files": ["/bin", "/lib"],
+      "homepage": "https://github.com/GaryB432/gb-cost-basis",
+      "keywords": ["oclif"],
+      "license": "MIT",
+      "main": "lib/index.js",
+      "oclif": {
+        "bin": "gb-cost-basis"
+      },
+      "repository": "GaryB432/gb-cost-basis",
+      "scripts": {
+        "posttest": "tslint -p test -t stylish",
+        "prepack": "rimraf lib && tsc -b",
+        "pretest": "prettier --write \"{__tests__,src}/**/*.{js,ts,scss,html}\"",
+        "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\""
+      },
+      "types": "lib/index.d.ts"
+    },
+    "features": {
+      "management": {
+        "nx": false,
+        "lerna": false,
+        "rush": false
+      },
+      "devOps": {
+        "azure": false,
+        "github": false
+      },
+      "angular": false,
+      "rxjs": false,
+      "devkit": false,
+      "webpack": false
+    },
+    "monorepo": []
+  },
+  {
+    "path": "gb-karma-plugins",
+    "json": {
+      "name": "root",
+      "private": true,
+      "devDependencies": {
+        "@types/jest": "^24.0.22",
+        "@types/node": "^12.12.7",
+        "jest": "^24.9.0",
+        "ts-jest": "^24.1.0",
+        "typescript": "^3.7.2",
+        "prettier": "^1.19.1",
+        "@typescript-eslint/eslint-plugin": "^2.6.1",
+        "@typescript-eslint/parser": "^2.6.1",
+        "eslint": "^6.6.0",
+        "eslint-config-prettier": "^6.5.0",
+        "eslint-formatter-friendly": "^7.0.0",
+        "eslint-plugin-prettier": "^3.1.1"
+      },
+      "scripts": {
+        "test": "jest",
+        "format": "prettier --write \"**/*.ts\"  \"!**/lib/**\"",
+        "lint": "eslint \"packages/**/{src,__tests__}/**/*.ts\" -f eslint-formatter-friendly -c \".eslintrc.js\" --no-eslintrc"
+      },
+      "dependencies": {
+        "lerna": "^3.20.2"
+      }
+    },
+    "features": {
+      "management": {
+        "nx": false,
+        "lerna": true,
+        "rush": false
+      },
+      "devOps": {
+        "azure": false,
+        "github": false
+      },
+      "angular": false,
+      "rxjs": false,
+      "devkit": false,
+      "webpack": false
+    },
+    "monorepo": [
+      {
+        "path": "gb-karma-plugins/packages/karma-timer-reporter/package.json",
+        "json": {
+          "name": "karma-timer-reporter",
+          "version": "1.0.3",
+          "description": "Karma plugin for test timing analytics",
+          "files": ["lib"],
+          "author": {
+            "name": "Gary Bortosky",
+            "url": "https://github.com/GaryB432"
+          },
+          "private": false,
+          "main": "lib/index.js",
+          "scripts": {
+            "prepare": "npm run build",
+            "build": "tsc --pretty"
+          },
+          "repository": {
+            "type": "git",
+            "url": "https://github.com/GaryB432/gb-karma-plugins.git"
+          },
+          "bugs": {
+            "url": "https://github.com/GaryB432/gb-karma-plugins/issues"
+          },
+          "homepage": "https://github.com/GaryB432/gb-karma-plugins/tree/master/packages/karma-timer-reporter",
+          "keywords": ["karma-plugin", "karma-reporter"],
+          "peerDependencies": {
+            "karma": ">=0.9"
+          },
+          "license": "MIT",
+          "devDependencies": {
+            "@types/karma": "3.0.5",
+            "typescript": "^3.7.2"
+          },
+          "gitHead": "236818dcc48640842e6f805b6a1f2fcfd91e1ca1"
+        },
+        "monorepo": [],
+        "features": {
+          "management": {
+            "nx": false,
+            "lerna": false,
+            "rush": false
+          },
+          "devOps": {
+            "azure": false,
+            "github": false
+          },
+          "angular": false,
+          "rxjs": false,
+          "devkit": false,
+          "webpack": false
+        }
+      }
+    ]
+  },
+  {
+    "path": "gb-lerna",
+    "json": {
+      "name": "root",
+      "private": true,
+      "devDependencies": {
+        "@types/jest": "^27.0.1",
+        "@typescript-eslint/eslint-plugin": "^4.29.1",
+        "@typescript-eslint/parser": "^4.29.1",
+        "eslint": "^7.32.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-jest": "^24.4.0",
+        "eslint-plugin-prettier": "^3.4.0",
+        "jest": "^27.0.6",
+        "jest-junit": "^12.2.0",
+        "prettier": "^2.3.2",
+        "ts-jest": "^27.0.4",
+        "typescript": "^4.3.5"
+      },
+      "scripts": {
+        "test": "jest",
+        "posttest": "eslint --ext ts .",
+        "format": "prettier --write ."
+      },
+      "dependencies": {}
+    },
+    "features": {
+      "management": {
+        "nx": false,
+        "lerna": false,
+        "rush": false
+      },
+      "devOps": {
+        "azure": false,
+        "github": true
+      },
+      "angular": false,
+      "rxjs": false,
+      "devkit": false,
+      "webpack": false
+    },
+    "monorepo": [
+      {
+        "path": "gb-lerna/packages/cli/package.json",
+        "json": {
+          "name": "@gb-lerna/cli",
+          "version": "1.6.0",
+          "private": false,
+          "repository": {
+            "type": "git",
+            "url": "https://github.com/GaryB432/gb-lerna.git"
+          },
+          "bugs": {
+            "url": "https://github.com/GaryB432/gb-lerna/issues"
+          },
+          "homepage": "https://github.com/GaryB432/gb-lerna/tree/master/packages/cli",
+          "author": "",
+          "bin": {
+            "gb-lerna": "./lib/index.js"
+          },
+          "files": ["lib"],
+          "keywords": ["schematics", "commander"],
+          "license": "ISC",
+          "main": "lib/index.js",
+          "scripts": {
+            "prebuild": "rimraf lib",
+            "build": "tsc --pretty",
+            "prepare": "npm run build"
+          },
+          "typings": "lib/index.d.ts",
+          "dependencies": {
+            "@angular-devkit/core": "^12.2.1",
+            "@angular-devkit/schematics": "^12.2.1",
+            "@gb-lerna/schematics": "^1.6.0",
+            "colors": "^1.4.0",
+            "commander": "^8.1.0",
+            "symbol-observable": "^4.0.0"
+          },
+          "devDependencies": {
+            "@types/node": "^16.6.1",
+            "rimraf": "^3.0.2",
+            "typescript": "^4.3.5"
+          }
+        },
+        "monorepo": [],
+        "features": {
+          "management": {
+            "nx": false,
+            "lerna": false,
+            "rush": false
+          },
+          "devOps": {
+            "azure": false,
+            "github": false
+          },
+          "angular": false,
+          "rxjs": false,
+          "devkit": true,
+          "webpack": false
+        }
+      },
+      {
+        "path": "gb-lerna/packages/schematics/package.json",
+        "json": {
+          "name": "@gb-lerna/schematics",
+          "version": "1.6.0",
+          "private": false,
+          "author": {
+            "name": "Gary Bortosky",
+            "url": "https://github.com/GaryB432"
+          },
+          "files": ["lib"],
+          "keywords": ["lerna", "monorepo", "typescript", "schematics"],
+          "license": "ISC",
+          "scripts": {
+            "postbuild": "cpx src/{**/*.json,**/files/**/{*,.*/**,.??*}} lib",
+            "prebuild": "rimraf lib",
+            "build": "tsc --pretty",
+            "prepare": "npm run build"
+          },
+          "repository": {
+            "type": "git",
+            "url": "https://github.com/GaryB432/gb-lerna.git"
+          },
+          "bugs": {
+            "url": "https://github.com/GaryB432/gb-lerna/issues"
+          },
+          "homepage": "https://github.com/GaryB432/gb-lerna/tree/master/packages/schematics",
+          "schematics": "./lib/collection.json",
+          "dependencies": {
+            "@angular-devkit/core": "^12.2.1",
+            "@angular-devkit/schematics": "^12.2.1",
+            "minimatch": "^3.0.4"
+          },
+          "engines": {
+            "node": ">=10 <=14"
+          },
+          "devDependencies": {
+            "@types/minimatch": "^3.0.5",
+            "@types/node": "^16.6.1",
+            "cpx": "^1.5.0",
+            "rimraf": "^3.0.2",
+            "typescript": "^4.3.5"
+          }
+        },
+        "monorepo": [],
+        "features": {
+          "management": {
+            "nx": false,
+            "lerna": false,
+            "rush": false
+          },
+          "devOps": {
+            "azure": false,
+            "github": false
+          },
+          "angular": false,
+          "rxjs": false,
+          "devkit": true,
+          "webpack": false
+        }
+      }
+    ]
+  },
+  {
+    "path": "gb-portf",
+    "json": {
+      "name": "gb-portf",
+      "version": "0.0.0",
+      "author": "Gary Bortosky @GaryB432",
+      "bin": {
+        "gb-portf": "./bin/run"
+      },
+      "bugs": "https://github.com/GaryB432/gb-portf/issues",
+      "dependencies": {
+        "@oclif/command": "^1.5.18",
+        "@oclif/config": "^1.13.3",
+        "@oclif/plugin-help": "^2.2.1",
+        "tslib": "^1.10.0"
+      },
+      "devDependencies": {
+        "@oclif/dev-cli": "^1.22.2",
+        "@oclif/test": "^1.2.5",
+        "@oclif/tslint": "^3.1.1",
+        "@types/chai": "^4.2.0",
+        "@types/mocha": "^5.2.7",
+        "@types/node": "^10.14.15",
+        "chai": "^4.2.0",
+        "globby": "^10.0.1",
+        "mocha": "^5.2.0",
+        "nyc": "^13.3.0",
+        "rimraf": "^3.0.0",
+        "ts-node": "^8.3.0",
+        "tslint": "^5.18.0",
+        "typescript": "^3.5.3"
+      },
+      "engines": {
+        "node": ">=8.0.0"
+      },
+      "files": ["/bin", "/lib", "/npm-shrinkwrap.json", "/oclif.manifest.json"],
+      "homepage": "https://github.com/GaryB432/gb-portf",
+      "keywords": ["oclif"],
+      "license": "MIT",
+      "main": "lib/index.js",
+      "oclif": {
+        "commands": "./lib/commands",
+        "bin": "gb-portf",
+        "plugins": ["@oclif/plugin-help"]
+      },
+      "repository": "GaryB432/gb-portf",
+      "scripts": {
+        "postpack": "rimraf oclif.manifest.json",
+        "posttest": "tslint -p test --fix -t stylish",
+        "prepack": "rimraf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
+        "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
+        "version": "oclif-dev readme && git add README.md"
+      },
+      "types": "lib/index.d.ts"
+    },
+    "features": {
+      "management": {
+        "nx": false,
+        "lerna": false,
+        "rush": false
+      },
+      "devOps": {
+        "azure": false,
+        "github": false
+      },
+      "angular": false,
+      "rxjs": false,
+      "devkit": false,
+      "webpack": false
+    },
+    "monorepo": []
+  },
+  {
+    "path": "gb-schematics",
+    "json": {
+      "name": "gb-schematics",
+      "version": "0.0.0",
+      "description": "A blank schematics",
+      "scripts": {
+        "build": "tsc -p tsconfig.json",
+        "test": "npm run build && jasmine src/**/*_spec.js",
+        "format": "prettier --write \"**/src/**/{*.ts,*.scss,*.html,*.json}",
+        "lint": "eslint \"src/**/*.ts\" -f eslint-formatter-friendly"
+      },
+      "keywords": ["schematics"],
+      "author": "",
+      "license": "MIT",
+      "schematics": "./src/collection.json",
+      "dependencies": {
+        "@angular-devkit/core": "^8.3.8",
+        "@angular-devkit/schematics": "^8.3.8",
+        "@types/jasmine": "^3.3.9",
+        "@types/node": "^8.0.31",
+        "jasmine": "^3.3.1",
+        "typescript": "~3.5.3"
+      },
+      "prettier": {
+        "bracketSpacing": true,
+        "printWidth": 100,
+        "semi": true,
+        "singleQuote": true,
+        "tabWidth": 2,
+        "trailingComma": "es5",
+        "useTabs": false
+      },
+      "devDependencies": {
+        "prettier": "^1.15.2",
+        "@typescript-eslint/eslint-plugin": "^2.0.0",
+        "@typescript-eslint/parser": "^2.0.0",
+        "eslint": "^6.3.0",
+        "eslint-config-prettier": "^6.1.0",
+        "eslint-formatter-friendly": "^7.0.0",
+        "eslint-plugin-prettier": "^3.1.0"
+      }
+    },
+    "features": {
+      "management": {
+        "nx": false,
+        "lerna": false,
+        "rush": false
+      },
+      "devOps": {
+        "azure": false,
+        "github": true
+      },
+      "angular": false,
+      "rxjs": false,
+      "devkit": true,
+      "webpack": false
+    },
+    "monorepo": []
+  },
+  {
+    "path": "yoroy-pwa",
+    "json": {
+      "name": "yoroy-pwa",
+      "version": "1.0.0",
+      "description": "word spinner game PWA",
+      "scripts": {
+        "clean": "rimraf dist",
+        "start": "webpack-serve ./webpack.config.js",
+        "format": "prettier --write \"src/{scripts,styles}/**/*\" \"src/sw.ts\" --single-quote --trailing-comma es5",
+        "prebuild": "npm run format",
+        "heroku-postbuild": "webpack --config ./webpack.config.js",
+        "build": "npm run clean && webpack --config ./webpack.config.js",
+        "test": "jest",
+        "test-watch": "jest --watch"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/garyb432/yoroy-pwa.git"
+      },
+      "keywords": [
+        "word",
+        "game",
+        "pwa",
+        "workbox",
+        "service",
+        "worker",
+        "typescript"
+      ],
+      "license": "ISC",
+      "bugs": {
+        "url": "https://github.com/garyb432/yoroy-pwa/issues"
+      },
+      "homepage": "https://github.com/garyb432/yoroy-pwa#readme",
+      "devDependencies": {
+        "@types/jest": "^22.2.2",
+        "@types/node": "^9.6.1",
+        "copy-webpack-plugin": "^4.5.1",
+        "coveralls": "^3.0.0",
+        "css-loader": "^0.28.11",
+        "html-webpack-plugin": "^3.1.0",
+        "jest": "^22.4.3",
+        "jest-environment-node-debug": "^2.0.0",
+        "mini-css-extract-plugin": "^0.4.0",
+        "node-sass": "^4.14.1",
+        "prettier": "^1.11.1",
+        "rimraf": "^2.6.2",
+        "sass-loader": "^6.0.7",
+        "style-loader": "^0.20.3",
+        "ts-jest": "^22.4.2",
+        "ts-loader": "^4.1.0",
+        "ts-node": "^5.0.1",
+        "tslint": "^5.9.1",
+        "tslint-config-gb": "^1.1.0",
+        "tslint-config-prettier": "^1.10.0",
+        "tslint-loader": "^3.6.0",
+        "typescript": "^2.8.1",
+        "webpack": "^4.4.1",
+        "webpack-cli": "^2.0.13",
+        "webpack-serve": "^0.3.1",
+        "workbox-webpack-plugin": "^3.0.1"
+      },
+      "dependencies": {
+        "express": "^4.16.3",
+        "tslib": "^1.9.0"
+      },
+      "engines": {
+        "node": ">=6.0.0"
+      },
+      "jest": {
+        "transform": {
+          ".(ts)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+        },
+        "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|js)$",
+        "moduleFileExtensions": ["ts", "js"],
+        "testEnvironment": "node"
+      }
+    },
+    "features": {
+      "management": {
+        "nx": false,
+        "lerna": false,
+        "rush": false
+      },
+      "devOps": {
+        "azure": false,
+        "github": false
+      },
+      "angular": false,
+      "rxjs": false,
+      "devkit": false,
+      "webpack": true
+    },
+    "monorepo": []
+  },
+  {
+    "path": "gb-grocery",
+    "json": {
+      "name": "gb-grocery",
+      "version": "5.1.0",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/GaryB432/gb-grocery.git"
+      },
+      "scripts": {
+        "ng": "ng",
+        "format": "prettier --write \"src/**/{*.ts,*.scss,*.html}\"",
+        "start": "ng serve",
+        "prebuild": "npm run format",
+        "build": "ng build",
+        "test": "ng test",
+        "lint": "ng lint",
+        "e2e": "ng e2e"
+      },
+      "private": true,
+      "dependencies": {
+        "@angular/animations": "^8.2.14",
+        "@angular/common": "^8.2.14",
+        "@angular/compiler": "^8.2.14",
+        "@angular/core": "^8.2.14",
+        "@angular/forms": "^8.2.14",
+        "@angular/platform-browser": "^8.2.14",
+        "@angular/platform-browser-dynamic": "^8.2.14",
+        "@angular/pwa": "^0.803.29",
+        "@angular/router": "^8.2.14",
+        "@angular/service-worker": "^8.2.14",
+        "angularfire2": "^5.4.2",
+        "firebase": "^7.22.0",
+        "font-awesome": "^4.7.0",
+        "hammerjs": "^2.0.8",
+        "moment": "^2.29.0",
+        "ngx-toastr": "^11.3.3",
+        "rxjs": "^6.6.3",
+        "tslib": "^1.13.0",
+        "zone.js": "^0.10.3"
+      },
+      "prettier": {
+        "printWidth": 80,
+        "singleQuote": true,
+        "useTabs": false,
+        "tabWidth": 2,
+        "semi": true,
+        "bracketSpacing": true,
+        "trailingComma": "es5"
+      },
+      "devDependencies": {
+        "@angular-devkit/build-angular": "^0.803.29",
+        "@angular/cli": "^8.3.29",
+        "@angular/compiler-cli": "^8.2.14",
+        "@angular/language-service": "^8.2.14",
+        "@types/googlemaps": "^3.39.13",
+        "@types/hammerjs": "^2.0.36",
+        "@types/jasmine": "^3.5.14",
+        "@types/jasminewd2": "^2.0.8",
+        "@types/node": "^12.12.62",
+        "codelyzer": "^5.2.2",
+        "jasmine-core": "^3.6.0",
+        "jasmine-spec-reporter": "^4.2.1",
+        "karma": "^4.4.1",
+        "karma-chrome-launcher": "^3.1.0",
+        "karma-coverage-istanbul-reporter": "^2.1.1",
+        "karma-jasmine": "^2.0.1",
+        "karma-jasmine-html-reporter": "^1.5.4",
+        "karma-timer-reporter": "^1.0.3",
+        "prettier": "^1.19.1",
+        "protractor": "^5.4.4",
+        "ts-node": "^8.10.2",
+        "tslint": "^5.20.1",
+        "tslint-config-gb": "^1.1.0",
+        "tslint-config-prettier": "^1.18.0",
+        "typescript": "~3.4.3"
+      },
+      "bugs": {
+        "url": "https://github.com/GaryB432/gb-grocery/issues"
+      }
+    },
+    "features": {
+      "management": {
+        "nx": false,
+        "lerna": false,
+        "rush": false
+      },
+      "devOps": {
+        "azure": false,
+        "github": true
+      },
+      "angular": true,
+      "rxjs": true,
+      "devkit": false,
+      "webpack": false
+    },
+    "monorepo": []
+  }
+]
