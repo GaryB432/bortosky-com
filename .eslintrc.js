@@ -32,7 +32,7 @@ module.exports = {
     '@typescript-eslint/explicit-member-accessibility': 'warn',
     '@typescript-eslint/no-unused-vars': 'off',
     '@typescript-eslint/member-ordering': [
-      'warn',
+      'off',
       {
         default: {
           memberTypes: orderingRule.defaultOrder,

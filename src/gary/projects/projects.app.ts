@@ -69,7 +69,7 @@ async function main(): Promise<void> {
       if (timer) {
         clearTimeout(timer);
       }
-      timer = setTimeout(async () => {
+      timer = setTimeout(() => {
         show(find(search.value, reports));
       }, 200);
     });
