@@ -1,27 +1,58 @@
 # BortoskyCom
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.0-rc.5.
+![Styled with Prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)
 
-## Development server
+![Typed with TypeScript](https://flat.badgen.net/badge/icon/Typed?icon=typescript&label&labelColor=blue&color=555555)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Update bortosky.com
 
-## Code scaffolding
+```powershell
+npm run build
+cd ..\GaryB432.github.io\
+start .
+// remove all items from . except .git
+Copy-Item -Path ..\bortosky-com\dist\* -Destination . -Recurse
+git status
+git add .
+git status
+git commit -m "update to v4"
+git push
+cd -
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Development
 
-## Build
+The project uses the [gulp toolkit](https://gulpjs.com/docs/en/getting-started/quick-start) for development workflow, so install that globally
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+```bash
+npm install --global gulp-cli
+```
 
-## Running unit tests
+Build your project:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```bash
+npm run build
+```
 
-## Running end-to-end tests
+Test your project:
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+```bash
+npm test
+```
 
-## Further help
+Watch your source files (typescript and scss) to rebuild the project when they change
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+```bash
+gulp watch
+```
+
+## Start command-line http server
+
+Using [http-server](https://www.npmjs.com/package/http-server), a simple zero-configuration command-line http server
+
+```properties
+npm install -global http-server
+npm run build
+http-server dist -o
+```
+
