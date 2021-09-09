@@ -1,4 +1,3 @@
-
 # Some basics for monorepo development
 
 ## Authors
@@ -9,7 +8,6 @@
 
 ## Lerna Notes
 
-  
 > lerna publish --include-merged-tags
 
 > lerna publish prerelease --pre-dist-tag next [[--force publish](https://github.com/lerna/lerna/issues/2069)]
@@ -20,11 +18,8 @@ Here are some related projects
 
 [See this issue about `include-merge-tags`](https://stackoverflow.com/questions/60180630/lerna-always-lists-all-packages-ready-to-publish-when-running-workflow-of-github/66102980?noredirect=1#comment120041007_66102980)
 
-
-
-
-
 ## NX Notes
+
 ```
 D:\Users\bort1\Documents\azure\bortosky\nx-fun [popular-twitter-bots ≡]> git status
 On branch popular-twitter-bots
@@ -34,6 +29,7 @@ nothing to commit, working tree clean
 ```
 
 ### some commands
+
 ```
 ng g app gepcoin --routing --dry-run
 ng g app gepcoin --routing

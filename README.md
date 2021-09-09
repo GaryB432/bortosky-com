@@ -55,4 +55,3 @@ npm install -global http-server
 npm run build
 http-server dist -o
 ```
-
