@@ -20,11 +20,17 @@ function getVCardUrl(): URL {
   return u;
 }
 
-window.addEventListener('DOMContentLoaded', () => {
+function afterDOMLoaded() {
   const qrimg = document.querySelector<HTMLImageElement>('#contact.qr');
   if (qrimg) {
     qrimg.src = getVCardUrl().toString();
   }
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', afterDOMLoaded);
+} else {
+  afterDOMLoaded();
+}
 
 export {};
