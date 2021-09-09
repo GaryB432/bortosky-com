@@ -49,7 +49,6 @@ ng g component wistia-embed --project gepcoin
 git status
 ng build
 nx affected:build
-npm install @fortawesome/font-awesome-free
 npm install @fortawesome/fontawesome-free
 nx affected:build
 nx popular-twitter-bots:serve
