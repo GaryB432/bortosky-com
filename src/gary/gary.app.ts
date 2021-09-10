@@ -12,8 +12,11 @@ export function getVCardUrl(vcard: VCard): URL {
   return u;
 }
 
-function afterDOMLoaded() {
-  const qrimg = document.querySelector<HTMLImageElement>('#contact.qr');
+function main(e?: Event) {
+  if (e) {
+    console.log(e.eventPhase);
+  }
+  const qrimg = document.querySelector<HTMLImageElement>('#contact.qr-not');
   if (qrimg) {
     qrimg.src = getVCardUrl([
       'N:Gary Bortosky',
@@ -25,7 +28,7 @@ function afterDOMLoaded() {
 }
 
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', afterDOMLoaded);
+  document.addEventListener('DOMContentLoaded', main);
 } else {
-  afterDOMLoaded();
+  main();
 }

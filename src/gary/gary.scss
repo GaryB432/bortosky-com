@@ -1,9 +1,14 @@
 img {
   display: inline-block;
   // background-color: orange;
+  border: 2px solid silver;
   &.pic {
     width: 100px;
     height: 100px;
-    border: 2px solid silver;
+  }
+
+  &.qr {
+    width: 300px;
+    height: 300px;
   }
 }
