@@ -20,6 +20,17 @@ git push
 cd -
 ```
 
+## QR Code Notes
+
+### zxing links
+
+* [Online Decoder](https://zxing.org/w/decode.jspx)
+* [QR Code Generator](https://zxing.appspot.com/generator)
+* [Javadoc](https://zxing.github.io/zxing/apidocs/)
+* [Documentation Site](https://zxing.github.io/zxing/)
+
+
+
 ## Development
 
 The project uses the [gulp toolkit](https://gulpjs.com/docs/en/getting-started/quick-start) for development workflow, so install that globally
