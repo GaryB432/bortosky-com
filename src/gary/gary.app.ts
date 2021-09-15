@@ -60,6 +60,17 @@ function main() {
     },
   ];
   qrs.forEach(addQR);
+  const sorter = document.querySelector<HTMLTextAreaElement>(
+    'section.sorter > textarea'
+  );
+  const button = document.querySelector<HTMLButtonElement>(
+    'section.sorter > button'
+  );
+  if (sorter && button) {
+    button.addEventListener('click', () => {
+      sorter.value = sorter.value.split('\n').sort().join('\n');
+    });
+  }
 }
 
 if (document.readyState === 'loading') {

@@ -24,12 +24,10 @@ cd -
 
 ### zxing links
 
-* [Online Decoder](https://zxing.org/w/decode.jspx)
-* [QR Code Generator](https://zxing.appspot.com/generator)
-* [Javadoc](https://zxing.github.io/zxing/apidocs/)
-* [Documentation Site](https://zxing.github.io/zxing/)
-
-
+- [Online Decoder](https://zxing.org/w/decode.jspx)
+- [QR Code Generator](https://zxing.appspot.com/generator)
+- [Javadoc](https://zxing.github.io/zxing/apidocs/)
+- [Documentation Site](https://zxing.github.io/zxing/)
 
 ## Development
 
