@@ -12,6 +12,36 @@
 
 > lerna publish prerelease --pre-dist-tag next [[--force publish](https://github.com/lerna/lerna/issues/2069)]
 
+### OpenSSL problems with Azure
+
+> git commit
+> git push // repeatedly
+> lerna version
+> rm lerna-debug.log
+> git push origin --tags
+> cd packages/cli;npm publish;cd ../parsers;npm publish;cd ../..
+
+
+> git push --follow-tags --no-verify origin master
+
+
+lerna info execute Skipping releases
+lerna info git Pushing tags...
+lerna WARN gitPush fatal: the receiving end does not support --atomic push
+lerna WARN gitPush fatal: the remote end hung up unexpectedly
+lerna WARN gitPush error: failed to push some refs to 'https://dev.azure.com/bortosky/gb-maps/_git/gb-maps'
+lerna info gitPush --atomic failed, attempting non-atomic push
+lerna ERR! Error: Command failed with exit code 128: git push --follow-tags --no-verify origin master
+lerna ERR! fatal: unable to access 'https://dev.azure.com/bortosky/gb-maps/_git/gb-maps/': OpenSSL SSL_connect: Connection was reset in connection to dev.azure.com:443
+lerna ERR!     at makeError (C:\Users\bort1\AppData\Roaming\npm\node_modules\lerna\node_modules\execa\lib\error.js:59:11)
+lerna ERR!     at handlePromise (C:\Users\bort1\AppData\Roaming\npm\node_modules\lerna\node_modules\execa\index.js:114:26)
+lerna ERR! Error: Command failed with exit code 128: git push --follow-tags --no-verify origin master
+lerna ERR! fatal: unable to access 'https://dev.azure.com/bortosky/gb-maps/_git/gb-maps/': OpenSSL SSL_connect: Connection was reset in connection to dev.azure.com:443
+lerna ERR!     at makeError (C:\Users\bort1\AppData\Roaming\npm\node_modules\lerna\node_modules\execa\lib\error.js:59:11)
+lerna ERR!     at handlePromise (C:\Users\bort1\AppData\Roaming\npm\node_modules\lerna\node_modules\execa\index.js:114:26)
+lerna ERR! lerna Command failed with exit code 128: git push --follow-tags --no-verify origin master
+lerna ERR! lerna fatal: unable to access 'https://dev.azure.com/bortosky/gb-maps/_git/gb-maps/': OpenSSL SSL_connect: Connection was reset in connection to dev.azure.com:443
+
 ### Related
 
 Here are some related projects
