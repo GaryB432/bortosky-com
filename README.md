@@ -1,8 +1,8 @@
 # BortoskyCom
 
-![Styled with Prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-f8bc45.svg)](https://github.com/prettier/prettier)
 
-![Typed with TypeScript](https://flat.badgen.net/badge/icon/Typed?icon=typescript&label&labelColor=blue&color=555555)
+[![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](https://www.typescriptlang.org/)
 
 ## Update bortosky.com
 
