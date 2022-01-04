@@ -68,8 +68,8 @@ export class DateElement extends HTMLElement {
     Promise.resolve().then(
       () => {
         if (this.contentDiv) {
-          const yyyy = this.isoValue.substr(0, 4);
-          const mmm = months[parseInt(this.isoValue.substr(5, 2), 10) - 1];
+          const yyyy = this.isoValue.slice(0, 4);
+          const mmm = months[parseInt(this.isoValue.slice(5, 7), 10) - 1];
           const date = new Date(this.isoValue);
           this.contentDiv.setAttribute('title', date.toLocaleString());
           this.contentDiv.textContent = `${mmm} ${yyyy}`;
