@@ -29,9 +29,6 @@ template.innerHTML = `
 
 export class DateElement extends HTMLElement {
   private contentDiv: HTMLDivElement | null = null;
-  public static get observedAttributes(): string[] {
-    return ['iso-value', 'format'];
-  }
 
   public constructor() {
     super();
@@ -41,6 +38,11 @@ export class DateElement extends HTMLElement {
       this.contentDiv = this.shadowRoot.querySelector('div');
     }
   }
+
+  public static get observedAttributes(): string[] {
+    return ['iso-value', 'format'];
+  }
+
   public get isoValue(): string {
     const value = this.getAttribute('iso-value');
     return value === null ? '' : value;

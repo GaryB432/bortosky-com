@@ -29,8 +29,8 @@ template.innerHTML = `
   `;
 
 export class ReportElement extends HTMLElement {
-  private pathDiv: HTMLDivElement | null = null;
   private chipsSection: HTMLDivElement | null = null;
+  private pathDiv: HTMLDivElement | null = null;
   private zreport: Report | null = null;
 
   public constructor() {

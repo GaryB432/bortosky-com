@@ -2,10 +2,10 @@ import { DateElement } from './date.element';
 export type ISODate = string;
 
 export interface Production {
-  show: string;
   opening: ISODate;
-  role: string;
   producer: Producer;
+  role: string;
+  show: string;
 }
 
 export interface Producer {

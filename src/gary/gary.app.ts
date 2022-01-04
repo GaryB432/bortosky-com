@@ -1,9 +1,9 @@
 type VCard = string[];
 
 interface QROptions {
-  src: string;
-  from: string;
   caption: string;
+  from: string;
+  src: string;
 }
 
 export function getVCardUrl(vcard: VCard): URL {
