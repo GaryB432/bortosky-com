@@ -18,7 +18,7 @@ export function getVCardUrl(vcard: VCard): URL {
   return u;
 }
 
-export function addQR(options: QROptions, n = 0) {
+export function addQR(options: QROptions, n = 0): void {
   const qrs = document.querySelector<HTMLDivElement>('.qrs');
 
   if (qrs) {

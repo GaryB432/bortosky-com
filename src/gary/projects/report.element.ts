@@ -29,26 +29,26 @@ template.innerHTML = `
   `;
 
 export class ReportElement extends HTMLElement {
-  #pathDiv: HTMLDivElement | null = null;
-  #chipsSection: HTMLDivElement | null = null;
-  #report: Report | null = null;
+  private pathDiv: HTMLDivElement | null = null;
+  private chipsSection: HTMLDivElement | null = null;
+  private zreport: Report | null = null;
 
   public constructor() {
     super();
     this.attachShadow({ mode: 'open' });
     if (this.shadowRoot) {
       this.shadowRoot.appendChild(template.content.cloneNode(true));
-      this.#pathDiv = this.shadowRoot.querySelector('h2');
-      this.#chipsSection = this.shadowRoot.querySelector('.chips');
+      this.pathDiv = this.shadowRoot.querySelector('h2');
+      this.chipsSection = this.shadowRoot.querySelector('.chips');
     }
   }
 
   public get report(): Report | null {
-    return this.#report;
+    return this.zreport;
   }
 
   public set report(value: Report | null) {
-    this.#report = value;
+    this.zreport = value;
   }
 
   public attributeChangedCallback(
@@ -66,19 +66,19 @@ export class ReportElement extends HTMLElement {
   private update(): void {
     Promise.resolve().then(
       () => {
-        if (this.#pathDiv && this.#report) {
-          this.#pathDiv.textContent = this.#report.path;
-          if (this.#chipsSection) {
-            if (this.#report.plat) {
+        if (this.pathDiv && this.zreport) {
+          this.pathDiv.textContent = this.zreport.path;
+          if (this.chipsSection) {
+            if (this.zreport.plat) {
               const c = document.createElement('span');
               c.classList.add('mdl-chip');
               const s = document.createElement('span');
               s.classList.add('mdl-chip__text');
-              const t = document.createTextNode(this.#report.plat);
+              const t = document.createTextNode(this.zreport.plat);
               s.appendChild(t);
               c.appendChild(s);
               componentHandler.upgradeElement(s);
-              this.#chipsSection.appendChild(c);
+              this.chipsSection.appendChild(c);
             }
           }
         }
