@@ -20,6 +20,11 @@ git push
 cd -
 ```
 
+## JSON Schema
+
+- [JSON Schema Validator - Newtonsoft](https://www.jsonschemavalidator.net/)
+- [Best JSON Formatter and JSON Validator: Online JSON Formatter](https://jsonformatter.org/)
+
 ## QR Code Notes
 
 ### zxing links

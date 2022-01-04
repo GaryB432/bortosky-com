@@ -1,0 +1,64 @@
+{
+  "$id": "https://bortosky.com/cabinet/schema.json",
+  "$schema": "http://json-schema.org/schema#",
+  "description": "GB's filing cabinet",
+  "type": "object",
+  "properties": {
+    "hangingFolders": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "content": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "folder": {
+                      "oneOf": [
+                        {
+                          "oneOf": [
+                            { "type": "string" },
+                            {
+                              "type": "object",
+                              "required": ["description"],
+                              "properties": {
+                                "description": { "type": "string" },
+                                "content": {
+                                  "type": "array",
+                                  "items": { "type": "string" }
+                                }
+                              },
+                              "additionalProperties": false
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": { "document": { "type": "string" } },
+                  "additionalProperties": false
+                }
+              ]
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "$defs": {
+    "tbd": {
+      "type": "object",
+      "properties": { "folder": { "type": "string" } },
+      "additionalProperties": false
+    }
+  }
+}

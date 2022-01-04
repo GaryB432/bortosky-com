@@ -1,0 +1,32 @@
+{
+  "$schema": "./schema.json",
+  "hangingFolders": [
+    {
+      "content": [
+        {
+          "folder": "Samples"
+        }
+      ]
+    },
+    {
+      "content": [
+        {
+          "folder": {
+            "description": "misc",
+            "content": ["Schema Validation", "QR codes"]
+          }
+        },
+        {
+          "folder": "Affirmations"
+        }
+      ]
+    },
+    {
+      "content": [
+        {
+          "folder": "Tax 2014-2017"
+        }
+      ]
+    }
+  ]
+}

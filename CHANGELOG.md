@@ -1,5 +1,9 @@
 # Changelog
 
+# 4 January 2022
+
+- Add file cabinet
+
 # 1 September 2021
 
 - Update from `generator-web-modules`
