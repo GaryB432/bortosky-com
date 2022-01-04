@@ -20,7 +20,7 @@ function row(production: Production): HTMLTableRowElement {
   tr.appendChild(dname);
   const dopening = document.createElement('td');
   const d = document.createElement('app-date') as DateElement;
-  d.setAttribute('format', 'mdy');
+  d.setAttribute('format', 'mmmm yyyy');
   d.setAttribute('iso-value', production.opening);
   dopening.appendChild(d);
   tr.appendChild(dopening);

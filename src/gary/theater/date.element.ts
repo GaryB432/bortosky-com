@@ -27,6 +27,22 @@ template.innerHTML = `
     <div></div>
   `;
 
+export function formatDate(isoValue: string, format: string | null): string {
+  if (isoValue.length < 7) {
+    return 'invalid date';
+  }
+
+  const yyyy = isoValue.slice(0, 4);
+  const mmmm = months[parseInt(isoValue.slice(5, 7), 10) - 1];
+
+  switch (format) {
+    case 'mmmm yyyy':
+      return `${mmmm} ${yyyy}`;
+    default:
+      return `invalid format "${format}"`;
+  }
+}
+
 export class DateElement extends HTMLElement {
   private contentDiv: HTMLDivElement | null = null;
 
@@ -73,6 +89,10 @@ export class DateElement extends HTMLElement {
           const date = new Date(this.isoValue);
           this.contentDiv.setAttribute('title', date.toLocaleString());
           this.contentDiv.textContent = `${mmm} ${yyyy}`;
+          this.contentDiv.textContent = formatDate(
+            this.isoValue,
+            this.getAttribute('format')
+          );
         }
       },
       () => {
