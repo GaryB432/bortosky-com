@@ -36,24 +36,22 @@
                                 "content": {
                                   "type": "array",
                                   "items": {
-                                    "type": "string"
+                                    "$ref": "#/$defs/document"
                                   }
                                 }
-                              },
-                              "additionalProperties": false
+                              }
                             }
                           ]
                         }
                       ]
                     }
-                  },
-                  "additionalProperties": false
+                  }
                 },
                 {
                   "type": "object",
                   "properties": {
                     "document": {
-                      "type": "string"
+                      "$ref": "#/$defs/document"
                     }
                   },
                   "additionalProperties": false
@@ -61,20 +59,22 @@
               ]
             }
           }
-        },
-        "additionalProperties": false
+        }
       }
     }
   },
   "$defs": {
-    "tbd": {
+    "document": {
       "type": "object",
       "properties": {
-        "folder": {
+        "description": {
           "type": "string"
+        },
+        "date": {
+          "type": "string",
+          "format": "date"
         }
-      },
-      "additionalProperties": false
+      }
     }
   }
 }
