@@ -13,50 +13,29 @@
             "type": "string",
             "maxLength": 5
           },
+          "description": {
+            "type": "string"
+          },
           "content": {
             "type": "array",
             "items": {
-              "oneOf": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "folder": {
-                      "oneOf": [
-                        {
-                          "oneOf": [
-                            {
-                              "type": "string"
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "description": {
-                                  "type": "string"
-                                },
-                                "content": {
-                                  "type": "array",
-                                  "items": {
-                                    "$ref": "#/$defs/document"
-                                  }
-                                }
-                              }
-                            }
-                          ]
-                        }
-                      ]
+              "type": "object",
+              "required": [
+                "folder"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "folder": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/$defs/folder"
+                    },
+                    {
+                      "type": "string"
                     }
-                  }
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "document": {
-                      "$ref": "#/$defs/document"
-                    }
-                  },
-                  "additionalProperties": false
+                  ]
                 }
-              ]
+              }
             }
           }
         }
@@ -64,6 +43,26 @@
     }
   },
   "$defs": {
+    "folder": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/document"
+              },
+              { "type": "string" }
+            ]
+          }
+        }
+      },
+      "additionalProperties": false
+    },
     "document": {
       "type": "object",
       "properties": {
@@ -74,7 +73,8 @@
           "type": "string",
           "format": "date"
         }
-      }
+      },
+      "additionalProperties": false
     }
   }
 }
