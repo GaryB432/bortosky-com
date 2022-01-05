@@ -37,8 +37,8 @@ export class GDate {
   }
 
   public toString(): string {
-    const d = [zf(this.year, 4), zf(this.month), zf(this.day)].join('-');
-    const t = [zf(this.hour), zf(this.minute)].join(':');
+    const d = [zf(this.year, 4), zf(this.month), zf(this.day)].join('');
+    const t = [zf(this.hour), zf(this.minute)].join('');
     return `${d}T${t}Z`;
   }
 }

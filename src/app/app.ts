@@ -1,3 +1,5 @@
+import { GDate } from './gdate';
+
 interface FullMoon {
   name: string;
   time: string;
@@ -25,16 +27,14 @@ function kebabCase(s: string): string {
     .toLowerCase();
 }
 function toVEVENT(moon: FullMoon): string[] {
-  const m = toISO(moon.time);
-  const d = new Date(m);
-  const e = new Date(d.getTime() + 20 * 60 * 1000);
+  const gd = GDate.create(moon.time);
 
   const details = [
     `UID:FULL_${kebabCase(moon.name).toUpperCase()}_MOON@bortosky.com`,
-    `DTSTAMP:${moon.time}`,
-    `DTSTART:${moon.time}`,
-    `WTF:${e.toLocaleString('UTC', {})}`,
-    `DTEND:19970715T040000Z`,
+    `DTSTAMP:20220105T090000Z`,
+    `DTSTART:${gd}`,
+    `DTSTARX:${gd.addMinutes(30)}`,
+    `DTEND  :19970715T040000Z`,
     `SUMMARY:Full ${moon.name} Moon`,
   ];
   return [`BEGIN:VEVENT`, ...details, `END:VEVENT`];
