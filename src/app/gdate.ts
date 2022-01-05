@@ -13,6 +13,9 @@ export class GDate {
   ) {}
 
   public static create(tmz: string): GDate {
+    if (tmz.length !== 16) {
+      throw new Error('bad date format');
+    }
     const parts = [
       tmz.slice(0, 4),
       tmz.slice(4, 6),

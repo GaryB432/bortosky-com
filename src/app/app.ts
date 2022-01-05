@@ -20,30 +20,21 @@ export const m: FullMoon[] = [
   { time: '20221208T050900Z', name: 'Cold' },
 ];
 
-function kebabCase(s: string): string {
-  return s
-    .replace(/([a-z])([A-Z])/g, '$1-$2')
-    .replace(/[\s_']+/g, '-')
-    .toLowerCase();
+function uid(s: string): string {
+  return s.replace(/[\s-\']+/g, '_').toUpperCase();
 }
+
 function toVEVENT(moon: FullMoon): string[] {
   const gd = GDate.create(moon.time);
 
   const details = [
-    `UID:FULL_${kebabCase(moon.name).toUpperCase()}_MOON@bortosky.com`,
-    `DTSTAMP:20220105T090000Z`,
+    `UID:2022_${uid(moon.name)}_MOON@bortosky.com`,
+    `DTSTAMP:${new GDate(2022, 1, 5, 9, 0)}`,
     `DTSTART:${gd}`,
-    `DTSTARX:${gd.addMinutes(30)}`,
-    `DTEND  :19970715T040000Z`,
+    `DTEND:${gd.addMinutes(30)}`,
     `SUMMARY:Full ${moon.name} Moon`,
   ];
   return [`BEGIN:VEVENT`, ...details, `END:VEVENT`];
-}
-
-function toISO(tmz: string): string {
-  const d = [tmz.slice(0, 4), tmz.slice(4, 6), tmz.slice(6, 8)].join('-');
-  const t = [tmz.slice(9, 11), tmz.slice(11, 13)].join(':');
-  return `${d}T${t}Z`;
 }
 
 const df = m.map(toVEVENT).flat().join('\n');
