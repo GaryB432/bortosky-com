@@ -1,17 +1,10 @@
-function d(n: number, length: number) {
-  const tmp = new Array(10).fill('0').concat(String(n)).join('');
+function zf(n: number, length = 2) {
+  const tmp = new Array(length).fill('0').concat(String(n)).join('');
   return tmp.slice(tmp.length - length);
 }
 
-function d2(n: number) {
-  return d(n, 2);
-}
-function d4(n: number) {
-  return d(n, 4);
-}
-
 export class GDate {
-  constructor(
+  public constructor(
     public year: number,
     public month: number,
     public day: number,
@@ -19,21 +12,33 @@ export class GDate {
     public minute: number
   ) {}
 
+  public static create(tmz: string): GDate {
+    const parts = [
+      tmz.slice(0, 4),
+      tmz.slice(4, 6),
+      tmz.slice(6, 8),
+      tmz.slice(9, 11),
+      tmz.slice(11, 13),
+    ].map((p) => Number(p));
+    return new GDate(parts[0], parts[1], parts[2], parts[3], parts[4]);
+  }
+
+  public addMinutes(m: number): this {
+    this.minute += m;
+    while (this.minute > 59) {
+      this.hour += 1;
+      this.minute -= 60;
+    }
+    while (this.hour > 23) {
+      this.day += 1;
+      this.hour -= 24;
+    }
+    return this;
+  }
+
   public toString(): string {
-    const d = [d4(this.year), d2(this.month), d2(this.day)].join('-');
-    const t = [d2(this.hour), d2(this.minute)].join(':');
+    const d = [zf(this.year, 4), zf(this.month), zf(this.day)].join('-');
+    const t = [zf(this.hour), zf(this.minute)].join(':');
     return `${d}T${t}Z`;
   }
-  public static create(): GDate {
-    return new GDate(0, 0, 0, 0, 0);
-  }
-}
-
-interface YMD {
-  day: number;
-  month: number;
-  year: number;
-  hour: number;
-  minute: number;
-  second: number;
 }

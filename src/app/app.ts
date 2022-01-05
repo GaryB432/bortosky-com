@@ -1,6 +1,6 @@
 interface FullMoon {
-  time: string;
   name: string;
+  time: string;
 }
 
 export const m: FullMoon[] = [
