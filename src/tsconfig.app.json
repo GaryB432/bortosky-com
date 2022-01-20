@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "rootDir": ".",
+    "target": "es5",
+    "types": ["node"],
+    "module": "es2020",
+    "importHelpers": false
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["**/*.spec.ts"]
+}

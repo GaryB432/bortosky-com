@@ -6,7 +6,12 @@ const { createProject } = require('gulp-typescript');
 const del = require('del');
 
 function assets() {
-  return src(['assets/**/*', 'src/**/*', '!**/*.{t,scs}s']).pipe(dest('dist'));
+  return src([
+    'assets/**/*',
+    'src/**/*',
+    '!**/*.{t,scs}s',
+    '!**/*.app.json',
+  ]).pipe(dest('dist'));
 }
 
 function clean() {
@@ -20,7 +25,7 @@ function styles() {
 }
 
 function javascript() {
-  const tsProject = createProject('tsconfig.json');
+  const tsProject = createProject('src/tsconfig.app.json');
   return tsProject
     .src()
     .pipe(tsProject())
