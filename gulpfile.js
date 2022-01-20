@@ -1,6 +1,7 @@
 const { dest, src, parallel, series, watch } = require('gulp');
 const { transform } = require('gulp-insert');
 const sass = require('gulp-sass')(require('sass'));
+const run = require('gulp-run');
 const { createProject } = require('gulp-typescript');
 const del = require('del');
 
@@ -38,6 +39,10 @@ function watcher(cb) {
   cb();
 }
 
+function schema() {
+  return run('npm run json2ts', { silent: false }).exec();
+}
+
 exports.watch = watcher;
 
-exports.default = series(clean, parallel(assets, javascript, styles));
+exports.default = series(clean, schema, parallel(assets, javascript, styles));
