@@ -15,7 +15,6 @@
       "content": [
         {
           "folder": {
-            // "description": "obvious from content",
             "content": [
               { "description": "Schema Validation", "date": "1970-01-01" },
               { "description": "QR codes", "date": "1970-01-01" }

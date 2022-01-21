@@ -1,11 +1,17 @@
 const { dest, src, parallel, series, watch } = require('gulp');
 const { transform } = require('gulp-insert');
 const sass = require('gulp-sass')(require('sass'));
+const run = require('gulp-run');
 const { createProject } = require('gulp-typescript');
 const del = require('del');
 
 function assets() {
-  return src(['assets/**/*', 'src/**/*', '!**/*.{t,scs}s']).pipe(dest('dist'));
+  return src([
+    'assets/**/*',
+    'src/**/*',
+    '!**/*.{t,scs}s',
+    '!**/*.app.json',
+  ]).pipe(dest('dist'));
 }
 
 function clean() {
@@ -19,7 +25,7 @@ function styles() {
 }
 
 function javascript() {
-  const tsProject = createProject('tsconfig.json');
+  const tsProject = createProject('src/tsconfig.app.json');
   return tsProject
     .src()
     .pipe(tsProject())
@@ -38,6 +44,10 @@ function watcher(cb) {
   cb();
 }
 
+function schema() {
+  return run('npm run json2ts', { silent: false }).exec();
+}
+
 exports.watch = watcher;
 
-exports.default = series(clean, parallel(assets, javascript, styles));
+exports.default = series(clean, schema, parallel(assets, javascript, styles));
