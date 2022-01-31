@@ -100,9 +100,7 @@
           "format": "date"
         }
       },
-      "required": [
-        "subject"
-      ],
+      "required": ["subject"],
       "additionalProperties": false
     }
   },
