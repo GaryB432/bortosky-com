@@ -4,6 +4,7 @@
   "description": "Bortoskys' Filing Cabinet Schema",
   "type": "object",
   "properties": {
+    "$schema": true,
     "hangingFolders": {
       "type": "array",
       "items": {
@@ -19,30 +20,60 @@
           "content": {
             "type": "array",
             "items": {
-              "type": "object",
-              "required": [
-                "folder"
-              ],
-              "additionalProperties": false,
-              "properties": {
-                "folder": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/$defs/folder"
-                    },
-                    {
-                      "type": "string"
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/document"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "folder": {
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "description": {
+                              "type": "string"
+                            },
+                            "content": {
+                              "type": "array",
+                              "items": {
+                                "$ref": "#/$defs/document"
+                              }
+                            }
+                          },
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
                     }
-                  ]
+                  },
+                  "additionalProperties": false
                 }
-              }
-            }
+              ]
+            },
+            "additionalItems": false
           }
-        }
+        },
+        "additionalProperties": false,
+        "additionalItems": false
       }
     }
   },
   "$defs": {
+    "content": {
+      "oneOf": [
+        {
+          "$href": "#/$defs/document"
+        },
+        {
+          "$href": "#/$defs/folder"
+        }
+      ],
+      "additionalProperties": false
+    },
     "folder": {
       "type": "object",
       "properties": {
@@ -52,14 +83,7 @@
         "content": {
           "type": "array",
           "items": {
-            "oneOf": [
-              {
-                "$ref": "#/$defs/document"
-              },
-              {
-                "type": "string"
-              }
-            ]
+            "$href": "#/$defs/content"
           }
         }
       },
@@ -67,11 +91,8 @@
     },
     "document": {
       "type": "object",
-      "required": [
-        "description"
-      ],
       "properties": {
-        "description": {
+        "subject": {
           "type": "string"
         },
         "date": {
@@ -79,7 +100,11 @@
           "format": "date"
         }
       },
+      "required": [
+        "subject"
+      ],
       "additionalProperties": false
     }
-  }
+  },
+  "required": ["hangingFolders"]
 }

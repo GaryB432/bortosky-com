@@ -1,15 +1,27 @@
 import { readFile } from 'fs/promises';
 import { argv } from 'process';
-import { Schema as Cabinet } from '../cabinet';
+import { Schema as Cabinet, Document as Doc } from '../cabinet';
 import { Chalk } from './chalk';
 
 const fileName = argv[2] ?? 'assets/cabinet/demo.json';
 const { log } = console;
 const unlabeled = 'unlabeled';
+const chalk = new Chalk();
+
+function dateString(isoDate: string | undefined): string {
+  return isoDate ? `${isoDate.slice(5)}-${isoDate.slice(0, 4)}` : 'undated';
+}
+
+function showDoc(doc: Doc) {
+  log(
+    `- ${chalk.whiteBright(doc.subject || 'UNSUB')} ${chalk.blue(
+      dateString(doc.date)
+    )}`
+  );
+}
 
 readFile(fileName).then(
   (buffer: Buffer) => {
-    const chalk = new Chalk();
     const c = JSON.parse(buffer.toString()) as Cabinet;
     if (c.hangingFolders) {
       c.hangingFolders.forEach((hf, i) => {
@@ -17,24 +29,23 @@ readFile(fileName).then(
           chalk.greenBright(`## Hanging Folder (${i})  [${hf.id ?? unlabeled}]`)
         );
         if (hf.content) {
-          hf.content.forEach((c) => {
-            const label = (s: string) =>
-              `${chalk.white('###')} ${chalk.yellow(s)}`;
-            if (typeof c.folder === 'string') {
-              log(label(c.folder));
-            } else {
-              if (c.folder.content) {
-                log(label(c.folder.description ?? unlabeled));
-                for (const doc of c.folder.content) {
-                  if (typeof doc === 'string') {
-                    log(label(doc));
-                  } else {
-                    log(chalk.white(`- ${doc.description}`));
+          for (const hfc of hf.content) {
+            if ('folder' in hfc) {
+              if (hfc.folder) {
+                if (typeof hfc.folder === 'string') {
+                  log(`${chalk.white('###')} ${chalk.yellow(hfc.folder)}`);
+                } else {
+                  for (const hfcfc of hfc.folder.content || []) {
+                    showDoc(hfcfc);
                   }
                 }
               }
+            } else if ('subject' in hfc) {
+              showDoc(hfc);
+            } else {
+              throw new Error('wtf');
             }
-          });
+          }
         }
       });
     }

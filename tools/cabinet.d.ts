@@ -9,21 +9,25 @@
  * Bortoskys' Filing Cabinet Schema
  */
 export interface Schema {
-  hangingFolders?: {
+  $schema?: true;
+  hangingFolders: {
     id?: string;
     description?: string;
-    content?: {
-      folder: Folder | string;
-    }[];
-    [k: string]: unknown;
+    content?: (
+      | Document
+      | {
+          folder?:
+            | {
+                description?: string;
+                content?: Document[];
+              }
+            | string;
+        }
+    )[];
   }[];
   [k: string]: unknown;
 }
-export interface Folder {
-  description?: string;
-  content?: (Document | string)[];
-}
 export interface Document {
-  description: string;
+  subject: string;
   date?: string;
 }
