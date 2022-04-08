@@ -2,11 +2,10 @@ BEGIN:VCARD
 VERSION:3.0
 N:Bortosky;Gary;;;
 FN:Gary Bortosky
-EMAIL;type=INTERNET;type=HOME;type=pref:gary@bortosky.com
 TEL;type=CELL:+1 314 609 0415
-item1.ADR;type=HOME;type=pref:;;16 Meadow Lake Drive;Saint Louis;MO;63146-5468;USA
-item1.X-ABADR:us
+URL:bortosky.com/gary
+EMAIL;type=INTERNET;type=HOME;type=pref:gary@bortosky.com
+ADR;type=HOME;type=pref:;;16 Meadow Lake Drive;Saint Louis;MO;63146-5468;USA
 NOTE:Gary Bortosky has a wide variety of interests\, Keep in touch.
-item2.URL;type=pref:http\://bortosky/com/gary
 X-ABUID:16F010F5-E6D1-479A-9646-D4C28EEEFCDC\:ABPerson
 END:VCARD
