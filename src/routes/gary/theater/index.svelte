@@ -46,33 +46,35 @@
 		class="bort-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col"
 	>
 		<Crumbs />
-		<h2>Theater Resumé</h2>
-		<table class="shows">
-			<thead>
-				<tr>
-					<th>Show</th>
-					<th>Opening</th>
-					<th>Company</th>
-					<th>Role</th>
-				</tr>
-			</thead>
-			<tbody>
-				{#each prods as prod}
+		<div class="theater">
+			<h2>Theater Resumé</h2>
+			<table class="shows">
+				<thead>
 					<tr>
-						<td>{prod.show}</td>
-						<td>
-							<div title={prod.openDate.toLocaleString()}>
-								{new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(
-									prod.openDate
-								)}
-							</div>
-						</td>
-						<td>{prod.producer.name}</td>
-						<td>{prod.role}</td>
+						<th>Show</th>
+						<th>Opening</th>
+						<th>Company</th>
+						<th>Role</th>
 					</tr>
-				{/each}
-			</tbody>
-		</table>
+				</thead>
+				<tbody>
+					{#each prods as prod}
+						<tr>
+							<td>{prod.show}</td>
+							<td>
+								<div title={prod.openDate.toLocaleString()}>
+									{new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(
+										prod.openDate
+									)}
+								</div>
+							</td>
+							<td>{prod.producer.name}</td>
+							<td>{prod.role}</td>
+						</tr>
+					{/each}
+				</tbody>
+			</table>
+		</div>
 	</div>
 </div>
 
