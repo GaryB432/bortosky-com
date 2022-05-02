@@ -1,0 +1,180 @@
+[
+  {
+    "path": "lb-minder",
+    "json": {
+      "name": "lb-minder",
+      "version": "1.5.1",
+      "license": "MIT",
+      "scripts": {
+        "ng": "nx",
+        "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main",
+        "nx": "nx",
+        "start": "ng serve",
+        "build": "ng build",
+        "test": "ng test",
+        "lint": "nx workspace-lint && ng lint",
+        "e2e": "ng e2e",
+        "affected:apps": "nx affected:apps",
+        "affected:libs": "nx affected:libs",
+        "affected:build": "nx affected:build",
+        "affected:e2e": "nx affected:e2e",
+        "affected:test": "nx affected:test",
+        "affected:lint": "nx affected:lint",
+        "affected:dep-graph": "nx affected:dep-graph",
+        "affected": "nx affected",
+        "format": "nx format:write",
+        "format:write": "nx format:write",
+        "format:check": "nx format:check",
+        "update": "nx migrate latest",
+        "workspace-generator": "nx workspace-generator",
+        "dep-graph": "nx dep-graph",
+        "help": "nx help",
+        "azure:build": "nx workspace-generator show-build lb-minder && nx run lb-minder:build:production"
+      },
+      "private": true,
+      "dependencies": {
+        "@angular/animations": "^12.0.0",
+        "@angular/common": "^12.0.0",
+        "@angular/compiler": "^12.0.0",
+        "@angular/core": "^12.0.0",
+        "@angular/forms": "^12.0.0",
+        "@angular/platform-browser": "^12.0.0",
+        "@angular/platform-browser-dynamic": "^12.0.0",
+        "@angular/router": "^12.0.0",
+        "@angular/service-worker": "^12.0.0",
+        "@nrwl/angular": "12.3.6",
+        "rxjs": "~6.6.0",
+        "tslib": "^2.0.0",
+        "zone.js": "~0.11.4"
+      },
+      "devDependencies": {
+        "@angular-devkit/build-angular": "^12.0.0",
+        "@angular-eslint/eslint-plugin": "~12.0.0",
+        "@angular-eslint/eslint-plugin-template": "~12.0.0",
+        "@angular-eslint/template-parser": "~12.0.0",
+        "@angular/cli": "^12.0.0",
+        "@angular/compiler-cli": "^12.0.0",
+        "@angular/language-service": "^12.0.0",
+        "@nrwl/cli": "12.3.6",
+        "@nrwl/cypress": "12.3.6",
+        "@nrwl/devkit": "12.3.6",
+        "@nrwl/eslint-plugin-nx": "12.3.6",
+        "@nrwl/jest": "12.3.6",
+        "@nrwl/linter": "12.3.6",
+        "@nrwl/tao": "12.3.6",
+        "@nrwl/workspace": "12.3.6",
+        "@types/ejs": "^3.0.6",
+        "@types/google.visualization": "0.0.66",
+        "@types/jest": "26.0.8",
+        "@types/node": "14.14.33",
+        "@types/semver": "^7.3.6",
+        "@typescript-eslint/eslint-plugin": "^4.19.0",
+        "@typescript-eslint/parser": "^4.19.0",
+        "cypress": "^7.3.0",
+        "dotenv": "8.2.0",
+        "ejs": "^3.1.6",
+        "eslint": "7.22.0",
+        "eslint-config-prettier": "8.1.0",
+        "eslint-plugin-cypress": "^2.10.3",
+        "jest": "26.2.2",
+        "jest-junit": "^12.1.0",
+        "jest-preset-angular": "8.4.0",
+        "prettier": "2.2.1",
+        "semver": "^7.3.5",
+        "ts-jest": "26.5.5",
+        "ts-node": "~9.1.1",
+        "typescript": "~4.2.4"
+      }
+    },
+    "features": {
+      "management": {
+        "nx": true,
+        "lerna": false,
+        "rush": false
+      },
+      "devOps": {
+        "azure": true,
+        "github": false
+      },
+      "angular": true,
+      "rxjs": true,
+      "devkit": false,
+      "webpack": false
+    },
+    "monorepo": []
+  },
+  {
+    "path": "sensor-play",
+    "json": {
+      "name": "sensor-play",
+      "version": "0.0.1",
+      "description": "sensor-play",
+      "scripts": {
+        "start": "webpack serve --mode development --env development",
+        "watch": "webpack --watch",
+        "format": "prettier --write .",
+        "lint": "eslint \"**/*.ts\"",
+        "prebuild": "npm run format",
+        "pretest": "npm run lint",
+        "build": "webpack",
+        "webpack-prod": "npm run pretest && npm run test-ci && webpack --env production",
+        "test": "jest",
+        "test-ci": "jest --ci --coverage"
+      },
+      "license": "ISC",
+      "devDependencies": {
+        "@types/jest": "^26.0.23",
+        "@types/node": "^15.0.1",
+        "@types/w3c-generic-sensor": "^1.0.3",
+        "@typescript-eslint/eslint-plugin": "^4.22.1",
+        "@typescript-eslint/parser": "^4.22.1",
+        "@webpack-cli/serve": "^1.3.1",
+        "clean-webpack-plugin": "^4.0.0-alpha.0",
+        "copy-webpack-plugin": "^8.1.1",
+        "css-loader": "^5.2.4",
+        "eslint": "^7.25.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-prettier": "^3.4.0",
+        "express": "^4.17.1",
+        "html-webpack-plugin": "^5.3.1",
+        "jest": "^26.6.3",
+        "jest-junit": "^12.0.0",
+        "mini-css-extract-plugin": "^1.6.0",
+        "node-sass": "^5.0.0",
+        "prettier": "^2.2.1",
+        "sass-loader": "^11.0.1",
+        "style-loader": "^2.0.0",
+        "ts-jest": "^26.5.5",
+        "ts-loader": "^9.1.1",
+        "typescript": "^4.2.4",
+        "webpack": "^5.36.2",
+        "webpack-cli": "^4.6.0",
+        "webpack-dev-server": "^3.11.2",
+        "webpack-merge": "^5.7.3",
+        "workbox-webpack-plugin": "^6.1.5"
+      },
+      "dependencies": {
+        "rxjs": "^7.0.0"
+      },
+      "engines": {
+        "node": ">=10.13.0"
+      }
+    },
+    "features": {
+      "management": {
+        "nx": false,
+        "lerna": false,
+        "rush": false
+      },
+      "devOps": {
+        "azure": true,
+        "github": false
+      },
+      "angular": false,
+      "rxjs": true,
+      "devkit": false,
+      "webpack": true
+    },
+    "monorepo": []
+  }
+]

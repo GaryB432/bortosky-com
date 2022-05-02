@@ -1,0 +1,41 @@
+{
+  "$schema": "./schema.json",
+  "hangingFolders": [
+    {
+      "id": "red",
+      "description": "my folder",
+      "content": [
+        {
+          "folder": "Samples"
+        },
+        {
+          "subject": "Schema Expert Certificate",
+          "date": "2037-05-20"
+        }
+      ]
+    },
+    {
+      "id": "blue",
+      "content": [
+        {
+          "folder": {
+            "content": [
+              { "subject": "Schema Validation", "date": "1970-01-01" },
+              { "subject": "QR codes", "date": "1970-01-01" }
+            ]
+          }
+        },
+        {
+          "folder": "Affirmations"
+        }
+      ]
+    },
+    {
+      "content": [
+        {
+          "folder": "Tax 2014-2017"
+        }
+      ]
+    }
+  ]
+}
