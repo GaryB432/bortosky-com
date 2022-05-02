@@ -2,59 +2,34 @@
 	export const prerender = true;
 </script>
 
-<script lang="ts">
-	import Counter from '$lib/Counter.svelte';
-</script>
-
 <svelte:head>
 	<title>Home</title>
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 
-<section>
-	<h1>
-		<div class="welcome">
-			<picture>
-				<source srcset="svelte-welcome.webp" type="image/webp" />
-				<img src="svelte-welcome.png" alt="Welcome" />
-			</picture>
-		</div>
-
-		to your new<br />SvelteKit app
-	</h1>
-
-	<h2>
-		try editing <strong>src/routes/index.svelte</strong>
-	</h2>
-
-	<Counter />
-</section>
+<div
+	class="
+	mdl-cell
+	mdl-cell--2-col
+	mdl-cell--hide-tablet
+	mdl-cell--hide-phone
+"
+/>
+<div
+	class="
+	bort-content
+	mdl-color--white
+	mdl-shadow--4dp
+	content
+	mdl-color-text--grey-800
+	mdl-cell mdl-cell--8-col
+"
+>
+	<div class="bort-crumbs mdl-color-text--grey-500">Bortosky &gt; Family</div>
+	<h2>Bortosky Family</h2>
+	<p>The only information available about the fam at this time is Gary's</p>
+	<li><a href="gary">Gary</a></li>
+</div>
 
 <style>
-	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 1;
-	}
-
-	h1 {
-		width: 100%;
-	}
-
-	.welcome {
-		position: relative;
-		width: 100%;
-		height: 0;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
-	}
-
-	.welcome img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		display: block;
-	}
 </style>
