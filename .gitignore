@@ -1,4 +1,10 @@
-coverage
+.DS_Store
 node_modules
-dist
-junit.xml
+/build
+/.svelte-kit
+/package
+.env
+.env.*
+!.env.example
+.vercel
+.output

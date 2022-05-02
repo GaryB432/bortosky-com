@@ -1,17 +1,7 @@
-# Changelog
+# default-template
 
-# 4 January 2022
+## 0.0.2-next.0
 
-- Add file cabinet
+### Patch Changes
 
-# 1 September 2021
-
-- Update from `generator-web-modules`
-
-# 12 July 2017
-
-- Update from preboot
-
-# 25 September 2016
-
-- Major update to Angular2
+- [chore] upgrade cookie library ([#4592](https://github.com/sveltejs/kit/pull/4592))

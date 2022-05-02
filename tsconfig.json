@@ -1,18 +1,17 @@
 {
-  "$schema": "http://json.schemastore.org/tsconfig",
-  "compilerOptions": {
-    "allowJs": true,
-    "target": "ES2017",
-    "module": "ES2020",
-    "lib": ["ES2019", "DOM"],
-    "outDir": "public",
-    "isolatedModules": true,
-    "strict": true,
-    "noEmitHelpers": false,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true
-  },
-  "include": ["src", "tools"],
-  "exclude": ["**/*.spec.ts"]
+	"extends": "./.svelte-kit/tsconfig.json",
+	"compilerOptions": {
+		"allowJs": true,
+		"checkJs": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"lib": ["es2020", "DOM"],
+		"moduleResolution": "node",
+		"module": "es2020",
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"sourceMap": true,
+		"strict": true,
+		"target": "es2020"
+	}
 }
