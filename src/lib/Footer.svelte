@@ -2,10 +2,10 @@
 	<div class="mdl-mini-footer--left-section">
 		<ul class="mdl-mini-footer--link-list">
 			<li>
-				<a href="feedback.html">Feedback</a>
+				<a href="/feedback">Feedback</a>
 			</li>
 			<li>
-				<a href="privacy-terms.html">Privacy and Terms</a>
+				<a href="/privacy-terms">Privacy and Terms</a>
 			</li>
 		</ul>
 	</div>
