@@ -1,9 +1,9 @@
 <script lang="ts">
-	import '../app.scss';
+  import '../app.scss';
 </script>
 
 <main>
-	<slot />
+  <slot />
 </main>
 
 <style>

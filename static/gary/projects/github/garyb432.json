@@ -225,11 +225,7 @@
           "name": "generator-gb-utility",
           "version": "1.7.0",
           "description": "Utility subgenerators",
-          "files": [
-            "generators/**/*.js",
-            "generators/**/templates/",
-            "util/**/*.js"
-          ],
+          "files": ["generators/**/*.js", "generators/**/templates/", "util/**/*.js"],
           "private": false,
           "scripts": {
             "test": "echo \"Error: run tests from root\" && exit 1"
@@ -501,11 +497,7 @@
           "name": "generator-gb-utility",
           "version": "1.4.3",
           "description": "Utility subgenerators",
-          "files": [
-            "generators/**/*.js",
-            "generators/**/templates/",
-            "util/**/*.js"
-          ],
+          "files": ["generators/**/*.js", "generators/**/templates/", "util/**/*.js"],
           "private": false,
           "scripts": {
             "test": "echo \"Error: run tests from root\" && exit 1"
@@ -1139,15 +1131,7 @@
         "type": "git",
         "url": "git+https://github.com/garyb432/yoroy-pwa.git"
       },
-      "keywords": [
-        "word",
-        "game",
-        "pwa",
-        "workbox",
-        "service",
-        "worker",
-        "typescript"
-      ],
+      "keywords": ["word", "game", "pwa", "workbox", "service", "worker", "typescript"],
       "license": "ISC",
       "bugs": {
         "url": "https://github.com/garyb432/yoroy-pwa/issues"
