@@ -61,7 +61,7 @@
 		<Crumbs />
 		<h2>Projects</h2>
 		<ul>
-			<li><a href="theater">Theater</a></li>
+			<li><a href="/gary/theater">Theater</a></li>
 		</ul>
 		<h2>Contact</h2>
 		<section class="qrs">
