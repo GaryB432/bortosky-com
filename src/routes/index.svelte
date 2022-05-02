@@ -8,22 +8,7 @@
 </svelte:head>
 
 <div
-	class="
-	mdl-cell
-	mdl-cell--2-col
-	mdl-cell--hide-tablet
-	mdl-cell--hide-phone
-"
-/>
-<div
-	class="
-	bort-content
-	mdl-color--white
-	mdl-shadow--4dp
-	content
-	mdl-color-text--grey-800
-	mdl-cell mdl-cell--8-col
-"
+	class="bort-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col"
 >
 	<div class="bort-crumbs mdl-color-text--grey-500">Bortosky &gt; Family</div>
 	<h2>Bortosky Family</h2>
