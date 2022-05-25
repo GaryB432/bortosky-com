@@ -1,8 +1,33 @@
 <script context="module" lang="ts">
-  import Crumbs from '$lib/Crumbs.svelte';
   import Grid from '$lib/Grid.svelte';
   import Footer from '$lib/Footer.svelte';
-  export const prerender = true;
+  import Month from '$lib/Month.svelte';
+  // export const prerender = true;
+
+  import type { Load } from '@sveltejs/kit';
+  import { each } from 'svelte/internal';
+
+  // export async function load({ params }){
+
+  // }
+
+  export const load: Load = ({ params }) => {
+    console.log(params.start);
+    const { start } = params;
+    const data = {
+      title: 'omfg ok d',
+      start,
+    };
+    return {
+      props: data,
+    };
+  };
+</script>
+
+<script lang="ts">
+  export let title = 'unset';
+  export let start: string;
+  $: months = [start];
 </script>
 
 <svelte:head>
@@ -12,7 +37,9 @@
 
 <Grid>
   <h2>Bortosky Family</h2>
-  <p>calendar coming upt</p>
+  {#each months as monthIso}
+    <Month {monthIso} />
+  {/each}
 </Grid>
 
 <Footer />
