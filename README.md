@@ -6,12 +6,14 @@
 
 ## Update bortosky.com
 
+we need to 
+
 ```powershell
 npm run build
 cd ..\GaryB432.github.io\
 start .
 // remove all items from . except .git
-Copy-Item -Path ..\bortosky-com\dist\* -Destination . -Recurse
+Copy-Item -Path ..\bortosky-com\build\* -Destination . -Recurse
 git status
 git add .
 git status
@@ -19,6 +21,8 @@ git commit -m "update to v4"
 git push
 cd -
 ```
+
+see the `GitHub Pages` section [here](https://github.com/sveltejs/kit/tree/master/packages/adapter-static)
 
 ## JSON Schema
 

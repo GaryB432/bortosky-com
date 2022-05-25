@@ -1,6 +1,24 @@
 import adapter from '@sveltejs/adapter-static';
 import preprocess from 'svelte-preprocess';
 
+// const dev = process.env.NODE_ENV === 'development';
+const dev = true;
+
+const calMonths = [
+  '2022-05',
+  '2022-06',
+  '2022-07',
+  '2022-08',
+  '2022-09',
+  '2022-10',
+  '2022-11',
+  '2022-12',
+  '2023-01',
+  '2023-02',
+  '2023-03',
+  '2023-04',
+].map((d) => `/calendar/year/${d}`);
+
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
   preprocess: [
@@ -12,9 +30,18 @@ const config = {
   ],
 
   kit: {
-    adapter: adapter(),
-    prerender: { default: true },
-
+    adapter: adapter({
+      // default options are shown
+      pages: 'build',
+      assets: 'build',
+      fallback: null,
+      precompress: false,
+    }),
+    prerender: { default: true, entries: ['*', ...calMonths] },
+    paths: {
+      base: dev ? '' : '/GaryB432',
+    },
+    appDir: 'internal',
     methodOverride: {
       allowed: ['PATCH', 'DELETE'],
     },
