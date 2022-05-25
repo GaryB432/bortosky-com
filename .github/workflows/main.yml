@@ -12,5 +12,5 @@ jobs:
       - name: Run a multi-line script
         run: |
           npm install
-          npm test --reporter junit
+          npx playwright test
           npm run build
