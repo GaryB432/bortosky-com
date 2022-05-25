@@ -2,14 +2,7 @@
   import Grid from '$lib/Grid.svelte';
   import Footer from '$lib/Footer.svelte';
   import Month from '$lib/Month.svelte';
-  // export const prerender = true;
-
   import type { Load } from '@sveltejs/kit';
-  import { each } from 'svelte/internal';
-
-  // export async function load({ params }){
-
-  // }
 
   export const load: Load = ({ params }) => {
     console.log(params.start);
@@ -25,9 +18,7 @@
 </script>
 
 <script lang="ts">
-  export let title = 'unset';
   export let start: string;
-  $: months = [start];
 </script>
 
 <svelte:head>
@@ -36,13 +27,21 @@
 </svelte:head>
 
 <Grid>
-  <h2>Bortosky Family</h2>
-  {#each months as monthIso}
-    <Month {monthIso} />
-  {/each}
+  <div class="vp">
+    {#each Array(12)
+      .fill(0)
+      .map((_, n) => new Date(Number(start.slice(0, 4)), Number(start.slice(5, 7)) + n - 1, 1))
+      .map((d) => d.toISOString().slice(0, 7)) as monthIso}
+      <Month {monthIso} />
+    {/each}
+  </div>
 </Grid>
 
 <Footer />
 
 <style>
+  .vp {
+    display: flex;
+    flex-wrap: wrap;
+  }
 </style>
