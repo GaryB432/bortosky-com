@@ -5,10 +5,8 @@
   import type { Load } from '@sveltejs/kit';
 
   export const load: Load = ({ params }) => {
-    console.log(params.start);
     const { start } = params;
     const data = {
-      title: 'omfg ok d',
       start,
     };
     return {
