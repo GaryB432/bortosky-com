@@ -11,7 +11,7 @@ function assets() {
     'src/**/*',
     '!**/*.{t,scs}s',
     '!**/*.app.json',
-  ]).pipe(dest('dist'));
+  ], { dot: true }).pipe(dest('dist'));
 }
 
 function clean() {
