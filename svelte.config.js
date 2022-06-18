@@ -1,9 +1,6 @@
 import adapter from '@sveltejs/adapter-static';
 import preprocess from 'svelte-preprocess';
 
-// const dev = process.env.NODE_ENV === 'development';
-const dev = true;
-
 const calMonths = [
   '2022-05',
   '2022-06',
@@ -30,16 +27,10 @@ const config = {
   ],
 
   kit: {
-    adapter: adapter({
-      // default options are shown
-      pages: 'build',
-      assets: 'build',
-      fallback: null,
-      precompress: false,
-    }),
+    adapter: adapter(),
     prerender: { default: true, entries: ['*', ...calMonths] },
     paths: {
-      base: dev ? '' : '/GaryB432',
+      base: ''
     },
     appDir: 'internal',
     methodOverride: {
