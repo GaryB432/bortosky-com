@@ -24,6 +24,8 @@ cd -
 
 see the `GitHub Pages` section [here](https://github.com/sveltejs/kit/tree/master/packages/adapter-static)
 
+see also [JamesIves/github-pages-deploy-action](https://github.com/JamesIves/github-pages-deploy-action)
+
 ## JSON Schema
 
 - [JSON Schema Validator - Newtonsoft](https://www.jsonschemavalidator.net/)
