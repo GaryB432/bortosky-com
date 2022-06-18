@@ -30,7 +30,7 @@ const config = {
     adapter: adapter(),
     prerender: { default: true, entries: ['*', ...calMonths] },
     paths: {
-      base: ''
+      base: '',
     },
     appDir: 'internal',
     methodOverride: {

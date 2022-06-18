@@ -9,7 +9,6 @@
   <meta name="description" content="Bortosky Family" />
 </svelte:head>
 
-
 <Grid>
   <h2>Bortosky Family</h2>
   <p>The only information available about the fam at this time is Gary's</p>
@@ -17,5 +16,6 @@
 </Grid>
 
 <Footer />
+
 <style>
 </style>
