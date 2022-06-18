@@ -1,38 +1,91 @@
-# create-svelte
+# BortoskyCom
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-f8bc45.svg)](https://github.com/prettier/prettier)
 
-## Creating a project
+[![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](https://www.typescriptlang.org/)
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Update bortosky.com
 
-```bash
-# create a new project in the current directory
-npm init svelte
+we need to 
 
-# create a new project in my-app
-npm init svelte my-app
+```powershell
+npm run build
+cd ..\GaryB432.github.io\
+start .
+// remove all items from . except .git
+Copy-Item -Path ..\bortosky-com\build\* -Destination . -Recurse
+git status
+git add .
+git status
+git commit -m "update to v4"
+git push
+cd -
 ```
 
-## Developing
+see the `GitHub Pages` section [here](https://github.com/sveltejs/kit/tree/master/packages/adapter-static)
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## JSON Schema
+
+- [JSON Schema Validator - Newtonsoft](https://www.jsonschemavalidator.net/)
+- [Best JSON Formatter and JSON Validator: Online JSON Formatter](https://jsonformatter.org/)
+
+## QR Code Notes
+
+### zxing links
+
+- [Online Decoder](https://zxing.org/w/decode.jspx)
+- [QR Code Generator](https://zxing.appspot.com/generator)
+- [Javadoc](https://zxing.github.io/zxing/apidocs/)
+- [Documentation Site](https://zxing.github.io/zxing/)
+
+## Development
+
+The project uses the [gulp toolkit](https://gulpjs.com/docs/en/getting-started/quick-start) for development workflow, so install that globally
 
 ```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+npm install --global gulp-cli
 ```
 
-## Building
-
-To create a production version of your app:
+Build your project:
 
 ```bash
 npm run build
 ```
 
-You can preview the production build with `npm run preview`.
+Test your project:
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+```bash
+npm test
+```
+
+Watch your source files (typescript and scss) to rebuild the project when they change
+
+```bash
+gulp watch
+```
+
+## Regenerate tips
+```powershell
+npm init svelte bortosky-com
+cd .\bortosky-com\
+git add -A
+git commit -m "generate sveltekit"
+npm install
+npm install @sveltejs/adapter-static
+npm install sass
+npm install @lukeed/uuid cookie
+npm install @types/cookie -D
+schematics gb-schematics:sveltekit-route --name=moon
+schematics gb-schematics:sveltekit-route --name=gary
+npm t
+npm run dev
+npm run build
+cd build
+ls
+http-server build
+```
+
+## Start command-line http server
+
+Using [http-server](https://www.npmjs.com/package/http-server), a simple zero-configuration command-line http server
+
