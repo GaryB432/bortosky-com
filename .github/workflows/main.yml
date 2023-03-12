@@ -12,6 +12,6 @@ jobs:
       - name: Run a multi-line script
         run: |
           npm install
-          npx playwright install
-          npx playwright test
-          npm run build
+          npx nx lint site
+          npx nx test site
+          npx nx build site
