@@ -13,5 +13,5 @@ jobs:
         run: |
           npm install
           npx nx lint site
-          npx nx test site
+          npx nx test:unit site --run
           npx nx build site
