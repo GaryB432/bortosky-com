@@ -15,3 +15,8 @@ jobs:
           npx nx lint site
           npx nx test:unit site --run
           npx nx build site
+      - name: Archive production site
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-without-markdown
+          path: packages/site/build
