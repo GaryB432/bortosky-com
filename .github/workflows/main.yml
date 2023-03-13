@@ -7,11 +7,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v3
-      with:
-        node-version: 16
-      - name: npm install build and test
+        with:
+          node-version: 16
+      - name: npm install and build
         run: |
           npm install
           npx nx lint site
@@ -20,5 +20,5 @@ jobs:
       - name: Archive production site
         uses: actions/upload-artifact@v3
         with:
-          name: site-build
+          name: production-site
           path: packages/site/build
