@@ -11,5 +11,15 @@
         "cacheableOperations": ["build", "lint", "test", "e2e"]
       }
     }
+  },
+  "defaultProject": "site",
+  "generators": {
+    "@gb-nx/svelte": {
+      "route": {
+        "project": "site",
+        "language": "ts",
+        "load": "none"
+      }
+    }
   }
 }

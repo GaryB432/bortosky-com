@@ -6,16 +6,14 @@
 
 ## Update bortosky.com
 
-we need to
-
 ```powershell
-npm run build
+nx build
 cd ..\GaryB432.github.io\
 start .
 // remove all items from . except .git
-Copy-Item -Path ..\bortosky-com\build\* -Destination . -Recurse
+Copy-Item -Path ..\bortosky-com\packages\site\build\* -Destination . -Recurse
 git status
-git add .
+git add -A
 git status
 git commit -m "update to v4"
 git push
