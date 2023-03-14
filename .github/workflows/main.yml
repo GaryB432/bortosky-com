@@ -1,18 +1,24 @@
 name: CI
 on:
   push:
-    branches: [master, web-modules]
-  pull_request:
-    branches: [master, web-modules]
+    branches: [master, feature/sveltekit]
   workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2.1.5
-      - name: Run a multi-line script
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: npm install and build
         run: |
           npm install
-          npm test -- --coverage
-          npm run build
+          npx nx lint site
+          npx nx test:unit site --run
+          npx nx build site
+      - name: Archive production site
+        uses: actions/upload-artifact@v3
+        with:
+          name: production-site
+          path: packages/site/build

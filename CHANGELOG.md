@@ -1,5 +1,13 @@
 # Changelog
 
+# 14 Mar 2023
+
+- Switch to svelte-kit for real
+
+# 5 May 2022
+
+- Switch to svelte-kit
+
 # 4 January 2022
 
 - Add file cabinet

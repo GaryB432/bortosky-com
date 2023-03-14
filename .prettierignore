@@ -1,2 +1,6 @@
-dist
-*.d.ts
+# Add files here to ignore them from prettier formatting
+
+/dist
+/coverage
+/packages/site/.svelte-kit
+/packages/site/build

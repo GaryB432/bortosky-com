@@ -7,18 +7,22 @@
 ## Update bortosky.com
 
 ```powershell
-npm run build
+nx build
 cd ..\GaryB432.github.io\
 start .
 // remove all items from . except .git
-Copy-Item -Path ..\bortosky-com\dist\* -Destination . -Recurse
+Copy-Item -Path ..\bortosky-com\packages\site\build\* -Destination . -Recurse
 git status
-git add .
+git add -A
 git status
 git commit -m "update to v4"
 git push
 cd -
 ```
+
+see the `GitHub Pages` section [here](https://github.com/sveltejs/kit/tree/master/packages/adapter-static)
+
+see also [JamesIves/github-pages-deploy-action](https://github.com/JamesIves/github-pages-deploy-action)
 
 ## JSON Schema
 
@@ -60,12 +64,28 @@ Watch your source files (typescript and scss) to rebuild the project when they c
 gulp watch
 ```
 
+## Regenerate tips
+
+```powershell
+npm init svelte bortosky-com
+cd .\bortosky-com\
+git add -A
+git commit -m "generate sveltekit"
+npm install
+npm install @sveltejs/adapter-static
+npm install sass
+npm install @lukeed/uuid cookie
+npm install @types/cookie -D
+schematics gb-schematics:sveltekit-route --name=moon
+schematics gb-schematics:sveltekit-route --name=gary
+npm t
+npm run dev
+npm run build
+cd build
+ls
+http-server build
+```
+
 ## Start command-line http server
 
 Using [http-server](https://www.npmjs.com/package/http-server), a simple zero-configuration command-line http server
-
-```properties
-npm install -global http-server
-npm run build
-http-server dist -o
-```
