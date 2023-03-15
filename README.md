@@ -29,6 +29,8 @@ see also [JamesIves/github-pages-deploy-action](https://github.com/JamesIves/git
 - [JSON Schema Validator - Newtonsoft](https://www.jsonschemavalidator.net/)
 - [Best JSON Formatter and JSON Validator: Online JSON Formatter](https://jsonformatter.org/)
 
+> npx json2ts -i .\packages\site\static\cabinet\schema.json --output .\tools\cabinet.d.ts
+
 ## QR Code Notes
 
 ### zxing links

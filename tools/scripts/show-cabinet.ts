@@ -1,6 +1,9 @@
 import { readFile } from 'fs/promises';
 import { argv } from 'process';
-import { Schema as Cabinet, Document as Doc } from '../cabinet';
+import {
+  Document as Doc,
+  HttpsBortoskyComCabinetSchemaJson as Cabinet,
+} from '../cabinet';
 import { Chalk } from './chalk';
 
 const fileName = argv[2] ?? 'assets/cabinet/demo.json';
