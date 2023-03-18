@@ -57,6 +57,7 @@ nx test:unit --run
 Watch your source files (typescript and scss) to rebuild the project when they change
 
 ```bash
+nx generate @gb-nx/svelte:component nav --project=site --style=scss --language=ts
 nx dev
 ```
 

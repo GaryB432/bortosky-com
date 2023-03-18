@@ -29,10 +29,6 @@
   // qrs.forEach(addQR);
 </script>
 
-<ul>
-  <li><a href="projects">Projects</a></li>
-  <li><a href="theater">Theater</a></li>
-</ul>
 <section class="qrs">
   {#each qrs as qr}
     <div class="qr">
@@ -41,29 +37,8 @@
     </div>
   {/each}
 </section>
-<section class="sorter">
-  <textarea cols="40" rows="5" bind:value={sortable} />
-  <button
-    on:click={() => {
-      console.log(sortable);
-      sortable = sortable.split('\n').sort().join('\n');
-    }}>Sort</button
-  >
-</section>
 
 <style lang="scss">
-  // ul {
-  //   display: flex;
-  //   gap: 0.5em;
-  //   margin: 0.5em 0;
-  //   li {
-  //     border: thin solid black;
-  //     padding: 0 0.5em;
-  //   }
-  // }
-  li {
-    display: inline-block;
-  }
   .qrs {
     align-items: center;
     flex-direction: column;
@@ -77,13 +52,6 @@
   .qrs .qr .caption {
     font-size: 2rem;
     text-align: center;
-  }
-
-  .sorter {
-    textarea,
-    button {
-      all: revert;
-    }
   }
 
   @media screen and (min-width: 576px) {
