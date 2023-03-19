@@ -57,22 +57,21 @@ nx test:unit --run
 Watch your source files (typescript and scss) to rebuild the project when they change
 
 ```bash
-nx generate @gb-nx/svelte:component nav --project=site --style=scss --language=ts
 nx dev
 ```
 
 ## Regenerate tips
 
 ```powershell
-npx create-nx-workspace@latest bortosky-com-kit23
-cd .\bortosky-com-kit23\
-ls
-code .
+npx create-nx-workspace@latest bortosky-com
+cd .\bortosky-com\
 cd .\packages\
 npm create svelte@latest site
 git add -A
 git commit -m "stub site"
 cd ..\..
+npm install @gb-nx/svelte -D -w packages/site
+nx generate @gb-nx/svelte:component nav --project=site --style=scss --language=ts
 nx build site
 npm uninstall @sveltejs/adapter-static -D -w packages/site
 npm install @sveltejs/adapter-static -D -w packages/site
