@@ -1,5 +1,9 @@
 # Changelog
 
+# 28 Mar 2023
+
+- Add copy to clipboard feature to `utilities`
+
 # 14 Mar 2023
 
 - Switch to svelte-kit for real
