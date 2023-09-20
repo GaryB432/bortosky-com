@@ -31,10 +31,14 @@
     align-items: center;
   }
   img {
-    min-width: 380px;
+    width: 100%;
+    align-self: center;
   }
   @media screen and (min-width: 576px) {
     /* landscape phones */
+    img {
+      width: 80vh;
+    }
   }
   @media screen and (min-width: 768px) {
     /* tablets */
