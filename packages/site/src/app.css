@@ -47,6 +47,52 @@
   margin-block-end: 1rem;
 }
 
+button.button-a {
+  /* display: inline-block; */
+  /* outline: none; */
+  cursor: pointer;
+  /* font-size: 14px; */
+  line-height: 1;
+  border-radius: 500px;
+  transition-property: background-color, border-color, color, box-shadow, filter;
+  transition-duration: 0.3s;
+  border: 1px solid transparent;
+  letter-spacing: 2px;
+  /* min-width: 160px; */
+  text-transform: uppercase;
+  white-space: normal;
+  font-weight: 700;
+  text-align: center;
+  padding: 1em 2em;
+  color: #fff;
+  background-color: var(--sand-5);
+  height: 3em;
+}
+
+button.svg-button {
+  color: #fff;
+  aspect-ratio: 1;
+  padding: 0.5em;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1;
+  border-radius: 500px;
+  background-color: var(--sand-5);
+}
+
+button.svg-button > svg {
+  fill: currentColor;
+  width: 2em;
+}
+
+button.svg-button:hover,
+button.button-a:hover {
+  transform: scale(1.1);
+  background-color: var(--sand-3);
+}
+
 table {
   border-collapse: collapse;
   border-spacing: 0;

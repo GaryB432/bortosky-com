@@ -132,6 +132,7 @@ describe('Cyto', () => {
       'yoroy-pwa',
     ]);
     expect(eles.edges[0]).toEqual({
+      classes: ['devDependency'],
       data: {
         dev: true,
         id: '@types/jest_another-p',
