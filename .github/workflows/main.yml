@@ -15,7 +15,7 @@ jobs:
         run: |
           npm install
           npx nx lint site
-          npx nx test:unit site --run
+          npx nx test site --run
           npx nx build site
       - name: Archive production site
         uses: actions/upload-artifact@v3
