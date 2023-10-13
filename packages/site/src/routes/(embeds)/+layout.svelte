@@ -7,7 +7,7 @@
     <ol>
       <li class="crumb"><a href="{base}/">Home</a></li>
       <li class="crumb"><a href="{base}/gary/">Gary</a></li>
-      <li class="crumb">Jump Bike 3000</li>
+      <li class="crumb">Embed</li>
     </ol>
   </nav>
   <div class="block">

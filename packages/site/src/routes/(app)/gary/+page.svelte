@@ -4,7 +4,7 @@
 
 <section class="qrs">
   {#each qrs as qr, i}
-    <a href="./qr/{i}#go">
+    <a href="./qr/{i}">
       <div class="qr">
         <img src={qr.src} alt="contact qr" title={qr.from} />
         <div class="caption">{qr.caption}</div>
