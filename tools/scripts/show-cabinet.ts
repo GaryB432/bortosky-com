@@ -1,15 +1,14 @@
+import chalk from 'chalk';
 import { readFile } from 'fs/promises';
 import { argv } from 'process';
 import {
-  Document as Doc,
   HttpsBortoskyComCabinetSchemaJson as Cabinet,
+  Document as Doc,
 } from '../cabinet';
-import { Chalk } from './chalk';
 
 const fileName = argv[2] ?? 'assets/cabinet/demo.json';
 const { log } = console;
 const unlabeled = 'unlabeled';
-const chalk = new Chalk();
 
 function dateString(isoDate: string | undefined): string {
   return isoDate ? `${isoDate.slice(5)}-${isoDate.slice(0, 4)}` : 'undated';

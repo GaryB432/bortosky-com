@@ -12,13 +12,16 @@
       }
     }
   },
-  "defaultProject": "site",
   "generators": {
     "@gb-nx/svelte": {
       "route": {
         "project": "site",
         "language": "ts",
         "load": "none"
+      },
+      "component": {
+        "project": "site",
+        "language": "ts"
       }
     }
   }
