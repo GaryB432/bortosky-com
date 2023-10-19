@@ -1,24 +1,24 @@
-import chalk from 'chalk';
-import { readFile } from 'fs/promises';
-import { argv } from 'process';
-import {
+import chalk from "chalk";
+import { readFile } from "fs/promises";
+import { argv } from "process";
+import type {
   HttpsBortoskyComCabinetSchemaJson as Cabinet,
   Document as Doc,
-} from '../cabinet';
+} from "../cabinet";
 
-const fileName = argv[2] ?? 'assets/cabinet/demo.json';
+const fileName = argv[2] ?? "./static/cabinet/demo.json";
 const { log } = console;
-const unlabeled = 'unlabeled';
+const unlabeled = "unlabeled";
 
 function dateString(isoDate: string | undefined): string {
-  return isoDate ? `${isoDate.slice(5)}-${isoDate.slice(0, 4)}` : 'undated';
+  return isoDate ? `${isoDate.slice(5)}-${isoDate.slice(0, 4)}` : "undated";
 }
 
 function showDoc(doc: Doc) {
   log(
-    `- ${chalk.whiteBright(doc.subject || 'UNSUB')} ${chalk.blue(
-      dateString(doc.date)
-    )}`
+    `- ${chalk.whiteBright(doc.subject || "UNSUB")} ${chalk.blue(
+      dateString(doc.date),
+    )}`,
   );
 }
 
@@ -28,29 +28,31 @@ readFile(fileName).then(
     if (c.hangingFolders) {
       c.hangingFolders.forEach((hf, i) => {
         log(
-          chalk.greenBright(`## Hanging Folder (${i})  [${hf.id ?? unlabeled}]`)
+          chalk.greenBright(
+            `## Hanging Folder (${i})  [${hf.id ?? unlabeled}]`,
+          ),
         );
         if (hf.content) {
           for (const hfc of hf.content) {
-            if ('folder' in hfc) {
+            if ("folder" in hfc) {
               if (hfc.folder) {
-                if (typeof hfc.folder === 'string') {
-                  log(`${chalk.white('###')} ${chalk.yellow(hfc.folder)}`);
+                if (typeof hfc.folder === "string") {
+                  log(`${chalk.white("###")} ${chalk.yellow(hfc.folder)}`);
                 } else {
                   for (const hfcfc of hfc.folder.content || []) {
                     showDoc(hfcfc);
                   }
                 }
               }
-            } else if ('subject' in hfc) {
+            } else if ("subject" in hfc) {
               showDoc(hfc);
             } else {
-              throw new Error('wtf');
+              throw new Error("wtf");
             }
           }
         }
       });
     }
   },
-  (e) => log(e)
+  (e) => log(e),
 );
