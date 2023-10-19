@@ -93,7 +93,7 @@ describe('Cyto', () => {
               "psub",
             ],
             "data": {
-              "id": "reader-e2e@district-map",
+              "id": "district-map#reader",
             },
           },
           {
@@ -101,7 +101,7 @@ describe('Cyto', () => {
               "psub",
             ],
             "data": {
-              "id": "reader@district-map",
+              "id": "district-map#reader-e2e",
             },
           },
           {
@@ -109,7 +109,7 @@ describe('Cyto', () => {
               "psub",
             ],
             "data": {
-              "id": "shared@district-map",
+              "id": "district-map#shared",
             },
           },
           {
@@ -117,7 +117,7 @@ describe('Cyto', () => {
               "psub",
             ],
             "data": {
-              "id": "svg@district-map",
+              "id": "district-map#svg",
             },
           },
           {
@@ -125,7 +125,7 @@ describe('Cyto', () => {
               "psub",
             ],
             "data": {
-              "id": "web@district-map",
+              "id": "district-map#web",
             },
           },
         ],

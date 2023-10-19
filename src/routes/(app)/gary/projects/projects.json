@@ -1,0 +1,563 @@
+[
+  {
+    "root": {
+      "name": "@gb-nx/source",
+      "version": "6.0.0",
+      "dependencies": {
+        "tbd": "0.0.0"
+      },
+      "devDependencies": {
+        "soon": "^17.10.5"
+      },
+      "nx": {}
+    },
+    "projects": [
+      {
+        "name": "browser",
+        "projectType": "library",
+        "tags": []
+      },
+      {
+        "name": "browser-e2e",
+        "implicitDependencies": ["browser"],
+        "projectType": "application",
+        "tags": []
+      },
+      {
+        "name": "cli",
+        "projectType": "library",
+        "tags": []
+      },
+      {
+        "name": "cli-e2e",
+        "implicitDependencies": ["cli"],
+        "projectType": "application",
+        "tags": []
+      },
+      {
+        "name": "junit",
+        "projectType": "library",
+        "tags": []
+      },
+      {
+        "name": "junit-e2e",
+        "implicitDependencies": ["junit"],
+        "projectType": "application",
+        "tags": []
+      },
+      {
+        "name": "svelte",
+        "projectType": "library",
+        "tags": []
+      },
+      {
+        "name": "svelte-e2e",
+        "implicitDependencies": ["svelte"],
+        "projectType": "application",
+        "tags": []
+      },
+      {
+        "name": "workspace",
+        "projectType": "library",
+        "tags": []
+      },
+      {
+        "name": "workspace-e2e",
+        "implicitDependencies": ["workspace"],
+        "projectType": "application",
+        "tags": []
+      },
+      {
+        "name": "workspace-plugin",
+        "projectType": "library",
+        "tags": []
+      }
+    ]
+  },
+  {
+    "root": {
+      "name": "@gb-portfolio/source",
+      "version": "0.0.0",
+      "dependencies": {
+        "tbd": "0.0.0"
+      },
+      "devDependencies": {
+        "soon": "^17.10.5"
+      }
+    },
+    "projects": [
+      {
+        "name": "market",
+        "projectType": "library",
+        "tags": []
+      },
+      {
+        "name": "shower",
+        "projectType": "application",
+        "tags": []
+      }
+    ]
+  },
+  {
+    "root": {
+      "name": "@human-accomplishment/source",
+      "version": "11.0.0",
+      "dependencies": {
+        "tbd": "0.0.0"
+      },
+      "devDependencies": {
+        "soon": "^17.10.5"
+      },
+      "workspaces": ["apps/web"]
+    },
+    "projects": [
+      {
+        "name": "cli",
+        "projectType": "application",
+        "tags": []
+      },
+      {
+        "name": "cosmos",
+        "projectType": "library",
+        "tags": []
+      },
+      {
+        "name": "data-access",
+        "projectType": "library",
+        "tags": []
+      },
+      {
+        "name": "extension",
+        "projectType": "application",
+        "tags": []
+      },
+      {
+        "name": "popupdev",
+        "projectType": "application",
+        "tags": []
+      },
+      {
+        "name": "shared",
+        "projectType": "library",
+        "tags": []
+      },
+      {
+        "name": "social-media",
+        "projectType": "library",
+        "tags": []
+      },
+      {
+        "name": "web",
+        "version": "7.8.0",
+        "type": "module",
+        "dependencies": {
+          "dep": "0"
+        },
+        "devDependencies": {
+          "devdep": "0"
+        },
+        "nx": {}
+      },
+      {
+        "name": "web-ui",
+        "projectType": "library",
+        "tags": []
+      },
+      {
+        "name": "wikimedia",
+        "projectType": "library",
+        "tags": []
+      },
+      {
+        "name": "workspace-plugin",
+        "projectType": "library",
+        "tags": []
+      }
+    ]
+  },
+  {
+    "root": {
+      "name": "bortosky-com",
+      "version": "0.0.1",
+      "type": "module",
+      "dependencies": {
+        "tbd": "0.0.0"
+      },
+      "devDependencies": {
+        "soon": "^17.10.5"
+      },
+      "nx": {}
+    },
+    "projects": []
+  },
+  {
+    "root": {
+      "name": "district-map",
+      "version": "0.0.0",
+      "dependencies": {
+        "tbd": "0.0.0"
+      },
+      "devDependencies": {
+        "soon": "^17.10.5"
+      },
+      "workspaces": ["apps/web"]
+    },
+    "projects": [
+      {
+        "name": "reader",
+        "projectType": "application",
+        "tags": []
+      },
+      {
+        "name": "reader-e2e",
+        "implicitDependencies": ["reader"]
+      },
+      {
+        "name": "shared",
+        "projectType": "library",
+        "tags": []
+      },
+      {
+        "name": "svg",
+        "projectType": "library",
+        "tags": []
+      },
+      {
+        "name": "web",
+        "version": "0.0.1",
+        "type": "module",
+        "dependencies": {
+          "dep": "0"
+        },
+        "devDependencies": {
+          "devdep": "0"
+        },
+        "nx": {
+          "implicitDependencies": ["svg", "shared"]
+        }
+      }
+    ]
+  },
+  {
+    "root": {
+      "name": "eslint-plugin-gb",
+      "version": "2.0.0-alpha.1",
+      "repository": {
+        "type": "git",
+        "url": "https://github.com/garyb432/eslint-plugin-gb.git"
+      },
+      "homepage": "https://github.com/GaryB432/eslint-plugin-gb/tree/master/packages/eslint-plugin-gb",
+      "type": "commonjs",
+      "keywords": ["eslint", "eslintplugin", "eslint-plugin", "typescript"],
+      "dependencies": {
+        "tbd": "0.0.0"
+      },
+      "devDependencies": {
+        "soon": "^17.10.5"
+      }
+    },
+    "projects": [
+      {
+        "name": "eslint-plugin-gb",
+        "projectType": "library",
+        "tags": []
+      }
+    ]
+  },
+  {
+    "root": {
+      "name": "extensions",
+      "version": "1.0.0",
+      "keywords": [],
+      "dependencies": {
+        "tbd": "0.0.0"
+      },
+      "devDependencies": {
+        "soon": "^17.10.5"
+      },
+      "workspaces": ["packages/*"]
+    },
+    "projects": [
+      {
+        "name": "inspiration-cap",
+        "version": "1.0.0",
+        "keywords": [],
+        "description": "",
+        "dependencies": {
+          "dep": "0"
+        },
+        "devDependencies": {
+          "devdep": "0"
+        }
+      },
+      {
+        "name": "markdown-link",
+        "version": "1.0.0",
+        "keywords": [],
+        "description": "",
+        "dependencies": {
+          "dep": "0"
+        },
+        "devDependencies": {
+          "devdep": "0"
+        }
+      },
+      {
+        "name": "starter",
+        "version": "1.0.0",
+        "keywords": [],
+        "description": "",
+        "dependencies": {
+          "dep": "0"
+        },
+        "devDependencies": {
+          "devdep": "0"
+        }
+      }
+    ]
+  },
+  {
+    "root": {
+      "name": "gb-grocery",
+      "version": "6.1.0",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/GaryB432/gb-grocery.git"
+      },
+      "dependencies": {
+        "tbd": "0.0.0"
+      },
+      "devDependencies": {
+        "soon": "^17.10.5"
+      }
+    },
+    "projects": []
+  },
+  {
+    "root": {
+      "name": "gb-schematics",
+      "version": "3.4.0",
+      "repository": {
+        "type": "git",
+        "url": "https://github.com/GaryB432/gb-schematics.git"
+      },
+      "keywords": ["schematics"],
+      "dependencies": {
+        "tbd": "0.0.0"
+      },
+      "devDependencies": {
+        "soon": "^17.10.5"
+      }
+    },
+    "projects": []
+  },
+  {
+    "root": {
+      "name": "lb-minder",
+      "version": "1.6.0",
+      "dependencies": {
+        "tbd": "0.0.0"
+      },
+      "devDependencies": {
+        "soon": "^17.10.5"
+      }
+    },
+    "projects": []
+  },
+  {
+    "root": {
+      "name": "lets-go-out",
+      "version": "0.0.0",
+      "dependencies": {
+        "tbd": "0.0.0"
+      },
+      "devDependencies": {
+        "soon": "^17.10.5"
+      }
+    },
+    "projects": [
+      {
+        "name": "cli",
+        "projectType": "application",
+        "tags": []
+      },
+      {
+        "name": "geojson",
+        "projectType": "library",
+        "tags": []
+      },
+      {
+        "name": "osm",
+        "projectType": "library",
+        "tags": []
+      },
+      {
+        "name": "restaurant",
+        "projectType": "library",
+        "tags": []
+      },
+      {
+        "name": "vector",
+        "projectType": "library",
+        "tags": []
+      },
+      {
+        "name": "web",
+        "projectType": "application",
+        "tags": ["vite"]
+      },
+      {
+        "name": "webutils",
+        "projectType": "library",
+        "tags": []
+      }
+    ]
+  },
+  {
+    "root": {
+      "name": "my-svelte-alpo",
+      "version": "0.0.0",
+      "dependencies": {
+        "tbd": "0.0.0"
+      },
+      "devDependencies": {
+        "soon": "^17.10.5"
+      },
+      "workspaces": ["apps/web-food"]
+    },
+    "projects": [
+      {
+        "name": "eat-em-up",
+        "projectType": "application",
+        "tags": []
+      },
+      {
+        "name": "eat-em-up-e2e",
+        "implicitDependencies": ["eat-em-up"]
+      },
+      {
+        "name": "quell-nu",
+        "projectType": "library",
+        "tags": []
+      },
+      {
+        "name": "web-food",
+        "version": "0.0.1",
+        "type": "module",
+        "dependencies": {
+          "dep": "0"
+        },
+        "devDependencies": {
+          "devdep": "0"
+        },
+        "nx": {
+          "implicitDependencies": ["quell-nu"]
+        }
+      }
+    ]
+  },
+  {
+    "root": {
+      "name": "ocelot",
+      "version": "0.0.0",
+      "dependencies": {
+        "tbd": "0.0.0"
+      },
+      "devDependencies": {
+        "soon": "^17.10.5"
+      }
+    },
+    "projects": [
+      {
+        "name": "web",
+        "projectType": "application",
+        "tags": []
+      },
+      {
+        "name": "web-e2e",
+        "implicitDependencies": ["web"],
+        "projectType": "application",
+        "tags": []
+      }
+    ]
+  },
+  {
+    "root": {
+      "name": "package-man",
+      "version": "6.0.0",
+      "dependencies": {
+        "tbd": "0.0.0"
+      },
+      "devDependencies": {
+        "soon": "^17.10.5"
+      }
+    },
+    "projects": [
+      {
+        "name": "e2e",
+        "implicitDependencies": ["package-man"],
+        "projectType": "application"
+      },
+      {
+        "name": "package-man",
+        "projectType": "application",
+        "tags": []
+      },
+      {
+        "name": "workspace-plugin",
+        "projectType": "library",
+        "tags": []
+      }
+    ]
+  },
+  {
+    "root": {
+      "name": "personal-counter",
+      "version": "0.0.1",
+      "type": "module",
+      "dependencies": {
+        "tbd": "0.0.0"
+      },
+      "devDependencies": {
+        "soon": "^17.10.5"
+      },
+      "nx": {}
+    },
+    "projects": []
+  },
+  {
+    "root": {
+      "name": "poemtoday",
+      "version": "0.0.1",
+      "type": "module",
+      "dependencies": {
+        "tbd": "0.0.0"
+      },
+      "devDependencies": {
+        "soon": "^17.10.5"
+      }
+    },
+    "projects": [
+      {
+        "name": "poemtoday",
+        "projectType": "application",
+        "tags": []
+      }
+    ]
+  },
+  {
+    "root": {
+      "name": "pwa-compass",
+      "version": "0.0.1",
+      "type": "module",
+      "dependencies": {
+        "tbd": "0.0.0"
+      },
+      "devDependencies": {
+        "soon": "^17.10.5"
+      },
+      "nx": {}
+    },
+    "projects": []
+  }
+]
