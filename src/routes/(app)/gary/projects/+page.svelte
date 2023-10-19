@@ -1,5 +1,5 @@
 <script lang="ts">
-  import cytoscape from 'cytoscape';
+  import cytoscape, { type NodeCollection } from 'cytoscape';
   import { onMount } from 'svelte';
   import type { PageData } from './$types';
   import cystyle from './cy-style.json';
@@ -17,6 +17,8 @@
 
   let { elements } = data;
 
+  let saved: cytoscape.NodeCollection;
+
   function runLayout() {
     if (cy && layout) {
       cy.layout(layout).run();
@@ -30,7 +32,35 @@
       style,
       layout,
     });
-    cy.on('tap', 'node', (e) => {
+    cy.bind('tap', 'node', (event: cytoscape.EventObjectNode) => {
+      // .union() takes two collections and adds both together without duplicates
+      if (cy) {
+        const { target } = event;
+        // var connected: cytoscape.NodeCollection = event.target;
+        // connected = connected.union(event.target.predecessors());
+        // connected = connected.union(connected.successors());
+        // in one line:
+        // event.target.union(event.target.predecessors().union(event.target.successors()))
+
+        const connected = target.union(
+          target.predecessors().union(target.successors())
+        );
+
+        // .not() filter zs out whatever is not specified in connected, e.g. every other node/edge not present in connected
+        var notConnected: cytoscape.NodeCollection = cy
+          .elements()
+          .not(connected);
+
+        // console.log(notConnected);
+
+        // if you want, you can later add the saved elements again
+        saved = cy.remove(notConnected);
+      }
+    });
+    cy.bind('select', 'node', (e) => {
+      console.log('select', e);
+    });
+    cy.bind('tap', 'node', (e) => {
       console.log(e.target.data());
       // e.target.selected = true;
       // const n = e.target;
