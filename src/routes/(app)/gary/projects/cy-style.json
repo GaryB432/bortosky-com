@@ -23,5 +23,15 @@
       "line-color": "green",
       "target-arrow-color": "green"
     }
-  }
+  },
+  {
+    "selector": ":selected",
+    "style": {
+      "background-color": "yellow",
+      "line-color": "yellow",
+      "target-arrow-color": "black",
+      "source-arrow-color": "black"
+    }
+  },
+  { "selector": "edge:selected", "style": { "width": 20 } }
 ]

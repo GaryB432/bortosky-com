@@ -30,6 +30,13 @@
       style,
       layout,
     });
+    cy.on('tap', 'node', (e) => {
+      console.log(e.target.data());
+      // e.target.selected = true;
+      // const n = e.target;
+      // console.log(n.data.id);
+      // console.log(this.e);
+    });
     // runLayout();
   });
 </script>

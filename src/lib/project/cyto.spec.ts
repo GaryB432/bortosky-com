@@ -70,7 +70,48 @@ describe('Cyto', () => {
   test('adds', async () => {
     expect(await getElements(specimen)).toMatchInlineSnapshot(`
       {
-        "edges": [],
+        "edges": [
+          {
+            "classes": "psub",
+            "data": {
+              "id": "district-map#reader-district-map",
+              "source": "district-map",
+              "target": "district-map#reader",
+            },
+          },
+          {
+            "classes": "psub",
+            "data": {
+              "id": "district-map#reader-e2e-district-map",
+              "source": "district-map",
+              "target": "district-map#reader-e2e",
+            },
+          },
+          {
+            "classes": "psub",
+            "data": {
+              "id": "district-map#shared-district-map",
+              "source": "district-map",
+              "target": "district-map#shared",
+            },
+          },
+          {
+            "classes": "psub",
+            "data": {
+              "id": "district-map#svg-district-map",
+              "source": "district-map",
+              "target": "district-map#svg",
+            },
+          },
+          {
+            "classes": "psub",
+            "data": {
+              "id": "district-map#web-district-map",
+              "source": "district-map",
+              "target": "district-map#web",
+            },
+          },
+        ],
         "nodes": [
           {
             "classes": [
