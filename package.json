@@ -1,24 +1,69 @@
 {
-  "name": "bortosky-com-",
-  "version": "0.0.0",
-  "license": "MIT",
-  "scripts": {},
-  "private": true,
-  "devDependencies": {
-    "@gb-nx/svelte": "^5.3.0",
-    "@gb-nx/workspace": "^3.2.0",
-    "@nx/devkit": "16.8.1",
-    "@types/cytoscape": "^3.19.11",
-    "eslint-plugin-gb": "^1.5.1",
-    "json-schema-to-typescript": "^12.0.0",
-    "nx": "16.8.1",
-    "prettier": "^2.6.2"
+  "name": "bortosky-com",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "nx exec -- vite build",
+    "preview": "vite preview",
+    "check": "nx exec -- npm run _check -- ",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+    "test": "nx exec -- vitest --run",
+    "lint": "nx exec -- eslint .",
+    "_check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json"
   },
-  "workspaces": [
-    "packages/*"
-  ],
-  "dependencies": {
-    "chalk": "^4.1.2",
-    "cytoscape": "^3.26.0"
+  "devDependencies": {
+    "@fontsource/montserrat": "^5.0.13",
+    "@gb-nx/svelte": "^5.3.1",
+    "@gb-nx/workspace": "^3.2.0",
+    "@sveltejs/adapter-static": "^2.0.3",
+    "@sveltejs/kit": "^1.20.4",
+    "@types/cookie": "^0.5.1",
+    "@types/cytoscape": "^3.19.12",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "cytoscape": "^3.26.0",
+    "eslint": "^8.28.0",
+    "eslint-plugin-svelte": "^2.30.0",
+    "json-schema-to-typescript": "^13.1.1",
+    "nx": "16.10.0",
+    "prettier": "^3.0.3",
+    "sass": "^1.69.3",
+    "svelte": "^4.0.5",
+    "svelte-check": "^3.4.3",
+    "the-new-css-reset": "^1.11.0",
+    "tslib": "^2.4.1",
+    "typescript": "^5.0.0",
+    "vite": "^4.4.2",
+    "vitest": "^0.34.0"
+  },
+  "type": "module",
+  "nx": {
+    "targets": {
+      "build": {
+        "outputs": [
+          "{projectRoot}/.svelte-kit",
+          "{projectRoot}/build"
+        ]
+      },
+      "test": {
+        "outputs": [
+          "{projectRoot}/coverage",
+          "{projectRoot}/junit"
+        ]
+      }
+    },
+    "generators": {
+      "@gb-nx/svelte": {
+        "route": {
+          "project": "site",
+          "language": "ts",
+          "load": "none"
+        },
+        "component": {
+          "project": "site",
+          "language": "ts"
+        }
+      }
+    }
   }
 }

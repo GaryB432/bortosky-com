@@ -2,5 +2,6 @@
 
 /dist
 /coverage
-/packages/site/.svelte-kit
-/packages/site/build
+/build
+/.svelte-kit
+/package
