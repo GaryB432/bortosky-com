@@ -10,15 +10,15 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
       - name: npm install and build
         run: |
           npm install
-          npx nx lint site
-          npx nx test site --run
-          npx nx build site
+          npx nx lint
+          npx nx test --run
+          npx nx build
       - name: Archive production site
         uses: actions/upload-artifact@v3
         with:
           name: production-site
-          path: packages/site/build
+          path: build
