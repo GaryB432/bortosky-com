@@ -3,7 +3,7 @@
   import { onMount } from 'svelte';
   import type { PageData } from './$types';
   import cystyle from './cy-style.json';
-  import LayoutSelect from '$lib/LayoutSelect.svelte';
+  import LayoutSelect from '$lib/components/LayoutSelect.svelte';
 
   export let data: PageData;
 

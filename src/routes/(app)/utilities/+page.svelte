@@ -1,7 +1,7 @@
 <script lang="ts">
-  import ClipboradCopy from '$lib/ClipboradCopy.svelte';
+  import ClipboradCopy from "$lib/components/ClipboardCopy.svelte";
 
-  let sortable = '';
+  let sortable = "";
 </script>
 
 <h1>Tools</h1>
@@ -17,7 +17,7 @@
   <button
     class="button-a"
     on:click={() => {
-      sortable = sortable.split('\n').sort().join('\n');
+      sortable = sortable.split("\n").sort().join("\n");
     }}>Sort</button
   >
   <ClipboradCopy

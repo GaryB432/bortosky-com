@@ -1,6 +1,6 @@
 <script>
   import { base } from '$app/paths';
-  import Tree from '$lib/Tree.svelte';
+  import Tree from '$lib/components//Tree.svelte';
 </script>
 
 <main>

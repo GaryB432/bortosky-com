@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from '$app/stores';
-  import { qrs } from '$lib/quick-response';
+  import { qrs } from '$lib/shared/quick-response';
 
   const subject = qrs[parseInt($page.params.index, 10)];
   function qrSource(src: string): string {

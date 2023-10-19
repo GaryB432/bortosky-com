@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { qrs } from '$lib/quick-response';
+  import { qrs } from '$lib/shared/quick-response';
 </script>
 
 <section class="qrs">
