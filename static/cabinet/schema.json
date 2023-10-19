@@ -1,0 +1,108 @@
+{
+  "$id": "https://bortosky.com/cabinet/schema.json",
+  "$schema": "http://json-schema.org/schema#",
+  "description": "Bortoskys' Filing Cabinet Schema",
+  "type": "object",
+  "properties": {
+    "$schema": true,
+    "hangingFolders": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 5
+          },
+          "description": {
+            "type": "string"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/document"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "folder": {
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "description": {
+                              "type": "string"
+                            },
+                            "content": {
+                              "type": "array",
+                              "items": {
+                                "$ref": "#/$defs/document"
+                              }
+                            }
+                          },
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              ]
+            },
+            "additionalItems": false
+          }
+        },
+        "additionalProperties": false,
+        "additionalItems": false
+      }
+    }
+  },
+  "$defs": {
+    "content": {
+      "oneOf": [
+        {
+          "$href": "#/$defs/document"
+        },
+        {
+          "$href": "#/$defs/folder"
+        }
+      ],
+      "additionalProperties": false
+    },
+    "folder": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "$href": "#/$defs/content"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "document": {
+      "type": "object",
+      "properties": {
+        "subject": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string",
+          "format": "date"
+        }
+      },
+      "required": ["subject"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["hangingFolders"]
+}
