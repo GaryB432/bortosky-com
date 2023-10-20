@@ -1,5 +1,5 @@
-@import 'the-new-css-reset';
-@import '@fontsource/montserrat';
+@import "the-new-css-reset";
+@import "@fontsource/montserrat";
 
 :root {
   --font-sans: Montserrat, system-ui, sans-serif;
