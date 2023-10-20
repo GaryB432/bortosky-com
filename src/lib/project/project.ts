@@ -1,18 +1,20 @@
 /* eslint @typescript-eslint/member-ordering: 0 */
 
+type UnknownRecord = Record<string, unknown>;
+
 export interface PackageJson {
   name: string;
   version: string;
-  dependencies?: Record<string, string>;
+  dependencies?: UnknownRecord;
   description?: string;
   private?: boolean;
-  devDependencies?: Record<string, string>;
-  type?: 'commonjs' | 'module';
+  devDependencies?: UnknownRecord;
+  type?: "commonjs" | "module";
   keywords?: string[];
   license?: string;
   repository?: unknown;
   homepage?: string;
-  scripts?: Record<string, string>;
+  scripts?: UnknownRecord;
   workspaces?: string | string[];
   nx?: NxProjectJson;
 }
@@ -21,11 +23,11 @@ export interface NxProjectJson {
   name?: string;
   $schema?: string;
   implicitDependencies?: string[];
-  projectType?: 'application' | 'library';
+  projectType?: "application" | "library";
   sourceRoot?: string;
-  generators?: Record<string, unknown>;
+  generators?: UnknownRecord;
   tags?: string[];
-  targets?: Record<string, unknown>;
+  targets?: UnknownRecord;
 }
 
 type PackageOrProject = PackageJson | NxProjectJson;

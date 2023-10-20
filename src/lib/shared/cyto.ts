@@ -6,7 +6,7 @@ import type {
   ElementsDefinition,
   NodeDataDefinition,
   NodeDefinition,
-} from 'cytoscape';
+} from "cytoscape";
 
 interface WorkspaceFeatures {
   angular: boolean;
@@ -59,13 +59,13 @@ export interface PackageConfiguration {
 // }
 
 function compareElements(a: ElementDefinition, b: ElementDefinition): number {
-  const sa = a.data.id ?? '';
-  const sb = b.data.id ?? '';
+  const sa = a.data.id ?? "";
+  const sb = b.data.id ?? "";
   return sa.localeCompare(sb);
 }
 
 export function toElementsDefinition(
-  ps: PackageConfiguration[]
+  ps: PackageConfiguration[],
 ): ElementsDefinition {
   const nmap = new Map<string, NodeDefinition>();
   const emap = new Map<string, EdgeDefinition>();
@@ -83,7 +83,7 @@ export function toElementsDefinition(
 
     nmap.set(p.json.name, {
       data: { id: p.json.name, root: true },
-      classes: ['root'],
+      classes: ["root"],
     });
     for (const depk of Object.keys(p.json.devDependencies ?? {})) {
       setEdge(depk, true);
@@ -112,7 +112,7 @@ export function toElementsDefinition(
   const edges = Array.from(emap.values()).sort(compareElements);
 
   edges.forEach(
-    (e) => (e.classes = [e.data['dev'] ? 'devDependency' : 'dependency'])
+    (e) => (e.classes = [e.data["dev"] ? "devDependency" : "dependency"]),
   );
 
   // const f: ElementsDefinition = {
