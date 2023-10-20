@@ -29,6 +29,7 @@
     if (cy) {
       cy.elements().remove();
       cy.add(elements);
+      saved=null;
       runLayout();
     }
   }
@@ -47,6 +48,7 @@
       if (cy) {
         if (saved) {
           cy.add(saved);
+          // saved = null;
         }
         // const ps = target.predecessors();
         // const ss = target.successors();
