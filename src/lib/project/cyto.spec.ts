@@ -169,6 +169,46 @@ describe('Cyto', () => {
               "id": "district-map#web",
             },
           },
+          {
+            "classes": [
+              "dep",
+              "dev",
+            ],
+            "data": {
+              "id": "soon@bortosky-com",
+              "v": "^17.10.5",
+            },
+          },
+          {
+            "classes": [
+              "dep",
+              "dev",
+            ],
+            "data": {
+              "id": "soon@district-map",
+              "v": "^17.10.5",
+            },
+          },
+          {
+            "classes": [
+              "dep",
+              "prod",
+            ],
+            "data": {
+              "id": "tbd@bortosky-com",
+              "v": "0.0.0",
+            },
+          },
+          {
+            "classes": [
+              "dep",
+              "prod",
+            ],
+            "data": {
+              "id": "tbd@district-map",
+              "v": "0.0.0",
+            },
+          },
         ],
       }
     `);

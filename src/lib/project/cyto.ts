@@ -1,17 +1,17 @@
-import type { EdgeDefinition, NodeDefinition } from 'cytoscape';
+import type {
+  EdgeDefinition,
+  ElementsDefinition,
+  NodeDefinition,
+} from 'cytoscape';
 import type { GaryProject } from './project';
 
-type Node = NodeDefinition;
-type Edge = EdgeDefinition;
+export function asdf() {}
 
-type Elements = {
-  edges: Edge[];
-  nodes: Node[];
-};
-
-export async function getElements(gprojs: GaryProject[]): Promise<Elements> {
-  const mns = new Map<string, Node>();
-  const mes = new Map<string, Edge>();
+export async function getElements(
+  gprojs: GaryProject[],
+): Promise<ElementsDefinition> {
+  const mns = new Map<string, NodeDefinition>();
+  const mes = new Map<string, EdgeDefinition>();
 
   for (const gp of gprojs) {
     const id = gp.root.name;
@@ -30,6 +30,24 @@ export async function getElements(gprojs: GaryProject[]): Promise<Elements> {
         classes: 'psub',
       });
     }
+
+    Object.entries(gp.root.dependencies ?? {})
+      .map(([k, v]) => {
+        const did = `${k}@${id}`;
+        return { data: { id: did, v }, classes: ['dep', 'prod'] };
+      })
+      .forEach((d) => {
+        mns.set(d.data.id, d);
+      });
+
+    Object.entries(gp.root.devDependencies ?? {})
+      .map(([k, v]) => {
+        const did = `${k}@${id}`;
+        return { data: { id: did, v }, classes: ['dep', 'dev'] };
+      })
+      .forEach((d) => {
+        mns.set(d.data.id, d);
+      });
   }
 
   const nodes = Array.from(mns.values()).sort((a, b) =>
