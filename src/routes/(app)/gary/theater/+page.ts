@@ -1,5 +1,5 @@
-import { base } from '$app/paths';
-import type { PageLoad } from './$types';
+import { base } from "$app/paths";
+import type { PageLoad } from "./$types";
 
 type ISODate = string;
 
@@ -16,13 +16,13 @@ interface Producer {
 }
 
 export const load: PageLoad = async ({ fetch }) => {
-  const response = await fetch(base.concat('/gary/theater.json'));
+  const response = await fetch(base.concat("/gary/theater.json"));
   const info = (await response.json()) as { producers: Producer[] };
 
   const productions = info.producers
     .map((producer) => {
       producer.productions.forEach(
-        (production) => (production.producer = producer)
+        (production) => (production.producer = producer),
       );
       return producer.productions;
     })

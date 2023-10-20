@@ -4,10 +4,39 @@
       "name": "@gb-nx/source",
       "version": "6.0.0",
       "dependencies": {
-        "tbd": "0.0.0"
+        "@nx/devkit": "16.8.1",
+        "@swc/helpers": "~0.5.0",
+        "tslib": "^2.3.0"
       },
       "devDependencies": {
-        "soon": "^17.10.5"
+        "@nx/eslint-plugin": "16.8.1",
+        "@nx/jest": "16.8.1",
+        "@nx/js": "16.8.1",
+        "@nx/linter": "16.8.1",
+        "@nx/node": "16.8.1",
+        "@nx/plugin": "16.8.1",
+        "@nx/workspace": "16.8.1",
+        "@swc-node/register": "~1.4.2",
+        "@swc/cli": "~0.1.62",
+        "@swc/core": "~1.3.51",
+        "@types/fs-extra": "^11.0.2",
+        "@types/jest": "^29.4.0",
+        "@types/node": "18.7.1",
+        "@typescript-eslint/eslint-plugin": "^5.60.1",
+        "@typescript-eslint/parser": "^5.60.1",
+        "eslint": "8.46.0",
+        "eslint-config-prettier": "8.1.0",
+        "eslint-plugin-gb": "^1.5.1",
+        "jest": "^29.4.1",
+        "jest-environment-jsdom": "^29.4.1",
+        "json-schema-to-typescript": "^13.1.1",
+        "nx": "16.8.1",
+        "prettier": "^2.6.2",
+        "semver": "^7.5.4",
+        "ts-jest": "^29.1.0",
+        "ts-node": "10.9.1",
+        "typescript": "~5.1.3",
+        "verdaccio": "^5.0.4"
       },
       "nx": {}
     },
@@ -79,10 +108,44 @@
       "name": "@gb-portfolio/source",
       "version": "0.0.0",
       "dependencies": {
-        "tbd": "0.0.0"
+        "axios": "^1.4.0",
+        "minimist": "^1.2.8",
+        "table": "^6.8.1",
+        "tslib": "^2.3.0"
       },
       "devDependencies": {
-        "soon": "^17.10.5"
+        "@gb-nx/workspace": "^3.0.0",
+        "@nx/esbuild": "16.7.4",
+        "@nx/eslint-plugin": "16.7.4",
+        "@nx/jest": "16.7.4",
+        "@nx/js": "^16.7.4",
+        "@nx/linter": "16.7.4",
+        "@nx/node": "^16.7.4",
+        "@nx/vite": "^16.7.4",
+        "@nx/workspace": "16.7.4",
+        "@swc/jest": "0.2.20",
+        "@types/jest": "^29.4.0",
+        "@types/minimist": "^1.2.2",
+        "@types/node": "~18.7.1",
+        "@typescript-eslint/eslint-plugin": "^5.60.1",
+        "@typescript-eslint/parser": "^5.60.1",
+        "@vitest/coverage-c8": "~0.32.0",
+        "@vitest/ui": "~0.32.0",
+        "esbuild": "^0.17.17",
+        "eslint": "~8.46.0",
+        "eslint-config-prettier": "8.1.0",
+        "eslint-plugin-gb": "^1.5.1",
+        "jest": "^29.4.1",
+        "jest-environment-node": "^29.4.1",
+        "jest-junit": "^16.0.0",
+        "nx": "16.7.4",
+        "prettier": "^2.6.2",
+        "ts-jest": "^29.1.0",
+        "ts-node": "10.9.1",
+        "typescript": "~5.1.3",
+        "vite": "~4.3.9",
+        "vite-plugin-dts": "~2.3.0",
+        "vitest": "~0.32.0"
       }
     },
     "projects": [
@@ -103,10 +166,61 @@
       "name": "@human-accomplishment/source",
       "version": "11.0.0",
       "dependencies": {
-        "tbd": "0.0.0"
+        "@nx/devkit": "16.8.1",
+        "@swc/helpers": "~0.5.0",
+        "chalk": "^4.0.0",
+        "node-html-parser": "^6.1.10",
+        "sade": "^1.8.1",
+        "tslib": "^2.5.3",
+        "twitter-text": "^3.1.0"
       },
       "devDependencies": {
-        "soon": "^17.10.5"
+        "@gb-nx/browser": "^5.2.0",
+        "@gb-nx/cli": "^3.3.0",
+        "@gb-nx/svelte": "^5.3.1",
+        "@gb-nx/workspace": "^3.1.1",
+        "@nx/eslint-plugin": "16.8.1",
+        "@nx/jest": "16.8.1",
+        "@nx/js": "16.8.1",
+        "@nx/linter": "16.8.1",
+        "@nx/node": "^16.8.1",
+        "@nx/vite": "^16.8.1",
+        "@nx/web": "^16.8.1",
+        "@nx/webpack": "16.8.1",
+        "@nx/workspace": "16.8.1",
+        "@swc/cli": "~0.1.62",
+        "@swc/core": "~1.3.51",
+        "@swc/jest": "0.2.20",
+        "@types/adm-zip": "^0.5.1",
+        "@types/chrome": "^0.0.164",
+        "@types/ejs": "^3.1.2",
+        "@types/inquirer": "^8.2.6",
+        "@types/jest": "29.4.0",
+        "@types/node": "18.7.1",
+        "@types/twitter-text": "^3.1.6",
+        "@typescript-eslint/eslint-plugin": "5.60.1",
+        "@typescript-eslint/parser": "5.60.1",
+        "@vitest/coverage-v8": "^0.33.0",
+        "@vitest/ui": "^0.33.0",
+        "adm-zip": "^0.5.10",
+        "eslint": "8.46.0",
+        "eslint-plugin-gb": "^1.5.1",
+        "eslint-plugin-svelte": "^2.30.0",
+        "html-webpack-plugin": "^5.5.0",
+        "inquirer": "^8.2.6",
+        "jest": "29.4.3",
+        "jest-environment-jsdom": "29.4.3",
+        "jest-environment-node": "29.4.3",
+        "mini-css-extract-plugin": "^2.6.1",
+        "nx": "16.8.1",
+        "prettier": "^2.6.2",
+        "prettier-plugin-svelte": "^2.9.0",
+        "swc-loader": "0.1.15",
+        "ts-jest": "29.1.0",
+        "ts-node": "10.9.1",
+        "typescript": "^5.1.6",
+        "vite": "^4.4.4",
+        "vitest": "^0.33.0"
       },
       "workspaces": ["apps/web"]
     },
@@ -151,10 +265,20 @@
         "version": "7.8.0",
         "type": "module",
         "dependencies": {
-          "dep": "0"
+          "@azure/cosmos": "^4.0.0",
+          "@fontsource/montserrat": "^5.0.8",
+          "tslib": "^2.6.2"
         },
         "devDependencies": {
-          "devdep": "0"
+          "@playwright/test": "^1.36.1",
+          "@sveltejs/adapter-node": "^1.3.1",
+          "@sveltejs/kit": "^1.22.3",
+          "@types/google.visualization": "^0.0.69",
+          "svelte": "^4.1.0",
+          "svelte-check": "^3.4.6",
+          "typescript": "^5.1.6",
+          "vite": "^4.4.4",
+          "vitest": "^0.33.0"
         },
         "nx": {}
       },
@@ -180,11 +304,30 @@
       "name": "bortosky-com",
       "version": "0.0.1",
       "type": "module",
-      "dependencies": {
-        "tbd": "0.0.0"
-      },
       "devDependencies": {
-        "soon": "^17.10.5"
+        "@fontsource/montserrat": "^5.0.13",
+        "@gb-nx/svelte": "^5.3.1",
+        "@gb-nx/workspace": "^3.2.0",
+        "@sveltejs/adapter-static": "^2.0.3",
+        "@sveltejs/kit": "^1.20.4",
+        "@types/cookie": "^0.5.1",
+        "@types/cytoscape": "^3.19.12",
+        "@typescript-eslint/eslint-plugin": "^6.0.0",
+        "@typescript-eslint/parser": "^6.0.0",
+        "cytoscape": "^3.26.0",
+        "eslint": "^8.28.0",
+        "eslint-plugin-svelte": "^2.30.0",
+        "json-schema-to-typescript": "^13.1.1",
+        "nx": "16.10.0",
+        "prettier": "^3.0.3",
+        "sass": "^1.69.3",
+        "svelte": "^4.0.5",
+        "svelte-check": "^3.4.3",
+        "the-new-css-reset": "^1.11.0",
+        "tslib": "^2.4.1",
+        "typescript": "^5.0.0",
+        "vite": "^4.4.2",
+        "vitest": "^0.34.0"
       },
       "nx": {}
     },
@@ -195,10 +338,36 @@
       "name": "district-map",
       "version": "0.0.0",
       "dependencies": {
-        "tbd": "0.0.0"
+        "axios": "^1.0.0",
+        "tslib": "^2.3.0",
+        "xml2js": "^0.4.23"
       },
       "devDependencies": {
-        "soon": "^17.10.5"
+        "@gb-nx/svelte": "^3.4.0",
+        "@gb-nx/workspace": "^2.0.1",
+        "@nrwl/esbuild": "15.8.1",
+        "@nrwl/eslint-plugin-nx": "15.8.1",
+        "@nrwl/jest": "15.8.1",
+        "@nrwl/node": "15.8.1",
+        "@nrwl/workspace": "15.8.1",
+        "@swc/jest": "0.2.20",
+        "@types/jest": "28.1.1",
+        "@types/node": "18.7.1",
+        "@types/xml2js": "^0.4.11",
+        "@typescript-eslint/eslint-plugin": "^5.46.1",
+        "@typescript-eslint/parser": "^5.46.1",
+        "esbuild": "^0.17.5",
+        "eslint": "^8.28.0",
+        "eslint-plugin-gb": "^1.4.0",
+        "eslint-plugin-svelte3": "^4.0.0",
+        "jest": "28.1.1",
+        "jest-environment-jsdom": "28.1.1",
+        "nx": "15.8.1",
+        "prettier": "^2.6.2",
+        "prettier-plugin-svelte": "^2.7.0",
+        "ts-jest": "28.0.5",
+        "ts-node": "10.9.1",
+        "typescript": "~4.9.3"
       },
       "workspaces": ["apps/web"]
     },
@@ -227,10 +396,19 @@
         "version": "0.0.1",
         "type": "module",
         "dependencies": {
-          "dep": "0"
+          "@fontsource/roboto": "^4.5.8",
+          "the-new-css-reset": "^1.8.4"
         },
         "devDependencies": {
-          "devdep": "0"
+          "@sveltejs/adapter-static": "^2.0.1",
+          "@sveltejs/kit": "^1.9.2",
+          "@typescript-eslint/parser": "^5.54.0",
+          "svelte": "^3.55.1",
+          "svelte-check": "^3.0.4",
+          "tslib": "^2.5.0",
+          "typescript": "~4.9.5",
+          "vite": "^4.1.4",
+          "vitest": "^0.29.2"
         },
         "nx": {
           "implicitDependencies": ["svg", "shared"]
@@ -250,10 +428,26 @@
       "type": "commonjs",
       "keywords": ["eslint", "eslintplugin", "eslint-plugin", "typescript"],
       "dependencies": {
-        "tbd": "0.0.0"
+        "@typescript-eslint/eslint-plugin": "^5.60.1",
+        "tslib": "^2.3.0"
       },
       "devDependencies": {
-        "soon": "^17.10.5"
+        "@nx/eslint-plugin": "16.10.0",
+        "@nx/js": "16.10.0",
+        "@nx/linter": "16.10.0",
+        "@nx/vite": "16.10.0",
+        "@nx/workspace": "16.10.0",
+        "@types/node": "18.7.1",
+        "@typescript-eslint/parser": "^5.60.1",
+        "@vitest/coverage-c8": "~0.32.0",
+        "@vitest/ui": "~0.32.0",
+        "eslint": "~8.46.0",
+        "eslint-config-prettier": "8.1.0",
+        "nx": "16.10.0",
+        "prettier": "^2.6.2",
+        "typescript": "~5.1.3",
+        "vite": "~4.3.9",
+        "vitest": "~0.32.0"
       }
     },
     "projects": [
@@ -269,11 +463,36 @@
       "name": "extensions",
       "version": "1.0.0",
       "keywords": [],
-      "dependencies": {
-        "tbd": "0.0.0"
-      },
       "devDependencies": {
-        "soon": "^17.10.5"
+        "@jest/globals": "^29.5.0",
+        "@types/adm-zip": "^0.5.0",
+        "@types/chrome": "^0.0.224",
+        "@types/jest": "^29.5.0",
+        "@types/minimist": "^1.2.2",
+        "@typescript-eslint/eslint-plugin": "^5.56.0",
+        "@typescript-eslint/parser": "^5.56.0",
+        "adm-zip": "^0.5.10",
+        "ansi-colors": "^4.1.3",
+        "clean-webpack-plugin": "^4.0.0",
+        "copy-webpack-plugin": "^11.0.0",
+        "css-loader": "^6.7.3",
+        "eslint": "^8.36.0",
+        "eslint-plugin-gb": "^1.4.0",
+        "eslint-plugin-jest": "^27.2.1",
+        "fast-glob": "^3.2.12",
+        "html-webpack-plugin": "^5.5.0",
+        "jest": "^29.5.0",
+        "jest-environment-jsdom": "^29.5.0",
+        "jest-junit": "^15.0.0",
+        "mini-css-extract-plugin": "^2.7.5",
+        "minimist": "^1.2.8",
+        "prettier": "^2.8.6",
+        "style-loader": "^3.3.2",
+        "ts-jest": "^29.0.5",
+        "ts-loader": "^9.4.2",
+        "tsconfig-paths-webpack-plugin": "^4.0.1",
+        "webpack": "^5.76.3",
+        "webpack-cli": "^5.0.1"
       },
       "workspaces": ["packages/*"]
     },
@@ -284,35 +503,20 @@
         "keywords": [],
         "description": "",
         "dependencies": {
-          "dep": "0"
-        },
-        "devDependencies": {
-          "devdep": "0"
+          "prettier": "^2.8.6"
         }
       },
       {
         "name": "markdown-link",
         "version": "1.0.0",
         "keywords": [],
-        "description": "",
-        "dependencies": {
-          "dep": "0"
-        },
-        "devDependencies": {
-          "devdep": "0"
-        }
+        "description": ""
       },
       {
         "name": "starter",
         "version": "1.0.0",
         "keywords": [],
-        "description": "",
-        "dependencies": {
-          "dep": "0"
-        },
-        "devDependencies": {
-          "devdep": "0"
-        }
+        "description": ""
       }
     ]
   },
@@ -325,10 +529,47 @@
         "url": "git+https://github.com/GaryB432/gb-grocery.git"
       },
       "dependencies": {
-        "tbd": "0.0.0"
+        "@angular/animations": "~13.0.0",
+        "@angular/common": "~13.0.0",
+        "@angular/compiler": "~13.0.0",
+        "@angular/core": "~13.0.0",
+        "@angular/fire": "^7.2.0",
+        "@angular/forms": "~13.0.0",
+        "@angular/platform-browser": "~13.0.0",
+        "@angular/platform-browser-dynamic": "~13.0.0",
+        "@angular/router": "~13.0.0",
+        "@angular/service-worker": "~13.0.0",
+        "firebase": "^9.5.0",
+        "font-awesome": "^4.7.0",
+        "hammerjs": "^2.0.8",
+        "moment": "^2.29.1",
+        "ngx-toastr": "^14.2.1",
+        "rxjs": "~7.4.0",
+        "tslib": "^2.3.0",
+        "zone.js": "~0.11.4"
       },
       "devDependencies": {
-        "soon": "^17.10.5"
+        "@angular-devkit/build-angular": "~13.0.3",
+        "@angular/cli": "~13.0.3",
+        "@angular/compiler-cli": "~13.0.0",
+        "@types/googlemaps": "^3.43.3",
+        "@types/hammerjs": "^2.0.40",
+        "@types/jasmine": "~3.10.0",
+        "@types/node": "^12.11.1",
+        "@typescript-eslint/eslint-plugin": "^5.5.0",
+        "eslint": "^8.3.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-gb": "^1.2.0",
+        "eslint-plugin-prettier": "^4.0.0",
+        "jasmine-core": "~3.10.0",
+        "karma": "~6.3.0",
+        "karma-chrome-launcher": "~3.1.0",
+        "karma-coverage": "~2.0.3",
+        "karma-jasmine": "~4.0.0",
+        "karma-jasmine-html-reporter": "~1.7.0",
+        "karma-timer-reporter": "^1.0.5",
+        "prettier": "^2.4.1",
+        "typescript": "~4.4.3"
       }
     },
     "projects": []
@@ -343,10 +584,24 @@
       },
       "keywords": ["schematics"],
       "dependencies": {
-        "tbd": "0.0.0"
+        "@angular-devkit/core": "^16.2.1",
+        "@angular-devkit/schematics": "^16.2.1",
+        "semver": "^7.5.4"
       },
       "devDependencies": {
-        "soon": "^17.10.5"
+        "@types/jasmine": "^4.3.1",
+        "@types/node": "^20.2.1",
+        "@typescript-eslint/eslint-plugin": "^5.59.6",
+        "@typescript-eslint/parser": "^5.59.6",
+        "eslint": "^8.40.0",
+        "eslint-config-prettier": "^8.8.0",
+        "eslint-plugin-gb": "^1.5.1",
+        "eslint-plugin-prettier": "^4.2.1",
+        "jasmine": "^5.0.0",
+        "json-schema-to-typescript": "^13.0.1",
+        "minimist": "^1.2.8",
+        "prettier": "^2.8.8",
+        "typescript": "^5.0.4"
       }
     },
     "projects": []
@@ -356,10 +611,57 @@
       "name": "lb-minder",
       "version": "1.6.0",
       "dependencies": {
-        "tbd": "0.0.0"
+        "@angular/animations": "^12.0.0",
+        "@angular/common": "^12.0.0",
+        "@angular/compiler": "^12.0.0",
+        "@angular/core": "^12.0.0",
+        "@angular/forms": "^12.0.0",
+        "@angular/platform-browser": "^12.0.0",
+        "@angular/platform-browser-dynamic": "^12.0.0",
+        "@angular/router": "^12.0.0",
+        "@angular/service-worker": "^12.0.0",
+        "@nrwl/angular": "12.3.6",
+        "rxjs": "~6.6.0",
+        "tslib": "^2.0.0",
+        "zone.js": "~0.11.4"
       },
       "devDependencies": {
-        "soon": "^17.10.5"
+        "@angular-devkit/build-angular": "^12.0.0",
+        "@angular-eslint/eslint-plugin": "~12.0.0",
+        "@angular-eslint/eslint-plugin-template": "~12.0.0",
+        "@angular-eslint/template-parser": "~12.0.0",
+        "@angular/cli": "^12.0.0",
+        "@angular/compiler-cli": "^12.0.0",
+        "@angular/language-service": "^12.0.0",
+        "@nrwl/cli": "12.3.6",
+        "@nrwl/cypress": "12.3.6",
+        "@nrwl/devkit": "12.3.6",
+        "@nrwl/eslint-plugin-nx": "12.3.6",
+        "@nrwl/jest": "12.3.6",
+        "@nrwl/linter": "12.3.6",
+        "@nrwl/tao": "12.3.6",
+        "@nrwl/workspace": "12.3.6",
+        "@types/ejs": "^3.0.6",
+        "@types/google.visualization": "0.0.66",
+        "@types/jest": "26.0.8",
+        "@types/node": "14.14.33",
+        "@types/semver": "^7.3.6",
+        "@typescript-eslint/eslint-plugin": "^4.19.0",
+        "@typescript-eslint/parser": "^4.19.0",
+        "cypress": "^7.3.0",
+        "dotenv": "8.2.0",
+        "ejs": "^3.1.6",
+        "eslint": "7.22.0",
+        "eslint-config-prettier": "8.1.0",
+        "eslint-plugin-cypress": "^2.10.3",
+        "jest": "26.2.2",
+        "jest-junit": "^12.1.0",
+        "jest-preset-angular": "8.4.0",
+        "prettier": "2.2.1",
+        "semver": "^7.3.5",
+        "ts-jest": "26.5.5",
+        "ts-node": "~9.1.1",
+        "typescript": "~4.2.4"
       }
     },
     "projects": []
@@ -369,10 +671,38 @@
       "name": "lets-go-out",
       "version": "0.0.0",
       "dependencies": {
-        "tbd": "0.0.0"
+        "fast-xml-parser": "^4.0.10",
+        "tslib": "^2.3.0"
       },
       "devDependencies": {
-        "soon": "^17.10.5"
+        "@gb-nx/junit": "^2.1.2",
+        "@gb-nx/svelte": "^2.0.2",
+        "@gb-nx/workspace": "^1.2.0",
+        "@nrwl/js": "16.5.0",
+        "@nx/eslint-plugin": "16.5.0",
+        "@nx/linter": "16.5.0",
+        "@nx/workspace": "16.5.0",
+        "@types/geojson": "^7946.0.10",
+        "@types/jest": "29.4.4",
+        "@types/leaflet": "^1.8.0",
+        "@types/node": "16.11.7",
+        "@typescript-eslint/eslint-plugin": "5.60.1",
+        "@typescript-eslint/parser": "5.60.1",
+        "eslint": "~8.15.0",
+        "eslint-config-prettier": "8.1.0",
+        "eslint-plugin-gb": "^1.2.0",
+        "jest": "29.4.3",
+        "jest-environment-jsdom": "29.4.3",
+        "jest-junit": "^14.0.0",
+        "nx": "16.5.0",
+        "prettier": "^2.6.2",
+        "prettier-plugin-svelte": "^2.7.0",
+        "ts-jest": "29.1.1",
+        "ts-node": "10.9.1",
+        "typescript": "5.1.6",
+        "@nx/web": "16.5.0",
+        "@nx/jest": "16.5.0",
+        "@nx/node": "16.5.0"
       }
     },
     "projects": [
@@ -418,10 +748,48 @@
       "name": "my-svelte-alpo",
       "version": "0.0.0",
       "dependencies": {
-        "tbd": "0.0.0"
+        "axios": "^1.0.0",
+        "chalk": "^4.1.0",
+        "sade": "^1.8.1"
       },
       "devDependencies": {
-        "soon": "^17.10.5"
+        "@gb-nx/cli": "^3.0.0-2",
+        "@gb-nx/svelte": "^4.0.2",
+        "@gb-nx/workspace": "^2.4.0",
+        "@nrwl/esbuild": "15.8.5",
+        "@nrwl/eslint-plugin-nx": "15.9.2",
+        "@nrwl/jest": "15.8.5",
+        "@nrwl/js": "15.9.2",
+        "@nrwl/linter": "^15.9.2",
+        "@nrwl/node": "15.8.5",
+        "@nrwl/vite": "^15.9.2",
+        "@nrwl/workspace": "15.9.2",
+        "@phenomnomnominal/tsquery": "^5.0.1",
+        "@types/jest": "^29.4.0",
+        "@types/node": "~18.7.1",
+        "@typescript-eslint/eslint-plugin": "^5.46.1",
+        "@typescript-eslint/parser": "^5.46.1",
+        "@vitest/coverage-c8": "~0.25.8",
+        "@vitest/ui": "^0.25.8",
+        "esbuild": "^0.17.5",
+        "eslint": "^8.28.0",
+        "eslint-plugin-gb": "^1.4.0",
+        "eslint-plugin-svelte": "^2.14.1",
+        "jest": "^29.4.1",
+        "jest-environment-node": "^29.4.1",
+        "jsdom": "~20.0.3",
+        "nx": "15.9.2",
+        "prettier": "^2.6.2",
+        "prettier-plugin-svelte": "^2.7.0",
+        "sass": "^1.62.0",
+        "ts-jest": "^29.0.5",
+        "ts-node": "10.9.1",
+        "tslib": "^2.4.1",
+        "typescript": "^5.0.0",
+        "vite": "^4.0.1",
+        "vite-plugin-eslint": "^1.8.1",
+        "vite-tsconfig-paths": "^4.0.2",
+        "vitest": "^0.25.8"
       },
       "workspaces": ["apps/web-food"]
     },
@@ -444,11 +812,24 @@
         "name": "web-food",
         "version": "0.0.1",
         "type": "module",
-        "dependencies": {
-          "dep": "0"
-        },
+        "dependencies": {},
         "devDependencies": {
-          "devdep": "0"
+          "@fontsource/fira-mono": "^4.5.10",
+          "@neoconfetti/svelte": "^1.0.0",
+          "@playwright/test": "^1.28.1",
+          "@sveltejs/adapter-auto": "^2.0.0",
+          "@sveltejs/kit": "^1.5.0",
+          "@types/cookie": "^0.5.1",
+          "@typescript-eslint/eslint-plugin": "^5.45.0",
+          "@typescript-eslint/parser": "^5.46.1",
+          "eslint": "^8.28.0",
+          "eslint-plugin-svelte3": "^4.0.0",
+          "svelte": "^3.54.0",
+          "svelte-check": "^3.0.1",
+          "tslib": "^2.4.1",
+          "typescript": "^5.0.0",
+          "vite": "^4.2.0",
+          "vitest": "^0.25.3"
         },
         "nx": {
           "implicitDependencies": ["quell-nu"]
@@ -461,10 +842,39 @@
       "name": "ocelot",
       "version": "0.0.0",
       "dependencies": {
-        "tbd": "0.0.0"
+        "core-js": "^3.6.5",
+        "regenerator-runtime": "0.13.7",
+        "sass": "^1.58.0",
+        "tslib": "^2.3.0"
       },
       "devDependencies": {
-        "soon": "^17.10.5"
+        "@gb-nx/junit": "^2.1.2",
+        "@gb-nx/workspace": "^1.2.1",
+        "@nrwl/cypress": "15.6.3",
+        "@nrwl/eslint-plugin-nx": "15.6.3",
+        "@nrwl/linter": "15.6.3",
+        "@nrwl/vite": "^15.6.3",
+        "@nrwl/web": "^15.6.3",
+        "@nrwl/workspace": "15.6.3",
+        "@swc/core": "^1.2.173",
+        "@types/node": "18.7.1",
+        "@typescript-eslint/eslint-plugin": "^5.36.1",
+        "@typescript-eslint/parser": "^5.36.1",
+        "@vitest/coverage-c8": "~0.25.8",
+        "@vitest/ui": "^0.25.8",
+        "cypress": "^12.2.0",
+        "eslint": "~8.15.0",
+        "eslint-config-prettier": "8.1.0",
+        "eslint-plugin-cypress": "^2.10.3",
+        "jsdom": "~20.0.3",
+        "nx": "15.6.3",
+        "prettier": "^2.6.2",
+        "swc-loader": "0.1.15",
+        "typescript": "~4.8.2",
+        "vite": "^4.0.1",
+        "vite-plugin-eslint": "^1.8.1",
+        "vite-tsconfig-paths": "^4.0.2",
+        "vitest": "^0.25.8"
       }
     },
     "projects": [
@@ -486,10 +896,47 @@
       "name": "package-man",
       "version": "6.0.0",
       "dependencies": {
-        "tbd": "0.0.0"
+        "@nx/devkit": "16.9.1",
+        "@swc/helpers": "~0.5.2",
+        "axios": "^1.0.0",
+        "chalk": "^4.0.0",
+        "tslib": "^2.3.0"
       },
       "devDependencies": {
-        "soon": "^17.10.5"
+        "@gb-nx/workspace": "^3.1.1",
+        "@nx/esbuild": "16.9.1",
+        "@nx/eslint-plugin": "16.9.1",
+        "@nx/jest": "16.9.1",
+        "@nx/js": "16.9.1",
+        "@nx/linter": "16.9.1",
+        "@nx/node": "16.9.1",
+        "@nx/plugin": "16.9.1",
+        "@nx/workspace": "16.9.1",
+        "@swc-node/register": "~1.6.7",
+        "@swc/cli": "~0.1.62",
+        "@swc/core": "~1.3.85",
+        "@types/inquirer": "^8.0.0",
+        "@types/jest": "^29.5.5",
+        "@types/node": "~18.7.1",
+        "@typescript-eslint/eslint-plugin": "^5.60.1",
+        "@typescript-eslint/parser": "^5.60.1",
+        "esbuild": "^0.19.4",
+        "eslint": "~8.50.0",
+        "eslint-config-prettier": "8.1.0",
+        "eslint-plugin-gb": "^1.5.1",
+        "globby": "^11.1.0",
+        "inquirer": "^8.0.0",
+        "is-glob": "^4.0.3",
+        "jest": "^29.7.0",
+        "jest-environment-jsdom": "^29.4.1",
+        "jest-environment-node": "^29.7.0",
+        "jest-junit": "^16.0.0",
+        "nx": "16.9.1",
+        "prettier": "^2.6.2",
+        "semver": "^7.3.7",
+        "ts-jest": "^29.1.1",
+        "ts-node": "10.9.1",
+        "typescript": "~5.1.3"
       }
     },
     "projects": [
@@ -516,10 +963,28 @@
       "version": "0.0.1",
       "type": "module",
       "dependencies": {
-        "tbd": "0.0.0"
+        "@fontsource/roboto": "^4.5.8"
       },
       "devDependencies": {
-        "soon": "^17.10.5"
+        "@gb-nx/svelte": "^5.1.0",
+        "@gb-nx/workspace": "^3.0.0",
+        "@sveltejs/adapter-static": "^2.0.2",
+        "@sveltejs/kit": "^1.20.2",
+        "@types/google.visualization": "^0.0.69",
+        "@typescript-eslint/eslint-plugin": "^5.45.0",
+        "@typescript-eslint/parser": "^5.45.0",
+        "eslint": "^8.42.0",
+        "eslint-plugin-gb": "^1.5.1",
+        "eslint-plugin-svelte3": "^4.0.0",
+        "nx": "16.3.2",
+        "prettier": "^2.8.8",
+        "prettier-plugin-svelte": "^2.10.1",
+        "svelte": "^3.59.1",
+        "svelte-check": "^3.4.3",
+        "tslib": "^2.4.1",
+        "typescript": "^5.0.0",
+        "vite": "^4.3.9",
+        "vitest": "^0.32.0"
       },
       "nx": {}
     },
@@ -531,10 +996,30 @@
       "version": "0.0.1",
       "type": "module",
       "dependencies": {
-        "tbd": "0.0.0"
+        "@fontsource/roboto": "^4.5.8",
+        "fast-xml-parser": "^4.1.2",
+        "the-new-css-reset": "^1.8.4"
       },
       "devDependencies": {
-        "soon": "^17.10.5"
+        "@gb-nx/svelte": "^3.4.0",
+        "@gb-nx/workspace": "^2.0.1",
+        "@sveltejs/adapter-static": "^2.0.1",
+        "@sveltejs/kit": "^1.7.1",
+        "@typescript-eslint/eslint-plugin": "^5.45.0",
+        "@typescript-eslint/parser": "^5.45.0",
+        "eslint": "^8.28.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-gb": "^1.4.0",
+        "eslint-plugin-svelte3": "^4.0.0",
+        "nx": "^15.7.2",
+        "prettier": "^2.8.0",
+        "prettier-plugin-svelte": "^2.8.1",
+        "svelte": "^3.54.0",
+        "svelte-check": "^3.0.1",
+        "tslib": "^2.4.1",
+        "typescript": "^4.9.3",
+        "vite": "^4.0.0",
+        "vitest": "^0.25.3"
       }
     },
     "projects": [
@@ -550,11 +1035,26 @@
       "name": "pwa-compass",
       "version": "0.0.1",
       "type": "module",
-      "dependencies": {
-        "tbd": "0.0.0"
-      },
       "devDependencies": {
-        "soon": "^17.10.5"
+        "@gb-nx/svelte": "^5.1.0",
+        "@gb-nx/workspace": "^3.0.0",
+        "@sveltejs/adapter-static": "^2.0.2",
+        "@sveltejs/kit": "^1.5.0",
+        "@typescript-eslint/eslint-plugin": "^5.45.0",
+        "@typescript-eslint/parser": "^5.45.0",
+        "@vitest/coverage-c8": "^0.25.3",
+        "eslint": "^8.28.0",
+        "eslint-plugin-gb": "^1.5.1",
+        "eslint-plugin-svelte": "^2.26.0",
+        "nx": "16.3.1",
+        "prettier": "^2.8.8",
+        "sass": "^1.62.1",
+        "svelte": "^3.54.0",
+        "svelte-check": "^3.0.1",
+        "tslib": "^2.4.1",
+        "typescript": "^5.0.0",
+        "vite": "^4.3.0",
+        "vitest": "^0.25.3"
       },
       "nx": {}
     },

@@ -8,6 +8,10 @@
     "style": { "background-color": "#f00" }
   },
   {
+    "selector": "node.dep",
+    "style": { "background-color": "#0f0" }
+  },
+  {
     "selector": "edge",
     "style": {
       "width": 3,
@@ -18,10 +22,16 @@
     }
   },
   {
-    "selector": "edge.dependency",
+    "selector": "edge.dep.development",
     "style": {
       "line-color": "green",
       "target-arrow-color": "green"
+    }
+  },
+  {
+    "selector": "edge.dep.run-time",
+    "style": {
+      "line-color": "orange"
     }
   },
   {
