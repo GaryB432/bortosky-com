@@ -17,11 +17,19 @@
 
   let { elements } = data;
 
-  let saved: cytoscape.NodeCollection;
+  let saved: cytoscape.NodeCollection | null;
 
   function runLayout() {
     if (cy && layout) {
       cy.layout(layout).run();
+    }
+  }
+
+  function restore() {
+    if (cy) {
+      cy.elements().remove();
+      cy.add(elements);
+      runLayout();
     }
   }
 
@@ -34,26 +42,38 @@
     });
     cy.bind('tap', 'node', (event: cytoscape.EventObjectNode) => {
       // .union() takes two collections and adds both together without duplicates
+      const { target } = event;
+      console.log(target);
       if (cy) {
-        const { target } = event;
-        // var connected: cytoscape.NodeCollection = event.target;
-        // connected = connected.union(event.target.predecessors());
-        // connected = connected.union(connected.successors());
+        if (saved) {
+          cy.add(saved);
+        }
+        // const ps = target.predecessors();
+        // const ss = target.successors();
+
+        // cy.remove(ps.union(ss));
+        // cy.elements().add(target.predecessors());
+
+        let connected: cytoscape.NodeCollection = target;
+        connected = connected.union(target.predecessors());
+        connected = connected.union(target.successors());
         // in one line:
         // event.target.union(event.target.predecessors().union(event.target.successors()))
 
-        const connected = target.union(
-          target.predecessors().union(target.successors())
-        );
+        // if (saved) {
+        //   cy.add(saved);
+        // }
 
-        // .not() filter zs out whatever is not specified in connected, e.g. every other node/edge not present in connected
-        var notConnected: cytoscape.NodeCollection = cy
-          .elements()
-          .not(connected);
+        // const connected = target.union(
+        //   target.predecessors().union(target.successors())
+        // );
 
-        // console.log(notConnected);
+        // // .not() filter zs out whatever is not specified in connected, e.g. every other node/edge not present in connected
+        var notConnected: cytoscape.Collection = cy.elements().not(connected);
 
-        // if you want, you can later add the saved elements again
+        // // console.log(notConnected);
+
+        // // if you want, you can later add the saved elements again
         saved = cy.remove(notConnected);
       }
     });
@@ -80,6 +100,7 @@
 <section class="blocky">
   <div id="cydiv" bind:this={cydiv} />
   <section class="buttons">
+    <button class="button-a" on:click={() => restore()}> Restore</button>
     <LayoutSelect
       selected="random"
       on:selected={(evt) => {
