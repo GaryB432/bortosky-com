@@ -1,0 +1,194 @@
+@import "the-new-css-reset";
+@import "@fontsource/montserrat";
+
+:root {
+  --font-sans: Montserrat, system-ui, sans-serif;
+  --sand-1: #e6e4dc;
+  --sand-3: #c2b9a0;
+  --sand-5: #9a9178;
+  --stone-5: #b1b6b9;
+  --gray-9: #212529;
+  --color-document-bg: whitesmoke;
+  --color-document-text: var(--gray-9);
+  --color-h1: var(--color-document-text);
+  --color-h2: var(--sand-5);
+  --color-table-thead-bg: var(--sand-1);
+  --color-table-thead-text: var(--color-document-text);
+  --color-table-border: var(--stone-5);
+  background-color: var(--color-document-bg);
+  color: var(--color-document-text);
+}
+:where(html, body) {
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  font-size: 16px;
+  height: 100%;
+}
+:where(h1, h3, h4, h5, h6) {
+  font-weight: 600;
+}
+:where(h1) {
+  font-size: clamp(2.125rem, 6vw, 3.25rem);
+  line-height: clamp(3rem, 8vw, 4rem);
+  margin-bottom: 2rem;
+  color: var(--color-h1);
+}
+
+:where(h2) {
+  font-size: clamp(1.875rem, 5vw, 2.5rem);
+  font-weight: 400;
+  line-height: 3.25rem;
+  margin-block-start: clamp(1.75rem, 3vw, 3rem);
+  margin-block-end: 1.75rem;
+  color: var(--color-h2);
+}
+
+:where(p) {
+  margin-block-end: 1rem;
+}
+
+button.button-a {
+  /* display: inline-block; */
+  /* outline: none; */
+  cursor: pointer;
+  /* font-size: 14px; */
+  line-height: 1;
+  border-radius: 500px;
+  transition-property: background-color, border-color, color, box-shadow, filter;
+  transition-duration: 0.3s;
+  border: 1px solid transparent;
+  letter-spacing: 2px;
+  /* min-width: 160px; */
+  text-transform: uppercase;
+  white-space: normal;
+  font-weight: 700;
+  text-align: center;
+  padding: 1em 2em;
+  color: #fff;
+  background-color: var(--sand-5);
+  height: 3em;
+}
+
+button.svg-button {
+  color: #fff;
+  aspect-ratio: 1;
+  padding: 0.5em;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1;
+  border-radius: 500px;
+  background-color: var(--sand-5);
+}
+
+button.svg-button > svg {
+  fill: currentColor;
+  width: 2em;
+}
+
+button.svg-button:hover,
+button.button-a:hover {
+  transform: scale(1.1);
+  background-color: var(--sand-3);
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  inline-size: 100%;
+  margin-block: 1rem;
+}
+@media screen and (min-width: 80ch) {
+  th,
+  td {
+    padding: 0.5rem 0.5rem;
+    display: table-cell;
+    border-block-end: 1px dotted var(--color-table-border);
+    border-inline-start: 1px solid var(--color-table-border);
+  }
+  th:first-child,
+  td:first-child {
+    border-inline-start: unset;
+  }
+}
+tr {
+  display: block;
+  padding: 0;
+  text-align: left;
+  white-space: normal;
+}
+@media screen and (min-width: 80ch) {
+  tr {
+    display: table-row;
+  }
+}
+thead {
+  position: absolute;
+  height: 0;
+  overflow: hidden;
+}
+@media screen and (min-width: 80ch) {
+  thead {
+    position: unset;
+    height: unset;
+    overflow: unset;
+  }
+}
+thead th:first-of-type {
+  text-align: left;
+}
+thead th {
+  background-color: var(--color-table-thead-bg);
+  border-block-style: solid;
+}
+tbody {
+  display: block;
+  padding: 0;
+  text-align: left;
+  white-space: normal;
+}
+@media screen and (min-width: 80ch) {
+  tbody {
+    display: table-row-group;
+  }
+}
+tbody tr {
+  margin-block-end: 2.5rem;
+  border-block: 1px solid var(--color-table-border);
+}
+@media screen and (min-width: 80ch) {
+  tbody tr {
+    margin-block-end: unset;
+    border-block: unset;
+  }
+}
+tbody td {
+  border-block-end: 1px dotted var(--color-table-border);
+  column-gap: 0.5rem;
+  display: grid;
+  grid-template-columns: 25% auto;
+  padding: 0.5rem;
+}
+tbody td:first-child {
+  justify-self: start;
+}
+tbody td:first-child :first-child {
+  margin-inline-start: 0 !important;
+}
+tbody td:last-child {
+  border-block-end: unset;
+}
+@media screen and (min-width: 80ch) {
+  tbody td:last-child {
+    border-block-end: 1px dotted var(--color-table-border);
+  }
+}
+@media screen and (min-width: 80ch) {
+  tbody td {
+    display: table-cell;
+  }
+  tbody td:first-child :first-child {
+    margin-inline-start: unset;
+  }
+}

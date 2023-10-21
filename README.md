@@ -7,11 +7,11 @@
 ## Update bortosky.com
 
 ```powershell
-nx build
+npx nx build
 cd ..\GaryB432.github.io\
 start .
 // remove all items from . except .git
-Copy-Item -Path ..\bortosky-com\packages\site\build\* -Destination . -Recurse
+Copy-Item -Path ..\bortosky-com\build\* -Destination . -Recurse
 git status
 git add -A
 git status
@@ -29,7 +29,7 @@ see also [JamesIves/github-pages-deploy-action](https://github.com/JamesIves/git
 - [JSON Schema Validator - Newtonsoft](https://www.jsonschemavalidator.net/)
 - [Best JSON Formatter and JSON Validator: Online JSON Formatter](https://jsonformatter.org/)
 
-> npx json2ts -i .\packages\site\static\cabinet\schema.json --output .\tools\cabinet.d.ts
+> npx json2ts -i .\static\cabinet\schema.json --output .\tools\cabinet.d.ts
 
 ## QR Code Notes
 

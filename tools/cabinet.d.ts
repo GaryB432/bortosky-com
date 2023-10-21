@@ -9,7 +9,7 @@
  * Bortoskys' Filing Cabinet Schema
  */
 export interface HttpsBortoskyComCabinetSchemaJson {
-  $schema?: true;
+  $schema?: unknown;
   hangingFolders: {
     id?: string;
     description?: string;
