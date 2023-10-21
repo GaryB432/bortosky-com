@@ -1,5 +1,6 @@
 import type {
   EdgeDefinition,
+  ElementDefinition,
   ElementsDefinition,
   NodeDefinition,
 } from "cytoscape";
@@ -55,13 +56,12 @@ export async function getElements(
     }
   }
 
-  const nodes = Array.from(mns.values()).sort((a, b) =>
-    a.data.id ? a.data.id.localeCompare(b.data.id ?? "") : 0,
-  );
+  const eleComparer = (a: ElementDefinition, b: ElementDefinition) =>
+    a.data.id ? a.data.id.localeCompare(b.data.id ?? "") : 0;
 
-  const edges = Array.from(mes.values()).sort((a, b) =>
-    a.data.id ? a.data.id.localeCompare(b.data.id ?? "") : 0,
-  );
+  const nodes = Array.from(mns.values()).sort(eleComparer);
+
+  const edges = Array.from(mes.values()).sort(eleComparer);
 
   return { nodes, edges };
 }
