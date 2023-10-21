@@ -2,19 +2,14 @@
   // export let subject = 'AddToCollectionButton component';
 </script>
 
-<div class="container">
-  <label class="collection">
-    <input type="checkbox" />
-    <div>
-      <span />
-    </div>
-  </label>
-</div>
+<label class="collection">
+  <input type="checkbox" />
+  <div>
+    <span />
+  </div>
+</label>
 
 <style lang="scss">
-  .container {
-    border: thin solid silver;
-  }
   $border: #212533;
 
   .collection {
@@ -38,7 +33,7 @@
           border-radius: 2px;
           background: $border;
           right: 100%;
-          transition: all 0.4s ease, background 0.2s ease;
+          transition: all 0.4s ease, background-color 0.2s ease;
         }
         &:before {
           transform: translate(-4px, 0);
@@ -66,7 +61,7 @@
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
-            transition: background 0.2s ease;
+            transition: background-color 0.2s ease;
           }
           &:before {
             width: 10px;
@@ -97,29 +92,4 @@
       }
     }
   }
-
-  // Center & dribbble
-  // body {
-  //   min-height: 100vh;
-  //   // font-family: Roboto, Arial;
-  //   color: #adafb6;
-  //   display: flex;
-  //   justify-content: center;
-  //   align-items: center;
-  //   .dribbble {
-  //     position: fixed;
-  //     display: block;
-  //     right: 20px;
-  //     bottom: 20px;
-  //     opacity: 0.5;
-  //     transition: all 0.4s ease;
-  //     &:hover {
-  //       opacity: 1;
-  //     }
-  //     img {
-  //       display: block;
-  //       height: 36px;
-  //     }
-  //   }
-  // }
 </style>

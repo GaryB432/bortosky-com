@@ -25,7 +25,7 @@
 <style lang="scss">
   .container {
     display: grid;
-    grid-template-columns: 1fr 2em;
+    grid-template-columns: 1fr auto;
     border: thin solid silver;
     height: 600px;
     overflow-y: scroll;
