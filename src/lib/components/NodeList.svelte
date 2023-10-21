@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { ElementsDefinition } from "cytoscape";
+  import AddToCollectionButton from "./AddToCollectionButton.svelte";
 
   export let elements: ElementsDefinition = {
     nodes: [],
@@ -15,11 +16,16 @@
     <div>
       {n.data.id}
     </div>
+    <div>
+      <AddToCollectionButton />
+    </div>
   {/each}
 </div>
 
 <style lang="scss">
   .container {
+    display: grid;
+    grid-template-columns: 1fr 2em;
     border: thin solid silver;
     height: 600px;
     overflow-y: scroll;
