@@ -4,9 +4,7 @@ import type { PageLoad } from "./$types";
 import allProjects from "./projects.json";
 
 export const load = (async ({ params }) => {
-  const elements = await getElements(
-    allProjects.map<GaryProject>((p) => <GaryProject>p)
-  );
+  const elements = await getElements(<GaryProject[]>allProjects);
 
   return { elements };
 }) satisfies PageLoad;

@@ -6,7 +6,7 @@ import type {
 import type { GaryProject } from "./project";
 
 export async function getElements(
-  gprojs: GaryProject[]
+  gprojs: GaryProject[],
 ): Promise<ElementsDefinition> {
   const mns = new Map<string, NodeDefinition>();
   const mes = new Map<string, EdgeDefinition>();
@@ -16,7 +16,7 @@ export async function getElements(
   function addDependencies(
     rec: Record<string, unknown> | undefined,
     source: string,
-    depType: "run-time" | "development"
+    depType: "run-time" | "development",
   ) {
     Object.entries(rec ?? {}).forEach(([target, aversion]) => {
       mns.set(target, { data: { id: target, aversion }, classes: [DEP] });
@@ -56,11 +56,11 @@ export async function getElements(
   }
 
   const nodes = Array.from(mns.values()).sort((a, b) =>
-    a.data.id ? a.data.id.localeCompare(b.data.id ?? "") : 0
+    a.data.id ? a.data.id.localeCompare(b.data.id ?? "") : 0,
   );
 
   const edges = Array.from(mes.values()).sort((a, b) =>
-    a.data.id ? a.data.id.localeCompare(b.data.id ?? "") : 0
+    a.data.id ? a.data.id.localeCompare(b.data.id ?? "") : 0,
   );
 
   return { nodes, edges };

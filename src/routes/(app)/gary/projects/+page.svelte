@@ -1,9 +1,10 @@
 <script lang="ts">
-  import cytoscape, { type NodeCollection } from 'cytoscape';
-  import { onMount } from 'svelte';
-  import type { PageData } from './$types';
-  import cystyle from './cy-style.json';
-  import LayoutSelect from '$lib/components/LayoutSelect.svelte';
+  import cytoscape, { type NodeCollection } from "cytoscape";
+  import NodeList from "$lib/components/NodeList.svelte";
+  import { onMount } from "svelte";
+  import type { PageData } from "./$types";
+  import cystyle from "./cy-style.json";
+  import LayoutSelect from "$lib/components/LayoutSelect.svelte";
 
   export let data: PageData;
 
@@ -13,7 +14,7 @@
 
   const style = cystyle as cytoscape.Stylesheet[];
 
-  let layout: cytoscape.LayoutOptions = { name: 'random' };
+  let layout: cytoscape.LayoutOptions = { name: "random" };
 
   let { elements } = data;
 
@@ -29,7 +30,7 @@
     if (cy) {
       cy.elements().remove();
       cy.add(elements);
-      saved=null;
+      saved = null;
       runLayout();
     }
   }
@@ -41,7 +42,7 @@
       style,
       layout,
     });
-    cy.bind('tap', 'node', (event: cytoscape.EventObjectNode) => {
+    cy.bind("tap", "node", (event: cytoscape.EventObjectNode) => {
       // .union() takes two collections and adds both together without duplicates
       const { target } = event;
       console.log(target);
@@ -79,10 +80,10 @@
         saved = cy.remove(notConnected);
       }
     });
-    cy.bind('select', 'node', (e) => {
-      console.log('select', e);
+    cy.bind("select", "node", (e) => {
+      console.log("select", e);
     });
-    cy.bind('tap', 'node', (e) => {
+    cy.bind("tap", "node", (e) => {
       console.log(e.target.data());
       // e.target.selected = true;
       // const n = e.target;
@@ -100,7 +101,10 @@
 <h1>Projects</h1>
 
 <section class="blocky">
-  <div id="cydiv" bind:this={cydiv} />
+  <div class="top">
+    <div id="cydiv" bind:this={cydiv} />
+    <NodeList {elements} />
+  </div>
   <section class="buttons">
     <button class="button-a" on:click={() => restore()}> Restore</button>
     <LayoutSelect
@@ -140,9 +144,10 @@
   </section>
 </section>
 
-<style>
+<style lang="scss">
   #cydiv {
     width: 600px;
+    height: 600px;
     /* width: 100%; */
     aspect-ratio: 1;
     /* width: 100%; */
@@ -165,10 +170,10 @@
   @media screen and (min-width: 992px) {
     /* desktops */
     .blocky {
-      display: flex;
-      align-items: center;
-      gap: 2em;
-      flex-direction: column;
+      height: 500px;
+      .top {
+        display: flex;
+      }
     }
   }
   @media screen and (min-width: 1200px) {

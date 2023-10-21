@@ -55,13 +55,13 @@
     "generators": {
       "@gb-nx/svelte": {
         "route": {
-          "project": "site",
           "language": "ts",
-          "load": "none"
+          "load": "none",
+          "style": "scss"
         },
         "component": {
-          "project": "site",
-          "language": "ts"
+          "language": "ts",
+          "style": "scss"
         }
       }
     }
