@@ -1,10 +1,10 @@
 <script lang="ts">
-  import cytoscape, { type NodeCollection } from "cytoscape";
+  import LayoutSelect from "$lib/components/LayoutSelect.svelte";
   import NodeList from "$lib/components/NodeList.svelte";
+  import cytoscape from "cytoscape";
   import { onMount } from "svelte";
   import type { PageData } from "./$types";
   import cystyle from "./cy-style.json";
-  import LayoutSelect from "$lib/components/LayoutSelect.svelte";
 
   export let data: PageData;
 
@@ -19,6 +19,8 @@
   let { elements } = data;
 
   let saved: cytoscape.NodeCollection | null;
+
+  // focusedNodes.subscribe((a) => console.log(a));
 
   function runLayout() {
     if (cy && layout) {

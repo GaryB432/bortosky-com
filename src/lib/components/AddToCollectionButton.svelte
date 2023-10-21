@@ -1,9 +1,17 @@
 <script lang="ts">
-  // export let subject = 'AddToCollectionButton component';
+  import { createEventDispatcher } from "svelte";
+  export let checked = false;
+  const dispatch = createEventDispatcher<{ change: { checked: boolean } }>();
 </script>
 
 <label class="collection">
-  <input type="checkbox" />
+  <input
+    bind:checked
+    on:change={() => {
+      dispatch("change", { checked });
+    }}
+    type="checkbox"
+  />
   <div>
     <span />
   </div>

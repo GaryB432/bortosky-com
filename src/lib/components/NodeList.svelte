@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { ElementsDefinition } from "cytoscape";
+  import { focusedNodes } from "../stores/focused-nodes";
   import AddToCollectionButton from "./AddToCollectionButton.svelte";
 
   export let elements: ElementsDefinition = {
@@ -8,6 +9,8 @@
   };
 
   $: nodes = elements.nodes;
+  $: nodes.forEach((n) => (n.scratch = n.scratch ?? { selected: false }));
+  $: focusedNodes.update(() => nodes.filter((n) => n.scratch.selected));
   $: edges = elements.edges;
 </script>
 
@@ -17,7 +20,23 @@
       {n.data.id}
     </div>
     <div>
-      <AddToCollectionButton />
+      <AddToCollectionButton
+        checked={n.scratch && n.scratch.selected}
+        on:change={(c) => {
+          // $focusedNodes = [];
+
+          focusedNodes.update((a) => {
+            console.log(c.detail);
+            if (c.detail.checked) {
+              return [...a, n];
+            } else {
+              return a.filter((nq) => n.data.id !== nq.data.id);
+            }
+          });
+
+          console.dir($focusedNodes);
+        }}
+      />
     </div>
   {/each}
 </div>
