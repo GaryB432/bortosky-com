@@ -18,7 +18,7 @@
 </label>
 
 <style lang="scss">
-  $border: #212533;
+  $border: var(--color-document-text);
 
   .collection {
     input {
@@ -39,7 +39,7 @@
           position: absolute;
           width: 2px;
           border-radius: 2px;
-          background: $border;
+          background-color: $border;
           right: 100%;
           transition: all 0.4s ease, background-color 0.2s ease;
         }
@@ -65,7 +65,7 @@
             display: block;
             position: absolute;
             border-radius: 2px;
-            background: $border;
+            background-color: $border;
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
@@ -84,7 +84,7 @@
       &:checked + div {
         height: 24px;
         margin: 6px 4px;
-        background: $border;
+        background-color: $border;
         &:before,
         &:after {
           transform: translate(2px, 0);
@@ -94,7 +94,7 @@
           transform: rotate(-225deg);
           &:before,
           &:after {
-            background: #fff;
+            background-color: var(--color-document-bg);
           }
         }
       }
