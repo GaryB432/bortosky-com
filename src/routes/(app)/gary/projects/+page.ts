@@ -1,11 +1,12 @@
+import { base } from "$app/paths";
 import { getElements } from "$lib/project/cyto";
 import type { GaryProject } from "$lib/project/project";
 import type { PageLoad } from "./$types";
-import allProjects from "./projects.json";
 
-export const load = (async ({ params }) => {
-  // TODO use fetch like ./theater
-  const elements = await getElements(<GaryProject[]>allProjects);
+export const load = (async ({ fetch }) => {
+  const response = await fetch(base.concat("/gary/projects.json"));
+  const info: GaryProject[] = await response.json();
+  const elements = await getElements(info);
 
   return { elements };
 }) satisfies PageLoad;
