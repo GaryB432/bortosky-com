@@ -12,6 +12,14 @@
     "style": { "background-color": "#0f0" }
   },
   {
+    "selector": "node.focused",
+    "style": {
+      "background-color": "blue",
+      "border-width": 60,
+      "border-color": "green"
+    }
+  },
+  {
     "selector": "edge",
     "style": {
       "width": 3,

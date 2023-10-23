@@ -1,6 +1,7 @@
 <script lang="ts">
   import LayoutSelect from "$lib/components/LayoutSelect.svelte";
   import NodeList from "$lib/components/NodeList.svelte";
+  import { focusedNodes } from "$lib/stores/focused-nodes";
   import cytoscape from "cytoscape";
   import { onMount } from "svelte";
   import type { PageData } from "./$types";
@@ -20,7 +21,14 @@
 
   let saved: cytoscape.NodeCollection | null;
 
-  // focusedNodes.subscribe((a) => console.log(a));
+  const FOCUSED = "focused";
+
+  focusedNodes.subscribe((fns) => {
+    cy?.nodes().removeClass(FOCUSED);
+    fns.forEach((n) => {
+      cy?.$id(n.data.id ?? "").addClass(FOCUSED);
+    });
+  });
 
   function runLayout() {
     if (cy && layout) {
@@ -29,12 +37,11 @@
   }
 
   function restore() {
-    if (cy) {
-      cy.elements().remove();
-      cy.add(elements);
-      saved = null;
-      runLayout();
-    }
+    cy?.elements().remove();
+    cy?.add(elements);
+    $focusedNodes.forEach((fn) => cy?.$id(fn.data.id ?? "").addClass(FOCUSED));
+    saved = null;
+    runLayout();
   }
 
   onMount(() => {
@@ -62,29 +69,13 @@
         let connected: cytoscape.NodeCollection = target;
         connected = connected.union(target.predecessors());
         connected = connected.union(target.successors());
-        // in one line:
-        // event.target.union(event.target.predecessors().union(event.target.successors()))
-
-        // if (saved) {
-        //   cy.add(saved);
-        // }
-
-        // const connected = target.union(
-        //   target.predecessors().union(target.successors())
-        // );
-
-        // // .not() filter zs out whatever is not specified in connected, e.g. every other node/edge not present in connected
-        var notConnected: cytoscape.Collection = cy.elements().not(connected);
-
-        // // console.log(notConnected);
-
-        // // if you want, you can later add the saved elements again
+        const notConnected: cytoscape.Collection = cy.elements().not(connected);
         saved = cy.remove(notConnected);
       }
     });
-    cy.bind("select", "node", (e) => {
-      console.log("select", e);
-    });
+    // cy.bind("select", "node", (e) => {
+    //   console.log("select", e);
+    // });
     cy.bind("tap", "node", (e) => {
       console.log(e.target.data());
       // e.target.selected = true;
@@ -110,7 +101,7 @@
   <section class="buttons">
     <button class="button-a" on:click={() => restore()}> Restore</button>
     <LayoutSelect
-      selected="random"
+      selected="concentric"
       on:selected={(evt) => {
         layout = evt.detail.layout;
         runLayout();

@@ -4,6 +4,7 @@ import type { PageLoad } from "./$types";
 import allProjects from "./projects.json";
 
 export const load = (async ({ params }) => {
+  // TODO use fetch like ./theater
   const elements = await getElements(<GaryProject[]>allProjects);
 
   return { elements };
