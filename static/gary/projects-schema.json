@@ -1,0 +1,68 @@
+{
+  "$id": "https://bortosky.com/gary/projects-schema.json",
+  "$schema": "http://json-schema.org/schema#",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "$schema": true,
+      "root": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "dependencies": {
+            "type": "object"
+          },
+          "devDependencies": {
+            "type": "object"
+          },
+          "nx": {
+            "type": "object",
+            "properties": {
+              "implicitDependencies": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "required": ["name", "version"]
+      },
+      "projects": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "projectType": {
+              "type": "string"
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "implicitDependencies": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": ["name", "projectType"]
+        }
+      }
+    },
+    "required": ["root", "projects"]
+  }
+}

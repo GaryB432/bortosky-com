@@ -7,11 +7,11 @@
 ## Update bortosky.com
 
 ```powershell
-nx build
+npx nx build
 cd ..\GaryB432.github.io\
 start .
 // remove all items from . except .git
-Copy-Item -Path ..\bortosky-com\packages\site\build\* -Destination . -Recurse
+Copy-Item -Path ..\bortosky-com\build\* -Destination . -Recurse
 git status
 git add -A
 git status
@@ -29,6 +29,8 @@ see also [JamesIves/github-pages-deploy-action](https://github.com/JamesIves/git
 - [JSON Schema Validator - Newtonsoft](https://www.jsonschemavalidator.net/)
 - [Best JSON Formatter and JSON Validator: Online JSON Formatter](https://jsonformatter.org/)
 
+> npx json2ts -i .\static\cabinet\schema.json --output .\tools\cabinet.d.ts
+
 ## QR Code Notes
 
 ### zxing links
@@ -40,52 +42,41 @@ see also [JamesIves/github-pages-deploy-action](https://github.com/JamesIves/git
 
 ## Development
 
-The project uses the [gulp toolkit](https://gulpjs.com/docs/en/getting-started/quick-start) for development workflow, so install that globally
-
-```bash
-npm install --global gulp-cli
-```
-
 Build your project:
 
 ```bash
-npm run build
+nx build
 ```
 
 Test your project:
 
 ```bash
-npm test
+nx test:unit --run
 ```
 
 Watch your source files (typescript and scss) to rebuild the project when they change
 
 ```bash
-gulp watch
+nx dev
 ```
 
 ## Regenerate tips
 
 ```powershell
-npm init svelte bortosky-com
+npx create-nx-workspace@latest bortosky-com
 cd .\bortosky-com\
+cd .\packages\
+npm create svelte@latest site
 git add -A
-git commit -m "generate sveltekit"
-npm install
-npm install @sveltejs/adapter-static
-npm install sass
-npm install @lukeed/uuid cookie
-npm install @types/cookie -D
-schematics gb-schematics:sveltekit-route --name=moon
-schematics gb-schematics:sveltekit-route --name=gary
-npm t
-npm run dev
-npm run build
-cd build
-ls
-http-server build
+git commit -m "stub site"
+cd ..\..
+npm install @gb-nx/svelte -D -w packages/site
+nx generate @gb-nx/svelte:component nav --project=site --style=scss --language=ts
+nx build site
+npm uninstall @sveltejs/adapter-static -D -w packages/site
+npm install @sveltejs/adapter-static -D -w packages/site
+nx lint site
+nx format
+nx build site
+nx graph
 ```
-
-## Start command-line http server
-
-Using [http-server](https://www.npmjs.com/package/http-server), a simple zero-configuration command-line http server

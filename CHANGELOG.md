@@ -1,5 +1,13 @@
 # Changelog
 
+# 24 Oct 2023
+
+- Majore update to standalone svelte-kit
+
+# 28 Mar 2023
+
+- Add copy to clipboard feature to `utilities`
+
 # 14 Mar 2023
 
 - Switch to svelte-kit for real
