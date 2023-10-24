@@ -1,10 +1,69 @@
 import type {
+  CssStyleDeclaration,
   EdgeDefinition,
   ElementDefinition,
   ElementsDefinition,
   NodeDefinition,
 } from "cytoscape";
 import type { GaryProject } from "./project";
+
+export function cssDeclarations(): CssStyleDeclaration[] {
+  return [
+    {
+      selector: "node",
+      style: { "background-color": "#666", label: "data(id)" },
+    },
+    {
+      selector: "node.gbp",
+      style: { "background-color": "#f00" },
+    },
+    {
+      selector: "node.dep",
+      style: { "background-color": "#0f0" },
+    },
+    {
+      selector: "node.focused",
+      style: {
+        "background-color": "blue",
+        "border-width": 60,
+        "border-color": "green",
+      },
+    },
+    {
+      selector: "edge",
+      style: {
+        width: 3,
+        "line-color": "#ccc",
+        "target-arrow-color": "#ccc",
+        "target-arrow-shape": "triangle",
+        "curve-style": "bezier",
+      },
+    },
+    {
+      selector: "edge.dep.development",
+      style: {
+        "line-color": "green",
+        "target-arrow-color": "green",
+      },
+    },
+    {
+      selector: "edge.dep.run-time",
+      style: {
+        "line-color": "orange",
+      },
+    },
+    {
+      selector: ":selected",
+      style: {
+        "background-color": "yellow",
+        "line-color": "yellow",
+        "target-arrow-color": "black",
+        "source-arrow-color": "black",
+      },
+    },
+    { selector: "edge:selected", style: { width: 20 } },
+  ];
+}
 
 export async function getElements(
   gprojs: GaryProject[],
@@ -19,14 +78,16 @@ export async function getElements(
     source: string,
     depType: "run-time" | "development",
   ) {
-    Object.entries(rec ?? {}).forEach(([target, aversion]) => {
-      mns.set(target, { data: { id: target, aversion }, classes: [DEP] });
-      const dpid = `${target}_${source}`;
-      mes.set(dpid, {
-        data: { id: dpid, source, target },
-        classes: [DEP, depType],
+    Object.entries(rec ?? {})
+      .filter(([target]) => target !== "eslint-plugin-gb")
+      .forEach(([target, aversion]) => {
+        mns.set(target, { data: { id: target, aversion }, classes: [DEP] });
+        const dpid = `${target}_${source}`;
+        mes.set(dpid, {
+          data: { id: dpid, source, target },
+          classes: [DEP, depType],
+        });
       });
-    });
   }
 
   for (const gp of gprojs) {

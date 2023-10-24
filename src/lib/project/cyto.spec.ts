@@ -16,7 +16,11 @@ describe("Cyto", () => {
             {
               name: "wsa-a",
               type: "module",
-              devDependencies: { desk: "*", window: "*" },
+              devDependencies: {
+                desk: "*",
+                window: "*",
+                "eslint-plugin-gb": "skipped",
+              },
               dependencies: { throttle: "4", brake: "1" },
             },
           ],

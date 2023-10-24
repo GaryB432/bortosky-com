@@ -1,19 +1,17 @@
 <script lang="ts">
   import LayoutSelect from "$lib/components/LayoutSelect.svelte";
   import NodeList from "$lib/components/NodeList.svelte";
+  import { cssDeclarations } from "$lib/project/cyto";
   import { focusedNodes } from "$lib/stores/focused-nodes";
   import cytoscape from "cytoscape";
   import { onMount } from "svelte";
   import type { PageData } from "./$types";
-  import cystyle from "./cy-style.json";
 
   export let data: PageData;
 
   let cy: cytoscape.Core | null = null;
 
   let cydiv: HTMLElement | null = null;
-
-  const style = cystyle as cytoscape.Stylesheet[];
 
   let layout: cytoscape.LayoutOptions = { name: "random" };
 
@@ -48,7 +46,7 @@
     cy = cytoscape({
       container: cydiv,
       elements,
-      style,
+      style: cssDeclarations(),
       layout,
     });
     cy.bind("tap", "node", (event: cytoscape.EventObjectNode) => {
