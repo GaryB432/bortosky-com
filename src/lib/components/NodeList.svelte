@@ -1,30 +1,10 @@
 <script lang="ts">
-  import type cytoscape from "cytoscape";
   import type { ElementsDefinition } from "cytoscape";
-  import cystyle from "../../routes/(app)/gary/projects/cy-style.json";
+  import { onMount } from "svelte";
+  import tippy from "tippy.js";
   import { focusedNodes } from "../stores/focused-nodes";
   import AddToCollectionButton from "./AddToCollectionButton.svelte";
-
-  const styles = cystyle as cytoscape.StylesheetStyle[];
-
-  const fss = styles.find((s) => s.selector === "node.focused") ?? {
-    selector: "node.focused",
-    style: {
-      "background-color": "blue",
-      "border-width": 6,
-      "border-color": "green",
-    } as cytoscape.CssStyleDeclaration,
-  };
-
-  const focusedNodeStyle = fss.style as cytoscape.Css.Node;
-
-  const focusedNodeRadius = 200;
-
-  const backgroundColor = focusedNodeStyle[
-    "background-color"
-  ]?.valueOf() as string;
-  const borderColor = focusedNodeStyle["border-color"]?.valueOf() as string;
-  const borderWidth = focusedNodeStyle["border-width"]?.valueOf() as number;
+  import FocusedNodeIcon from "./FocusedNodeIcon.svelte";
 
   export let elements: ElementsDefinition = {
     nodes: [],
@@ -33,29 +13,24 @@
 
   $: nodes = elements.nodes;
   $: edges = elements.edges;
+
+  onMount(() => {
+    tippy(".button-a.medium");
+  });
 </script>
 
 <div class="container">
   <section class="top">
     <div class="left">
       <h2>Focused Nodes</h2>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 {focusedNodeRadius * 2} {focusedNodeRadius * 2}"
-      >
-        <circle
-          cx={focusedNodeRadius}
-          cy={focusedNodeRadius}
-          r={focusedNodeRadius - borderWidth}
-          stroke={borderColor}
-          stroke-width={borderWidth}
-          fill={backgroundColor}
-        />
-      </svg>
+      <FocusedNodeIcon />
     </div>
     <button
       class="button-a medium"
-      on:click={() => ($focusedNodes = [])}
+      data-tippy-content="Unfocus all nodes"
+      on:click={() => {
+        $focusedNodes = [];
+      }}
       disabled={$focusedNodes.length === 0}
     >
       Clear {$focusedNodes.length}
@@ -104,9 +79,6 @@
         margin: 0;
         line-height: 2rem;
         font-size: 1.5rem;
-      }
-      svg {
-        height: 2rem;
       }
     }
   }
