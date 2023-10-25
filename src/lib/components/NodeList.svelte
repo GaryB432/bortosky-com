@@ -38,7 +38,6 @@
       Clear {$focusedNodes.length}
     </button>
   </section>
-  <SearchSelect {choices} on:choose={(evt) => console.log(evt.detail.name)} />
   <section class="other">
     {#each nodes as n}
       <div class="node-id">

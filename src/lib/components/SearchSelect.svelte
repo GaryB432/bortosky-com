@@ -4,7 +4,8 @@
   export let choices: string[] = [];
 
   $: suggestions = choices.filter((c) => value && c.startsWith(value));
-  $: active = suggestions.length > 0;
+  $: active = suggestions.length > 0 && value !== suggestions[0];
+  // let active = false;
 
   let value = "";
 </script>
@@ -16,31 +17,38 @@
       {#each suggestions as sug}
         <button
           on:click={() => {
-            $selectedNodeName = sug;
-            value = "";
+            value = sug;
           }}
         >
           {sug}
         </button>
       {/each}
-      <!-- here list are inserted from javascript -->
     </div>
-    <div class="icon">F</div>
+    <button
+      class="icon"
+      on:click={() => {
+        $selectedNodeName = value;
+      }}
+    >
+      <svg
+        fill="currentColor"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        viewBox="0 0 390 390"
+      >
+        <path
+          d="M379.711,326.556L265.343,212.188c30.826-54.189,23.166-124.495-23.001-170.663c-55.367-55.366-145.453-55.366-200.818,0
+			c-55.365,55.366-55.366,145.452,0,200.818c46.167,46.167,116.474,53.827,170.663,23.001l114.367,114.369
+			c14.655,14.655,38.503,14.654,53.157,0C394.367,365.059,394.368,341.212,379.711,326.556z M214.057,214.059
+			c-39.77,39.771-104.479,39.771-144.25,0c-39.77-39.77-39.77-104.48,0-144.25c39.771-39.77,104.48-39.77,144.25,0
+			C253.828,109.579,253.827,174.29,214.057,214.059z"
+        />
+      </svg>
+    </button>
   </div>
 </div>
 
 <style lang="scss">
-  // ::selection {
-  //   color: #fff;
-  //   background: #664aff;
-  //   background: orange;
-  // }
-
-  // .container {
-  //   max-width: 450px;
-  //   margin: 0 auto;
-  // }
-
   .container .searchInput {
     background: #fff;
     width: 100%;
@@ -102,8 +110,11 @@
     width: 55px;
     text-align: center;
     line-height: 55px;
-    font-size: 20px;
     color: var(--sand-5);
     cursor: pointer;
+  }
+
+  .searchInput .icon svg {
+    margin: 8px;
   }
 </style>

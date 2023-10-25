@@ -6,6 +6,7 @@
   import cytoscape from "cytoscape";
   import { onMount } from "svelte";
   import type { PageData } from "./$types";
+  import SearchSelect from "$lib/components/SearchSelect.svelte";
 
   export let data: PageData;
 
@@ -63,7 +64,7 @@
     cy?.elements().remove();
     cy?.add(elements);
     $focusedNodes.forEach((fn) => cy?.$id(fn.data.id ?? "").addClass(FOCUSED));
-    $selectedNodeName=undefined;
+    $selectedNodeName = undefined;
     saved = null;
     runLayout();
   }
@@ -93,6 +94,8 @@
     });
     // runLayout();
   });
+
+  $: choices = elements.nodes.map((n) => n.data.id ?? "");
 </script>
 
 <svelte:head>
@@ -107,6 +110,7 @@
     <NodeList {elements} />
   </div>
   <section class="buttons">
+    <SearchSelect {choices} />
     <button class="button-a" on:click={() => restore()}> Restore</button>
     <LayoutSelect
       selected="concentric"
