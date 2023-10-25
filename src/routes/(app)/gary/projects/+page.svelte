@@ -2,7 +2,7 @@
   import LayoutSelect from "$lib/components/LayoutSelect.svelte";
   import NodeList from "$lib/components/NodeList.svelte";
   import { cssDeclarations } from "$lib/project/cyto";
-  import { focusedNodes } from "$lib/stores/focused-nodes";
+  import { focusedNodes, selectedNodeName } from "$lib/stores";
   import cytoscape from "cytoscape";
   import { onMount } from "svelte";
   import type { PageData } from "./$types";
@@ -21,12 +21,37 @@
 
   const FOCUSED = "focused";
 
+  $: if (cy && $selectedNodeName) {
+    if (saved) {
+      cy.add(saved);
+      saved = null;
+    }
+    const n = cy.$id($selectedNodeName);
+    removeUnconnected(n);
+    cy.nodes().deselect();
+    n.select();
+    runLayout();
+  }
+
   focusedNodes.subscribe((fns) => {
     cy?.nodes().removeClass(FOCUSED);
     fns.forEach((n) => {
       cy?.$id(n.data.id ?? "").addClass(FOCUSED);
     });
   });
+
+  function removeUnconnected(target: cytoscape.NodeSingular) {
+    if (cy) {
+      if (saved) {
+        cy.add(saved);
+      }
+      let connected: cytoscape.NodeCollection = target;
+      connected = connected.union(target.predecessors());
+      connected = connected.union(target.successors());
+      const notConnected: cytoscape.Collection = cy.elements().not(connected);
+      saved = cy.remove(notConnected);
+    }
+  }
 
   function runLayout() {
     if (cy && layout) {
@@ -38,6 +63,7 @@
     cy?.elements().remove();
     cy?.add(elements);
     $focusedNodes.forEach((fn) => cy?.$id(fn.data.id ?? "").addClass(FOCUSED));
+    $selectedNodeName=undefined;
     saved = null;
     runLayout();
   }
@@ -49,27 +75,11 @@
       style: cssDeclarations(),
       layout,
     });
+    // cy.bind("tap", "node", (event: cytoscape.EventObjectNode) => {
+    //   removeUnconnected(event.target);
+    // });
     cy.bind("tap", "node", (event: cytoscape.EventObjectNode) => {
-      // .union() takes two collections and adds both together without duplicates
-      const { target } = event;
-      console.log(target);
-      if (cy) {
-        if (saved) {
-          cy.add(saved);
-          // saved = null;
-        }
-        // const ps = target.predecessors();
-        // const ss = target.successors();
-
-        // cy.remove(ps.union(ss));
-        // cy.elements().add(target.predecessors());
-
-        let connected: cytoscape.NodeCollection = target;
-        connected = connected.union(target.predecessors());
-        connected = connected.union(target.successors());
-        const notConnected: cytoscape.Collection = cy.elements().not(connected);
-        saved = cy.remove(notConnected);
-      }
+      removeUnconnected(event.target);
     });
     // cy.bind("select", "node", (e) => {
     //   console.log("select", e);

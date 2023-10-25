@@ -1,6 +1,7 @@
 <script lang="ts">
   import { cssDeclarations } from "$lib/project/cyto";
-  import { focusedNodes } from "$lib/stores/focused-nodes";
+  import { focusedNodes } from "$lib/stores";
+  import type cytoscape from "cytoscape";
   import { onDestroy } from "svelte";
 
   let flash = false;

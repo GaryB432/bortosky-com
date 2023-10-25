@@ -7,6 +7,70 @@ import type {
 } from "cytoscape";
 import type { GaryProject } from "./project";
 
+const ignoredDeps = new Set(["eslint-plugin-gb"]);
+
+export async function getElements(
+  gprojs: GaryProject[]
+): Promise<ElementsDefinition> {
+  const mns = new Map<string, NodeDefinition>();
+  const mes = new Map<string, EdgeDefinition>();
+
+  const DEP = "dep";
+
+  function addDependencies(
+    rec: Record<string, unknown> | undefined,
+    source: string,
+    depType: "run-time" | "development"
+  ) {
+    Object.entries(rec ?? {})
+      .filter(([target]) => !ignoredDeps.has(target))
+      .forEach(([target, aversion]) => {
+        mns.set(target, { data: { id: target, aversion }, classes: [DEP] });
+        const dpid = `${target}_${source}`;
+        mes.set(dpid, {
+          data: { id: dpid, source, target },
+          classes: [DEP, depType],
+        });
+      });
+  }
+
+  for (const gp of gprojs) {
+    const id = gp.root.name;
+    mns.set(id, { data: { id }, classes: ["gbp"] });
+
+    addDependencies(gp.root.dependencies, id, "run-time");
+    addDependencies(gp.root.devDependencies, id, "development");
+
+    for (const sp of gp.projects) {
+      const sid = `${id}#${sp.name}`;
+      mns.set(sid, { data: { id: sid }, classes: ["psub"] });
+      const eid = `${sid}-${id}`;
+
+      mes.set(eid, {
+        data: {
+          id: eid,
+          source: id,
+          target: sid,
+        },
+        classes: "psub",
+      });
+      if ("dependencies" in sp) {
+        addDependencies(sp.dependencies, sid, "run-time");
+        addDependencies(sp.devDependencies, sid, "development");
+      }
+    }
+  }
+
+  const eleComparer = (a: ElementDefinition, b: ElementDefinition) =>
+    a.data.id ? a.data.id.localeCompare(b.data.id ?? "") : 0;
+
+  const nodes = Array.from(mns.values()).sort(eleComparer);
+
+  const edges = Array.from(mes.values()).sort(eleComparer);
+
+  return { nodes, edges };
+}
+
 export function cssDeclarations(): CssStyleDeclaration[] {
   return [
     {
@@ -63,66 +127,4 @@ export function cssDeclarations(): CssStyleDeclaration[] {
     },
     { selector: "edge:selected", style: { width: 20 } },
   ];
-}
-
-export async function getElements(
-  gprojs: GaryProject[],
-): Promise<ElementsDefinition> {
-  const mns = new Map<string, NodeDefinition>();
-  const mes = new Map<string, EdgeDefinition>();
-
-  const DEP = "dep";
-
-  function addDependencies(
-    rec: Record<string, unknown> | undefined,
-    source: string,
-    depType: "run-time" | "development",
-  ) {
-    Object.entries(rec ?? {})
-      .filter(([target]) => target !== "eslint-plugin-gb")
-      .forEach(([target, aversion]) => {
-        mns.set(target, { data: { id: target, aversion }, classes: [DEP] });
-        const dpid = `${target}_${source}`;
-        mes.set(dpid, {
-          data: { id: dpid, source, target },
-          classes: [DEP, depType],
-        });
-      });
-  }
-
-  for (const gp of gprojs) {
-    const id = gp.root.name;
-    mns.set(id, { data: { id }, classes: ["gbp"] });
-
-    addDependencies(gp.root.dependencies, id, "run-time");
-    addDependencies(gp.root.devDependencies, id, "development");
-
-    for (const sp of gp.projects) {
-      const sid = `${id}#${sp.name}`;
-      mns.set(sid, { data: { id: sid }, classes: ["psub"] });
-      const eid = `${sid}-${id}`;
-
-      mes.set(eid, {
-        data: {
-          id: eid,
-          source: id,
-          target: sid,
-        },
-        classes: "psub",
-      });
-      if ("dependencies" in sp) {
-        addDependencies(sp.dependencies, sid, "run-time");
-        addDependencies(sp.devDependencies, sid, "development");
-      }
-    }
-  }
-
-  const eleComparer = (a: ElementDefinition, b: ElementDefinition) =>
-    a.data.id ? a.data.id.localeCompare(b.data.id ?? "") : 0;
-
-  const nodes = Array.from(mns.values()).sort(eleComparer);
-
-  const edges = Array.from(mes.values()).sort(eleComparer);
-
-  return { nodes, edges };
 }

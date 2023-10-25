@@ -2,9 +2,10 @@
   import type { ElementsDefinition } from "cytoscape";
   import { onMount } from "svelte";
   import tippy from "tippy.js";
-  import { focusedNodes } from "../stores/focused-nodes";
+  import { focusedNodes } from "../stores";
   import AddToCollectionButton from "./AddToCollectionButton.svelte";
   import FocusedNodeIcon from "./FocusedNodeIcon.svelte";
+  import SearchSelect from "./SearchSelect.svelte";
 
   export let elements: ElementsDefinition = {
     nodes: [],
@@ -13,6 +14,7 @@
 
   $: nodes = elements.nodes;
   $: edges = elements.edges;
+  $: choices = elements.nodes.map((n) => n.data.id ?? "");
 
   onMount(() => {
     tippy(".button-a.medium");
@@ -36,6 +38,7 @@
       Clear {$focusedNodes.length}
     </button>
   </section>
+  <SearchSelect {choices} on:choose={(evt) => console.log(evt.detail.name)} />
   <section class="other">
     {#each nodes as n}
       <div class="node-id">
