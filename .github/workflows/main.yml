@@ -14,9 +14,9 @@ jobs:
       - name: npm install and build
         run: |
           npm install
-          npx nx lint
-          npx nx test --run
-          npx nx build
+          npm run lint
+          npm run test
+          npm run build
       - name: Archive production site
         uses: actions/upload-artifact@v3
         with:
