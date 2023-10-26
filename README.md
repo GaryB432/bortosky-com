@@ -6,6 +6,8 @@
 
 ## Update bortosky.com
 
+# this is from the liberry
+
 ```powershell
 npx nx build
 cd ..\GaryB432.github.io\
