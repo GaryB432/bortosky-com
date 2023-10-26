@@ -7,7 +7,7 @@
 ## Update bortosky.com
 
 ```powershell
-npx nx build
+npm run build
 cd ..\GaryB432.github.io\
 start .
 // remove all items from . except .git
@@ -45,38 +45,17 @@ see also [JamesIves/github-pages-deploy-action](https://github.com/JamesIves/git
 Build your project:
 
 ```bash
-nx build
+npm run build
 ```
 
 Test your project:
 
 ```bash
-nx test:unit --run
+npm test
 ```
 
 Watch your source files (typescript and scss) to rebuild the project when they change
 
 ```bash
-nx dev
-```
-
-## Regenerate tips
-
-```powershell
-npx create-nx-workspace@latest bortosky-com
-cd .\bortosky-com\
-cd .\packages\
-npm create svelte@latest site
-git add -A
-git commit -m "stub site"
-cd ..\..
-npm install @gb-nx/svelte -D -w packages/site
-nx generate @gb-nx/svelte:component nav --project=site --style=scss --language=ts
-nx build site
-npm uninstall @sveltejs/adapter-static -D -w packages/site
-npm install @sveltejs/adapter-static -D -w packages/site
-nx lint site
-nx format
-nx build site
-nx graph
+npm run dev
 ```
