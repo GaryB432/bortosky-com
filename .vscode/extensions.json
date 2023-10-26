@@ -1,3 +1,9 @@
 {
-  "recommendations": ["nrwl.angular-console", "esbenp.prettier-vscode"]
+  "recommendations": [
+    "bierner.markdown-mermaid",
+    "esbenp.prettier-vscode",
+    "joaompinto.vscode-graphviz",
+    "jumpinjackie.vscode-map-preview",
+    "svelte.svelte-vscode"
+  ]
 }
