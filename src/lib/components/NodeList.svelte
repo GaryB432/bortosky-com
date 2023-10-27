@@ -93,7 +93,6 @@
     overflow-y: scroll;
     div.node-id {
       border: thin solid #ccc;
-      text-wrap: nowrap;
     }
   }
 </style>

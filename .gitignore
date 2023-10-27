@@ -2,7 +2,8 @@
 node_modules
 /build
 /.svelte-kit
-/package
+/.nx-cache
+/.nx
 .env
 .env.*
 !.env.example
