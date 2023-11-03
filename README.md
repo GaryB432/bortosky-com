@@ -11,7 +11,7 @@ npx nx build
 cd ..\GaryB432.github.io\
 start .
 // remove all items from . except .git
-Copy-Item -Path ..\bortosky-com\build\* -Destination . -Recurse
+..\bortosky.com\Deploy
 git status
 git add -A
 git status
