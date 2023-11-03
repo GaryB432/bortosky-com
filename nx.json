@@ -12,5 +12,13 @@
   },
   "affected": {
     "defaultBase": "master"
+  },
+  "generators": {
+    "@gb-nx/svelte": {
+      "component": {
+        "language": "ts",
+        "directory": "components"
+      }
+    }
   }
 }

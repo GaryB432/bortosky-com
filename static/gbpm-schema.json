@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://bortosky.com/gbpm-schema.json",
+  "title": "Bortosky Package Management Configuration",
+  "type": "object",
+  "properties": {
+    "workspaces": {
+      "type": "object",
+      "patternProperties": {
+        "^(?:@[a-zA-Z0-9_-]+/)?[a-zA-Z0-9_-]+$": {
+          "$ref": "#/definitions/project"
+        }
+      },
+      "additionalProperties": false
+    },
+    "todos": {
+      "type": "object",
+      "properties": {
+        "md": {
+          "type": "string"
+        }
+      },
+      "required": ["md"]
+    }
+  },
+  "required": ["workspaces", "todos"],
+  "definitions": {
+    "project": {
+      "type": "object",
+      "properties": {
+        "root": {
+          "type": "string",
+          "description": "Root of the workspace files"
+        }
+      },
+      "required": ["root"],
+      "additionalProperties": false
+    }
+  }
+}

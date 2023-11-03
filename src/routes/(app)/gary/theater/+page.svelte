@@ -1,14 +1,14 @@
 <script lang="ts">
-  import type { PageData } from './$types';
+  import type { PageData } from "./$types";
   export let data: PageData;
 
-  const shortDate = new Intl.DateTimeFormat('en-US', {
-    month: 'short',
-    year: 'numeric',
+  const shortDate = new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    year: "numeric",
   });
-  const longerDate = new Intl.DateTimeFormat('en-US', {
-    dateStyle: 'full',
-    timeStyle: 'long',
+  const longerDate = new Intl.DateTimeFormat("en-US", {
+    dateStyle: "full",
+    timeStyle: "long",
   });
 </script>
 
@@ -55,6 +55,10 @@
   }
   @media screen and (min-width: 992px) {
     /* desktops */
+    table {
+      margin: 0 auto;
+      max-width: 75vw;
+    }
   }
   @media screen and (min-width: 1200px) {
     /* large desktops */
