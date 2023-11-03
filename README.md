@@ -7,6 +7,8 @@
 ## Update bortosky.com
 
 ```powershell
+
+gbpm export --outfile='static/gary/projects.json'
 npx nx build
 cd ..\GaryB432.github.io\
 start .
