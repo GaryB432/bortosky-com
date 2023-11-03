@@ -9,6 +9,7 @@
 ```powershell
 
 gbpm export --outfile='static/gary/projects.json'
+npx nx format
 npx nx build
 cd ..\GaryB432.github.io\
 start .
