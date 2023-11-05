@@ -301,48 +301,6 @@
   },
   {
     "root": {
-      "name": "@sensor-play/source",
-      "version": "0.0.0",
-      "dependencies": {
-        "tslib": "^2.3.0"
-      },
-      "devDependencies": {
-        "@nx/eslint-plugin": "16.2.2",
-        "@nx/js": "16.2.2",
-        "@nx/linter": "16.2.2",
-        "@nx/vite": "^16.2.2",
-        "@nx/web": "^16.2.2",
-        "@nx/workspace": "16.2.2",
-        "@swc/core": "~1.3.51",
-        "@types/node": "18.7.1",
-        "@typescript-eslint/eslint-plugin": "^5.58.0",
-        "@typescript-eslint/parser": "^5.58.0",
-        "@vitest/coverage-c8": "^0.31.0",
-        "@vitest/ui": "^0.31.0",
-        "eslint": "~8.15.0",
-        "eslint-config-prettier": "8.1.0",
-        "jsdom": "~20.0.3",
-        "nx": "16.2.2",
-        "prettier": "^2.6.2",
-        "sass": "^1.62.1",
-        "swc-loader": "0.1.15",
-        "typescript": "~5.0.2",
-        "vite": "^4.3.4",
-        "vite-plugin-eslint": "^1.8.1",
-        "vite-tsconfig-paths": "^4.0.2",
-        "vitest": "^0.31.0"
-      }
-    },
-    "projects": [
-      {
-        "name": "web",
-        "projectType": "application",
-        "tags": []
-      }
-    ]
-  },
-  {
-    "root": {
       "name": "angular-pwa",
       "version": "0.0.0",
       "dependencies": {
@@ -715,6 +673,46 @@
   },
   {
     "root": {
+      "name": "fun-with-ts-root",
+      "dependencies": {
+        "colors": "^1.4.0",
+        "command-line-usage": "^6.1.1",
+        "yargs-parser": "^21.0.0"
+      },
+      "devDependencies": {
+        "@types/command-line-usage": "^5.0.2",
+        "@types/jest": "^27.0.2",
+        "@types/node": "^16.11.5",
+        "@typescript-eslint/eslint-plugin": "^5.3.1",
+        "@typescript-eslint/parser": "^5.3.1",
+        "eslint": "^8.2.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-gb": "^1.1.0",
+        "eslint-plugin-jest": "^25.2.4",
+        "eslint-plugin-prettier": "^4.0.0",
+        "jest": "^27.3.1",
+        "jest-junit": "^13.0.0",
+        "lerna": "^4.0.0",
+        "prettier": "^2.4.1",
+        "ts-jest": "^27.0.7",
+        "typescript": "^4.4.4"
+      }
+    },
+    "projects": [
+      {
+        "name": "fun-with-ts",
+        "version": "0.0.0",
+        "keywords": [],
+        "description": "fun-with-ts",
+        "devDependencies": {
+          "rimraf": "^3.0.2",
+          "typescript": "^4.1.3"
+        }
+      }
+    ]
+  },
+  {
+    "root": {
       "name": "gb-clock",
       "version": "0.0.1",
       "devDependencies": {
@@ -748,6 +746,174 @@
       }
     },
     "projects": []
+  },
+  {
+    "root": {
+      "name": "gb-elements-root",
+      "dependencies": {
+        "clean-webpack-plugin": "^4.0.0",
+        "copy-webpack-plugin": "^10.2.0",
+        "html-webpack-plugin": "^5.5.0",
+        "mini-css-extract-plugin": "^2.4.5"
+      },
+      "devDependencies": {
+        "@types/jest": "^27.0.2",
+        "@types/node": "^16.11.5",
+        "@typescript-eslint/eslint-plugin": "^5.3.1",
+        "@typescript-eslint/parser": "^5.3.1",
+        "eslint": "^8.2.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-gb": "^1.2.0",
+        "eslint-plugin-jest": "^25.2.4",
+        "eslint-plugin-prettier": "^4.0.0",
+        "jest": "^27.3.1",
+        "jest-junit": "^13.0.0",
+        "lerna": "^4.0.0",
+        "prettier": "^2.4.1",
+        "ts-jest": "^27.0.7",
+        "ts-loader": "^9.2.6",
+        "typescript": "^4.4.4",
+        "webpack": "^5.65.0",
+        "webpack-cli": "^4.9.1",
+        "webpack-dev-server": "^4.6.0"
+      }
+    },
+    "projects": [
+      {
+        "name": "@gb-elements/demo",
+        "version": "0.0.0",
+        "keywords": [],
+        "description": "gb-elements demo",
+        "devDependencies": {
+          "rimraf": "^3.0.2",
+          "typescript": "^4.1.3"
+        }
+      },
+      {
+        "name": "@gb-elements/square",
+        "version": "0.0.0",
+        "keywords": [],
+        "description": "gb-elements square",
+        "devDependencies": {
+          "rimraf": "^3.0.2",
+          "typescript": "^4.1.3"
+        }
+      }
+    ]
+  },
+  {
+    "root": {
+      "name": "gb-generators-root",
+      "devDependencies": {
+        "@types/jest": "^27.0.1",
+        "@types/node": "^16.6.1",
+        "@types/yeoman-generator": "^5.2.7",
+        "@types/yeoman-test": "^4.0.2",
+        "@typescript-eslint/eslint-plugin": "^4.29.1",
+        "@typescript-eslint/parser": "^4.29.1",
+        "eslint": "^7.32.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-gb": "^1.1.0",
+        "eslint-plugin-prettier": "^3.4.0",
+        "jest": "^27.0.6",
+        "lerna": "^4.0.0",
+        "prettier": "^2.3.2",
+        "ts-jest": "^27.0.4",
+        "typescript": "^4.3.5",
+        "yeoman-environment": "^3.6.0",
+        "yeoman-generator": "^5.4.2",
+        "yeoman-test": "^6.2.0"
+      }
+    },
+    "projects": [
+      {
+        "name": "generator-gb-utility",
+        "version": "2.0.0",
+        "keywords": ["yeoman-generator"],
+        "description": "Utility subgenerators",
+        "repository": {
+          "type": "git",
+          "url": "https://github.com/GaryB432/gb-generators.git"
+        },
+        "homepage": "https://github.com/GaryB432/gb-generators/tree/master/packages/generator-gb-utility",
+        "dependencies": {
+          "case": "^1.6.3",
+          "chalk": "^4.0.0",
+          "yeoman-environment": "^3.6.0",
+          "yeoman-generator": "^5.4.2"
+        }
+      },
+      {
+        "name": "generator-lerna-typescript",
+        "version": "3.0.0",
+        "keywords": ["lerna", "typescript", "monorepo", "yeoman-generator"],
+        "description": "Get started with Lerna using TypeScript",
+        "repository": {
+          "type": "git",
+          "url": "https://github.com/GaryB432/gb-generators.git"
+        },
+        "homepage": "https://github.com/GaryB432/gb-generators/tree/master/packages/generator-lerna-typescript",
+        "dependencies": {
+          "case": "^1.6.3",
+          "chalk": "^4.0.0",
+          "generator-gb-utility": "^2.0.0",
+          "yeoman-environment": "^3.6.0",
+          "yeoman-generator": "^5.4.2"
+        }
+      },
+      {
+        "name": "generator-web-modules",
+        "version": "2.0.0",
+        "keywords": [
+          "yeoman-generator",
+          "typescript",
+          "es6",
+          "modules",
+          "sass",
+          "scss",
+          "eslint"
+        ],
+        "description": "A Yeoman Generator for creating websites with TypeScript, Sass and ES6 modules",
+        "repository": {
+          "type": "git",
+          "url": "https://github.com/GaryB432/gb-generators.git"
+        },
+        "homepage": "https://github.com/GaryB432/gb-generators/tree/master/packages/generator-web-modules",
+        "dependencies": {
+          "case": "^1.6.3",
+          "chalk": "^4.0.0",
+          "generator-gb-utility": "^2.0.0",
+          "yeoman-environment": "^3.6.0",
+          "yeoman-generator": "^5.4.2"
+        }
+      },
+      {
+        "name": "generator-webpack-ts",
+        "version": "7.0.0",
+        "keywords": [
+          "yeoman-generator",
+          "typescript",
+          "webpack",
+          "workbox",
+          "sass",
+          "scss",
+          "eslint"
+        ],
+        "description": "A Yeoman Generator for creating websites with TypeScript, Sass and Webpack",
+        "repository": {
+          "type": "git",
+          "url": "https://github.com/GaryB432/gb-generators.git"
+        },
+        "homepage": "https://github.com/GaryB432/gb-generators/tree/master/packages/generator-webpack-ts",
+        "dependencies": {
+          "case": "^1.6.3",
+          "chalk": "^4.0.0",
+          "generator-gb-utility": "^2.0.0",
+          "yeoman-environment": "^3.6.0",
+          "yeoman-generator": "^5.4.2"
+        }
+      }
+    ]
   },
   {
     "root": {
@@ -805,6 +971,111 @@
   },
   {
     "root": {
+      "name": "gb-karma-plugins-root",
+      "dependencies": {
+        "lerna": "^4.0.0"
+      },
+      "devDependencies": {
+        "@types/jest": "^27.4.0",
+        "@types/karma": "^6.3.3",
+        "@types/node": "^17.0.15",
+        "@typescript-eslint/eslint-plugin": "^5.10.2",
+        "@typescript-eslint/parser": "^5.10.2",
+        "eslint": "^8.8.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-formatter-friendly": "^7.0.0",
+        "eslint-plugin-prettier": "^4.0.0",
+        "jest": "^27.5.0",
+        "prettier": "^2.5.1",
+        "ts-jest": "^27.1.3",
+        "typescript": "^4.5.5"
+      }
+    },
+    "projects": [
+      {
+        "name": "karma-timer-reporter",
+        "version": "1.0.7",
+        "keywords": ["karma-plugin", "karma-reporter"],
+        "description": "Karma plugin for test timing analytics",
+        "repository": {
+          "type": "git",
+          "url": "https://github.com/GaryB432/gb-karma-plugins.git"
+        },
+        "homepage": "https://github.com/GaryB432/gb-karma-plugins/tree/master/packages/karma-timer-reporter",
+        "devDependencies": {
+          "@types/karma": "^6.3.3",
+          "typescript": "^4.5.5"
+        }
+      }
+    ]
+  },
+  {
+    "root": {
+      "name": "gb-maps-root",
+      "dependencies": {},
+      "devDependencies": {
+        "@types/jest": "^27.0.1",
+        "@types/node": "^16.6.1",
+        "@typescript-eslint/eslint-plugin": "^4.29.1",
+        "@typescript-eslint/parser": "^4.29.1",
+        "eslint": "^7.32.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-jest": "^24.4.0",
+        "eslint-plugin-prettier": "^3.4.0",
+        "jest": "^27.0.6",
+        "jest-junit": "^12.2.0",
+        "lerna": "^4.0.0",
+        "prettier": "^2.3.2",
+        "ts-jest": "^27.0.4",
+        "typescript": "^4.4.3"
+      }
+    },
+    "projects": [
+      {
+        "name": "@gb-maps/cli",
+        "version": "0.1.5",
+        "keywords": [],
+        "description": "command line interface for @gb-maps/parsers",
+        "dependencies": {
+          "@gb-maps/core": "^0.1.5",
+          "chalk": "^4.1.2",
+          "commander": "^8.2.0"
+        },
+        "devDependencies": {
+          "rimraf": "^3.0.2",
+          "typescript": "^4.4.3"
+        }
+      },
+      {
+        "name": "@gb-maps/core",
+        "version": "0.1.5",
+        "keywords": ["kml", "osm", "maps"],
+        "description": "core package for gb-maps",
+        "dependencies": {
+          "@gb-maps/parsers": "^0.1.5"
+        },
+        "devDependencies": {
+          "rimraf": "^3.0.2",
+          "typescript": "^4.4.3"
+        }
+      },
+      {
+        "name": "@gb-maps/parsers",
+        "version": "0.1.5",
+        "keywords": ["kml", "osm", "maps"],
+        "description": "map parsing with kml and osm",
+        "dependencies": {
+          "fast-xml-parser": "^3.20.0"
+        },
+        "devDependencies": {
+          "rimraf": "^3.0.2",
+          "typescript": "^4.4.3"
+        }
+      }
+    ]
+  },
+  {
+    "root": {
       "name": "gb-schematics",
       "version": "3.4.0",
       "repository": {
@@ -834,6 +1105,51 @@
       }
     },
     "projects": []
+  },
+  {
+    "root": {
+      "name": "gb-table-root",
+      "dependencies": {},
+      "devDependencies": {
+        "@types/jest": "^24.0.22",
+        "@types/node": "^12.12.7",
+        "jest": "^24.9.0",
+        "jest-junit": "^11.1.0",
+        "lerna": "^3.22.1",
+        "ts-jest": "^24.1.0",
+        "typescript": "^3.7.2",
+        "prettier": "^2.0.0",
+        "@typescript-eslint/eslint-plugin": "^2.6.1",
+        "@typescript-eslint/parser": "^2.6.1",
+        "eslint": "^6.6.0",
+        "eslint-config-prettier": "^6.5.0",
+        "eslint-formatter-friendly": "^7.0.0",
+        "eslint-plugin-prettier": "^3.1.1"
+      }
+    },
+    "projects": [
+      {
+        "name": "@gb-table/core",
+        "version": "0.0.0",
+        "keywords": [],
+        "description": "",
+        "devDependencies": {
+          "typescript": "^3.7.2"
+        }
+      },
+      {
+        "name": "@gb-table/demo",
+        "version": "0.0.0",
+        "keywords": [],
+        "description": "",
+        "dependencies": {
+          "@gb-table/core": "^0.0.0"
+        },
+        "devDependencies": {
+          "typescript": "^3.7.2"
+        }
+      }
+    ]
   },
   {
     "root": {
@@ -949,134 +1265,6 @@
     "root": {
       "name": "lb-minder",
       "version": "1.6.0",
-      "dependencies": {
-        "@angular/animations": "^12.0.0",
-        "@angular/common": "^12.0.0",
-        "@angular/compiler": "^12.0.0",
-        "@angular/core": "^12.0.0",
-        "@angular/forms": "^12.0.0",
-        "@angular/platform-browser": "^12.0.0",
-        "@angular/platform-browser-dynamic": "^12.0.0",
-        "@angular/router": "^12.0.0",
-        "@angular/service-worker": "^12.0.0",
-        "@nrwl/angular": "12.3.6",
-        "rxjs": "~6.6.0",
-        "tslib": "^2.0.0",
-        "zone.js": "~0.11.4"
-      },
-      "devDependencies": {
-        "@angular-devkit/build-angular": "^12.0.0",
-        "@angular-eslint/eslint-plugin": "~12.0.0",
-        "@angular-eslint/eslint-plugin-template": "~12.0.0",
-        "@angular-eslint/template-parser": "~12.0.0",
-        "@angular/cli": "^12.0.0",
-        "@angular/compiler-cli": "^12.0.0",
-        "@angular/language-service": "^12.0.0",
-        "@nrwl/cli": "12.3.6",
-        "@nrwl/cypress": "12.3.6",
-        "@nrwl/devkit": "12.3.6",
-        "@nrwl/eslint-plugin-nx": "12.3.6",
-        "@nrwl/jest": "12.3.6",
-        "@nrwl/linter": "12.3.6",
-        "@nrwl/tao": "12.3.6",
-        "@nrwl/workspace": "12.3.6",
-        "@types/ejs": "^3.0.6",
-        "@types/google.visualization": "0.0.66",
-        "@types/jest": "26.0.8",
-        "@types/node": "14.14.33",
-        "@types/semver": "^7.3.6",
-        "@typescript-eslint/eslint-plugin": "^4.19.0",
-        "@typescript-eslint/parser": "^4.19.0",
-        "cypress": "^7.3.0",
-        "dotenv": "8.2.0",
-        "ejs": "^3.1.6",
-        "eslint": "7.22.0",
-        "eslint-config-prettier": "8.1.0",
-        "eslint-plugin-cypress": "^2.10.3",
-        "jest": "26.2.2",
-        "jest-junit": "^12.1.0",
-        "jest-preset-angular": "8.4.0",
-        "prettier": "2.2.1",
-        "semver": "^7.3.5",
-        "ts-jest": "26.5.5",
-        "ts-node": "~9.1.1",
-        "typescript": "~4.2.4"
-      }
-    },
-    "projects": []
-  },
-  {
-    "root": {
-      "name": "lb-minder",
-      "version": "0.0.0",
-      "devDependencies": {
-        "@gb-nx/svelte": "^3.5.0",
-        "@gb-nx/workspace": "^2.0.1",
-        "@nrwl/devkit": "^15.9.2",
-        "@nrwl/eslint-plugin-nx": "15.9.2",
-        "@nrwl/js": "15.9.2",
-        "@nrwl/linter": "^15.9.2",
-        "@nrwl/vite": "^15.9.2",
-        "@nrwl/workspace": "^15.9.2",
-        "@sveltejs/adapter-static": "^2.0.1",
-        "@sveltejs/kit": "^1.15.1",
-        "@swc-node/register": "^1.6.3",
-        "@swc/core": "^1.3.46",
-        "@typescript-eslint/eslint-plugin": "^5.46.1",
-        "@typescript-eslint/parser": "^5.46.1",
-        "@vitest/coverage-c8": "~0.25.8",
-        "@vitest/ui": "^0.25.8",
-        "eslint": "^8.28.0",
-        "eslint-plugin-gb": "^1.4.0",
-        "eslint-plugin-svelte": "^2.14.1",
-        "jsdom": "~20.0.3",
-        "nx": "15.9.2",
-        "prettier": "^2.6.2",
-        "prettier-plugin-svelte": "^2.7.0",
-        "typescript": "~4.9.5",
-        "vite": "^4.0.1",
-        "vite-plugin-dts": "~1.7.1",
-        "vite-plugin-eslint": "^1.8.1",
-        "vite-tsconfig-paths": "^4.0.2",
-        "vitest": "^0.25.8"
-      },
-      "workspaces": ["packages/web"]
-    },
-    "projects": [
-      {
-        "name": "store",
-        "projectType": "library",
-        "tags": []
-      },
-      {
-        "name": "web",
-        "version": "0.0.1",
-        "type": "module",
-        "dependencies": {},
-        "devDependencies": {
-          "@sveltejs/adapter-auto": "^2.0.0",
-          "@sveltejs/kit": "^1.5.0",
-          "@typescript-eslint/eslint-plugin": "^5.45.0",
-          "@typescript-eslint/parser": "^5.46.1",
-          "eslint": "^8.28.0",
-          "eslint-plugin-svelte3": "^4.0.0",
-          "svelte": "^3.54.0",
-          "svelte-check": "^3.0.1",
-          "tslib": "^2.4.1",
-          "typescript": "^5.0.0",
-          "vite": "^4.2.0",
-          "vitest": "^0.25.3"
-        },
-        "nx": {
-          "implicitDependencies": ["store"]
-        }
-      }
-    ]
-  },
-  {
-    "root": {
-      "name": "lb-minder",
-      "version": "1.7.0",
       "dependencies": {
         "@angular/animations": "^12.0.0",
         "@angular/common": "^12.0.0",
@@ -1295,11 +1483,11 @@
     },
     "projects": [
       {
-        "implicitDependencies": ["adopt-a-pup"],
         "projectType": "application",
         "tags": []
       },
       {
+        "implicitDependencies": ["adopt-a-pup"],
         "projectType": "application",
         "tags": []
       }
@@ -1745,11 +1933,11 @@
     },
     "projects": [
       {
-        "projectType": "library",
+        "projectType": "application",
         "tags": []
       },
       {
-        "projectType": "application",
+        "projectType": "library",
         "tags": []
       }
     ]
@@ -1841,281 +2029,6 @@
   },
   {
     "root": {
-      "name": "quic-foss",
-      "version": "0.0.0",
-      "dependencies": {
-        "core-js": "^3.6.5",
-        "regenerator-runtime": "0.13.7",
-        "tslib": "^2.3.0"
-      },
-      "devDependencies": {
-        "@nrwl/cypress": "15.7.2",
-        "@nrwl/eslint-plugin-nx": "15.7.2",
-        "@nrwl/linter": "15.7.2",
-        "@nrwl/vite": "15.7.2",
-        "@nrwl/web": "^15.7.2",
-        "@nrwl/workspace": "15.7.2",
-        "@types/node": "18.7.1",
-        "@typescript-eslint/eslint-plugin": "^5.36.1",
-        "@typescript-eslint/parser": "^5.36.1",
-        "@vitest/coverage-c8": "~0.25.8",
-        "@vitest/ui": "^0.25.8",
-        "cypress": "^12.2.0",
-        "eslint": "~8.15.0",
-        "eslint-config-prettier": "8.1.0",
-        "eslint-plugin-cypress": "^2.10.3",
-        "jsdom": "~20.0.3",
-        "nx": "15.7.2",
-        "prettier": "^2.6.2",
-        "typescript": "~4.8.2",
-        "vite": "^4.0.1",
-        "vite-plugin-eslint": "^1.8.1",
-        "vite-tsconfig-paths": "^4.0.2",
-        "vitest": "^0.25.8"
-      }
-    },
-    "projects": [
-      {
-        "name": "web",
-        "projectType": "application",
-        "tags": []
-      },
-      {
-        "name": "web-e2e",
-        "implicitDependencies": ["web"],
-        "projectType": "application",
-        "tags": []
-      }
-    ]
-  },
-  {
-    "root": {
-      "name": "quic-foss",
-      "version": "0.0.1",
-      "type": "module",
-      "devDependencies": {
-        "@fontsource/fira-mono": "^4.5.10",
-        "@neoconfetti/svelte": "^1.0.0",
-        "@playwright/test": "^1.28.1",
-        "@sveltejs/adapter-auto": "^1.0.0",
-        "@sveltejs/kit": "^1.0.0",
-        "@types/cookie": "^0.5.1",
-        "@typescript-eslint/eslint-plugin": "^5.45.0",
-        "@typescript-eslint/parser": "^5.45.0",
-        "eslint": "^8.28.0",
-        "eslint-config-prettier": "^8.5.0",
-        "eslint-plugin-svelte3": "^4.0.0",
-        "prettier": "^2.8.0",
-        "prettier-plugin-svelte": "^2.8.1",
-        "svelte": "^3.54.0",
-        "svelte-check": "^3.0.1",
-        "tslib": "^2.4.1",
-        "typescript": "^4.9.3",
-        "vite": "^4.0.0",
-        "vitest": "^0.25.3"
-      }
-    },
-    "projects": []
-  },
-  {
-    "root": {
-      "name": "root",
-      "dependencies": {
-        "colors": "^1.4.0",
-        "command-line-usage": "^6.1.1",
-        "yargs-parser": "^21.0.0"
-      },
-      "devDependencies": {
-        "@types/command-line-usage": "^5.0.2",
-        "@types/jest": "^27.0.2",
-        "@types/node": "^16.11.5",
-        "@typescript-eslint/eslint-plugin": "^5.3.1",
-        "@typescript-eslint/parser": "^5.3.1",
-        "eslint": "^8.2.0",
-        "eslint-config-prettier": "^8.3.0",
-        "eslint-plugin-gb": "^1.1.0",
-        "eslint-plugin-jest": "^25.2.4",
-        "eslint-plugin-prettier": "^4.0.0",
-        "jest": "^27.3.1",
-        "jest-junit": "^13.0.0",
-        "lerna": "^4.0.0",
-        "prettier": "^2.4.1",
-        "ts-jest": "^27.0.7",
-        "typescript": "^4.4.4"
-      }
-    },
-    "projects": []
-  },
-  {
-    "root": {
-      "name": "root",
-      "dependencies": {
-        "clean-webpack-plugin": "^4.0.0",
-        "copy-webpack-plugin": "^10.2.0",
-        "html-webpack-plugin": "^5.5.0",
-        "mini-css-extract-plugin": "^2.4.5"
-      },
-      "devDependencies": {
-        "@types/jest": "^27.0.2",
-        "@types/node": "^16.11.5",
-        "@typescript-eslint/eslint-plugin": "^5.3.1",
-        "@typescript-eslint/parser": "^5.3.1",
-        "eslint": "^8.2.0",
-        "eslint-config-prettier": "^8.3.0",
-        "eslint-plugin-gb": "^1.2.0",
-        "eslint-plugin-jest": "^25.2.4",
-        "eslint-plugin-prettier": "^4.0.0",
-        "jest": "^27.3.1",
-        "jest-junit": "^13.0.0",
-        "lerna": "^4.0.0",
-        "prettier": "^2.4.1",
-        "ts-jest": "^27.0.7",
-        "ts-loader": "^9.2.6",
-        "typescript": "^4.4.4",
-        "webpack": "^5.65.0",
-        "webpack-cli": "^4.9.1",
-        "webpack-dev-server": "^4.6.0"
-      }
-    },
-    "projects": []
-  },
-  {
-    "root": {
-      "name": "root",
-      "devDependencies": {
-        "@types/jest": "^27.0.1",
-        "@types/node": "^16.6.1",
-        "@types/yeoman-generator": "^5.2.7",
-        "@types/yeoman-test": "^4.0.2",
-        "@typescript-eslint/eslint-plugin": "^4.29.1",
-        "@typescript-eslint/parser": "^4.29.1",
-        "eslint": "^7.32.0",
-        "eslint-config-prettier": "^8.3.0",
-        "eslint-plugin-gb": "^1.1.0",
-        "eslint-plugin-prettier": "^3.4.0",
-        "jest": "^27.0.6",
-        "lerna": "^4.0.0",
-        "prettier": "^2.3.2",
-        "ts-jest": "^27.0.4",
-        "typescript": "^4.3.5",
-        "yeoman-environment": "^3.6.0",
-        "yeoman-generator": "^5.4.2",
-        "yeoman-test": "^6.2.0"
-      }
-    },
-    "projects": []
-  },
-  {
-    "root": {
-      "name": "root",
-      "dependencies": {
-        "lerna": "^4.0.0"
-      },
-      "devDependencies": {
-        "@types/jest": "^27.4.0",
-        "@types/karma": "^6.3.3",
-        "@types/node": "^17.0.15",
-        "@typescript-eslint/eslint-plugin": "^5.10.2",
-        "@typescript-eslint/parser": "^5.10.2",
-        "eslint": "^8.8.0",
-        "eslint-config-prettier": "^8.3.0",
-        "eslint-formatter-friendly": "^7.0.0",
-        "eslint-plugin-prettier": "^4.0.0",
-        "jest": "^27.5.0",
-        "prettier": "^2.5.1",
-        "ts-jest": "^27.1.3",
-        "typescript": "^4.5.5"
-      }
-    },
-    "projects": []
-  },
-  {
-    "root": {
-      "name": "root",
-      "dependencies": {},
-      "devDependencies": {
-        "@types/jest": "^27.0.1",
-        "@types/node": "^16.6.1",
-        "@typescript-eslint/eslint-plugin": "^4.29.1",
-        "@typescript-eslint/parser": "^4.29.1",
-        "eslint": "^7.32.0",
-        "eslint-config-prettier": "^8.3.0",
-        "eslint-plugin-jest": "^24.4.0",
-        "eslint-plugin-prettier": "^3.4.0",
-        "jest": "^27.0.6",
-        "jest-junit": "^12.2.0",
-        "lerna": "^4.0.0",
-        "prettier": "^2.3.2",
-        "ts-jest": "^27.0.4",
-        "typescript": "^4.4.3"
-      }
-    },
-    "projects": []
-  },
-  {
-    "root": {
-      "name": "root",
-      "dependencies": {},
-      "devDependencies": {
-        "@types/jest": "^24.0.22",
-        "@types/node": "^12.12.7",
-        "jest": "^24.9.0",
-        "jest-junit": "^11.1.0",
-        "lerna": "^3.22.1",
-        "ts-jest": "^24.1.0",
-        "typescript": "^3.7.2",
-        "prettier": "^2.0.0",
-        "@typescript-eslint/eslint-plugin": "^2.6.1",
-        "@typescript-eslint/parser": "^2.6.1",
-        "eslint": "^6.6.0",
-        "eslint-config-prettier": "^6.5.0",
-        "eslint-formatter-friendly": "^7.0.0",
-        "eslint-plugin-prettier": "^3.1.1"
-      }
-    },
-    "projects": []
-  },
-  {
-    "root": {
-      "name": "root",
-      "dependencies": {},
-      "devDependencies": {
-        "@types/chrome": "^0.0.188",
-        "@types/jest": "^27.5.1",
-        "@types/node": "^17.0.35",
-        "@typescript-eslint/eslint-plugin": "^5.26.0",
-        "@typescript-eslint/parser": "^5.26.0",
-        "clean-webpack-plugin": "^4.0.0",
-        "copy-webpack-plugin": "^11.0.0",
-        "css-loader": "^6.7.1",
-        "eslint": "^8.16.0",
-        "eslint-config-prettier": "^8.5.0",
-        "eslint-plugin-gb": "^1.2.0",
-        "eslint-plugin-jest": "^26.2.2",
-        "eslint-plugin-prettier": "^4.0.0",
-        "html-webpack-plugin": "^5.5.0",
-        "jest": "^28.1.0",
-        "jest-junit": "^13.2.0",
-        "lerna": "^5.0.0",
-        "mini-css-extract-plugin": "^2.6.0",
-        "node-sass": "^7.0.1",
-        "prettier": "^2.6.2",
-        "sass-loader": "^13.0.0",
-        "style-loader": "^3.3.1",
-        "ts-jest": "^28.0.3",
-        "ts-loader": "^9.3.0",
-        "tsconfig-paths-webpack-plugin": "^3.5.2",
-        "typescript": "^4.7.2",
-        "webpack": "^5.72.1",
-        "webpack-cli": "^4.9.2",
-        "webpack-dev-server": "^4.9.0",
-        "webpack-merge": "^5.8.0"
-      }
-    },
-    "projects": []
-  },
-  {
-    "root": {
       "name": "scatterbox",
       "version": "0.0.1",
       "dependencies": {
@@ -2196,35 +2109,6 @@
   },
   {
     "root": {
-      "name": "sensor-play",
-      "version": "0.0.1",
-      "type": "module",
-      "devDependencies": {
-        "@gb-nx/svelte": "^5.1.0",
-        "@gb-nx/workspace": "^3.0.0",
-        "@sveltejs/adapter-static": "^2.0.2",
-        "@sveltejs/kit": "^1.5.0",
-        "@typescript-eslint/eslint-plugin": "^5.45.0",
-        "@typescript-eslint/parser": "^5.45.0",
-        "@vitest/coverage-c8": "^0.25.3",
-        "eslint": "^8.28.0",
-        "eslint-plugin-svelte": "^2.26.0",
-        "nx": "16.2.2",
-        "prettier": "^2.8.8",
-        "sass": "^1.62.1",
-        "svelte": "^3.54.0",
-        "svelte-check": "^3.0.1",
-        "tslib": "^2.4.1",
-        "typescript": "^5.0.0",
-        "vite": "^4.3.0",
-        "vitest": "^0.25.3"
-      },
-      "nx": {}
-    },
-    "projects": []
-  },
-  {
-    "root": {
       "name": "typescript-chrome-extension",
       "devDependencies": {
         "@types/chrome": "0.0.42",
@@ -2234,6 +2118,42 @@
         "tslint-loader": "^3.4.3",
         "typescript": "^2.2.1",
         "webpack": "^2.2.1"
+      }
+    },
+    "projects": []
+  },
+  {
+    "root": {
+      "name": "venv",
+      "version": "1.0.1",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/GaryB432/venv.git"
+      },
+      "homepage": "https://github.com/GaryB432/venv#readme",
+      "keywords": ["environment", "variables", "angular", "cli"],
+      "dependencies": {
+        "ejs": "^2.5.7",
+        "fs-extra": "^4.0.1",
+        "yargs": "^8.0.2"
+      },
+      "devDependencies": {
+        "@types/ejs": "^2.3.33",
+        "@types/fs-extra": "^4.0.0",
+        "@types/jest": "^20.0.5",
+        "@types/md5": "^2.1.32",
+        "@types/node": "^8.0.0",
+        "@types/yargs": "^8.0.2",
+        "coveralls": "^2.0.0",
+        "jest": "^20.0.4",
+        "jest-environment-node-debug": "^2.0.0",
+        "prettier": "^1.5.2",
+        "rimraf": "^2.0.0",
+        "ts-jest": "^20.0.7",
+        "ts-node": "^3.2.0",
+        "tslint": "^5.0.0",
+        "tslint-config-prettier": "^1.1.0",
+        "typescript": "^2.0.0"
       }
     },
     "projects": []
