@@ -624,10 +624,7 @@
         "name": "inspiration-cap",
         "version": "1.0.0",
         "keywords": [],
-        "description": "",
-        "dependencies": {
-          "prettier": "^2.8.6"
-        }
+        "description": ""
       },
       {
         "name": "markdown-link",
