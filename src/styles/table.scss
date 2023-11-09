@@ -72,7 +72,7 @@ tbody td {
   border-block-end: 1px dotted var(--color-table-border);
   column-gap: 0.5rem;
   display: grid;
-  grid-template-columns: 25% auto;
+  // grid-template-columns: 25% auto; hmm what was this for??
   padding: 0.5rem;
 }
 tbody td:first-child {
