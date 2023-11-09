@@ -29,9 +29,9 @@
         <td>
           {production.show}
         </td>
-        <td style="white-space:nowrap" title={longerDate.format(opening)}
-          >{shortDate.format(opening)}</td
-        >
+        <td title={longerDate.format(opening)}>
+          {shortDate.format(opening)}
+        </td>
         <td>{production.role}</td>
         <td>{production.producer.name}</td>
       </tr>
@@ -47,6 +47,9 @@
   th {
     font-weight: 600;
   }
+  td:nth-child(1) {
+    background: orange;
+  }
   @media screen and (min-width: 576px) {
     /* landscape phones */
   }
@@ -55,9 +58,12 @@
   }
   @media screen and (min-width: 992px) {
     /* desktops */
+    td:nth-child(1) {
+      background: unset;
+    }
     table {
       margin: 0 auto;
-      max-width: 75vw;
+      max-width: 90vw;
     }
   }
   @media screen and (min-width: 1200px) {

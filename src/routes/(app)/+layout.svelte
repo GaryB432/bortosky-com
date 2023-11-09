@@ -1,15 +1,16 @@
 <script>
   import FamilyLogo from "$lib/components/FamilyLogo.svelte";
-  import Navigation from "$lib/components/Navigation.svelte";
+  import SlideNav from "$lib/components/SlideNav.svelte";
+
 </script>
 
 <main>
   <div class="top">
     <div class="left">
+      <SlideNav />
       <FamilyLogo />
       <h1>Bortosky Family</h1>
     </div>
-    <Navigation />
   </div>
   <div>
     <slot />
@@ -59,6 +60,9 @@
   }
 </style> -->
 
+<!-- 
+
+
 <style lang="scss">
   main {
     margin: 0 1rem;
@@ -81,5 +85,40 @@
       gap: 1rem;
       align-items: center;
     }
+  }
+</style>
+
+
+
+ -->
+
+<style lang="scss">
+  .top {
+    --color-h1: white;
+    // --color-document-text: white;
+    // color: var(--color-h1);
+    background-color: var(--fun-blue);
+    .left {
+      display: flex;
+      align-items: center;
+      h1 {
+        margin: 0;
+      }
+    }
+  }
+  @media screen and (min-width: 576px) {
+    /* landscape phones */
+  }
+  @media screen and (min-width: 768px) {
+    /* tablets */
+  }
+  @media screen and (min-width: 992px) {
+    /* desktops */
+  }
+  @media screen and (min-width: 1200px) {
+    /* large desktops */
+  }
+  @media screen and (min-width: 1400px) {
+    /* larger desktops */
   }
 </style>

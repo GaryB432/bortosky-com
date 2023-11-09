@@ -63,7 +63,7 @@
   .container {
     display: flex;
     flex-direction: column;
-    max-height: 600px;
+    max-height: var(--height);
   }
   .top {
     display: flex;

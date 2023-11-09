@@ -21,7 +21,6 @@
     width: 4rem;
     stroke: none;
     padding: 0.5rem;
-    background-color: rgb(1, 88, 131);
   }
   #k1 {
     fill: #ff892a;
