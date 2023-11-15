@@ -20,6 +20,8 @@
     "OC1y9e^Eamk6", "^sEs*QIdz%+8", "$%cHV^znVP&f", "MiDyfF^PnV*V",
     "kbnBG7d4Fw)7", "qvOd[sY<rReG", "#Nj0<Okxx*Zw", "+@)<ECIBTe6#",
     ];
+
+  let active: string[] = [strings[3], strings[19]];
 </script>
 
 <svelte:head>
@@ -27,13 +29,12 @@
 </svelte:head>
 
 <h2>Pick and paste as needed 😏</h2>
+<button class="button-a" on:click={() => {}}>SPIN</button>
 <section class="container">
   {#each strings as str}
-    <div>
+    <div class:active={active.includes(str)}>
       <div class="p">
-        <code>
-          {str}
-        </code>
+        {str}
       </div>
       <div>
         <ClipboardCopy
@@ -50,15 +51,39 @@
   .container {
     padding: 1em;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     > div {
       font-size: 0.8rem;
       display: flex;
       align-items: center;
       justify-content: center;
       .p {
+        padding: 0.5rem;
         width: 15ch;
       }
+      &.active .p {
+        background-color: black;
+        color: white;
+      }
     }
+  }
+
+  @media screen and (min-width: 576px) {
+    /* landscape phones */
+  }
+  @media screen and (min-width: 768px) {
+    /* tablets */
+  }
+  @media screen and (min-width: 992px) {
+    .container {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    /* desktops */
+  }
+  @media screen and (min-width: 1200px) {
+    /* large desktops */
+  }
+  @media screen and (min-width: 1400px) {
+    /* larger desktops */
   }
 </style>
