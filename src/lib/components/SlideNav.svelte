@@ -1,17 +1,30 @@
 <script lang="ts">
   import { base } from "$app/paths";
   import { page } from "$app/stores";
+  import { elasticOut, quartOut } from "svelte/easing";
+  import { tweened } from "svelte/motion";
 
   let checked = false;
 
-  function uncheck() {
-    checked = false;
-  }
+  const leftest = -500;
+
+  const lefter = tweened(leftest, { duration: 2000, easing: elasticOut });
+
 </script>
 
 <nav>
   <label>
-    <input type="checkbox" bind:checked />
+    <input
+      type="checkbox"
+      bind:checked
+      on:change={(e) => {
+        if (checked) {
+          $lefter = 0;
+        } else {
+          lefter.set(leftest, { duration: 500, easing: quartOut });
+        }
+      }}
+    />
     <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
       <circle cx="50" cy="50" r="30" />
       <path class="line--1" d="M0 40h62c13 0 6 28-4 18L35 35" />
@@ -19,24 +32,19 @@
       <path class="line--3" d="M0 60h62c13 0 6-28-4-18L35 65" />
     </svg>
   </label>
-  <ul>
+
+  <ul style="transform: translate({$lefter}px, 0);">
     <li class:active={$page.route.id === "/(app)"}>
-      <a on:click={uncheck} data-sveltekit-reload href="{base}/"> Home </a>
+      <a href="{base}/"> Home </a>
     </li>
     <li class:active={$page.route.id === "/(app)/gary"}>
-      <a on:click={uncheck} data-sveltekit-reload href="{base}/gary">
-        Gary&apos;s Things
-      </a>
+      <a href="{base}/gary"> Gary&apos;s Things </a>
     </li>
     <li class:active={$page.route.id === "/(app)/utilities"}>
-      <a on:click={uncheck} data-sveltekit-reload href="{base}/utilities">
-        Tools
-      </a>
+      <a href="{base}/utilities"> Tools </a>
     </li>
     <li class:active={$page.route.id === "/(app)/privacy-terms"}>
-      <a on:click={uncheck} data-sveltekit-reload href="{base}/privacy-terms">
-        Privacy and Terms
-      </a>
+      <a href="{base}/privacy-terms"> Privacy and Terms </a>
     </li>
   </ul>
 </nav>
@@ -47,19 +55,16 @@
   }
 
   ul {
-    --left: 20px;
     --width: 250px;
-    --xlatex: calc(-1 * calc(var(--left) + var(--width)));
-    box-shadow: 0 0 10px #85888c;
+    --left: 20px;
     position: absolute;
+    box-shadow: 0 0 10px #85888c;
     padding: 2rem;
     background-color: var(--color-document-bg);
     color: var(--color-document-text);
     font-weight: 500;
     width: var(--width);
     transform-origin: 0% 0%;
-    transform: translate(var(--xlatex), 0);
-    transition: transform 0.5s linear;
     top: 100px;
     left: var(--left);
     z-index: 2;
