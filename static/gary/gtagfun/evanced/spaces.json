@@ -1,0 +1,151 @@
+[
+  {
+    "gtm.start": 1701369184147,
+    "event": "gtm.js",
+    "gtm.uniqueEventId": 1
+  },
+  {
+    "gtm.start": 1701369184208,
+    "event": "gtm.js",
+    "gtm.uniqueEventId": 4
+  },
+  {
+    "0": "config",
+    "1": "G-4MX03YS0LJ",
+    "2": {
+      "is_legacy_loaded": true
+    }
+  },
+  {
+    "0": "config",
+    "1": "G-CLHXXVNF76",
+    "2": {
+      "is_legacy_loaded": true
+    }
+  },
+  {
+    "0": "event",
+    "1": "page_view",
+    "2": {
+      "page_location": "https://slcl.evanced.info/spaces/Patron/Results",
+      "language": "en-us",
+      "page_title": "Spaces | Demco Software",
+      "screen_resolution": "1280x1024",
+      "client_id": "187895985.1701369156",
+      "allow_display_features": true,
+      "allow_ad_personalization_signals": true,
+      "cookie_domain": "evanced.info",
+      "cookie_expires": 63072000,
+      "cookie_flags": "",
+      "cookie_path": "/",
+      "cookie_update": true,
+      "is_legacy_converted": true,
+      "send_to": ["G-4MX03YS0LJ"]
+    }
+  },
+  {
+    "0": "event",
+    "1": "page_view",
+    "2": {
+      "page_location": "https://slcl.evanced.info/spaces/Patron/Results",
+      "language": "en-us",
+      "page_title": "Spaces | Demco Software",
+      "screen_resolution": "1280x1024",
+      "client_id": "187895985.1701369156",
+      "allow_display_features": true,
+      "allow_ad_personalization_signals": true,
+      "cookie_domain": "slcl.evanced.info",
+      "cookie_expires": 63072000,
+      "cookie_flags": "",
+      "cookie_path": "/",
+      "cookie_update": true,
+      "is_legacy_converted": true,
+      "send_to": ["G-CLHXXVNF76"]
+    }
+  },
+  {
+    "0": "js",
+    "1": "2023-11-30T18:33:04.369Z"
+  },
+  {
+    "0": "config",
+    "1": "UA-3059801-1"
+  },
+  {
+    "event": "gtm.dom",
+    "gtm.uniqueEventId": 11
+  },
+  {
+    "0": "event",
+    "1": "page_view",
+    "2": {
+      "page_location": "https://slcl.evanced.info/spaces/Patron/Results",
+      "language": "en-us",
+      "page_title": "Spaces | Demco Software",
+      "screen_resolution": "1280x1024",
+      "client_id": "187895985.1701369156",
+      "allow_display_features": true,
+      "allow_ad_personalization_signals": true,
+      "cookie_domain": "slcl.evanced.info",
+      "cookie_expires": 63072000,
+      "cookie_flags": "",
+      "cookie_path": "/",
+      "cookie_update": true,
+      "is_legacy_converted": true,
+      "send_to": ["G-CLHXXVNF76"]
+    }
+  },
+  {
+    "event": "gtm.load",
+    "gtm.uniqueEventId": 14
+  },
+  {
+    "0": "event",
+    "1": "page_view",
+    "2": {
+      "page_location": "https://slcl.evanced.info/spaces/Patron/Results",
+      "language": "en-us",
+      "page_title": "Spaces | Demco Software",
+      "screen_resolution": "1280x1024",
+      "client_id": "187895985.1701369156",
+      "allow_display_features": true,
+      "allow_ad_personalization_signals": true,
+      "cookie_domain": "slcl.evanced.info",
+      "cookie_expires": 63072000,
+      "cookie_flags": "",
+      "cookie_path": "/",
+      "cookie_update": true,
+      "is_legacy_converted": true,
+      "send_to": ["G-CLHXXVNF76"]
+    }
+  },
+  {
+    "event": "gtm.click",
+    "gtm.element": {},
+    "gtm.elementClasses": "footer",
+    "gtm.elementId": "",
+    "gtm.elementTarget": "",
+    "gtm.elementUrl": "",
+    "gtm.uniqueEventId": 17
+  },
+  {
+    "0": "event",
+    "1": "page_view",
+    "2": {
+      "page_location": "https://slcl.evanced.info/spaces/Patron/Results",
+      "language": "en-us",
+      "page_title": "Spaces | Demco Software",
+      "screen_resolution": "1280x1024",
+      "client_id": "187895985.1701369156",
+      "allow_display_features": true,
+      "allow_ad_personalization_signals": true,
+      "cookie_domain": "slcl.evanced.info",
+      "cookie_expires": 63072000,
+      "cookie_flags": "",
+      "cookie_path": "/",
+      "cookie_update": true,
+      "is_legacy_converted": true,
+      "send_to": ["G-CLHXXVNF76"]
+    }
+  }
+]
