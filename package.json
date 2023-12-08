@@ -14,7 +14,7 @@
     "@fontsource/montserrat": "^5.0.13",
     "@gb-nx/svelte": "^5.3.1",
     "@gb-nx/workspace": "^3.2.0",
-    "@sveltejs/adapter-static": "^2.0.3",
+    "@sveltejs/adapter-vercel": "^3.1.0",
     "@sveltejs/kit": "^1.20.4",
     "@types/cookie": "^0.5.1",
     "@types/cytoscape": "^3.19.12",
@@ -69,4 +69,3 @@
     }
   }
 }
-
