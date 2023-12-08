@@ -65,7 +65,7 @@
     font-weight: 500;
     width: var(--width);
     transform-origin: 0% 0%;
-    top: 100px;
+    top: 200px;
     left: var(--left);
     z-index: 2;
   }
