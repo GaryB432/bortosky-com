@@ -7,6 +7,11 @@
   $: projects = data.projects;
 </script>
 
+<nav>
+  <a href="./cytoscape">cytoscape view</a>
+  <a href="./chart">chart view</a>
+</nav>
+
 <div class="container">
   <div class="projects">
     {#each projects as project}
@@ -15,11 +20,29 @@
   </div>
 </div>
 
-<style>
+<style lang="scss">
+  .container {
+    padding: 2em;
+  }
+  nav {
+    display: flex;
+    align-content: center;
+    justify-content: flex-end;
+    gap: 1em;
+    padding-block-end: 2em;
+    a {
+      border: thin solid silver;
+      padding: 0.5em;
+    }
+    :hover {
+      text-decoration: underline;
+    }
+  }
   .projects {
-    margin: 2em auto;
-    width: 70vw;
+    width: fit-content;
+    margin: 0 auto;
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 2fr 0.5fr 1fr;
+    align-items: center;
   }
 </style>

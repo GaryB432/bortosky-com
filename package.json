@@ -25,6 +25,7 @@
     "json-schema-to-typescript": "^13.1.1",
     "nx": "17.1.2",
     "prettier": "^3.0.3",
+    "prettier-plugin-svelte": "^3.1.2",
     "sass": "^1.69.3",
     "svelte": "^4.0.5",
     "svelte-check": "^3.4.3",
