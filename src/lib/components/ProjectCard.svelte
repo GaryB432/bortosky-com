@@ -32,7 +32,7 @@
 <div>
   {#if nxVersion}
     <svg
-      role="img"
+      role="graphics-symbol"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
       fill="currentColor"
@@ -54,15 +54,14 @@
         {domm}
       </span>
       <svg
+        role="graphics-symbol"
         fill="none"
-        height="24"
         shape-rendering="geometricPrecision"
         stroke="currentColor"
         stroke-linecap="round"
         stroke-linejoin="round"
         stroke-width="2"
         viewBox="0 0 24 24"
-        width="24"
       >
         <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
         <path d="M15 3h6v6"></path>
@@ -76,9 +75,11 @@
   a {
     display: block;
   }
-  svg {
-    color: currentcolor;
-    width: 1em;
+
+  svg[role="graphics-symbol"] {
     height: 1em;
+    color: currentColor;
+    aspect-ratio: 1;
   }
+
 </style>
