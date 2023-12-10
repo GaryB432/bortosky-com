@@ -1,7 +1,8 @@
 /**
- * map of project names to DNS connections
+ * map of project names to DNS records
  */
 export const domains = new Map<string, string[]>([
+  ["@human-accomplishment/source", ["humanaccomplishment.com"]],
   [
     "@poemtoday/source",
     [

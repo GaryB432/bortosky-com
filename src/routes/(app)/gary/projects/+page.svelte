@@ -39,7 +39,7 @@
     }
   }
   .projects {
-    width: 85vw;
+    width: fit-content;
     margin: 0 auto;
     display: grid;
     grid-template-columns: 2fr 0.5fr 1fr;
