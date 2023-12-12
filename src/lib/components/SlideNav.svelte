@@ -1,15 +1,14 @@
 <script lang="ts">
   import { base } from "$app/paths";
   import { page } from "$app/stores";
-  import { elasticOut, quartOut } from "svelte/easing";
+  import { linear, sineOut } from "svelte/easing";
   import { tweened } from "svelte/motion";
 
   let checked = false;
 
   const leftest = -500;
 
-  const lefter = tweened(leftest, { duration: 2000, easing: elasticOut });
-
+  const lefter = tweened(leftest, { duration: 200, easing: sineOut });
 </script>
 
 <nav>
@@ -21,7 +20,7 @@
         if (checked) {
           $lefter = 0;
         } else {
-          lefter.set(leftest, { duration: 500, easing: quartOut });
+          lefter.set(leftest, { duration: 50, easing: linear });
         }
       }}
     />
