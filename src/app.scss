@@ -1,0 +1,52 @@
+@use "the-new-css-reset";
+@use "tippy.js/dist/tippy";
+@use "@fontsource/montserrat";
+@use "./styles/table.scss";
+@use "./styles/button.scss";
+
+:root {
+  --font-sans: Montserrat, system-ui, sans-serif;
+  --sand-1: #e6e4dc;
+  --sand-3: #c2b9a0;
+  --sand-5: #9a9178;
+  --stone-5: #b1b6b9;
+  --gray-9: #212529;
+  --fun-blue: #015883;
+  --color-document-bg: whitesmoke;
+  --color-document-text: var(--gray-9);
+  --color-h1: var(--color-document-text);
+  --color-h2: var(--sand-5);
+  --color-table-thead-bg: var(--sand-1);
+  --color-table-thead-text: var(--color-document-text);
+  --color-table-border: var(--stone-5);
+  background-color: var(--color-document-bg);
+  color: var(--color-document-text);
+}
+:where(html, body) {
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  font-size: 16px;
+  height: 100%;
+}
+:where(h1, h3, h4, h5, h6) {
+  font-weight: 600;
+}
+:where(h1) {
+  font-size: clamp(2.125rem, 6vw, 3.25rem);
+  line-height: clamp(3rem, 8vw, 4rem);
+  margin-bottom: 2rem;
+  color: var(--color-h1);
+}
+
+:where(h2) {
+  font-size: clamp(1.875rem, 5vw, 2.5rem);
+  font-weight: 400;
+  line-height: 3.25rem;
+  margin-block-start: clamp(1.75rem, 3vw, 3rem);
+  margin-block-end: 1.75rem;
+  color: var(--color-h2);
+}
+
+:where(p) {
+  margin-block-end: 1rem;
+}

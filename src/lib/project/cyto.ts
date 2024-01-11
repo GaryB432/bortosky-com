@@ -10,7 +10,7 @@ import type { GaryProject } from "./project";
 const ignoredDeps = new Set(["eslint-plugin-gb"]);
 
 export async function getElements(
-  gprojs: GaryProject[]
+  gprojs: GaryProject[],
 ): Promise<ElementsDefinition> {
   const mns = new Map<string, NodeDefinition>();
   const mes = new Map<string, EdgeDefinition>();
@@ -20,7 +20,7 @@ export async function getElements(
   function addDependencies(
     rec: Record<string, unknown> | undefined,
     source: string,
-    depType: "run-time" | "development"
+    depType: "run-time" | "development",
   ) {
     Object.entries(rec ?? {})
       .filter(([target]) => !ignoredDeps.has(target))

@@ -5,10 +5,10 @@ type UnknownRecord = Record<string, unknown>;
 export interface PackageJson {
   name: string;
   version: string;
-  dependencies?: UnknownRecord;
+  dependencies?: Record<string, string>;
   description?: string;
   private?: boolean;
-  devDependencies?: UnknownRecord;
+  devDependencies?: Record<string, string>;
   type?: "commonjs" | "module";
   keywords?: string[];
   license?: string;

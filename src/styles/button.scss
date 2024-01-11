@@ -1,0 +1,53 @@
+button.button-a {
+  cursor: pointer;
+  line-height: 1;
+  border-radius: 500px;
+  transition-property: background-color, border-color, color, box-shadow, filter;
+  transition-duration: 0.3s;
+  border: 1px solid transparent;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  white-space: normal;
+  font-weight: 700;
+  text-align: center;
+  padding: 1em 2em;
+  color: #fff;
+  background-color: var(--sand-5);
+  height: 3em;
+}
+
+button.button-a:disabled {
+  color: #ccc;
+  background-color: var(--sand-3);
+}
+
+button.button-a.medium {
+  height: 2em;
+  letter-spacing: 1px;
+  font-size: 0.875rem;
+  padding: 0 1em;
+}
+
+button.svg-button {
+  color: #fff;
+  aspect-ratio: 1;
+  padding: 0.5em;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1;
+  border-radius: 500px;
+  background-color: var(--sand-5);
+}
+
+button.svg-button > svg {
+  fill: currentColor;
+  width: 2em;
+}
+
+button.svg-button:hover,
+button.button-a:hover {
+  transform: scale(1.1);
+  background-color: var(--sand-3);
+}

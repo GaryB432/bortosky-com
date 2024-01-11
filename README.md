@@ -4,27 +4,7 @@
 
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](https://www.typescriptlang.org/)
 
-## Update bortosky.com
-
-# this is from the liberry
-
-```powershell
-npx nx build
-cd ..\GaryB432.github.io\
-start .
-// remove all items from . except .git
-Copy-Item -Path ..\bortosky-com\build\* -Destination . -Recurse
-git status
-git add -A
-git status
-git commit -m "update to v4"
-git push
-cd -
-```
-
-see the `GitHub Pages` section [here](https://github.com/sveltejs/kit/tree/master/packages/adapter-static)
-
-see also [JamesIves/github-pages-deploy-action](https://github.com/JamesIves/github-pages-deploy-action)
+Family Website
 
 ## JSON Schema
 

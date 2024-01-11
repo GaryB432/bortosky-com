@@ -63,7 +63,7 @@
   .container {
     display: flex;
     flex-direction: column;
-    max-height: 600px;
+    max-height: var(--height);
   }
   .top {
     display: flex;
@@ -93,7 +93,6 @@
     overflow-y: scroll;
     div.node-id {
       border: thin solid #ccc;
-      text-wrap: nowrap;
     }
   }
 </style>
