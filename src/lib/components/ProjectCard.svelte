@@ -1,10 +1,11 @@
 <script lang="ts">
+  import KeywordsPanel from "$lib/components/KeywordsPanel.svelte";
   import { domains } from "$lib/project/domains";
   import type { GaryProject } from "$lib/project/project";
 
   function packageVersion(
     project: GaryProject,
-    dep: string
+    dep: string,
   ): string | undefined {
     const rootDeps = {
       ...project.root.devDependencies,
@@ -30,6 +31,9 @@
 <div>
   {project.root.name}
 </div>
+<div class="description">
+  {project.root.description ?? ""}
+</div>
 <div>
   {#if nxVersion}
     <svg
@@ -48,11 +52,7 @@
     </span>
   {/if}
   {#if ngVersion}
-    <svg
-      role="graphics-symbol"
-      viewBox="0 0 250 250"
-      xml:space="preserve"
-    >
+    <svg role="graphics-symbol" viewBox="0 0 250 250" xml:space="preserve">
       <polygon
         points="108,135.4 125,135.4 125,135.4 125,135.4 142,135.4 125,94.5"
       />
@@ -65,6 +65,7 @@
     </span>
   {/if}
 </div>
+<KeywordsPanel {project} />
 <div class="doms">
   {#each doms() as domm}
     <a href={`https://${domm}`} target="_blank">
@@ -103,7 +104,7 @@
   }
 
   .border {
-    grid-column: 1 / span 4;
+    grid-column: 1 / span 6;
     border-bottom: thin solid silver;
   }
 </style>
