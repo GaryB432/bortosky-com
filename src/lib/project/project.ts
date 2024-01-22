@@ -12,9 +12,9 @@ export interface PackageJson {
   type?: "commonjs" | "module";
   keywords?: string[];
   license?: string;
-  repository?: unknown;
+  repository?: string | { type: string; url: string; directory?: string };
   homepage?: string;
-  scripts?: UnknownRecord;
+  scripts?: Record<string, string>;
   workspaces?: string | string[];
   nx?: NxProjectJson;
 }
