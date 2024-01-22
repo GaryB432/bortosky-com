@@ -42,7 +42,7 @@
     width: fit-content;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 2fr 0.5fr 1fr;
+    grid-template-columns: 1fr 2fr 0.4fr 1fr 1fr;
     align-items: center;
   }
 </style>

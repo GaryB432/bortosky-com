@@ -36,3 +36,13 @@ export interface GaryProject {
   root: PackageJson;
   projects: PackageOrProject[];
 }
+
+export function allKeywords(subject: GaryProject): string[] {
+  const keywords = subject.root.keywords ?? [];
+  subject.projects.forEach((p) => {
+    if ("keywords" in p) {
+      keywords.push(...(p.keywords ?? []));
+    }
+  });
+  return [...new Set(keywords)].sort();
+}
