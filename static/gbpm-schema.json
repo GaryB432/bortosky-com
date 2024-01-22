@@ -4,6 +4,7 @@
   "title": "Bortosky Package Management Configuration",
   "type": "object",
   "properties": {
+    "$schema": true,
     "workspaces": {
       "type": "object",
       "patternProperties": {
@@ -21,9 +22,18 @@
         }
       },
       "required": ["md"]
+    },
+    "archive": {
+      "type": "object",
+      "patternProperties": {
+        "^(?:@[a-zA-Z0-9_-]+/)?[a-zA-Z0-9_-]+$": {
+          "$ref": "#/definitions/project"
+        }
+      },
+      "additionalProperties": false
     }
   },
-  "required": ["workspaces", "todos"],
+  "required": ["workspaces"],
   "definitions": {
     "project": {
       "type": "object",
@@ -36,5 +46,6 @@
       "required": ["root"],
       "additionalProperties": false
     }
-  }
+  },
+  "additionalProperties": false
 }
