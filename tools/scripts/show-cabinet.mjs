@@ -1,20 +1,24 @@
 import chalk from "chalk";
 import { readFile } from "fs/promises";
 import { argv } from "process";
-import type {
-  HttpsBortoskyComCabinetSchemaJson as Cabinet,
-  Document as Doc,
-} from "../cabinet";
 
 const fileName = argv[2] ?? "./static/cabinet/demo.json";
 const { log } = console;
 const unlabeled = "unlabeled";
 
-function dateString(isoDate: string | undefined): string {
+/**
+ * @param {string|undefined} isoDate
+ * @returns string
+ */
+function dateString(isoDate) {
   return isoDate ? `${isoDate.slice(5)}-${isoDate.slice(0, 4)}` : "undated";
 }
 
-function showDoc(doc: Doc) {
+/**
+ * @param {import('../cabinet').Document} doc
+ * @returns void
+ */
+function showDoc(doc) {
   log(
     `- ${chalk.whiteBright(doc.subject || "UNSUB")} ${chalk.blue(
       dateString(doc.date),
@@ -23,8 +27,9 @@ function showDoc(doc: Doc) {
 }
 
 readFile(fileName).then(
-  (buffer: Buffer) => {
-    const c = JSON.parse(buffer.toString()) as Cabinet;
+  (buffer) => {
+    /** @type {import('../cabinet').HttpsBortoskyComCabinetSchemaJson} */
+    const c = JSON.parse(buffer.toString());
     if (c.hangingFolders) {
       c.hangingFolders.forEach((hf, i) => {
         log(
