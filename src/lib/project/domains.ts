@@ -28,7 +28,7 @@ export const domains = new Map<string, string[]>([
     "package-compare",
     [
       "package-compare.bortosky.app",
-      "package-compare.nabors-place-com",
+      "package-compare.vercel.app",
       "package-compare.nabors-place.com",
     ],
   ],
