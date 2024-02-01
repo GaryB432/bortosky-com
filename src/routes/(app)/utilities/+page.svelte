@@ -2,6 +2,7 @@
   import ClipboradCopy from "$lib/components/ClipboardCopy.svelte";
 
   let sortable = "";
+  let dedup = false;
 </script>
 
 <h1>Tools</h1>
@@ -17,9 +18,14 @@
   <button
     class="button-a"
     on:click={() => {
-      sortable = sortable.split("\n").sort().join("\n");
+      const lines = sortable.split("\n");
+      sortable = (dedup ? [...new Set(lines)] : lines).sort().join("\n");
     }}>Sort</button
   >
+  <div class="dedup">
+    <span>Deduplicate </span>
+    <input type="checkbox" bind:checked={dedup} />
+  </div>
   <ClipboradCopy
     textToCopy={sortable}
     on:copied={(c) => console.log(c.detail.textToCopy)}
@@ -27,7 +33,8 @@
 </section>
 
 <style>
-  textarea {
+  textarea,
+  input[type="checkbox"] {
     all: revert;
   }
   .sorter {
