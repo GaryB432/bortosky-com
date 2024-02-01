@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<opml version="1.0">
+  <head>
+    <title>Pocket Casts Feeds</title>
+  </head>
+  <body>
+    <outline text="feeds">
+      <outline type="rss" text="The Ben Domenech Podcast" xmlUrl="https://feeds.megaphone.fm/FOXM4930787114" />
+      <outline type="rss" text="The Z Blog Power Hour" xmlUrl="https://www.spreaker.com/show/2589657/episodes/feed" />
+      <outline type="rss" text="Radio Renaissance" xmlUrl="https://amren.libsyn.com/rss" />
+      <outline type="rss" text="Lingthusiasm - A podcast that's enthusiastic about linguistics" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:237055046/sounds.rss" />
+      <outline type="rss" text="Radio Derb" xmlUrl="https://vdare.com/feed/podcast-radio-derb" />
+      <outline type="rss" text="Software Engineering Radio - the podcast for professional software developers" xmlUrl="https://seradio.libsyn.com/rss" />
+      <outline type="rss" text="System Update with Glenn Greenwald" xmlUrl="https://feeds.megaphone.fm/glenngreenwald" />
+      <outline type="rss" text="Security Now (Audio)" xmlUrl="https://feeds.twit.tv/sn.xml" />
+      <outline type="rss" text="New Discourses" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:781116325/sounds.rss" />
+      <outline type="rss" text="Classic Poetry Aloud" xmlUrl="https://classicpoetryaloud.podomatic.com/rss2.xml" />
+      <outline type="rss" text="Blocked and Reported" xmlUrl="https://api.substack.com/feed/podcast/500230.rss" />
+    </outline>
+  </body>
+</opml>
