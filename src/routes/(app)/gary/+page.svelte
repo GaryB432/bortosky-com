@@ -2,6 +2,7 @@
   import { base } from "$app/paths";
   import { qrs } from "$lib/shared/quick-response";
 </script>
+
 <h1>Gary&apos;s Things</h1>
 <section class="container">
   <a href="{base}/gary/projects">
@@ -56,7 +57,13 @@
   </a>
   {#each qrs as qr, i}
     <a href="./qr/{i}#go">
-      <img src={qr.src} width="150" height="150" alt="contact qr" title={qr.from} />
+      <img
+        src={qr.src}
+        width="150"
+        height="150"
+        alt="contact qr"
+        title={qr.from}
+      />
       <div class="caption">{qr.caption}</div>
     </a>
   {/each}
@@ -106,7 +113,8 @@
     gap: 1rem;
     margin: 1rem 0;
     padding: 0.5rem;
-    img, svg {
+    img,
+    svg {
       width: 100%;
     }
   }
