@@ -6,7 +6,7 @@ const config = {
   preprocess: vitePreprocess(),
 
   kit: {
-    adapter: adapter({ runtime: "nodejs21.x" }),
+    adapter: adapter(),
     // paths: {
     //   base: process.env.NODE_ENV === "production" ? "/GaryB432" : "",
     // },
