@@ -2,6 +2,13 @@
 
 type UnknownRecord = Record<string, unknown>;
 
+export interface Dependency {
+  name: string;
+  version: string;
+  type: "dev" | "runtime";
+  depender: PackageJson;
+}
+
 export interface PackageJson {
   name: string;
   version: string;
@@ -45,4 +52,42 @@ export function allKeywords(subject: GaryProject): string[] {
     }
   });
   return [...new Set(keywords)].sort();
+}
+
+export function getDependencies(
+  projects: GaryProject[],
+  queriedPackageNames: string[],
+): Dependency[] {
+  const deps: Dependency[] = [];
+
+  function grabDependencies(
+    depender: PackageJson,
+    name: string,
+    parent?: PackageJson,
+  ): void {
+    if (depender.devDependencies) {
+      const version = depender.devDependencies[name];
+      if (version) {
+        deps.push({ name: name, version, type: "dev", depender });
+      }
+    }
+    if (depender.dependencies) {
+      const version = depender.dependencies[name];
+      if (version) {
+        deps.push({ name: name, version, type: "runtime", depender });
+      }
+    }
+  }
+
+  for (const project of projects) {
+    for (const name of queriedPackageNames) {
+      grabDependencies(project.root, name);
+      for (const subp of (project.projects as PackageJson[]).filter(
+        (p) => p.devDependencies || p.dependencies,
+      )) {
+        grabDependencies(subp, name, project.root);
+      }
+    }
+  }
+  return deps;
 }
