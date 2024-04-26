@@ -1,5 +1,5 @@
 <script>
-  import { base } from '$app/paths';
+  import { base } from "$app/paths";
 </script>
 
 <section class="embed-vp">
@@ -39,7 +39,7 @@
   .crumb a::after {
     display: inline-block;
     color: #000;
-    content: '>';
+    content: ">";
     font-weight: bold;
     padding: 0 3px;
   }

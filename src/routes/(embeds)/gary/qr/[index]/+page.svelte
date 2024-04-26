@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { page } from '$app/stores';
-  import { qrs } from '$lib/shared/quick-response';
+  import { page } from "$app/stores";
+  import { qrs } from "$lib/shared/quick-response";
 
   const subject = qrs[parseInt($page.params.index, 10)];
   function qrSource(src: string): string {
-    return src.startsWith('http') ? src : `../../${src}`;
+    return src.startsWith("http") ? src : `../../${src}`;
   }
 </script>
 

@@ -1,6 +1,5 @@
-
 <script lang="ts">
-  export let subject = 'ThemeButton component';
+  export let subject = "ThemeButton component";
 </script>
 
 <div class="container">
@@ -12,4 +11,3 @@
     border: thin solid silver;
   }
 </style>
-

@@ -3,7 +3,7 @@
   import { rand } from "$lib/shared/prng";
   import { onMount } from "svelte";
 
-  // prettier-ignore  
+  // prettier-ignore
   const strings = [
     "]kKnsu5s@T*y", "Kn34g3rb!FE3", "MB-Fr?J(ugI<", "EjcRCELmbB2*",
     "f<uYPCB4)o)Z", "HVaSEK6%X9&y", "VJ%Xi6^kin^O", "Rc(naT77xY@(",

@@ -6,7 +6,7 @@
   </a>
 </p>
 
-<style >
+<style>
   a {
     text-decoration: underline;
   }

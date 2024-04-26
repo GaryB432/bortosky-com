@@ -1,17 +1,17 @@
 <script lang="ts">
-  import type { LayoutOptions } from 'cytoscape';
-  import { createEventDispatcher, onMount } from 'svelte';
+  import type { LayoutOptions } from "cytoscape";
+  import { createEventDispatcher, onMount } from "svelte";
   // import easings, { type EasingFunction } from "../easings";
 
   const layoutOpts: LayoutOptions[] = [
-    { name: 'random', animate: true },
+    { name: "random", animate: true },
     {
-      name: 'breadthfirst',
+      name: "breadthfirst",
       directed: true,
       animate: true,
     },
     {
-      name: 'concentric',
+      name: "concentric",
       concentric: (node) => node.degree(),
       levelWidth: () => 3,
       animate: true,
@@ -29,7 +29,7 @@
   function dispatchLayout() {
     const layout = layoutOpts.find((lo) => lo.name === selected);
     if (layout) {
-      dispatch('selected', { layout });
+      dispatch("selected", { layout });
     }
   }
   onMount(() => {
@@ -68,6 +68,8 @@
   select:focus {
     --gb-inner: rgba(255, 255, 255, 1);
     --gb-outer: var(--sand-5);
-    box-shadow: 0 0 0 2px var(--gb-inner), 0 0 0 6px var(--gb-outer);
+    box-shadow:
+      0 0 0 2px var(--gb-inner),
+      0 0 0 6px var(--gb-outer);
   }
 </style>

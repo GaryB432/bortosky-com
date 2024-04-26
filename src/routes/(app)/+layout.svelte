@@ -1,7 +1,6 @@
 <script>
   import FamilyLogo from "$lib/components/FamilyLogo.svelte";
   import SlideNav from "$lib/components/SlideNav.svelte";
-
 </script>
 
 <main>

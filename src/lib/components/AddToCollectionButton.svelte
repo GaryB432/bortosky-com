@@ -41,7 +41,9 @@
           border-radius: 2px;
           background-color: $border;
           right: 100%;
-          transition: all 0.4s ease, background-color 0.2s ease;
+          transition:
+            all 0.4s ease,
+            background-color 0.2s ease;
         }
         &:before {
           transform: translate(-4px, 0);

@@ -28,7 +28,7 @@
       gap: 1rem;
       li.active {
         background-color: #ccc;
-        padding: .5rem 1rem;
+        padding: 0.5rem 1rem;
         border-radius: 3px;
         outline: thin solid black;
       }
