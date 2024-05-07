@@ -76,15 +76,9 @@
       style: cssDependencyDeclarations(),
       layout,
     });
-    // cy.bind("tap", "node", (event: cytoscape.EventObjectNode) => {
-    //   removeUnconnected(event.target);
-    // });
     cy.bind("tap", "node", (event: cytoscape.EventObjectNode) => {
       removeUnconnected(event.target);
     });
-    // cy.bind("select", "node", (e) => {
-    //   console.log("select", e);
-    // });
     cy.bind("tap", "node", (e) => {
       console.log(e.target.data());
     });
@@ -102,14 +96,14 @@
 <section class="blocky">
   <div class="top">
     <div id="cydiv" bind:this={cydiv} />
+    <SearchSelect {choices} />
     <NodeList {elements} />
   </div>
   <section class="buttons">
-    <SearchSelect {choices} />
     <button class="button-a" on:click={() => restore()}> Restore</button>
     <div class="relayout">
       <LayoutSelect
-        selected="concentric"
+        selected="breadthfirst"
         on:selected={(evt) => {
           layout = evt.detail.layout;
           runLayout();

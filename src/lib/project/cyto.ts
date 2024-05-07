@@ -6,7 +6,8 @@ import type {
   ElementsDefinition,
   NodeDefinition,
 } from "cytoscape";
-import { type GaryProject, type PackageJson } from "./project";
+import { DependencyGraph } from "./dependency-graph";
+import { type GaryProject } from "./project";
 
 const ignoredDeps = new Set(["eslint-plugin-gb"]);
 
@@ -15,101 +16,11 @@ export async function getDependencyElements(
   filter?: string[],
 ): Promise<ElementsDefinition> {
   if (filter && filter.length > 0) error(501, "bad request");
-
-  const mns = new Map<string, NodeDefinition>();
-  const mes = new Map<string, EdgeDefinition>();
-
-  const DEP = "dep";
-
-  // function addDependencies(
-  //   rec: Record<string, unknown> | undefined,
-  //   source: string,
-  //   depType: "run-time" | "development",
-  // ) {
-  //   Object.entries(rec ?? {})
-  //     .filter(([target]) => !ignoredDeps.has(target))
-  //     .forEach(([target, aversion]) => {
-  //       mns.set(target, { data: { id: target, aversion }, classes: [DEP] });
-  //       const dpid = `${target}_${source}`;
-  //       mes.set(dpid, {
-  //         data: { id: dpid, source, target },
-  //         classes: [DEP, depType],
-  //       });
-  //     });
-  // }
-
-  for (const project of gprojs) {
-    // console.log(project.root.name);
-
-    const digestAllDependencies = (p: PackageJson) => {
-      digetsDeps(p.dependencies);
-      digetsDeps(p.devDependencies);
-    };
-
-    const digetsDeps = (deps: Record<string, string> | undefined): void => {
-      for (const [pkg, v] of Object.entries(deps ?? {})) {
-        const id = pkg;
-        const vid = pkg.concat("@").concat(v);
-        mns.set(id, { data: { id, label: id } });
-        mns.set(vid, { data: { id: vid, tbd: "YES", label: v } });
-        const source = id;
-        const target = vid;
-        const eid = source.concat(">").concat(target);
-        mes.set(eid, { data: { id: eid, source, target } });
-      }
-    };
-
-    digestAllDependencies(project.root);
-
-    for (const subp of project.projects as PackageJson[]) {
-      // if (subp.dependencies) {
-      digestAllDependencies(subp);
-
-      // for (const [k, v] of Object.entries(subp.devDependencies ?? {})) {
-      //   if (v === "*") throw new Error("not yet supported");
-      //   const id = k;
-      //   mns.set(id, { data: { id, label: v } });
-      //   console.log(project.root.name, k, v);
-      // }
-      // }
-    }
+  const dg = new DependencyGraph();
+  for (const ws of gprojs) {
+    dg.digestWorkspace(ws);
   }
-
-  // for (const gp of gprojs) {
-  //   const id = gp.root.name;
-  //   mns.set(id, { data: { id }, classes: ["gbp"] });
-
-  //   // addDependencies(gp.root.dependencies, id, "run-time");
-  //   // addDependencies(gp.root.devDependencies, id, "development");
-
-  //   for (const sp of gp.projects) {
-  //     const sid = `${id}#${sp.name}`;
-  //     mns.set(sid, { data: { id: sid }, classes: ["psub"] });
-  //     const eid = `${sid}-${id}`;
-
-  //     // mes.set(eid, {
-  //     //   data: {
-  //     //     id: eid,
-  //     //     source: id,
-  //     //     target: sid,
-  //     //   },
-  //     //   classes: "psub",
-  //     // });
-  //     // if ("dependencies" in sp) {
-  //     //   addDependencies(sp.dependencies, sid, "run-time");
-  //     //   addDependencies(sp.devDependencies, sid, "development");
-  //     // }
-  //   }
-  // }
-
-  const eleComparer = (a: ElementDefinition, b: ElementDefinition) =>
-    a.data.id ? a.data.id.localeCompare(b.data.id ?? "") : 0;
-
-  const nodes = Array.from(mns.values()).sort(eleComparer);
-
-  const edges = Array.from(mes.values()).sort(eleComparer);
-
-  return { nodes, edges };
+  return dg.elements();
 }
 
 export async function getElements(
@@ -184,7 +95,61 @@ export function cssDependencyDeclarations(): CssStyleDeclaration[] {
       selector: "node",
       style: {
         label: "data(label)",
+        "background-color": "#666",
+      },
+    },
+    {
+      selector: "node.focused",
+      style: {
+        "background-color": "blue",
+        "border-width": 60,
+        "border-color": "green",
+      },
+    },
+    {
+      selector: "node.npm",
+      style: {
+        "background-color": "orange",
+        shape: "diamond",
+      },
+    },
+    {
+      selector: "node.ws",
+      style: {
+        "background-color": "#0f0",
+      },
+    },
+    {
+      selector: "node.subp",
+      style: {
+        "background-color": "#0fc",
+      },
+    },
+    {
+      selector: "node.subp.root",
+      style: {
+        "background-color": "red",
+      },
+    },
+    {
+      selector: "edge.dependency.dev",
+      style: {
+        "line-color": "green",
+      },
+    },
+    {
+      selector: "edge.dependency.runtime",
+      style: {
+        "line-color": "orange",
+      },
+    },
+    {
+      selector: ":selected",
+      style: {
         "background-color": "yellow",
+        "line-color": "yellow",
+        "target-arrow-color": "black",
+        "source-arrow-color": "black",
       },
     },
   ];
