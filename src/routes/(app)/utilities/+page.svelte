@@ -14,7 +14,7 @@
     rows="10"
     bind:value={sortable}
     placeholder="enter or paste lines to sort"
-  />
+  ></textarea>
   <button
     class="button-a"
     on:click={() => {

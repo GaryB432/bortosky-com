@@ -101,7 +101,7 @@
 
 <section class="blocky">
   <div class="top">
-    <div id="cydiv" bind:this={cydiv} />
+    <div id="cydiv" bind:this={cydiv}></div>
     <NodeList {elements} />
   </div>
   <section class="buttons">
