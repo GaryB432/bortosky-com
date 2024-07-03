@@ -12,13 +12,10 @@
     }}
     type="checkbox"
   />
-  <div>
-    <span />
-  </div>
 </label>
 
 <style lang="scss">
-  $border: var(--color-document-text);
+  // $border: var(--color-document-text);
 
   .collection {
     input {

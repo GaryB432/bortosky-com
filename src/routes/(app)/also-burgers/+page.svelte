@@ -16,10 +16,10 @@
       opened = !opened;
     }}
   >
-    <div class="icon-1" id="a" class:a={opened} />
-    <div class="icon-2" id="b" class:c={opened} />
-    <div class="icon-3" id="c" class:b={opened} />
-    <div class="clear" />
+    <div class="icon-1" id="a" class:a={opened}></div>
+    <div class="icon-2" id="b" class:c={opened}></div>
+    <div class="icon-3" id="c" class:b={opened}></div>
+    <div class="clear"></div>
   </div>
 
   <nav id="nav" class:show={opened}>
@@ -31,7 +31,7 @@
     </ul>
   </nav>
 
-  <div class="dark-blue" id="blue" class:slide={opened} />
+  <div class="dark-blue" id="blue" class:slide={opened}></div>
 
   <section class="content">
     <h1>Hello We are animated!</h1>
