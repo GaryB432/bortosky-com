@@ -1,4 +1,5 @@
 {
+  "defaultBase": "master",
   "targetDefaults": {
     "build": {
       "cache": true
@@ -9,9 +10,6 @@
     "lint": {
       "cache": true
     }
-  },
-  "affected": {
-    "defaultBase": "master"
   },
   "generators": {
     "@gb-nx/svelte": {
