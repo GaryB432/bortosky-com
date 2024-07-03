@@ -1,17 +1,21 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
-  export let checked = false;
-  const dispatch = createEventDispatcher<{ change: { checked: boolean } }>();
+  let {
+    checked = $bindable<boolean>(),
+    change,
+  }: { checked: boolean; change: (c: boolean) => void } = $props();
 </script>
 
 <label class="collection">
   <input
     bind:checked
-    on:change={() => {
-      dispatch("change", { checked });
+    onchange={() => {
+      change(checked);
     }}
     type="checkbox"
   />
+  <div>
+    <span></span>
+  </div>
 </label>
 
 <style lang="scss">

@@ -5,16 +5,10 @@
   import { focusedNodes } from "../stores";
   import AddToCollectionButton from "./AddToCollectionButton.svelte";
   import FocusedNodeIcon from "./FocusedNodeIcon.svelte";
-  import SearchSelect from "./SearchSelect.svelte";
 
-  export let elements: ElementsDefinition = {
-    nodes: [],
-    edges: [],
-  };
+  let { elements }: { elements: ElementsDefinition } = $props();
 
-  $: nodes = elements.nodes;
-  $: edges = elements.edges;
-  $: choices = elements.nodes.map((n) => n.data.id ?? "");
+  let nodes = $derived(elements.nodes);
 
   onMount(() => {
     tippy(".button-a.medium");
@@ -30,7 +24,7 @@
     <button
       class="button-a medium"
       data-tippy-content="Unfocus all nodes"
-      on:click={() => {
+      onclick={() => {
         $focusedNodes = [];
       }}
       disabled={$focusedNodes.length === 0}
@@ -46,9 +40,9 @@
       <div>
         <AddToCollectionButton
           checked={$focusedNodes.includes(n)}
-          on:change={(evt) => {
+          change={(isChecked: boolean) => {
             focusedNodes.update((a) => {
-              return evt.detail.checked
+              return isChecked
                 ? [...a, n]
                 : a.filter((nq) => n.data.id !== nq.data.id);
             });
