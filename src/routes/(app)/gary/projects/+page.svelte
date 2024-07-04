@@ -7,10 +7,10 @@
   $: projects = data.projects;
 </script>
 
-<nav>
+<section class="views">
   <a href="./cytoscape">cytoscape view</a>
   <a href="./chart">chart view</a>
-</nav>
+</section>
 
 <div class="container">
   <div class="projects">
@@ -24,7 +24,7 @@
   .container {
     padding: 2em;
   }
-  nav {
+  .views {
     display: flex;
     align-content: center;
     justify-content: flex-end;
