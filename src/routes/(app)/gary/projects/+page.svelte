@@ -7,6 +7,10 @@
   $: projects = data.projects;
 </script>
 
+<svelte:head>
+  <title>Gary's Projects - bortosky.com</title>
+</svelte:head>
+
 <section class="views">
   <a href="./cytoscape">cytoscape view</a>
   <a href="./chart">chart view</a>

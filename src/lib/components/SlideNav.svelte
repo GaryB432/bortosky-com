@@ -12,9 +12,9 @@
 </script>
 
 <section class="slidy">
-
   <label>
     <input
+      aria-label="toggle menu"
       type="checkbox"
       bind:checked
       on:change={(e) => {
