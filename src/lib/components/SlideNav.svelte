@@ -11,9 +11,10 @@
   const lefter = tweened(leftest, { duration: 200, easing: sineOut });
 </script>
 
-<nav>
+<section class="slidy">
   <label>
     <input
+      aria-label="toggle menu"
       type="checkbox"
       bind:checked
       on:change={(e) => {
@@ -46,13 +47,9 @@
       <a href="{base}/privacy-terms"> Privacy and Terms </a>
     </li>
   </ul>
-</nav>
+</section>
 
 <style lang="scss">
-  nav {
-    position: relative;
-  }
-
   ul {
     --width: 250px;
     --left: 20px;
@@ -94,7 +91,8 @@
     transition: all 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
   }
 
-  nav {
+  section.slidy {
+    position: relative;
     background-color: #3f77e9;
     .line--1,
     .line--3 {
@@ -114,7 +112,7 @@
     }
   }
 
-  nav input:checked + svg {
+  section.slidy input:checked + svg {
     .line--1,
     .line--3 {
       --length: 22.627416998;

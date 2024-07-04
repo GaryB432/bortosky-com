@@ -7,10 +7,14 @@
   $: projects = data.projects;
 </script>
 
-<nav>
+<svelte:head>
+  <title>Gary's Projects - bortosky.com</title>
+</svelte:head>
+
+<section class="views">
   <a href="./cytoscape">cytoscape view</a>
   <a href="./chart">chart view</a>
-</nav>
+</section>
 
 <div class="container">
   <div class="projects">
@@ -24,7 +28,7 @@
   .container {
     padding: 2em;
   }
-  nav {
+  .views {
     display: flex;
     align-content: center;
     justify-content: flex-end;
