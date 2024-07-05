@@ -46,6 +46,7 @@
       "build": {
         "outputs": [
           "{projectRoot}/.svelte-kit",
+          "{projectRoot}/.vercel",
           "{projectRoot}/build"
         ]
       },

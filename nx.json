@@ -13,9 +13,14 @@
   },
   "generators": {
     "@gb-nx/svelte": {
+      "route": {
+        "language": "ts",
+        "load": "none",
+        "style": "scss"
+      },
       "component": {
         "language": "ts",
-        "directory": "components"
+        "style": "scss"
       }
     }
   }
