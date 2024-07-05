@@ -12,14 +12,18 @@
       <h1>Bortosky Family</h1>
     </div>
   </div>
+  <div class="notice">svelte 5 is prerelease</div>
   <div>
     {@render children()}
   </div>
 </main>
 
 <style lang="scss">
-  .top {
+  .top,
+  .notice {
     --color-h1: white;
+  }
+  .top {
     background-color: var(--fun-blue);
     .left {
       display: flex;
@@ -28,6 +32,12 @@
         margin: 0;
       }
     }
+  }
+  .notice {
+    padding: 0.2rem;
+    background-color:  #ff892a;
+    font-weight: bold;
+    color: var(--color-h1);
   }
   @media screen and (min-width: 576px) {
     /* landscape phones */
