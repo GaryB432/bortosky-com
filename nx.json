@@ -1,4 +1,5 @@
 {
+  "defaultBase": "master",
   "targetDefaults": {
     "build": {
       "cache": true
@@ -10,14 +11,16 @@
       "cache": true
     }
   },
-  "affected": {
-    "defaultBase": "master"
-  },
   "generators": {
     "@gb-nx/svelte": {
+      "route": {
+        "language": "ts",
+        "load": "none",
+        "style": "scss"
+      },
       "component": {
         "language": "ts",
-        "directory": "components"
+        "style": "scss"
       }
     }
   }

@@ -46,6 +46,7 @@
       "build": {
         "outputs": [
           "{projectRoot}/.svelte-kit",
+          "{projectRoot}/.vercel",
           "{projectRoot}/build"
         ]
       },
@@ -54,19 +55,6 @@
           "{projectRoot}/coverage",
           "{projectRoot}/junit"
         ]
-      }
-    },
-    "generators": {
-      "@gb-nx/svelte": {
-        "route": {
-          "language": "ts",
-          "load": "none",
-          "style": "scss"
-        },
-        "component": {
-          "language": "ts",
-          "style": "scss"
-        }
       }
     }
   }
