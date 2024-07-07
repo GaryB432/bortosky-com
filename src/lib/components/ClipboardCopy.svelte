@@ -1,10 +1,6 @@
 <script lang="ts">
-  let {
-    width,
-    oncopied,
-    textToCopy = "empty text",
-  } = $props<{
-    width: string;
+  const width = "8em";
+  let { oncopied, textToCopy = "empty text" } = $props<{
     oncopied: (copiedText: string) => void;
     textToCopy: string;
   }>();

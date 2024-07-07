@@ -1,5 +1,5 @@
 <script lang="ts">
-  let opened = false;
+  let opened = $state(false);
 </script>
 
 <svelte:head>
@@ -7,12 +7,12 @@
 </svelte:head>
 
 <header>
-  <!-- svelte-ignore a11y-click-events-have-key-events -->
-  <!-- svelte-ignore a11y-no-static-element-interactions -->
+  <!-- svelte-ignore a11y_click_events_have_key_events -->
+  <!-- svelte-ignore a11y_no_static_element_interactions -->
   <div
     class="hamburger-icon"
     id="icon"
-    on:click={() => {
+    onclick={() => {
       opened = !opened;
     }}
   >

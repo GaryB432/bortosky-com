@@ -65,18 +65,14 @@
   });
 
   function removeUnconnected(target: cytoscape.NodeSingular) {
-      if (saved) {
-        cy.add(saved);
-      }
-      let connected: cytoscape.NodeCollection = target;
-      connected = connected.union(target.predecessors());
-      connected = connected.union(target.successors());
-      const notConnected: cytoscape.Collection = cy.elements().not(connected);
-      saved = cy.remove(notConnected);
-  }
-
-  function xrunLayout() {
-      cy.layout(layout).run();
+    if (saved) {
+      cy.add(saved);
+    }
+    let connected: cytoscape.NodeCollection = target;
+    connected = connected.union(target.predecessors());
+    connected = connected.union(target.successors());
+    const notConnected: cytoscape.Collection = cy.elements().not(connected);
+    saved = cy.remove(notConnected);
   }
 
   function restore() {
@@ -112,9 +108,11 @@
     <div class="relayout">
       <LayoutSelect
         selected="concentric"
-        onselect={(layout) => {
-          layout = layout;
-          cy.layout(layout).run();
+        onselect={(newLayout) => {
+          layout = newLayout;
+          setTimeout(() => {
+            cy.layout(layout).run();
+          }, 0);
         }}
       />
       <button
