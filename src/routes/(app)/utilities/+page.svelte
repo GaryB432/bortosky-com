@@ -26,10 +26,7 @@
     <span>Deduplicate </span>
     <input type="checkbox" bind:checked={dedup} />
   </div>
-  <ClipboardCopy
-    textToCopy={sortable}
-    oncopied={(text) => console.log(text)}
-  />
+  <ClipboardCopy textToCopy={sortable} oncopied={(text) => console.log(text)} />
 </section>
 
 <style>

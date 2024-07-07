@@ -36,7 +36,6 @@
       clearTimeout(ftimer);
     };
   });
-
 </script>
 
 <svg

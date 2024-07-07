@@ -35,7 +35,7 @@
   }
   .notice {
     padding: 0.2rem;
-    background-color:  #ff892a;
+    background-color: #ff892a;
     font-weight: bold;
     color: var(--color-h1);
   }
