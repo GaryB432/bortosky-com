@@ -1,15 +1,15 @@
 <script lang="ts">
   let {
     checked = $bindable<boolean>(),
-    change,
-  }: { checked: boolean; change: (c: boolean) => void } = $props();
+    onchange,
+  }: { checked: boolean; onchange: (c: boolean) => void } = $props();
 </script>
 
 <label class="collection">
   <input
     bind:checked
     onchange={() => {
-      change(checked);
+      onchange(checked);
     }}
     type="checkbox"
   />

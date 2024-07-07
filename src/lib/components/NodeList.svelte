@@ -37,7 +37,7 @@
       <div>
         <AddToCollectionButton
           checked={focusedNodes.nodes.includes(n)}
-          change={(isChecked: boolean) => {
+          onchange={(isChecked: boolean) => {
             focusedNodes.nodes = isChecked
               ? [...focusedNodes.nodes, n]
               : focusedNodes.nodes.filter((nq) => n.data.id !== nq.data.id);

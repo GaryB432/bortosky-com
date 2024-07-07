@@ -1,5 +1,6 @@
 <script lang="ts">
   import { cssDeclarations } from "$lib/project/cyto";
+  import { focusedNodes } from "$lib/states.svelte";
   import type cytoscape from "cytoscape";
 
   let flash = $state(false);
@@ -27,6 +28,9 @@
   const borderWidth = focusedNodeStyle["border-width"]?.valueOf() as number;
 
   $effect(() => {
+    if (focusedNodes.nodes.length === 0) {
+      return;
+    }
     const ftimer = setTimeout(() => {
       flash = false;
     }, duration / 2);
