@@ -1,16 +1,13 @@
 <script lang="ts">
   import type { ElementsDefinition } from "cytoscape";
-  import { onMount } from "svelte";
   import tippy from "tippy.js";
-  import { focusedNodes } from "../stores";
+  import { focusedNodes } from "../states.svelte";
   import AddToCollectionButton from "./AddToCollectionButton.svelte";
   import FocusedNodeIcon from "./FocusedNodeIcon.svelte";
 
   let { elements }: { elements: ElementsDefinition } = $props();
 
-  let nodes = $derived(elements.nodes);
-
-  onMount(() => {
+  $effect(() => {
     tippy(".button-a.medium");
   });
 </script>
@@ -25,27 +22,25 @@
       class="button-a medium"
       data-tippy-content="Unfocus all nodes"
       onclick={() => {
-        $focusedNodes = [];
+        focusedNodes.nodes = [];
       }}
-      disabled={$focusedNodes.length === 0}
+      disabled={focusedNodes.nodes.length === 0}
     >
-      Clear {$focusedNodes.length}
+      Clear {focusedNodes.nodes.length}
     </button>
   </section>
   <section class="other">
-    {#each nodes as n}
+    {#each elements.nodes as n}
       <div class="node-id">
         {n.data.id}
       </div>
       <div>
         <AddToCollectionButton
-          checked={$focusedNodes.includes(n)}
+          checked={focusedNodes.nodes.includes(n)}
           change={(isChecked: boolean) => {
-            focusedNodes.update((a) => {
-              return isChecked
-                ? [...a, n]
-                : a.filter((nq) => n.data.id !== nq.data.id);
-            });
+            focusedNodes.nodes = isChecked
+              ? [...focusedNodes.nodes, n]
+              : focusedNodes.nodes.filter((nq) => n.data.id !== nq.data.id);
           }}
         />
       </div>

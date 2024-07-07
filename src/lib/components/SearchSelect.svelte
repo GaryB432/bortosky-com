@@ -1,13 +1,15 @@
 <script lang="ts">
-  import { selectedNodeName } from "../stores";
+  import { selectedNodeName } from "../states.svelte";
 
-  export let choices: string[] = [];
+  let { choices }: { choices: string[] } = $props();
 
-  $: suggestions = choices.filter((c) => value && c.startsWith(value));
-  $: active = suggestions.length > 0 && value !== suggestions[0];
-  // let active = false;
+  let value = $state("");
 
-  let value = "";
+  let suggestions = $derived(
+    choices.filter((c) => value && c.startsWith(value)),
+  );
+
+  let active = $derived(suggestions.length > 0 && value !== suggestions[0]);
 </script>
 
 <div class="container">
@@ -16,7 +18,8 @@
     <div class="resultBox">
       {#each suggestions as sug}
         <button
-          on:click={() => {
+          onclick={() => {
+            console.log(sug);
             value = sug;
           }}
         >
@@ -26,8 +29,9 @@
     </div>
     <button
       class="icon"
-      on:click={() => {
-        $selectedNodeName = value;
+      onclick={() => {
+        console.log("ok", value);
+        selectedNodeName.name = value;
       }}
     >
       <svg

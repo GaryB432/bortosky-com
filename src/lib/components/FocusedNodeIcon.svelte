@@ -1,10 +1,8 @@
 <script lang="ts">
   import { cssDeclarations } from "$lib/project/cyto";
-  import { focusedNodes } from "$lib/stores";
   import type cytoscape from "cytoscape";
-  import { onDestroy } from "svelte";
 
-  let flash = false;
+  let flash = $state(false);
 
   const styl = cssDeclarations();
 
@@ -28,15 +26,17 @@
   const borderColor = focusedNodeStyle["border-color"]?.valueOf() as string;
   const borderWidth = focusedNodeStyle["border-width"]?.valueOf() as number;
 
-  const fnSubscriber = focusedNodes.subscribe(() => {
-    setTimeout(() => {
-      setTimeout(() => {
-        flash = false;
-      }, duration / 2);
-      flash = true;
-    }, 0);
+  $effect(() => {
+    const ftimer = setTimeout(() => {
+      flash = false;
+    }, duration / 2);
+    flash = true;
+    return () => {
+      console.log("ueifuh timer killed");
+      clearTimeout(ftimer);
+    };
   });
-  onDestroy(fnSubscriber);
+
 </script>
 
 <svg
