@@ -21,6 +21,22 @@
   const FOCUSED = "focused";
 
   $effect(() => {
+    console.log("setup cy");
+    cy = cytoscape({
+      container: cydiv,
+      elements,
+      style: cssDependencyDeclarations(),
+      layout,
+    });
+    cy.bind("tap", "node", (event: cytoscape.EventObjectNode) => {
+      removeUnconnected(event.target);
+    });
+    cy.bind("tap", "node", (e) => {
+      console.log(e.target.data());
+    });
+  });
+
+  $effect(() => {
     if (saved) {
       cy.add(saved);
       saved = null;
@@ -43,6 +59,8 @@
     });
   });
 
+  let choices = $derived(elements.nodes.map((n) => n.data.id ?? ""));
+
   function removeUnconnected(target: cytoscape.NodeSingular) {
     if (saved) {
       cy.add(saved);
@@ -64,23 +82,6 @@
     saved = null;
     cy.layout(layout).run();
   }
-
-  $effect(() => {
-    cy = cytoscape({
-      container: cydiv,
-      elements,
-      style: cssDependencyDeclarations(),
-      layout,
-    });
-    cy.bind("tap", "node", (event: cytoscape.EventObjectNode) => {
-      removeUnconnected(event.target);
-    });
-    cy.bind("tap", "node", (e) => {
-      console.log(e.target.data());
-    });
-  });
-
-  let choices = $derived(elements.nodes.map((n) => n.data.id ?? ""));
 </script>
 
 <svelte:head>
@@ -102,7 +103,9 @@
         selected="breadthfirst"
         onselect={(newLayout) => {
           layout = newLayout;
-          cy.layout(layout).run();
+          if (cy) {
+            cy.layout(layout).run();
+          }
         }}
       />
       <button
