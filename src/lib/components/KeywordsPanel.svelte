@@ -1,9 +1,7 @@
 <script lang="ts">
   import { allKeywords, type GaryProject } from "$lib/project/project";
-  export let project: GaryProject = {
-    root: { name: "", version: "" },
-    projects: [],
-  };
+
+  let { project }: { project: GaryProject } = $props();
 </script>
 
 <div class="container">

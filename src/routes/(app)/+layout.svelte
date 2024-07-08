@@ -1,6 +1,7 @@
 <script>
   import FamilyLogo from "$lib/components/FamilyLogo.svelte";
   import SlideNav from "$lib/components/SlideNav.svelte";
+  let { children } = $props();
 </script>
 
 <main>
@@ -12,7 +13,7 @@
     </div>
   </div>
   <div>
-    <slot />
+    {@render children()}
   </div>
 </main>
 

@@ -1,7 +1,6 @@
 <script lang="ts">
   import ClipboardCopy from "$lib/components/ClipboardCopy.svelte";
   import { rand } from "$lib/shared/prng";
-  import { onMount } from "svelte";
 
   // prettier-ignore
   const strings = [
@@ -23,7 +22,7 @@
     "kbnBG7d4Fw)7", "qvOd[sY<rReG", "#Nj0<Okxx*Zw", "+@)<ECIBTe6#",
     ];
 
-  let active: string[] = [];
+  let active = $state<string[]>([]);
 
   function pluckRandomStrings(count = 4): string[] {
     return Array(count)
@@ -31,7 +30,7 @@
       .map(() => strings[Math.floor(rand() * strings.length)]);
   }
 
-  onMount(() => {
+  $effect(() => {
     active = pluckRandomStrings();
   });
 </script>
@@ -43,7 +42,7 @@
 <h2>Pick and paste as needed 😏</h2>
 <button
   class="button-a"
-  on:click={() => {
+  onclick={() => {
     active = pluckRandomStrings();
   }}>SPIN</button
 >
@@ -57,7 +56,7 @@
         <ClipboardCopy
           width={"2em"}
           textToCopy={str}
-          on:copied={(e) => console.log(e.detail)}
+          oncopied={(detail: string) => console.log(detail)}
         />
       </div>
     </div>

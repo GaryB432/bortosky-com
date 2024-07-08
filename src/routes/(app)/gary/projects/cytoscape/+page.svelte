@@ -3,76 +3,27 @@
   import NodeList from "$lib/components/NodeList.svelte";
   import SearchSelect from "$lib/components/SearchSelect.svelte";
   import { cssDeclarations } from "$lib/project/cyto";
-  import { focusedNodes, selectedNodeName } from "$lib/stores";
+  import { focusedNodes, selectedNodeName } from "$lib/states.svelte";
   import cytoscape from "cytoscape";
-  import { onMount } from "svelte";
-  import type { PageData } from "./$types";
 
-  export let data: PageData;
+  let { data } = $props();
 
-  let cy: cytoscape.Core | null = null;
+  let elements = $derived(data.elements);
 
-  let cydiv: HTMLElement | null = null;
+  let cy: cytoscape.Core; // null????
+
+  let cydiv: HTMLElement;
 
   let layout: cytoscape.LayoutOptions = { name: "random" };
-
-  let { elements } = data;
 
   let saved: cytoscape.NodeCollection | null;
 
   const FOCUSED = "focused";
 
-  $: if (cy && $selectedNodeName) {
-    if (saved) {
-      cy.add(saved);
-      saved = null;
-    }
-    const n = cy.$id($selectedNodeName);
-    removeUnconnected(n);
-    cy.nodes().deselect();
-    n.select();
-    runLayout();
-  }
-
-  focusedNodes.subscribe((fns) => {
-    cy?.nodes().removeClass(FOCUSED);
-    fns.forEach((n) => {
-      cy?.$id(n.data.id ?? "").addClass(FOCUSED);
-    });
-  });
-
-  function removeUnconnected(target: cytoscape.NodeSingular) {
-    if (cy) {
-      if (saved) {
-        cy.add(saved);
-      }
-      let connected: cytoscape.NodeCollection = target;
-      connected = connected.union(target.predecessors());
-      connected = connected.union(target.successors());
-      const notConnected: cytoscape.Collection = cy.elements().not(connected);
-      saved = cy.remove(notConnected);
-    }
-  }
-
-  function runLayout() {
-    if (cy && layout) {
-      cy.layout(layout).run();
-    }
-  }
-
-  function restore() {
-    cy?.elements().remove();
-    cy?.add(elements);
-    $focusedNodes.forEach((fn) => cy?.$id(fn.data.id ?? "").addClass(FOCUSED));
-    $selectedNodeName = undefined;
-    saved = null;
-    runLayout();
-  }
-
-  onMount(() => {
+  $effect(() => {
     cy = cytoscape({
       container: cydiv,
-      elements,
+      elements: elements,
       style: cssDeclarations(),
       layout,
     });
@@ -90,7 +41,54 @@
     });
   });
 
-  $: choices = elements.nodes.map((n) => n.data.id ?? "");
+  $effect(() => {
+    if (saved) {
+      cy.add(saved);
+      saved = null;
+    }
+    if (selectedNodeName.name) {
+      const n = cy.$id(selectedNodeName.name);
+      removeUnconnected(n);
+      cy.nodes().deselect();
+      n.select();
+      cy.layout(layout).run();
+    }
+  });
+
+  $effect(() => {
+    cy.nodes().removeClass(FOCUSED);
+    focusedNodes.nodes.forEach((n) => {
+      if (n.data.id) {
+        cy.$id(n.data.id).addClass(FOCUSED);
+      }
+    });
+  });
+
+  function removeUnconnected(target: cytoscape.NodeSingular) {
+    if (saved) {
+      cy.add(saved);
+    }
+    let connected: cytoscape.NodeCollection = target;
+    connected = connected.union(target.predecessors());
+    connected = connected.union(target.successors());
+    const notConnected: cytoscape.Collection = cy.elements().not(connected);
+    saved = cy.remove(notConnected);
+  }
+
+  function restore() {
+    cy.elements().remove();
+    cy.add(elements);
+    focusedNodes.nodes.forEach((fn) =>
+      cy.$id(fn.data.id ?? "").addClass(FOCUSED),
+    );
+    selectedNodeName.name = undefined;
+    saved = null;
+    cy.layout(layout).run();
+  }
+
+  let choices = $derived(
+    elements ? elements.nodes.map((n) => n.data.id ?? "") : [],
+  );
 </script>
 
 <svelte:head>
@@ -106,20 +104,22 @@
   </div>
   <section class="buttons">
     <SearchSelect {choices} />
-    <button class="button-a" on:click={() => restore()}> Restore</button>
+    <button class="button-a" onclick={() => restore()}> Restore</button>
     <div class="relayout">
       <LayoutSelect
         selected="concentric"
-        on:selected={(evt) => {
-          layout = evt.detail.layout;
-          runLayout();
+        onselect={(newLayout) => {
+          layout = newLayout;
+          setTimeout(() => {
+            cy.layout(layout).run();
+          }, 0);
         }}
       />
       <button
         id="btn-layout"
         class="svg-button"
-        on:click={() => {
-          runLayout();
+        onclick={() => {
+          cy.layout(layout).run();
         }}
       >
         <svg

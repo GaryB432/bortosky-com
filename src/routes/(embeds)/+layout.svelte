@@ -1,5 +1,6 @@
 <script>
   import { base } from "$app/paths";
+  let { children } = $props();
 </script>
 
 <section class="embed-vp">
@@ -11,7 +12,7 @@
     </ol>
   </nav>
   <div class="block">
-    <slot />
+    {@render children()}
   </div>
 </section>
 

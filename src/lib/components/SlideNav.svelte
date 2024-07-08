@@ -3,10 +3,9 @@
   import { linear, sineOut } from "svelte/easing";
   import { tweened } from "svelte/motion";
 
-  let checked = false;
-
   const leftest = -500;
 
+  let checked = $state(false);
   const lefter = tweened(leftest, { duration: 200, easing: sineOut });
 </script>
 
@@ -16,7 +15,7 @@
       aria-label="toggle menu"
       type="checkbox"
       bind:checked
-      on:change={(e) => {
+      onchange={() => {
         if (checked) {
           $lefter = 0;
         } else {

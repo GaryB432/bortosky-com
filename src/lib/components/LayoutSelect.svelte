@@ -1,7 +1,10 @@
 <script lang="ts">
   import type { LayoutOptions } from "cytoscape";
-  import { createEventDispatcher, onMount } from "svelte";
-  // import easings, { type EasingFunction } from "../easings";
+
+  let {
+    onselect,
+    selected,
+  }: { onselect: (lo: LayoutOptions) => void; selected: string } = $props();
 
   const layoutOpts: LayoutOptions[] = [
     { name: "random", animate: true },
@@ -12,7 +15,7 @@
     },
     {
       name: "concentric",
-      concentric: (node) => node.degree(),
+      concentric: (node) => node.degree(false),
       levelWidth: () => 3,
       animate: true,
     },
@@ -20,24 +23,21 @@
 
   const keys = layoutOpts.map((lo) => lo.name);
 
-  export let selected = keys.at(0);
+  selected = keys.at(0) ?? "";
 
-  const dispatch = createEventDispatcher<{
-    selected: { layout: LayoutOptions };
-  }>();
+  // const dispatch = createEventDispatcher<{
+  //   selected: { layout: LayoutOptions };
+  // }>();
 
-  function dispatchLayout() {
+  $effect(() => {
     const layout = layoutOpts.find((lo) => lo.name === selected);
     if (layout) {
-      dispatch("selected", { layout });
+      onselect(layout);
     }
-  }
-  onMount(() => {
-    dispatchLayout();
   });
 </script>
 
-<select bind:value={selected} on:change={dispatchLayout}>
+<select bind:value={selected}>
   {#each keys as key}
     <option value={key} selected={key === selected}>{key}</option>
   {/each}

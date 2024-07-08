@@ -1,20 +1,19 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
-
-  export let width = "8em";
-
-  const dispatch = createEventDispatcher();
+  const width = "8em";
+  let { oncopied, textToCopy = "empty text" } = $props<{
+    oncopied: (copiedText: string) => void;
+    textToCopy: string;
+  }>();
 
   const clipboardPath =
     "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2";
   const checkPath = "m-6 9l2 2 4-4";
-  let copied = false;
-  let d = clipboardPath;
-  export let textToCopy = "empty text";
+  let copied = $state(false);
+  let d = $state(clipboardPath);
   function writeClipboardText() {
     navigator.clipboard
       .writeText(textToCopy)
-      .then(() => dispatch("copied", { textToCopy }))
+      .then(() => oncopied(textToCopy))
       .catch(() => alert("not copied"));
   }
 </script>
@@ -23,7 +22,7 @@
   type="button"
   style="width: {width}"
   aria-label="To Copy"
-  on:click={() => {
+  onclick={() => {
     d = clipboardPath.concat(checkPath);
     copied = true;
     setTimeout(() => {

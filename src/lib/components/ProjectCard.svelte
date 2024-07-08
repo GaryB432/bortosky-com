@@ -3,6 +3,11 @@
   import { domains } from "$lib/project/domains";
   import type { GaryProject } from "$lib/project/project";
 
+  let { project }: { project: GaryProject } = $props();
+
+  let nxVersion = $derived(packageVersion(project, "nx"));
+  let ngVersion = $derived(packageVersion(project, "@angular/common"));
+
   function packageVersion(
     project: GaryProject,
     dep: string,
@@ -14,14 +19,6 @@
 
     return rootDeps[dep];
   }
-
-  export let project: GaryProject = {
-    root: { name: "", version: "" },
-    projects: [],
-  };
-
-  $: nxVersion = packageVersion(project, "nx");
-  $: ngVersion = packageVersion(project, "@angular/common");
 
   function doms() {
     return domains.get(project.root.name) ?? [];
