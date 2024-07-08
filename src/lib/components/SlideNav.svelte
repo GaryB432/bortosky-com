@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { base } from "$app/paths";
   import { page } from "$app/stores";
   import { linear, sineOut } from "svelte/easing";
   import { tweened } from "svelte/motion";
@@ -38,13 +37,13 @@
       <a href="{base}/"> Home </a>
     </li>
     <li class:active={$page.route.id === "/(app)/gary"}>
-      <a href="{base}/gary"> Gary&apos;s Things </a>
+      <a href="/gary"> Gary&apos;s Things </a>
     </li>
     <li class:active={$page.route.id === "/(app)/utilities"}>
-      <a href="{base}/utilities"> Tools </a>
+      <a href="/utilities"> Tools </a>
     </li>
     <li class:active={$page.route.id === "/(app)/privacy-terms"}>
-      <a href="{base}/privacy-terms"> Privacy and Terms </a>
+      <a href="/privacy-terms"> Privacy and Terms </a>
     </li>
   </ul>
 </section>
