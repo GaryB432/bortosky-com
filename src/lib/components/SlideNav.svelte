@@ -34,7 +34,7 @@
 
   <ul style="transform: translate({$lefter}px, 0);">
     <li class:active={$page.route.id === "/(app)"}>
-      <a href="{base}/"> Home </a>
+      <a href="/"> Home </a>
     </li>
     <li class:active={$page.route.id === "/(app)/gary"}>
       <a href="/gary"> Gary&apos;s Things </a>
