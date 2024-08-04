@@ -1,8 +1,12 @@
 <script lang="ts">
-  const width = "8em";
-  let { oncopied, textToCopy = "empty text" } = $props<{
+  let {
+    oncopied,
+    textToCopy = "empty text",
+    width = "8em",
+  } = $props<{
     oncopied: (copiedText: string) => void;
-    textToCopy: string;
+    textToCopy?: string;
+    width?: string;
   }>();
 
   const clipboardPath =

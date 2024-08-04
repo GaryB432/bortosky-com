@@ -39,7 +39,7 @@
   <title>bortosky.com - pasters</title>
 </svelte:head>
 
-<h2>Pick and paste as needed 😏</h2>
+<h2>Pick and paste as needed <i>IYKYK 😏</i></h2>
 <button
   class="button-a"
   onclick={() => {
@@ -54,7 +54,7 @@
       </div>
       <div>
         <ClipboardCopy
-          width={"2em"}
+          width="3em"
           textToCopy={str}
           oncopied={(detail: string) => console.log(detail)}
         />
@@ -95,6 +95,9 @@
         }
       }
     }
+  }
+  i {
+    font-size: 0.5em;
   }
 
   @media screen and (min-width: 576px) {

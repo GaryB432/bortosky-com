@@ -12,7 +12,7 @@
       <h1>Bortosky Family</h1>
     </div>
   </div>
-  <div>
+  <div class="l-body">
     {@render children()}
   </div>
 </main>
@@ -28,6 +28,9 @@
         margin: 0;
       }
     }
+  }
+  .l-body {
+    margin: 0 0.5em;
   }
   @media screen and (min-width: 576px) {
     /* landscape phones */
