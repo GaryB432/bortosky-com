@@ -209,6 +209,64 @@
  },
  {
   "root": {
+   "name": "@fun-with-ts/source",
+   "private": true,
+   "devDependencies": {
+    "@types/command-line-usage": "5.0.4",
+    "@types/jest": "27.5.2",
+    "@types/node": "16.18.104",
+    "@typescript-eslint/eslint-plugin": "5.62.0",
+    "@typescript-eslint/parser": "5.62.0",
+    "eslint": "8.57.0",
+    "eslint-config-prettier": "8.10.0",
+    "eslint-plugin-gb": "1.5.1",
+    "eslint-plugin-jest": "25.7.0",
+    "eslint-plugin-prettier": "4.2.1",
+    "jest": "27.5.1",
+    "jest-junit": "13.2.0",
+    "lerna": "4.0.0",
+    "prettier": "2.8.8",
+    "ts-jest": "27.1.5",
+    "typescript": "4.9.5"
+   },
+   "scripts": {
+    "test": "jest",
+    "format": "prettier --write .",
+    "posttest": "eslint --ext ts ."
+   },
+   "dependencies": {
+    "colors": "1.4.0",
+    "command-line-usage": "6.1.3",
+    "yargs-parser": "21.1.1"
+   }
+  },
+  "projects": [
+   {
+    "name": "fun-with-ts",
+    "version": "0.0.0",
+    "description": "fun-with-ts",
+    "private": false,
+    "devDependencies": {
+     "rimraf": "3.0.2",
+     "typescript": "4.9.5"
+    },
+    "files": [
+     "lib"
+    ],
+    "keywords": [],
+    "license": "ISC",
+    "main": "lib/index.js",
+    "scripts": {
+     "prebuild": "rimraf lib",
+     "build": "tsc",
+     "prepare": "npm run build"
+    },
+    "typings": "lib/index.d.ts"
+   }
+  ]
+ },
+ {
+  "root": {
    "name": "@gb-nx/source",
    "version": "6.0.0",
    "description": "Some miscellaneous NX plugins",
@@ -1494,64 +1552,6 @@
    }
   },
   "projects": []
- },
- {
-  "root": {
-   "name": "fun-with-ts@root",
-   "private": true,
-   "devDependencies": {
-    "@types/command-line-usage": "5.0.4",
-    "@types/jest": "27.5.2",
-    "@types/node": "16.18.104",
-    "@typescript-eslint/eslint-plugin": "5.62.0",
-    "@typescript-eslint/parser": "5.62.0",
-    "eslint": "8.57.0",
-    "eslint-config-prettier": "8.10.0",
-    "eslint-plugin-gb": "1.5.1",
-    "eslint-plugin-jest": "25.7.0",
-    "eslint-plugin-prettier": "4.2.1",
-    "jest": "27.5.1",
-    "jest-junit": "13.2.0",
-    "lerna": "4.0.0",
-    "prettier": "2.8.8",
-    "ts-jest": "27.1.5",
-    "typescript": "4.9.5"
-   },
-   "scripts": {
-    "test": "jest",
-    "format": "prettier --write .",
-    "posttest": "eslint --ext ts ."
-   },
-   "dependencies": {
-    "colors": "1.4.0",
-    "command-line-usage": "6.1.3",
-    "yargs-parser": "21.1.1"
-   }
-  },
-  "projects": [
-   {
-    "name": "fun-with-ts",
-    "version": "0.0.0",
-    "description": "fun-with-ts",
-    "private": false,
-    "devDependencies": {
-     "rimraf": "3.0.2",
-     "typescript": "4.9.5"
-    },
-    "files": [
-     "lib"
-    ],
-    "keywords": [],
-    "license": "ISC",
-    "main": "lib/index.js",
-    "scripts": {
-     "prebuild": "rimraf lib",
-     "build": "tsc",
-     "prepare": "npm run build"
-    },
-    "typings": "lib/index.d.ts"
-   }
-  ]
  },
  {
   "root": {
