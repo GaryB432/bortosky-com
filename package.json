@@ -20,6 +20,7 @@
     "@types/cookie": "^0.5.1",
     "@types/cytoscape": "^3.19.12",
     "@types/eslint": "^9.6.0",
+    "@types/simple-get": "^4.0.3",
     "eslint": "^9.0.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-gb": "^9.0.0-alpha.1",
@@ -41,6 +42,7 @@
   },
   "dependencies": {
     "cytoscape": "^3.26.0",
+    "simple-get": "^4.0.1",
     "tippy.js": "^6.3.7"
   },
   "type": "module",

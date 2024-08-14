@@ -30,6 +30,6 @@ export default [
     },
   },
   {
-    ignores: ["build/", ".svelte-kit/", ".vercel/", "dist/"],
+    ignores: [".nx/", "build/", ".svelte-kit/", ".vercel/", "dist/"],
   },
 ];
