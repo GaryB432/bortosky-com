@@ -15,7 +15,7 @@
     </h2>
     <div>{paramPkg.description}</div>
     <div class="keywords">
-      {#each paramPkg.keywords as k}
+      {#each paramPkg.keywords ?? [] as k}
         <div class="keyword">{k}</div>
       {/each}
     </div>
