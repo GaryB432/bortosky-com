@@ -19,8 +19,8 @@ export interface Packument {
 }
 
 interface N010 {
-  name?: string;
-  version?: string;
+  name: string;
+  version: string;
   description?: string;
   license?: string;
   repository?: {

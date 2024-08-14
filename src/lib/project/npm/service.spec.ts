@@ -2,16 +2,19 @@ import { beforeEach, describe, expect, test } from "vitest";
 import type { Packument } from "./packument";
 import { Service } from "./service";
 
-describe("Service", () => {
+describe.skip("Service", () => {
   let service: Service;
   beforeEach(() => {
-    service = new Service(2);
+    service = new Service();
   });
-  test("adds", () => {
-    expect(service.add(3)).toEqual(5);
-  });
-  test("greets", () => {
-    expect(service.greet("world")).toEqual("Service says: hello to world");
+  test("package getting", async () => {
+    const pack = await service.getPackage("venv");
+    expect(pack?.keywords).toEqual([
+      "environment",
+      "variables",
+      "angular",
+      "cli",
+    ]);
   });
 });
 
