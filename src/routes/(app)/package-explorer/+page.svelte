@@ -29,7 +29,7 @@
   }
   .keywords {
     display: flex;
-    flex-direction: row;
+    flex-flow: row wrap;
     gap: 0.25rem;
   }
   .keyword {
