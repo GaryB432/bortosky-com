@@ -1,13 +1,34 @@
 import type { PackageJson } from "$lib/project/project";
-import { beforeEach, describe, expect, test, vitest } from "vitest";
+import { beforeEach, describe, expect, test, vi } from "vitest";
 import { getKeywordMap } from "./map";
+import type { Packument } from "$lib/project/npm";
 
-import axios from "axios";
-import type { Mocked } from "vitest";
+// import { when } from "vitest-when";
 
-vitest.mock("axios");
+// import { axiosClient } from "../axiosClient";
+// import * as subject from "../subject";
 
-const mockedAxios = axios as Mocked<typeof axios>;
+// describe("fetching foo", () => {
+//   afterEach(() => {
+//     vi.resetAllMocks()
+//   })
+
+//   it("should call GET /foo", async () => {
+//     when(axiosClient.get)
+//       .calledWith("/foo")
+//       .thenResolve({ data: { mockData: true } });
+
+//     const result = await subject.fetchFoo();
+
+//     expect(result).toEqual({ mockData: true });
+//   });
+// });
+
+// import axios from "axios";
+
+// vitest.mock("axios");
+
+// const mockedAxios = axios as Mocked<typeof axios>;
 
 // describe('market', () => {
 //   test('should work', async () => {
@@ -34,6 +55,38 @@ const mockedAxios = axios as Mocked<typeof axios>;
 // {name:"plant",version:"0.0.0",description:"the plant project",keywords:["plant"]},
 // {name:"river",version:"0.0.0",description:"the river project",keywords:["river"]},
 
+const housePack: Required<Packument> = {
+  _id: "",
+  _rev: "",
+  name: "",
+  description: "",
+  "dist-tags": {
+    latest: "",
+  },
+  versions: {
+    "0.0.0": {
+      name: "house",
+      version: "0.0.0",
+      description: "the house project",
+      dependencies: {
+        bathroom: "^0.0.0",
+      },
+      devDependencies: {
+        kitchen: "^0.0.0",
+      },
+    },
+  },
+  readme: "",
+  maintainers: [],
+  time: {},
+  homepage: "",
+  keywords: [],
+  repository: undefined,
+  bugs: undefined,
+  license: "",
+  readmeFilename: "",
+};
+
 const pjs: PackageJson[] = [
   {
     name: "house",
@@ -45,6 +98,7 @@ const pjs: PackageJson[] = [
     devDependencies: {
       kitchen: "^0.0.0",
     },
+    keywords: ["DO-NOT-USE", "ROOT-HOUSE-PROJECT"],
   },
   {
     name: "kitchen",
@@ -60,16 +114,35 @@ const pjs: PackageJson[] = [
   },
 ];
 
+class MockService {
+  public async getPackage(name: string): Promise<Packument | undefined> {
+    console.log("asking for ", name);
+
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const pkg = somePacks.find((p) => p.name === name);
+        if (!pkg)
+          throw new Error(`${name} is not in the registry you're using`);
+        resolve(pkg);
+        console.log(pkg?.name, "found");
+      }, 500);
+    });
+  }
+}
+
 describe("Map", () => {
   let kmap: Map<string, PackageJson[]>;
+
   beforeEach(async () => {
-    kmap = await getKeywordMap(pjs);
+    kmap = await getKeywordMap(pjs[0], new MockService());
   });
   test("getKeywordMap", () => {
-    expect(kmap.get("room")?.map((f) => f.name)).toEqual([
-      "kitchen",
-      "bathroom",
-    ]);
+    expect(
+      kmap
+        .get("room")
+        ?.map((f) => f.name)
+        .sort(),
+    ).toEqual(["bathroom", "kitchen"]);
   });
 });
 
@@ -208,3 +281,68 @@ const orderlyPackages: PackageJson[] = [
     },
   },
 ];
+const someJs: PackageJson[] = [
+  {
+    name: "house",
+    version: "0.0.0",
+    description: "the house project",
+    dependencies: {
+      bathroom: "^0.0.0",
+    },
+    devDependencies: {
+      kitchen: "^0.0.0",
+    },
+    keywords: ["DO-NOT-USE", "ROOT-HOUSE-PROJECT"],
+  },
+  {
+    name: "kitchen",
+    version: "0.0.0",
+    description: "the kitchen project",
+    keywords: ["room", "cooking"],
+  },
+  {
+    name: "bathroom",
+    version: "0.0.0",
+    description: "the bathroom project",
+    keywords: ["room", "bathing"],
+  },
+];
+
+const somePacks: Packument[] = someJs.map<Packument>((j, i) => {
+  const {
+    name,
+    description,
+    version,
+    keywords,
+    dependencies,
+    devDependencies,
+  } = j;
+  return {
+    _id: name,
+    _rev: i.toString(),
+    name,
+    description: description,
+    "dist-tags": {
+      latest: version,
+    },
+    versions: {
+      [version]: {
+        name,
+        version,
+        description,
+        keywords,
+        dependencies,
+        devDependencies,
+      },
+    },
+    readme: "",
+    maintainers: [],
+    time: undefined,
+    homepage: "",
+    keywords,
+    repository: undefined,
+    bugs: undefined,
+    license: "",
+    readmeFilename: "",
+  };
+});

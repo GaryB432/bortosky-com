@@ -1,18 +1,20 @@
 import type { PackageJson } from "$lib/project/project";
-
-import type { Packument } from "$lib/project/npm/packument";
+import { Service, type Packument } from "$lib/project/npm";
+// import { get } from "simple-get";
 
 export type Keyword = string;
 
-async function getPackageDefinition(
-  key: string,
-): Promise<PackageJson | undefined> {
-  return new Promise((a, b) => {
-    setTimeout(() => {
-      a({ name: key, version: "0" });
-    }, 2000);
-  });
-}
+// async function getPackageDefinition(
+//   key: string,
+// ): Promise<Packument | undefined> {
+//   const p = somePacks.find((m) => m.name === key);
+//   if (!p) throw new Error("not found");
+//   return new Promise((a, b) => {
+//     const m = setTimeout(() => {
+//       a(p);
+//     }, 200);
+//   });
+// }
 
 const someKeywords = [
   "helicopter",
@@ -26,15 +28,8 @@ const someKeywords = [
 
 // prettier-ignore
 
-const ff: Required<Packument> = {
-  _id: "",
-  _rev: "",
-  name: "",
-  description: "",
-  "dist-tags": {
-    latest: ""
-  },
-  versions: {"0.0.0":  {
+const someJs: PackageJson[] = [
+  {
     name: "house",
     version: "0.0.0",
     description: "the house project",
@@ -44,19 +39,142 @@ const ff: Required<Packument> = {
     devDependencies: {
       kitchen: "^0.0.0",
     },
-  },},
-  readme: "",
-  maintainers: [],
-  time: {},
-  homepage: "",
-  keywords: [],
-  repository: undefined,
-  bugs: undefined,
-  license: "",
-  readmeFilename: ""
+    keywords: ["DO-NOT-USE", "ROOT-HOUSE-PROJECT"],
+  },
+  {
+    name: "kitchen",
+    version: "0.0.0",
+    description: "the kitchen project",
+    keywords: ["room", "cooking"],
+  },
+  {
+    name: "bathroom",
+    version: "0.0.0",
+    description: "the bathroom project",
+    keywords: ["room", "bathing"],
+  },
+];
+
+const somePacks: Packument[] = someJs.map<Packument>((j, i) => {
+  const {
+    name,
+    description,
+    version,
+    keywords,
+    dependencies,
+    devDependencies,
+  } = j;
+  return {
+    _id: name,
+    _rev: i.toString(),
+    name,
+    description: description,
+    "dist-tags": {
+      latest: version,
+    },
+    versions: {
+      [version]: {
+        name,
+        version,
+        description,
+        keywords,
+        dependencies,
+        devDependencies,
+      },
+    },
+    readme: "",
+    maintainers: [],
+    time: undefined,
+    homepage: "",
+    keywords,
+    repository: undefined,
+    bugs: undefined,
+    license: "",
+    readmeFilename: "",
+  };
+});
+
+// function getRandomElement<T>(array: Array<T>): T {
+//   const randomIndex = Math.floor(Math.random() * array.length);
+//   return array[randomIndex];
+// }
+
+// function someDependencies(max?: number): Record<string, string> {
+//   const size = max ?? Math.floor(Math.random() * 8 + 1);
+//   const deps = new Array(size)
+//     .fill(0)
+//     .map(() => getRandomElement(someJs).name)
+//     // .map((g) => g.name)
+//     .sort()
+//     .reduce<Record<string, string>>((a, b) => {
+//       a[b] = "^0.0.0";
+//       return a;
+//     }, {});
+//   return deps;
+// }
+
+export async function getKeywordMap(
+  subject: PackageJson | Packument,
+  // packages: PackageJson[],
+  npm: Service,
+  depth = 0,
+): Promise<Map<string, PackageJson[]>> {
+  // const registry = packages.reduce((a, b) => {
+  //   a.set(b.name, b);
+  //   return a;
+  // }, new Map<string, PackageJson>());
+
+  const subjectJ = getLatestPackage(subject);
+
+  const result: Map<Keyword, PackageJson[]> = new Map();
+
+  function digestKeyword(keyword: string, subject: PackageJson): void {
+    console.log(keyword);
+    const kwdPackages = result.get(keyword);
+    if (!kwdPackages) {
+      result.set(keyword, [subject]);
+    } else {
+      if (
+        !kwdPackages.find(
+          (f) => f.name === subject.name && f.version === subject.version,
+        )
+      ) {
+        kwdPackages.push(subject);
+      }
+    }
+  }
+
+  async function digestDependencies(
+    depRecord: Record<string, string>,
+  ): Promise<void> {
+    if (depRecord) {
+      for (const dep of Object.keys(depRecord)) {
+        const dpack = await npm.getPackage(dep);
+        if (dpack) {
+          for (const k of dpack.keywords ?? []) {
+            digestKeyword(k, getLatestPackage(dpack));
+          }
+        }
+      }
+    }
+  }
+
+  const { dependencies, devDependencies } = subjectJ;
+  const allDeps = { ...dependencies, ...devDependencies };
+  void (await digestDependencies(allDeps));
+  return result;
 }
 
-const someJs: PackageJson[] = [
+export function getLatestPackage(
+  subject: PackageJson | Packument,
+): PackageJson {
+  if ("dist-tags" in subject) {
+    return subject.versions[subject["dist-tags"].latest] as PackageJson;
+  } else {
+    return subject;
+  }
+}
+const someOldeTimeyJs: PackageJson[] = [
   {
     name: "apple",
     version: "0.0.0",
@@ -106,89 +224,3 @@ const someJs: PackageJson[] = [
     keywords: ["river"],
   },
 ];
-
-const somePacks: Packument[] = someJs.map<Packument>((j, i) => {
-  const {
-    name,
-    description,
-    version,
-    keywords,
-    dependencies,
-    devDependencies,
-  } = j;
-  return {
-    _id: name,
-    _rev: i.toString(),
-    name,
-    description: description,
-    "dist-tags": {
-      latest: version,
-    },
-    versions: {
-      [version]: { keywords, name, description, dependencies, devDependencies },
-    },
-    readme: "",
-    maintainers: [],
-    time: undefined,
-    homepage: "",
-    keywords,
-    repository: undefined,
-    bugs: undefined,
-    license: "",
-    readmeFilename: "",
-  };
-});
-
-function getRandomElement<T>(array: Array<T>): T {
-  const randomIndex = Math.floor(Math.random() * array.length);
-  return array[randomIndex];
-}
-
-function someDependencies(max?: number): Record<string, string> {
-  const size = max ?? Math.floor(Math.random() * 8 + 1);
-  const deps = new Array(size)
-    .fill(0)
-    .map(() => getRandomElement(someJs).name)
-    // .map((g) => g.name)
-    .sort()
-    .reduce<Record<string, string>>((a, b) => {
-      a[b] = "^0.0.0";
-      return a;
-    }, {});
-  return deps;
-}
-
-export async function getKeywordMap(
-  packages: PackageJson[],
-  depth = 0,
-): Promise<Map<string, PackageJson[]>> {
-  const registry = packages.reduce((a, b) => {
-    a.set(b.name, b);
-    return a;
-  }, new Map<string, PackageJson>());
-
-  const result: Map<Keyword, PackageJson[]> = new Map();
-
-  function digestKeyword(keyword: string, subject: PackageJson): void {
-    const kwdPackages = result.get(keyword);
-    if (!kwdPackages) {
-      result.set(keyword, [subject]);
-    } else {
-      if (
-        !kwdPackages.find(
-          (f) => f.name === subject.name && f.version === subject.version,
-        )
-      ) {
-        kwdPackages.push(subject);
-      }
-    }
-  }
-
-  for (const subject of packages) {
-    for (const k of subject.keywords ?? []) {
-      digestKeyword(k, subject);
-    }
-  }
-
-  return result;
-}
