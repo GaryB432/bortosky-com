@@ -5,7 +5,7 @@ let _focusedNodes = $state<NodeDefinition[]>([]);
 let _selectedNodeName = $state<string | undefined>();
 
 export const focusedNodes = {
-  get nodes() {
+  get nodes(): NodeDefinition[] {
     return _focusedNodes;
   },
   set nodes(nodes: NodeDefinition[]) {
@@ -14,7 +14,7 @@ export const focusedNodes = {
 };
 
 export const selectedNodeName = {
-  get name() {
+  get name(): string | undefined {
     return _selectedNodeName;
   },
   set name(val: string | undefined) {
