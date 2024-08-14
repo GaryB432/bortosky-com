@@ -18,14 +18,13 @@
 
 ```mermaid
 graph TD
-A[house] --> K[kitchen]
-A --> B[bathroom]
-B -.-> R(room)
-B -.-> M(bathing)
-K -.-> L(cooking)
-K -.-> R
-
-
+A[room]
+A -.-> bathroom
+A -.-> kitchen
+B[bathing]
+B -.-> bathroom
+C[cooking]
+C -.-> kitchen
 ```
 
 ## tplant

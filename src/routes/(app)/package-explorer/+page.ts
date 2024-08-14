@@ -36,9 +36,33 @@ export const load = (async ({ url, fetch }) => {
       if (!ppk) {
         error(404, `${p} was not returned from npm registry api`);
       }
-      const packageRecord = await getKeywordMap(ppk, npm);
+      const packMap = await getKeywordMap(ppk, npm);
 
-      console.log("handle", Array.from(packageRecord.keys()).join());
+      console.log("handle", Array.from(packMap.keys()).join());
+
+      const rpt = [
+        "```mermaid",
+        "graph TD",
+
+        // A[house] --> K[kitchen]
+        // A --> B[bathroom]
+        // B -.-> R(room)
+        // B -.-> M(bathing)
+        // K -.-> L(cooking)
+        // K -.-> R
+        // ```
+      ];
+
+      let counter = 64;
+      packMap.forEach((v, k) => {
+        const cn = String.fromCharCode(++counter);
+        rpt.push(`${cn}[${k}]`);
+        rpt.push(...v.map((m) => `${cn} -.-> ${m.name}`));
+      });
+
+      rpt.push("```");
+
+      console.log(rpt.join("\n"));
 
       // const m = new Set(
       //   Array.from(packageRecord.entries()).map(([f, d]) => {
