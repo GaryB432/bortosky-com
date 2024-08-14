@@ -1,6 +1,8 @@
 import { error } from "@sveltejs/kit";
 import type { PageLoad } from "./$types";
 
+export const prerender = false;
+
 type Packument = {
   description: string;
   "dist-tags": Record<string, string>;

@@ -1,3 +1,5 @@
+/* eslint @typescript-eslint/member-ordering: 0 */
+
 export interface Packument {
   _id?: string;
   _rev?: string;

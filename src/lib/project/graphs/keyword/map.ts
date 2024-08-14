@@ -184,12 +184,6 @@ export async function getKeywordMap(
     }
   }
 
-  function asdf(deps: Record<string, string> | undefined) {
-    if (!deps) return;
-    for (const p of Object.keys(deps)) {
-    }
-  }
-
   for (const subject of packages) {
     for (const k of subject.keywords ?? []) {
       digestKeyword(k, subject);
