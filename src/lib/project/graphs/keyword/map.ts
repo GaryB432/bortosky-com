@@ -113,6 +113,16 @@ const somePacks: Packument[] = someJs.map<Packument>((j, i) => {
 //   return deps;
 // }
 
+export function getLatestPackage(
+  subject: PackageJson | Packument,
+): PackageJson {
+  if ("dist-tags" in subject) {
+    return subject.versions[subject["dist-tags"].latest] as PackageJson;
+  } else {
+    return subject;
+  }
+}
+
 export async function getKeywordMap(
   subject: PackageJson | Packument,
   // packages: PackageJson[],
@@ -162,18 +172,10 @@ export async function getKeywordMap(
   const { dependencies, devDependencies } = subjectJ;
   const allDeps = { ...dependencies, ...devDependencies };
   void (await digestDependencies(allDeps));
+  console.log(result);
   return result;
 }
 
-export function getLatestPackage(
-  subject: PackageJson | Packument,
-): PackageJson {
-  if ("dist-tags" in subject) {
-    return subject.versions[subject["dist-tags"].latest] as PackageJson;
-  } else {
-    return subject;
-  }
-}
 const someOldeTimeyJs: PackageJson[] = [
   {
     name: "apple",

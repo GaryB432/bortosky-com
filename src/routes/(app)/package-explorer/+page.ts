@@ -2,6 +2,7 @@ import { getKeywordMap } from "$lib/project/graphs/keyword/map";
 import { Service } from "$lib/project/npm";
 import { error } from "@sveltejs/kit";
 import type { PageLoad } from "./$types";
+import { makeMermaidGraph } from "$lib/project/graphs/keyword/mermaid";
 
 export const prerender = false;
 
@@ -40,27 +41,7 @@ export const load = (async ({ url, fetch }) => {
 
       console.log("handle", Array.from(packMap.keys()).join());
 
-      const rpt = [
-        "```mermaid",
-        "graph TD",
-
-        // A[house] --> K[kitchen]
-        // A --> B[bathroom]
-        // B -.-> R(room)
-        // B -.-> M(bathing)
-        // K -.-> L(cooking)
-        // K -.-> R
-        // ```
-      ];
-
-      let counter = 64;
-      packMap.forEach((v, k) => {
-        const cn = String.fromCharCode(++counter);
-        rpt.push(`${cn}[${k}]`);
-        rpt.push(...v.map((m) => `${cn} -.-> ${m.name}`));
-      });
-
-      rpt.push("```");
+      const rpt = makeMermaidGraph(packMap);
 
       console.log(rpt.join("\n"));
 
@@ -90,3 +71,5 @@ export const load = (async ({ url, fetch }) => {
     paramPackages,
   };
 }) satisfies PageLoad;
+
+
