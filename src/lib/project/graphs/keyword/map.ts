@@ -172,7 +172,6 @@ export async function getKeywordMap(
   const { dependencies, devDependencies } = subjectJ;
   const allDeps = { ...dependencies, ...devDependencies };
   void (await digestDependencies(allDeps));
-  console.log(result);
   return result;
 }
 

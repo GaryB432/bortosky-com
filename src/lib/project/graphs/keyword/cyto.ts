@@ -11,7 +11,11 @@ import type {
   NodeDefinition,
 } from "cytoscape";
 
-type GelementDef = ElementDataDefinition & { id: string; label?: string; description?: string };
+type GelementDef = ElementDataDefinition & {
+  id: string;
+  label?: string;
+  description?: string;
+};
 
 // export async function getDependencyElements(
 //   gprojs: GaryProject[],
@@ -86,7 +90,7 @@ export async function getElements(
   function getEdge(kwdData: GelementDef, pJData: GelementDef): GelementDef {
     return {
       id: kwdData.id.concat("|").concat(pJData.id),
-      description: ''
+      description: "",
     };
   }
 
@@ -99,7 +103,7 @@ export async function getElements(
   }
 
   function getKeywordNode(keyword: string): GelementDef {
-    return { id: keyword };
+    return { id: keyword, label: keyword };
   }
   // function addDependencies(
   //   rec: Record<string, unknown> | undefined,
@@ -155,81 +159,11 @@ export async function getElements(
   // return { nodes, edges };
 }
 
-export function cssDependencyDeclarations(): CssStyleDeclaration[] {
-  return [
-    // {
-    //   selector: "node",
-    //   style: { "background-color": "orange", label: "data(label)" },
-    // },
-    {
-      selector: "node",
-      style: {
-        label: "data(label)",
-        "background-color": "#666",
-      },
-    },
-    {
-      selector: "node.focused",
-      style: {
-        "background-color": "blue",
-        "border-width": 60,
-        "border-color": "green",
-      },
-    },
-    {
-      selector: "node.npm",
-      style: {
-        "background-color": "orange",
-        shape: "diamond",
-      },
-    },
-    {
-      selector: "node.ws",
-      style: {
-        "background-color": "#0f0",
-      },
-    },
-    {
-      selector: "node.subp",
-      style: {
-        "background-color": "#0fc",
-      },
-    },
-    {
-      selector: "node.subp.root",
-      style: {
-        "background-color": "red",
-      },
-    },
-    {
-      selector: "edge.dependency.dev",
-      style: {
-        "line-color": "green",
-      },
-    },
-    {
-      selector: "edge.dependency.runtime",
-      style: {
-        "line-color": "orange",
-      },
-    },
-    {
-      selector: ":selected",
-      style: {
-        "background-color": "yellow",
-        "line-color": "yellow",
-        "target-arrow-color": "black",
-        "source-arrow-color": "black",
-      },
-    },
-  ];
-}
-
 export function cssDeclarations(): CssStyleDeclaration[] {
   return [
     {
       selector: "node",
-      style: { "background-color": "#666", label: "data(id)" },
+      style: { "background-color": "#666", label: "data(label)" },
     },
     {
       selector: "node.package",

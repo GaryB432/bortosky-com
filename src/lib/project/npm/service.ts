@@ -1,3 +1,4 @@
+import { error } from "@sveltejs/kit";
 import type { PackageJson } from "../project";
 import type { Packument as NpmPack } from "./packument";
 
@@ -16,6 +17,33 @@ type Packument = Pick<
 > & { versions: Record<string, PackumentVersion> };
 
 export class Service {
+  public async getPackage(name: string): Promise<Packument | undefined> {
+    console.log("asking for ", name);
+    const response = await fetch(`https://registry.npmjs.org/${name}`);
+    const paramPkg = (await response.json()) as Packument & { error: string };
+
+    if (paramPkg.error) {
+      error(404, `${name} was not returned from npm registry api`);
+    }
+
+    return paramPkg;
+
+    // const { keywords, name, description } =
+    //   paramPkg.versions[paramPkg["dist-tags"]["latest"]];
+
+    // return new Promise((resolve) => {
+    //   setTimeout(() => {
+    //     const pkg = somePacks.find((p) => p.name === name);
+    //     if (!pkg)
+    //       throw new Error(`${name} is not in the registry you're using`);
+    //     resolve(pkg);
+    //     console.log(pkg?.name, "found");
+    //   }, 500);
+    // });
+  }
+}
+
+export class FakeService {
   public async getPackage(name: string): Promise<Packument | undefined> {
     console.log("asking for ", name);
 

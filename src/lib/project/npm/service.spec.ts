@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, test } from "vitest";
 import type { Packument } from "./packument";
-import { Service } from "./service";
+import { FakeService } from "./service";
 
 describe.skip("Service", () => {
-  let service: Service;
+  let service: FakeService;
   beforeEach(() => {
-    service = new Service();
+    service = new FakeService();
   });
   test("package getting", async () => {
     const pack = await service.getPackage("venv");
