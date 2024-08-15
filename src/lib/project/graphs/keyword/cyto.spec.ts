@@ -49,6 +49,8 @@ describe("Cyto", () => {
         ["kw-a", [house]],
       ]),
     );
+    expect(gels.nodes.length).toEqual(6);
+    expect(gels.edges.length).toEqual(5);
     expect(
       gels.nodes.map((l) => {
         return l.data;
@@ -56,43 +58,50 @@ describe("Cyto", () => {
     ).toMatchInlineSnapshot(`
       [
         {
+          "id": "kw-ac",
+        },
+        {
+          "description": "the house project",
+          "id": "house@0.0.0",
+          "label": "house",
+        },
+        {
+          "description": "the bathroom project",
           "id": "bathroom@0.0.0",
           "label": "bathroom",
         },
         {
+          "id": "kw-ab",
+        },
+        {
+          "description": "the kitchen project",
           "id": "kitchen@0.0.0",
           "label": "kitchen",
         },
         {
-          "id": "house@0.0.0",
-          "label": "house",
+          "id": "kw-a",
         },
       ]
     `);
     expect(gels.edges.map((l) => l.data)).toMatchInlineSnapshot(`
       [
         {
-          "id": "house@0.0.0kw-ac",
           "source": "kw-ac",
           "target": "house@0.0.0",
         },
         {
-          "id": "bathroom@0.0.0kw-ac",
           "source": "kw-ac",
           "target": "bathroom@0.0.0",
         },
         {
-          "id": "house@0.0.0kw-ab",
           "source": "kw-ab",
           "target": "house@0.0.0",
         },
         {
-          "id": "kitchen@0.0.0kw-ab",
           "source": "kw-ab",
           "target": "kitchen@0.0.0",
         },
         {
-          "id": "house@0.0.0kw-a",
           "source": "kw-a",
           "target": "house@0.0.0",
         },

@@ -11,9 +11,7 @@ import type {
   NodeDefinition,
 } from "cytoscape";
 
-type RequiredId<T extends ElementDataDefinition> = Pick<Required<T>, "id">;
-
-type GelementDef = ElementDataDefinition | { id: string; label?: string };
+type GelementDef = ElementDataDefinition & { id: string; label?: string; description?: string };
 
 // export async function getDependencyElements(
 //   gprojs: GaryProject[],
@@ -42,16 +40,23 @@ export async function getElements(
   // });
 
   keywordMap.forEach((pJs, keyword) => {
-    const kwdData: GelementDef = { id: keyword };
-    // mns.set(kwdData.id, {
-    //   data: kwdData,
-    //   classes: ["keyword"],
-    // });
+    const kwdData: GelementDef = getKeywordNode(keyword);
+    mns.set(kwdData.id, {
+      data: kwdData,
+      classes: ["keyword"],
+    });
     for (const pJ of pJs) {
-      //   const pJData: GelementDef = {
-      //     id: pJ.name.concat("@".concat(pJ.version)),
-      //     label: pJ.name,
-      //   };
+      const pJData: GelementDef = getPackageNode(pJ);
+      mns.set(pJData.id, { data: pJData, classes: ["package"] });
+
+      const edgeData: GelementDef = getEdge(kwdData, pJData);
+      mes.set(edgeData.id, {
+        data: {
+          source: kwdData.id,
+          target: pJData.id,
+        },
+      });
+
       //   mns.set(keyword, {
       //     data: pJData,
       //     classes: ["package"],
@@ -78,6 +83,24 @@ export async function getElements(
 
   const DEP = "dep";
 
+  function getEdge(kwdData: GelementDef, pJData: GelementDef): GelementDef {
+    return {
+      id: kwdData.id.concat("|").concat(pJData.id),
+      description: ''
+    };
+  }
+
+  function getPackageNode(pJ: PackageJson): GelementDef {
+    return {
+      id: pJ.name.concat("@".concat(pJ.version)),
+      description: pJ.description,
+      label: pJ.name,
+    };
+  }
+
+  function getKeywordNode(keyword: string): GelementDef {
+    return { id: keyword };
+  }
   // function addDependencies(
   //   rec: Record<string, unknown> | undefined,
   //   source: string,
