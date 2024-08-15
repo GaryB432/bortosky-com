@@ -1,21 +1,52 @@
 import type { Packument } from "$lib/project/npm";
 import type { PackageJson } from "$lib/project/project";
-import { describe, expect, test } from "vitest";
+import { beforeEach, describe, expect, test } from "vitest";
 import { getElements } from "./cyto";
 
-describe("Cyto", () => {
-  test("gets elements", async () => {
-    const afdf = somePacks.reduce((a, b) => {
-      return a.set(b.name, b);
-    }, new Map<string, Packument>());
+const someJs: PackageJson[] = [
+  {
+    name: "house",
+    version: "0.0.0",
+    description: "the house project",
+    dependencies: {
+      bathroom: "^0.0.0",
+    },
+    devDependencies: {
+      kitchen: "^0.0.0",
+    },
+    keywords: ["DO-NOT-USE", "ROOT-HOUSE-PROJECT"],
+  },
+  {
+    name: "kitchen",
+    version: "0.0.0",
+    description: "the kitchen project",
+    keywords: ["room", "cooking"],
+  },
+  {
+    name: "bathroom",
+    version: "0.0.0",
+    description: "the bathroom project",
+    keywords: ["room", "bathing"],
+  },
+];
 
-    const [a, b, c] = someJs;
+const [house, kitchen, bath] = someJs.map((pj) => ({
+  ...pj,
+  keywords: undefined,
+}));
+
+describe("Cyto", () => {
+  beforeEach(() => {});
+  test("gets elements", async () => {
+    expect(house.name).toEqual("house");
+    expect(kitchen.name).toEqual("kitchen");
+    expect(bath.name).toEqual("bathroom");
 
     const gels = await getElements(
       new Map<string, PackageJson[]>([
-        ["kw-ac", [a, c]],
-        ["kw-ab", [a, b]],
-        ["kw-a", [a]],
+        ["kw-ac", [house, bath]],
+        ["kw-ab", [house, kitchen]],
+        ["kw-a", [house]],
       ]),
     );
     expect(
@@ -68,70 +99,4 @@ describe("Cyto", () => {
       ]
     `);
   });
-});
-
-const someJs: PackageJson[] = [
-  {
-    name: "house",
-    version: "0.0.0",
-    description: "the house project",
-    dependencies: {
-      bathroom: "^0.0.0",
-    },
-    devDependencies: {
-      kitchen: "^0.0.0",
-    },
-    keywords: ["DO-NOT-USE", "ROOT-HOUSE-PROJECT"],
-  },
-  {
-    name: "kitchen",
-    version: "0.0.0",
-    description: "the kitchen project",
-    keywords: ["room", "cooking"],
-  },
-  {
-    name: "bathroom",
-    version: "0.0.0",
-    description: "the bathroom project",
-    keywords: ["room", "bathing"],
-  },
-];
-
-const somePacks: Packument[] = someJs.map<Packument>((j, i) => {
-  const {
-    name,
-    description,
-    version,
-    keywords,
-    dependencies,
-    devDependencies,
-  } = j;
-  return {
-    _id: name,
-    _rev: i.toString(),
-    name,
-    description: description,
-    "dist-tags": {
-      latest: version,
-    },
-    versions: {
-      [version]: {
-        name,
-        version,
-        description,
-        keywords,
-        dependencies,
-        devDependencies,
-      },
-    },
-    readme: "",
-    maintainers: [],
-    time: undefined,
-    homepage: "",
-    keywords,
-    repository: undefined,
-    bugs: undefined,
-    license: "",
-    readmeFilename: "",
-  };
 });
