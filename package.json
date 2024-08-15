@@ -19,6 +19,7 @@
     "@sveltejs/vite-plugin-svelte": "^3.0.0",
     "@types/cookie": "^0.5.1",
     "@types/cytoscape": "^3.19.12",
+    "@types/cytoscape-dagre": "^2.3.3",
     "@types/eslint": "^9.6.0",
     "@types/simple-get": "^4.0.3",
     "eslint": "^9.0.0",
@@ -42,6 +43,7 @@
   },
   "dependencies": {
     "cytoscape": "^3.26.0",
+    "cytoscape-dagre": "^2.5.0",
     "simple-get": "^4.0.1",
     "tippy.js": "^6.3.7"
   },

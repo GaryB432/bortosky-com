@@ -232,11 +232,11 @@ export function cssDeclarations(): CssStyleDeclaration[] {
       style: { "background-color": "#666", label: "data(id)" },
     },
     {
-      selector: "node.gbp",
+      selector: "node.package",
       style: { "background-color": "#f00" },
     },
     {
-      selector: "node.dep",
+      selector: "node.keyword",
       style: { "background-color": "#0f0" },
     },
     {
