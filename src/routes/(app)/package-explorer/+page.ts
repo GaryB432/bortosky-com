@@ -30,20 +30,20 @@ export const load = (async ({ url, fetch }) => {
       // const { keywords, name, description } =
       //   paramPkg.versions[paramPkg["dist-tags"]["latest"]];
 
-      const ppk = await npm.getPackage(p);
+      const packument = await npm.getPackage(p);
 
       // console.log(ppk);
 
-      if (!ppk) {
+      if (!packument) {
         error(404, `${p} was not returned from npm registry api`);
       }
-      const packMap = await getKeywordMap(ppk, npm);
+      const packMap = await getKeywordMap(packument, npm);
 
       console.log("handle", Array.from(packMap.keys()).join());
 
-      const rpt = makeMermaidGraph(packMap);
+      const mermaidGraph = makeMermaidGraph(packMap);
 
-      console.log(rpt.join("\n"));
+      // console.log(mermaidGraph.join("\n"));
 
       // const m = new Set(
       //   Array.from(packageRecord.entries()).map(([f, d]) => {
@@ -51,10 +51,11 @@ export const load = (async ({ url, fetch }) => {
       //   }),
       // );
 
-      const { name, description, keywords } = ppk;
+      const { name, description, keywords } = packument;
 
       return {
         name,
+        mermaidGraph,
         description,
         keywords,
       };
@@ -63,6 +64,7 @@ export const load = (async ({ url, fetch }) => {
 
   paramPackages.push({
     name: "FUN",
+    mermaidGraph: [],
     description: "FUNNEST PACKAGE EVER",
     keywords: ["NBD"],
   });

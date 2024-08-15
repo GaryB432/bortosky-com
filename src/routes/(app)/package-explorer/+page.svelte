@@ -2,6 +2,9 @@
   import type { PageData } from "./$types";
 
   let { data }: { data: PageData } = $props();
+
+  $inspect(data.paramPackages)
+
 </script>
 
 <svelte:head>
@@ -18,6 +21,9 @@
       {#each paramPkg.keywords ?? [] as k}
         <div class="keyword">{k}</div>
       {/each}
+    </div>
+    <div class="mermaid">
+      <pre>{paramPkg.mermaidGraph.join("\n")}</pre>
     </div>
   {/each}
 </article>
@@ -38,6 +44,12 @@
     padding: 0.5rem;
     border-radius: 5px;
     background-color: rgb(117, 106, 137);
+  }
+  .mermaid {
+    font-size: smaller;
+    font-family: monospace;
+    margin: 0;
+    line-height: 1em;
   }
   @media screen and (min-width: 576px) {
     /* landscape phones */
