@@ -1,10 +1,10 @@
 <script lang="ts">
   import type { PageData } from "./$types";
+  import CytoGraph from "./components/CytoGraph.svelte";
 
   let { data }: { data: PageData } = $props();
 
-  $inspect(data.paramPackages)
-
+  $inspect(data.paramPackages);
 </script>
 
 <svelte:head>
@@ -13,18 +13,7 @@
 
 <article class="container">
   {#each data.paramPackages as paramPkg}
-    <h2>
-      {paramPkg.name}
-    </h2>
-    <div>{paramPkg.description}</div>
-    <div class="keywords">
-      {#each paramPkg.keywords ?? [] as k}
-        <div class="keyword">{k}</div>
-      {/each}
-    </div>
-    <div class="mermaid">
-      <pre>{paramPkg.mermaidGraph.join("\n")}</pre>
-    </div>
+    <CytoGraph elements={paramPkg.cyto.elements}></CytoGraph>
   {/each}
 </article>
 

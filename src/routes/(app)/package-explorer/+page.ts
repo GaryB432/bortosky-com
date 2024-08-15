@@ -1,8 +1,9 @@
+import { getElements } from "$lib/project/graphs/keyword/cyto";
 import { getKeywordMap } from "$lib/project/graphs/keyword/map";
+import { makeMermaidGraph } from "$lib/project/graphs/keyword/mermaid";
 import { Service } from "$lib/project/npm";
 import { error } from "@sveltejs/kit";
 import type { PageLoad } from "./$types";
-import { makeMermaidGraph } from "$lib/project/graphs/keyword/mermaid";
 
 export const prerender = false;
 
@@ -16,6 +17,13 @@ type Packument = {
 };
 
 const npm = new Service();
+
+export type Asdf = {
+  name: string;
+  mermaidGraph: string[];
+  description: string | undefined;
+  keywords: string[] | undefined;
+};
 
 export const load = (async ({ url, fetch }) => {
   const paramPackages = await Promise.all(
@@ -37,11 +45,15 @@ export const load = (async ({ url, fetch }) => {
       if (!packument) {
         error(404, `${p} was not returned from npm registry api`);
       }
-      const packMap = await getKeywordMap(packument, npm);
+      const keywordMap = await getKeywordMap(packument, npm);
 
-      console.log("handle", Array.from(packMap.keys()).join());
+      console.log("handle", Array.from(keywordMap.keys()).join());
 
-      const mermaidGraph = makeMermaidGraph(packMap);
+      const mermaidGraph = makeMermaidGraph(keywordMap);
+
+      const cytoElements = await getElements(keywordMap);
+
+      console.log(cytoElements.edges.length);
 
       // console.log(mermaidGraph.join("\n"));
 
@@ -51,27 +63,22 @@ export const load = (async ({ url, fetch }) => {
       //   }),
       // );
 
-      const { name, description, keywords } = packument;
+      // const { name, description, keywords } = packument;
 
       return {
-        name,
-        mermaidGraph,
-        description,
-        keywords,
+        cyto: { elements: cytoElements },
       };
     }),
   );
 
-  paramPackages.push({
-    name: "FUN",
-    mermaidGraph: [],
-    description: "FUNNEST PACKAGE EVER",
-    keywords: ["NBD"],
-  });
+  // paramPackages.push({
+  //   name: "FUN",
+  //   mermaidGraph: [],
+  //   description: "FUNNEST PACKAGE EVER",
+  //   keywords: ["NBD"],
+  // });
 
   return {
     paramPackages,
   };
 }) satisfies PageLoad;
-
-

@@ -12,7 +12,7 @@
   },
   "devDependencies": {
     "@fontsource/montserrat": "^5.0.13",
-    "@gb-nx/svelte": "7.0.1",
+    "@gb-nx/svelte": "^8.2.0",
     "@gb-nx/workspace": "^5.0.0",
     "@sveltejs/adapter-vercel": "^4.0.0",
     "@sveltejs/kit": "^2.0.0",
