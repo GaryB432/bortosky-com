@@ -22,24 +22,6 @@
     padding: 1em;
     border: thin solid silver;
   }
-  .keywords {
-    display: flex;
-    flex-flow: row wrap;
-    gap: 0.25rem;
-  }
-  .keyword {
-    display: inline-block;
-    color: white;
-    padding: 0.5rem;
-    border-radius: 5px;
-    background-color: rgb(117, 106, 137);
-  }
-  .mermaid {
-    font-size: smaller;
-    font-family: monospace;
-    margin: 0;
-    line-height: 1em;
-  }
   @media screen and (min-width: 576px) {
     /* landscape phones */
   }

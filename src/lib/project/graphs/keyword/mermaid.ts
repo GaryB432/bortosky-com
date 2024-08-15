@@ -1,6 +1,8 @@
 import type { PackageJson } from "$lib/project/project";
 
-export function makeMermaidGraph(packMap: Map<string, PackageJson[]>) {
+export function makeMermaidGraph(
+  packMap: Map<string, PackageJson[]>,
+): string[] {
   const rpt = [
     "```mermaid",
     "graph TD",

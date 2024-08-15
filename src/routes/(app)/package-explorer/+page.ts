@@ -18,13 +18,6 @@ type Packument = {
 
 const npm = new Service();
 
-export type Asdf = {
-  name: string;
-  mermaidGraph: string[];
-  description: string | undefined;
-  keywords: string[] | undefined;
-};
-
 export const load = (async ({ url, fetch }) => {
   const paramPackages = await Promise.all(
     url.searchParams.getAll("p").map(async (p) => {

@@ -1,5 +1,5 @@
 import type { PackageJson } from "$lib/project/project";
-import { Service, type Packument } from "$lib/project/npm";
+import type { Service, Packument } from "$lib/project/npm";
 // import { get } from "simple-get";
 
 export type Keyword = string;
