@@ -4,7 +4,9 @@
 </script>
 
 <div class="container">
-  {JSON.stringify(elements)}
+  <pre>
+  {JSON.stringify(elements, undefined, 1)}
+</pre>
 </div>
 
 <style lang="scss">

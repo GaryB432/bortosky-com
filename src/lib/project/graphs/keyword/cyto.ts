@@ -2,9 +2,12 @@ import type { GaryProject, PackageJson } from "$lib/project/project";
 import { error } from "@sveltejs/kit";
 import type {
   CssStyleDeclaration,
+  EdgeDataDefinition,
   EdgeDefinition,
+  ElementDataDefinition,
   ElementDefinition,
   ElementsDefinition,
+  NodeDataDefinition,
   NodeDefinition,
 } from "cytoscape";
 
@@ -23,23 +26,52 @@ const ignoredDeps = new Set(["eslint-plugin-gb"]);
 // }
 
 export async function getElements(
-  packageMap: Map<string, PackageJson[]>,
+  keywordMap: Map<string, PackageJson[]>,
 ): Promise<ElementsDefinition> {
-
   const mns = new Map<string, NodeDefinition>();
   const mes = new Map<string, EdgeDefinition>();
 
-  const r: ElementsDefinition = {
+  // const nodes = [...packageMap.keys()].map<NodeDefinition>((keyword) => {
+  //   return { data: { id: keyword } };
+  // });
+
+  keywordMap.forEach((pJs, keyword) => {
+    const kwdData: NodeDataDefinition = { id: keyword };
+    mns.set(keyword, {
+      data: kwdData,
+      classes: ["keyword"],
+    });
+    for (const pJ of pJs) {
+      const pJData = {
+        id: pJ.name.concat("@".concat(pJ.version)),
+        label: pJ.name,
+      };
+      mns.set(keyword, {
+        data: pJData,
+        classes: ["package"],
+      });
+
+      if (!kwdData.id) {
+        throw new Error("no edge id");
+      }
+
+      const edgeData: EdgeDataDefinition = {
+        id: pJData.id.concat(keyword),
+        source: kwdData.id,
+        target: pJData.id,
+      };
+
+      if (!edgeData.id) {
+        throw new Error("no element");
+      }
+      mes.set(edgeData.id, { data: edgeData });
+    }
+  });
+
+  return {
     nodes: Array.from(mns.values()),
     edges: Array.from(mes.values()),
-  }
-
-  const ff = [...packageMap.keys()];
-
-  console.log("handled", ff)
-
-  return r;
-
+  };
 
   const DEP = "dep";
 
