@@ -1,20 +1,16 @@
-import type { GaryProject, PackageJson } from "$lib/project/project";
-import { error } from "@sveltejs/kit";
+import type { PackageJson } from "$lib/project/project";
 import type {
   CssStyleDeclaration,
-  EdgeDataDefinition,
   EdgeDefinition,
   ElementDataDefinition,
-  ElementDefinition,
   ElementsDefinition,
-  NodeDataDefinition,
   NodeDefinition,
 } from "cytoscape";
 
-type GelementDef = ElementDataDefinition & {
+type GElementDataDefinition = ElementDataDefinition & {
+  description?: string;
   id: string;
   label?: string;
-  description?: string;
 };
 
 // export async function getDependencyElements(
@@ -44,39 +40,22 @@ export async function getElements(
   // });
 
   keywordMap.forEach((pJs, keyword) => {
-    const kwdData: GelementDef = getKeywordNode(keyword);
+    const kwdData: GElementDataDefinition = getKeywordNode(keyword);
     mns.set(kwdData.id, {
       data: kwdData,
       classes: ["keyword"],
     });
     for (const pJ of pJs) {
-      const pJData: GelementDef = getPackageNode(pJ);
+      const pJData: GElementDataDefinition = getPackageNode(pJ);
       mns.set(pJData.id, { data: pJData, classes: ["package"] });
 
-      const edgeData: GelementDef = getEdge(kwdData, pJData);
+      const edgeData: GElementDataDefinition = getEdge(kwdData, pJData);
       mes.set(edgeData.id, {
         data: {
           source: kwdData.id,
           target: pJData.id,
         },
       });
-
-      //   mns.set(keyword, {
-      //     data: pJData,
-      //     classes: ["package"],
-      //   });
-      //   if (!kwdData.id) {
-      //     throw new Error("no edge id");
-      //   }
-      //   const edgeData: EdgeDataDefinition = {
-      //     id: pJData.id.concat(keyword),
-      //     source: kwdData.id,
-      //     target: pJData.id,
-      //   };
-      //   if (!edgeData.id) {
-      //     throw new Error("no element");
-      //   }
-      //   mes.set(edgeData.id, { data: edgeData });
     }
   });
 
@@ -85,16 +64,17 @@ export async function getElements(
     edges: Array.from(mes.values()),
   };
 
-  const DEP = "dep";
-
-  function getEdge(kwdData: GelementDef, pJData: GelementDef): GelementDef {
+  function getEdge(
+    kwdData: GElementDataDefinition,
+    pJData: GElementDataDefinition,
+  ): GElementDataDefinition {
     return {
       id: kwdData.id.concat("|").concat(pJData.id),
       description: "",
     };
   }
 
-  function getPackageNode(pJ: PackageJson): GelementDef {
+  function getPackageNode(pJ: PackageJson): GElementDataDefinition {
     return {
       id: pJ.name.concat("@".concat(pJ.version)),
       description: pJ.description,
@@ -102,61 +82,9 @@ export async function getElements(
     };
   }
 
-  function getKeywordNode(keyword: string): GelementDef {
+  function getKeywordNode(keyword: string): GElementDataDefinition {
     return { id: keyword, label: keyword };
   }
-  // function addDependencies(
-  //   rec: Record<string, unknown> | undefined,
-  //   source: string,
-  //   depType: "run-time" | "development",
-  // ) {
-  //   Object.entries(rec ?? {})
-  //     .filter(([target]) => !ignoredDeps.has(target))
-  //     .forEach(([target, aversion]) => {
-  //       mns.set(target, { data: { id: target, aversion }, classes: [DEP] });
-  //       const dpid = `${target}_${source}`;
-  //       mes.set(dpid, {
-  //         data: { id: dpid, source, target },
-  //         classes: [DEP, depType],
-  //       });
-  //     });
-  // }
-
-  // for (const gp of gprojs) {
-  //   const id = gp.root.name;
-  //   mns.set(id, { data: { id }, classes: ["gbp"] });
-
-  //   addDependencies(gp.root.dependencies, id, "run-time");
-  //   addDependencies(gp.root.devDependencies, id, "development");
-
-  //   for (const sp of gp.projects) {
-  //     const sid = `${id}#${sp.name}`;
-  //     mns.set(sid, { data: { id: sid }, classes: ["psub"] });
-  //     const eid = `${sid}-${id}`;
-
-  //     mes.set(eid, {
-  //       data: {
-  //         id: eid,
-  //         source: id,
-  //         target: sid,
-  //       },
-  //       classes: "psub",
-  //     });
-  //     if ("dependencies" in sp) {
-  //       addDependencies(sp.dependencies, sid, "run-time");
-  //       addDependencies(sp.devDependencies, sid, "development");
-  //     }
-  //   }
-  // }
-
-  // const eleComparer = (a: ElementDefinition, b: ElementDefinition) =>
-  //   a.data.id ? a.data.id.localeCompare(b.data.id ?? "") : 0;
-
-  // const nodes = Array.from(mns.values()).sort(eleComparer);
-
-  // const edges = Array.from(mes.values()).sort(eleComparer);
-
-  // return { nodes, edges };
 }
 
 export function cssDeclarations(): CssStyleDeclaration[] {

@@ -139,7 +139,6 @@ export async function getKeywordMap(
   const result: Map<Keyword, PackageJson[]> = new Map();
 
   function digestKeyword(keyword: string, subject: PackageJson): void {
-    console.log(keyword);
     const kwdPackages = result.get(keyword);
     if (!kwdPackages) {
       result.set(keyword, [subject]);

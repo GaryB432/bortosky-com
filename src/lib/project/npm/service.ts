@@ -1,17 +1,22 @@
-import { error } from "@sveltejs/kit";
 import type { Packument } from "./packument";
 
 // TODO add cache
 export class Service {
   public async getPackage(name: string): Promise<Packument | undefined> {
-    console.log("asking for ", name);
-    const response = await fetch(`https://registry.npmjs.org/${name}`);
-    const paramPkg = (await response.json()) as Packument & { error: string };
+    return new Promise<Packument | undefined>((resolve) => {
+      fetch(this.registryUrl(name)).then((res) => {
+        if (res.ok) {
+          res.json().then((pack: Packument) => {
+            resolve(pack);
+          });
+        } else {
+          resolve(undefined);
+        }
+      });
+    });
+  }
 
-    if (paramPkg.error) {
-      error(404, paramPkg.error);
-    }
-
-    return paramPkg;
+  private registryUrl(name: string): string | URL | Request {
+    return `https://registry.npmjs.org/${name}`;
   }
 }
