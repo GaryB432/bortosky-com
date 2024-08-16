@@ -14,6 +14,14 @@
 
 [registry.npmjs.com/venv/1.0.1](https://registry.npmjs.com/venv/1.0.1)
 
+## Cytoscape
+
+[Using layouts · Cytoscape.js](https://blog.js.cytoscape.org/2020/05/11/layouts/)
+
+[cytoscape/cytoscape.js-dagre: The Dagre layout for DAGs and trees for Cytoscape.js](https://github.com/cytoscape/cytoscape.js-dagre)
+
+[dagrejs/dagre: Directed graph layout for JavaScript](https://github.com/dagrejs/dagre)
+
 ## Context
 
 ```mermaid
