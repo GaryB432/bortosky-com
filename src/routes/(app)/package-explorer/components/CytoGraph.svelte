@@ -3,13 +3,17 @@
   import cytoscape from "cytoscape";
   import dagre from "cytoscape-dagre";
 
-  let { elements }: { elements: cytoscape.ElementsDefinition } = $props();
+  let {
+    elements,
+    layout = $bindable(),
+  }: {
+    elements: cytoscape.ElementsDefinition;
+    layout: cytoscape.LayoutOptions;
+  } = $props();
 
   let cy: cytoscape.Core; // null????
 
   let cydiv: HTMLElement;
-
-  let layout: cytoscape.LayoutOptions = { name: "dagre" };
 
   cytoscape.use(dagre);
 
@@ -37,10 +41,6 @@
 
 <div class="container">
   <div id="cydiv" bind:this={cydiv}></div>
-
-  <pre>
-  {JSON.stringify(elements, undefined, 1)}
-</pre>
 </div>
 
 <style lang="scss">

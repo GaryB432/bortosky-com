@@ -1,8 +1,11 @@
 <script lang="ts">
+  import LayoutSelect from "$lib/components/LayoutSelect.svelte";
   import type { PageData } from "./$types";
   import CytoGraph from "./components/CytoGraph.svelte";
 
   let { data }: { data: PageData } = $props();
+
+  let layout = $state({ name: "dagre" });
 
   $inspect(data.paramPackages);
 </script>
@@ -13,14 +16,28 @@
 
 <article class="container">
   {#each data.paramPackages as paramPkg}
-    <CytoGraph elements={paramPkg.cyto.elements}></CytoGraph>
+    <CytoGraph elements={paramPkg.cyto.elements} {layout}></CytoGraph>
+    <aside>
+      <LayoutSelect
+        selected="concentric"
+        onselect={(newLayout) => {
+          console.log(newLayout);
+          layout = newLayout;
+          // setTimeout(() => {
+          //   cy.layout(layout).run();
+          // }, 0);
+        }}
+      />
+    </aside>
   {/each}
 </article>
 
 <style lang="scss">
   .container {
+    display: flex;
     padding: 1em;
     border: thin solid silver;
+    flex-direction: row;
   }
   @media screen and (min-width: 576px) {
     /* landscape phones */
