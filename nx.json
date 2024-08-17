@@ -20,7 +20,8 @@
     },
     "@gb-nx/svelte:component": {
       "language": "ts",
-      "style": "scss"
+      "style": "scss",
+      "runes": true
     }
   }
 }

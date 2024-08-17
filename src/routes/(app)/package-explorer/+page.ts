@@ -1,9 +1,9 @@
 import { getElements } from "$lib/project/graphs/keyword/cyto";
 import { getKeywordMap } from "$lib/project/graphs/keyword/map";
-import { makeMermaidGraph } from "$lib/project/graphs/keyword/mermaid";
 import { Service } from "$lib/project/npm";
 import { error } from "@sveltejs/kit";
 import type { PageLoad } from "./$types";
+import { makeMermaidGraph } from "$lib/project/graphs/keyword/mermaid";
 
 export const prerender = false;
 
@@ -30,8 +30,12 @@ export const load = (async ({ url, fetch }) => {
 
       const cytoElements = await getElements(keywordMap);
 
+      // const mermaidGraph = makeMermaidGraph(keywordMap);
+
       return {
+        keywordMap,
         cyto: { elements: cytoElements },
+        // mermaid: { lines: mermaidGraph },
       };
     }),
   );

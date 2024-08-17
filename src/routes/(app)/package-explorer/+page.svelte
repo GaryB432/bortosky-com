@@ -1,5 +1,6 @@
 <script lang="ts">
   import LayoutSelect from "$lib/components/LayoutSelect.svelte";
+  import MermaidList from "$lib/components/MermaidList.svelte";
   import type { PageData } from "./$types";
   import CytoGraph from "./components/CytoGraph.svelte";
 
@@ -28,6 +29,7 @@
           // }, 0);
         }}
       />
+      <MermaidList keywordMap={paramPkg.keywordMap}></MermaidList>
     </aside>
   {/each}
 </article>
