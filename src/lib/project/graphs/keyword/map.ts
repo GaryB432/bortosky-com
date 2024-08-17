@@ -1,5 +1,5 @@
 import type { PackageJson } from "$lib/project/project";
-import type { Service, Packument } from "$lib/project/npm";
+import type { IService, Packument } from "$lib/project/npm";
 // import { get } from "simple-get";
 
 export type Keyword = string;
@@ -126,7 +126,7 @@ export function getLatestPackage(
 export async function getKeywordMap(
   subject: PackageJson | Packument,
   // packages: PackageJson[],
-  npm: Service,
+  npm: IService,
   depth = 0,
 ): Promise<Map<string, PackageJson[]>> {
   // const registry = packages.reduce((a, b) => {

@@ -3,12 +3,12 @@ import { getKeywordMap } from "$lib/project/graphs/keyword/map";
 import { Service } from "$lib/project/npm";
 import { error } from "@sveltejs/kit";
 import type { PageLoad } from "./$types";
+import { FakeService } from "$lib/project/npm/fake/service";
 
 export const prerender = false;
 
-const npm = new Service();
-
 export const load = (async ({ url, fetch }) => {
+  const npm = new FakeService();
   const ps = url.searchParams.getAll("p");
   if (ps.length !== 1) {
     throw new Error("1 package and only 1");

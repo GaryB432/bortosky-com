@@ -1,7 +1,7 @@
 import type { PackageJson } from "$lib/project/project";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { getKeywordMap } from "./map";
-import type { Packument } from "$lib/project/npm";
+import type { IService, Packument } from "$lib/project/npm";
 
 // import { when } from "vitest-when";
 
@@ -114,7 +114,7 @@ const pjs: PackageJson[] = [
   },
 ];
 
-class MockService {
+class MockService implements IService {
   public async getPackage(name: string): Promise<Packument | undefined> {
     console.log("asking for ", name);
 

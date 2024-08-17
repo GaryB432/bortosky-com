@@ -1,7 +1,10 @@
 import type { Packument } from "./packument";
 
-// TODO add cache
-export class Service {
+export interface IService {
+  getPackage(name: string): Promise<Packument | undefined>;
+}
+
+export class Service implements IService {
   public async getPackage(name: string): Promise<Packument | undefined> {
     return new Promise<Packument | undefined>((resolve) => {
       fetch(this.registryUrl(name)).then((res) => {
