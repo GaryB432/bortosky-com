@@ -2,14 +2,14 @@
   import type { LayoutOptions } from "cytoscape";
   import type { DagreLayoutOptions } from "cytoscape-dagre";
 
-  type BLayoutOptions = LayoutOptions | DagreLayoutOptions;
+  type GLayoutOptions = LayoutOptions | DagreLayoutOptions;
 
   let {
     onselect,
     selected,
-  }: { onselect: (lo: BLayoutOptions) => void; selected: string } = $props();
+  }: { onselect: (lo: GLayoutOptions) => void; selected: string } = $props();
 
-  const layoutOpts: BLayoutOptions[] = [
+  const layoutOpts: GLayoutOptions[] = [
     {
       name: "dagre",
       // rankDir: "LR",

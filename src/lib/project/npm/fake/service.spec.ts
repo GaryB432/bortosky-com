@@ -8,17 +8,12 @@ describe("Fake Service", () => {
     service = new FakeService();
   });
   test("package getting", async () => {
-    const pack = await service.getPackage("venv");
-    expect(pack?.keywords).toEqual([
-      "environment",
-      "variables",
-      "angular",
-      "cli",
-    ]);
+    const pack = await service.getPackage("house");
+    expect(pack?.keywords).toEqual(["DO-NOT-USE", "ROOT-HOUSE-PROJECT"]);
   });
 });
 
-const aPackument: Packument = {
+const venvPack: Packument = {
   _id: "venv",
   _rev: "7-86ca215f54470a9ab54fd8e9b143787b",
   name: "venv",

@@ -1,6 +1,7 @@
 <script lang="ts">
   import LayoutSelect from "$lib/components/LayoutSelect.svelte";
   import MermaidList from "$lib/components/MermaidList.svelte";
+  import type { LayoutOptions } from "cytoscape";
   import type { PageData } from "./$types";
   import CytoGraph from "./components/CytoGraph.svelte";
 
@@ -22,7 +23,7 @@
       <LayoutSelect
         selected="concentric"
         onselect={(newLayout) => {
-          layout = newLayout;
+          layout = newLayout as LayoutOptions;
         }}
       />
       <MermaidList keywordMap={paramPkg.keywordMap}></MermaidList>
@@ -33,13 +34,12 @@
 <style lang="scss">
   .container {
     display: flex;
-    // padding: 1em;
-    border: thin solid red;
-    flex-direction: row;
-    width: 90vw;
-  }
-  aside {
-    // max-width: 200px;
+    width: 100%;
+    height: 70vh;
+    justify-content: space-between;
+    *:nth-child(1) {
+      flex-grow: 1;
+    }
   }
   @media screen and (min-width: 576px) {
     /* landscape phones */

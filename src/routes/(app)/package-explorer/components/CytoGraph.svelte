@@ -11,13 +11,23 @@
     layout: cytoscape.LayoutOptions;
   } = $props();
 
+  // let chartSize = $state({ x: 200, y: 200 });
+
   let cy: cytoscape.Core; // null????
 
   let cydiv: HTMLElement;
 
   cytoscape.use(dagre);
 
+  // $inspect(chartSize);
+
   $effect(() => {
+    // const sf = cydiv.parentElement;
+    // if (sf) {
+    //   const { height, width } = sf.getBoundingClientRect();
+    //   chartSize = { x: width, y: height };
+    // }
+    // console.log(chartSize);
     cy = cytoscape({
       container: cydiv,
       elements: elements,
@@ -39,18 +49,13 @@
   });
 </script>
 
-<div class="container">
-  <div id="cydiv" bind:this={cydiv}></div>
-</div>
+<div id="cydiv" bind:this={cydiv}></div>
 
 <style lang="scss">
-  .container {
-    border: thin solid silver;
-  }
   #cydiv {
-    width: 300px;
-    height: 250px;
-    // flex-grow: 2;
-    border: thin solid green;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    outline: thin solid silver;
   }
 </style>
