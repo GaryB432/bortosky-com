@@ -6,20 +6,15 @@ import type { PageLoad } from "./$types";
 
 export const prerender = false;
 
-type Packument = {
-  description: string;
-  "dist-tags": Record<string, string>;
-  error?: unknown;
-  keywords: string[];
-  name: string;
-  versions: Record<string, Packument>;
-};
-
 const npm = new Service();
 
 export const load = (async ({ url, fetch }) => {
+  const ps = url.searchParams.getAll("p");
+  if (ps.length !== 1) {
+    throw new Error("1 package and only 1");
+  }
   const paramPackages = await Promise.all(
-    url.searchParams.getAll("p").map(async (p) => {
+    ps.map(async (p) => {
       const packument = await npm.getPackage(p);
 
       if (!packument) {
@@ -29,22 +24,12 @@ export const load = (async ({ url, fetch }) => {
 
       const cytoElements = await getElements(keywordMap);
 
-      // const mermaidGraph = makeMermaidGraph(keywordMap);
-
       return {
         keywordMap,
         cyto: { elements: cytoElements },
-        // mermaid: { lines: mermaidGraph },
       };
     }),
   );
-
-  // paramPackages.push({
-  //   name: "FUN",
-  //   mermaidGraph: [],
-  //   description: "FUNNEST PACKAGE EVER",
-  //   keywords: ["NBD"],
-  // });
 
   return {
     paramPackages,
