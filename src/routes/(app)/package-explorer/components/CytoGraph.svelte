@@ -48,8 +48,9 @@
     border: thin solid silver;
   }
   #cydiv {
-    width: 80vw;
-    height: 60vh;
-    border: thin solid silver;
+    width: 300px;
+    height: 250px;
+    // flex-grow: 2;
+    border: thin solid green;
   }
 </style>

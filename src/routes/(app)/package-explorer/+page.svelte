@@ -22,11 +22,7 @@
       <LayoutSelect
         selected="concentric"
         onselect={(newLayout) => {
-          console.log(newLayout);
           layout = newLayout;
-          // setTimeout(() => {
-          //   cy.layout(layout).run();
-          // }, 0);
         }}
       />
       <MermaidList keywordMap={paramPkg.keywordMap}></MermaidList>
@@ -37,9 +33,13 @@
 <style lang="scss">
   .container {
     display: flex;
-    padding: 1em;
-    border: thin solid silver;
+    // padding: 1em;
+    border: thin solid red;
     flex-direction: row;
+    width: 90vw;
+  }
+  aside {
+    // max-width: 200px;
   }
   @media screen and (min-width: 576px) {
     /* landscape phones */

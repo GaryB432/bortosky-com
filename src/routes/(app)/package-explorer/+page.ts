@@ -3,7 +3,6 @@ import { getKeywordMap } from "$lib/project/graphs/keyword/map";
 import { Service } from "$lib/project/npm";
 import { error } from "@sveltejs/kit";
 import type { PageLoad } from "./$types";
-import { makeMermaidGraph } from "$lib/project/graphs/keyword/mermaid";
 
 export const prerender = false;
 

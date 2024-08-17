@@ -1,17 +1,10 @@
 <script lang="ts">
   import { makeMermaidGraph } from "$lib/project/graphs/keyword/mermaid";
   import type { PackageJson } from "$lib/project/project";
-  let subject = $state("MermaidList component");
 
   let { keywordMap }: { keywordMap: Map<string, PackageJson[]> } = $props();
 
-  let keywordMapcc = $state<Map<string, PackageJson[]>>();
-  // let lines = $state<string[]>([]);
-
-  const mermaidLines = $derived(makeMermaidGraph(keywordMap!));
-
-  const m = makeMermaidGraph(new Map());
-  console.log(m);
+  const mermaidLines = $derived(makeMermaidGraph(keywordMap));
 </script>
 
 <div class="container">
@@ -20,12 +13,25 @@
       {line}
     </div>
   {/each}
-  <div></div>
-  {subject} works
 </div>
 
 <style lang="scss">
   .container {
+    font-family: monospace;
     border: thin solid silver;
+    overflow-y: scroll;
+    // width: 100%;
+    max-height: 500px;
+    // hyphens: none;
+    flex-grow: 1;
+    overflow-x: hidden;
+    div {
+      white-space: pre;
+      font-size: 0.75em;
+      line-height: 1.1em;
+      // hyphens: none;
+      // width: 200px;
+      // overflow-x: hidden;
+    }
   }
 </style>
