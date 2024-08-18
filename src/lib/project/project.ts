@@ -1,30 +1,63 @@
 /* eslint @typescript-eslint/member-ordering: 0 */
 
-type UnknownRecord = Record<string, unknown>;
-
 export interface Dependency {
   name: string;
   version: string;
   type: "dev" | "runtime";
-  depender: PackageJson;
+  depender: Pick<PackageJson, "name" | "version">;
 }
 
 export interface PackageJson {
   name: string;
   version: string;
-  description?: string;
+  license?: string;
   private?: boolean;
+  scripts?: Record<string, string>;
+  type?: "module" | "commonjs";
+  main?: string;
+  types?: string;
+  module?: string;
+  exports?:
+    | string
+    | Record<
+        string,
+        | string
+        | {
+            types?: string;
+            require?: string;
+            import?: string;
+          }
+      >;
   dependencies?: Record<string, string>;
   devDependencies?: Record<string, string>;
-  main?: string;
-  type?: "commonjs" | "module";
-  keywords?: string[];
-  license?: string;
-  repository?: { type?: string; url?: string };
-  homepage?: string;
-  scripts?: Record<string, string>;
-  workspaces?: string | string[];
+  optionalDependencies?: Record<string, string>;
+  peerDependencies?: Record<string, string>;
+  peerDependenciesMeta?: Record<
+    string,
+    {
+      optional: boolean;
+    }
+  >;
+  resolutions?: Record<string, string>;
+  overrides?: unknown;
+  bin?: Record<string, string> | string;
+  workspaces?:
+    | string[]
+    | {
+        packages: string[];
+      };
+  publishConfig?: Record<string, string>;
+  repository?: string | { type?: string; url?: string; directory?: string };
   nx?: NxProjectJson;
+  generators?: string;
+  schematics?: string;
+  builders?: string;
+  executors?: string;
+  packageManager?: string;
+  description?: string;
+  bugs?: string | { url?: string; email?: string };
+  keywords?: string[];
+  homepage?: string;
 }
 
 export interface NxProjectJson {
@@ -33,9 +66,9 @@ export interface NxProjectJson {
   implicitDependencies?: string[];
   projectType?: "application" | "library";
   sourceRoot?: string;
-  generators?: UnknownRecord;
+  generators?: Record<string, unknown>;
   tags?: string[];
-  targets?: UnknownRecord;
+  targets?: Record<string, unknown>;
 }
 
 type PackageOrProject = PackageJson | NxProjectJson;
