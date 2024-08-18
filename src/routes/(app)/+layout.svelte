@@ -30,7 +30,7 @@
     }
   }
   .l-body {
-    margin: 0 0.5em;
+    margin: 0.5em;
   }
   @media screen and (min-width: 576px) {
     /* landscape phones */

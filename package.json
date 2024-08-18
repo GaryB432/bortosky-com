@@ -12,17 +12,21 @@
   },
   "devDependencies": {
     "@fontsource/montserrat": "^5.0.13",
-    "@gb-nx/svelte": "7.0.1",
+    "@gb-nx/svelte": "^8.2.0",
     "@gb-nx/workspace": "^5.0.0",
     "@sveltejs/adapter-vercel": "^4.0.0",
     "@sveltejs/kit": "^2.0.0",
     "@sveltejs/vite-plugin-svelte": "^3.0.0",
     "@types/cookie": "^0.5.1",
     "@types/cytoscape": "^3.19.12",
-    "@typescript-eslint/eslint-plugin": "^7.0.0",
-    "@typescript-eslint/parser": "^7.0.0",
-    "eslint": "^8.56.0",
+    "@types/cytoscape-dagre": "^2.3.3",
+    "@types/eslint": "^9.6.0",
+    "@types/simple-get": "^4.0.3",
+    "eslint": "^9.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-gb": "^9.0.0-alpha.1",
     "eslint-plugin-svelte": "^2.36.0",
+    "globals": "^15.0.0",
     "json-schema-to-typescript": "^13.1.1",
     "nx": "17.2.8",
     "prettier": "^3.2.5",
@@ -33,11 +37,14 @@
     "the-new-css-reset": "^1.11.0",
     "tslib": "^2.4.1",
     "typescript": "^5.0.0",
+    "typescript-eslint": "^8.0.0",
     "vite": "^5.0.3",
     "vitest": "^1.2.0"
   },
   "dependencies": {
     "cytoscape": "^3.26.0",
+    "cytoscape-dagre": "^2.5.0",
+    "simple-get": "^4.0.1",
     "tippy.js": "^6.3.7"
   },
   "type": "module",
@@ -58,5 +65,6 @@
       }
     }
   },
-  "bugs": "https://github.com/GaryB432/bortosky-com/issues"
+  "bugs": "https://github.com/GaryB432/bortosky-com/issues",
+  "repository": "github:GaryB432/bortosky-com"
 }

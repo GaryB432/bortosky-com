@@ -1,12 +1,20 @@
 <script lang="ts">
   import type { LayoutOptions } from "cytoscape";
+  import type { DagreLayoutOptions } from "cytoscape-dagre";
+
+  type GLayoutOptions = LayoutOptions | DagreLayoutOptions;
 
   let {
     onselect,
     selected,
-  }: { onselect: (lo: LayoutOptions) => void; selected: string } = $props();
+  }: { onselect: (lo: GLayoutOptions) => void; selected: string } = $props();
 
-  const layoutOpts: LayoutOptions[] = [
+  const layoutOpts: GLayoutOptions[] = [
+    {
+      name: "dagre",
+      // rankDir: "LR",
+      animate: true,
+    },
     { name: "random", animate: true },
     {
       name: "breadthfirst",
