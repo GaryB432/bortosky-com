@@ -1,5 +1,5 @@
-import type { PackageJson } from "$lib/project/project";
 import type { IService, Packument } from "$lib/project/npm";
+import type { PackageJson } from "$lib/project/project";
 // import { get } from "simple-get";
 
 export type Keyword = string;
@@ -158,7 +158,7 @@ export async function getKeywordMap(
   ): Promise<void> {
     if (depRecord) {
       for (const dep of Object.keys(depRecord)) {
-        const dpack = await npm.getPackage(dep);
+        const dpack = await npm.getPackage(dep, depRecord[dep]);
         if (dpack) {
           for (const k of dpack.keywords ?? []) {
             digestKeyword(k, getLatestPackage(dpack));

@@ -7,7 +7,7 @@ export interface Packument {
   _rev?: string;
   name: string;
   description?: string;
-  "dist-tags": { latest: string };
+  "dist-tags": Record<string, string>;
   versions: Record<string, PackumentVersion>;
   readme?: string;
   maintainers?: Maintainer[];
