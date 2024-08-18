@@ -8,7 +8,7 @@ import { FakeService } from "$lib/project/npm/fake/service";
 export const prerender = false;
 
 export const load = (async ({ url, fetch }) => {
-  const npm = new FakeService();
+  const npm = new Service();
   const ps = url.searchParams.getAll("p");
   if (ps.length !== 1) {
     throw new Error("1 package and only 1");
