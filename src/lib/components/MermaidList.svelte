@@ -27,8 +27,8 @@
     overflow-x: hidden;
     div {
       white-space: pre;
-      font-size: 0.75em;
-      line-height: 1.1em;
+      font-size: 0.5em;
+      // line-height: 1.1em;
       // hyphens: none;
       // width: 200px;
       // overflow-x: hidden;

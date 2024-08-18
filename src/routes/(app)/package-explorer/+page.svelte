@@ -18,7 +18,9 @@
 
 <article class="container">
   {#each data.paramPackages as paramPkg}
-    <CytoGraph elements={paramPkg.cyto.elements} {layout}></CytoGraph>
+    <div>
+      <CytoGraph elements={paramPkg.cyto.elements} {layout}></CytoGraph>
+    </div>
     <aside>
       <LayoutSelect
         selected="concentric"
@@ -33,13 +35,10 @@
 
 <style lang="scss">
   .container {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr max-content;
     width: 100%;
     height: 70vh;
-    justify-content: space-between;
-    *:nth-child(1) {
-      flex-grow: 1;
-    }
   }
   @media screen and (min-width: 576px) {
     /* landscape phones */

@@ -16,13 +16,13 @@ describe("Mermaid", () => {
     ).toEqual([
       "```mermaid",
       "graph TD",
-      "A[room]",
-      "A -.-> bathroom",
-      "A -.-> kitchen",
-      "B[bathing]",
-      "B -.-> bathroom",
-      "C[cooking]",
-      "C -.-> kitchen",
+      "AA[room]",
+      "AA -.-> bathroom",
+      "AA -.-> kitchen",
+      "AB[bathing]",
+      "AB -.-> bathroom",
+      "AC[cooking]",
+      "AC -.-> kitchen",
       "```",
     ]);
   });
