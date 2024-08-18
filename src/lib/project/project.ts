@@ -12,14 +12,15 @@ export interface Dependency {
 export interface PackageJson {
   name: string;
   version: string;
-  dependencies?: Record<string, string>;
   description?: string;
   private?: boolean;
+  dependencies?: Record<string, string>;
   devDependencies?: Record<string, string>;
+  main?: string;
   type?: "commonjs" | "module";
   keywords?: string[];
   license?: string;
-  repository?: string | { type: string; url: string; directory?: string };
+  repository?: { type?: string; url?: string };
   homepage?: string;
   scripts?: Record<string, string>;
   workspaces?: string | string[];

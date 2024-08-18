@@ -1,12 +1,14 @@
 /* eslint @typescript-eslint/member-ordering: 0 */
 
+import type { PackageJson } from "$lib/project/project";
+
 export interface Packument {
   _id?: string;
   _rev?: string;
   name: string;
   description?: string;
   "dist-tags": { latest: string };
-  versions: Record<string, N010>;
+  versions: Record<string, PackumentVersion>;
   readme?: string;
   maintainers?: Maintainer[];
   time?: Time;
@@ -18,26 +20,12 @@ export interface Packument {
   readmeFilename?: string;
 }
 
-interface N010 {
-  name: string;
-  version: string;
-  description?: string;
-  license?: string;
-  repository?: {
-    type?: string;
-    url?: string;
-  };
-  keywords?: string[];
+interface PackumentVersion extends PackageJson {
   files?: string[];
   bin?: unknown;
-  main?: string;
   typings?: string;
-  scripts?: Record<string, string>;
-  dependencies?: Record<string, string>;
-  devDependencies?: Record<string, string>;
   engines?: unknown;
   bugs?: unknown;
-  homepage?: string;
   jest?: unknown;
   gitHead?: string;
   _id?: string;
@@ -47,6 +35,18 @@ interface N010 {
   dist?: unknown;
   maintainers?: Maintainer[];
 }
+
+interface NpmUser {
+  name: string;
+  email: string;
+}
+
+interface Maintainer {
+  name: string;
+  email: string;
+}
+
+type Time = { modified: string; created: string } | Record<string, string>;
 
 interface NpmUser {
   name: string;
