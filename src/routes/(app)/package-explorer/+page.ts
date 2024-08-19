@@ -15,7 +15,7 @@ export const load = (async ({ url, fetch }) => {
   }
   const paramPackages = await Promise.all(
     ps.map(async (p) => {
-      const packument = await npm.getPackage(p);
+      const packument = await npm.getPackage(p, "latest");
 
       if (!packument) {
         error(404, `${p} was not returned from npm registry api`);
