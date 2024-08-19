@@ -117,7 +117,33 @@ export function getLatestPackage(
   subject: PackageJson | Packument,
 ): PackageJson {
   if ("dist-tags" in subject) {
+    const nn = Object.keys(subject.versions).includes(
+      subject["dist-tags"].latest,
+    );
+
     return subject.versions[subject["dist-tags"].latest] as PackageJson;
+    // console.log(subject.name, nn)
+    // const latest1 = subject.versions[
+    //   subject["dist-tags"].latest
+    // ] as PackageJson;
+    // if (!latest1) {
+    //   const description = [
+    //     "**",
+    //     "no latest for:",
+    //     subject.name,
+        
+    //     subject["dist-tags"].latest,
+    //     JSON.stringify(Object.keys(subject.versions)),
+    //     "**",
+    //   ].join(" ");
+    //   console.warn(description);
+    //   return {
+    //     name: subject.name,
+    //     version: "none",
+    //     description,
+    //   };
+    // }
+    // return latest1;
   } else {
     return subject;
   }

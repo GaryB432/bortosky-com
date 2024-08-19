@@ -1,31 +1,88 @@
-import type { Packument, PackumentVersion } from "./packument";
 import * as semver from "semver";
+import type { Packument, PackumentVersion } from "./packument";
 
 export interface IService {
   getPackage(name: string, range: string): Promise<Packument | undefined>;
 }
 
+export async function ensureLatest(pack: Packument): Promise<Packument> {
+  const { name, "dist-tags": tags, versions } = pack;
+
+  if (!versions[tags.latest]) {
+    console.log("fetching latest", pack.name, tags.latest);
+    const description = [
+      "**",
+      "no latest for:",
+      pack.name,
+
+      pack["dist-tags"].latest,
+      JSON.stringify(Object.keys(pack.versions)),
+      "**",
+    ].join(" ");
+    // console.warn(description);
+    versions[tags.latest] = {
+      name,
+      version: tags.latest,
+      description,
+      keywords: ["*FAKE*"],
+    };
+  }
+
+  return pack;
+}
+
 export function trimDown(pack: Packument, range: string): Packument {
-  const { "dist-tags": tags, versions } = pack;
+  const { name, description, "dist-tags": tags, versions, keywords } = pack;
 
-  const rangeWanted = tags[range] ?? range;
+  const wanted = range === "latest" ? tags.latest : range;
 
-  const semverRange = new semver.Range(rangeWanted, {
-    loose: false,
-    includePrerelease: true,
-  });
+  const checker = new semver.Range(wanted);
 
-  const vs = Array.from(Object.keys(versions))
-    .filter((a) => semverRange.test(a))
-    .map((v) => {
-      return versions[v];
-    })
-    .reduce<Record<string, PackumentVersion>>((rec, packVersionJ) => {
-      rec[packVersionJ.version] = packVersionJ;
-      return rec;
-    }, {});
+  const matchVersions = Object.keys(versions).reduce<
+    Record<string, PackumentVersion>
+  >((a, versionSpec) => {
+    if (checker.test(versionSpec)) {
+      const {
+        name,
+        version,
+        description,
+        keywords,
+        dependencies,
+        devDependencies,
+      } = versions[versionSpec];
+      a[versionSpec] = {
+        name,
+        version,
+        description,
+        dependencies,
+        devDependencies,
+        keywords,
+      };
+    }
+    return a;
+  }, {});
 
-  return { ...pack, versions: vs };
+  if (JSON.stringify(matchVersions) === "{}") {
+    console.warn(`no latest for ${name}`);
+  }
+
+  return {
+    // _id,
+    // _rev,
+    name,
+    description,
+    "dist-tags": tags,
+    versions: matchVersions,
+    // readme,
+    // maintainers,
+    // time,
+    // homepage,
+    keywords,
+    // repository,
+    // bugs,
+    // license,
+    // readmeFilename,
+  };
 }
 
 export class Service implements IService {
@@ -37,7 +94,9 @@ export class Service implements IService {
       fetch(this.registryUrl(name)).then((res) => {
         if (res.ok) {
           res.json().then((pack: Packument) => {
-            resolve(trimDown(pack, range));
+            ensureLatest(trimDown(pack, range)).then((p) => {
+              resolve(p);
+            });
           });
         } else {
           resolve(undefined);

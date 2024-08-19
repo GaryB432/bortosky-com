@@ -1,7 +1,7 @@
-import type { PackageJson } from "$lib/project/project";
-import { beforeEach, describe, expect, test, vi } from "vitest";
-import { getKeywordMap } from "./map";
 import type { IService, Packument } from "$lib/project/npm";
+import type { PackageJson } from "$lib/project/project";
+import { beforeEach, describe, expect, test } from "vitest";
+import { getKeywordMap } from "./map";
 
 // import { when } from "vitest-when";
 
