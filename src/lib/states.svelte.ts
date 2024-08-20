@@ -1,8 +1,4 @@
 import type { NodeDataDefinition, NodeDefinition } from "cytoscape";
-import type { PackageJson } from "./project/project";
-import type { GElementDataDefinition } from "./project/graphs/keyword/cyto";
-
-type asdf = NodeDataDefinition | GElementDataDefinition;
 
 let _focusedNodes = $state<NodeDefinition[]>([]);
 
@@ -32,10 +28,10 @@ export const selectedNodeName = {
 };
 
 export const selectedNode = {
-  get data(): GElementDataDefinition | undefined {
+  get data(): NodeDataDefinition | undefined {
     return _selectedNode?.data;
   },
-  set data(val: GElementDataDefinition | undefined) {
+  set data(val: NodeDataDefinition | undefined) {
     if (val) {
       _selectedNode = { ..._selectedNode, data: val };
     }

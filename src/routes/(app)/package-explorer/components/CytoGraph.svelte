@@ -1,8 +1,8 @@
 <script lang="ts">
   import { cssDeclarations } from "$lib/project/graphs/keyword/cyto";
+  import { selectedNode } from "$lib/states.svelte";
   import cytoscape from "cytoscape";
   import dagre from "cytoscape-dagre";
-  import { selectedNode } from "$lib/states.svelte";
 
   let {
     elements,
@@ -45,7 +45,7 @@
       const n = e.target.data();
       selectedNode.data = e.target.data();
       // selectedNodeData.id = n.id;
-      console.log("select", selectedNode.data!.id, n);
+      // console.log("select", selectedNode.data!.id, n);
     });
   });
   // $effect(() => {

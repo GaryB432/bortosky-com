@@ -1,33 +1,24 @@
 import type { PackageJson } from "$lib/project/project";
 import type {
   CssStyleDeclaration,
+  EdgeDataDefinition,
   EdgeDefinition,
   ElementDataDefinition,
   ElementsDefinition,
+  NodeDataDefinition,
   NodeDefinition,
 } from "cytoscape";
 
-export type GElementDataDefinition = ElementDataDefinition & {
-  description?: string;
-  id: string;
-  label?: string;
-};
+type ElementDataWithId = Required<Pick<ElementDataDefinition, "id">>;
 
-// export async function getDependencyElements(
-//   gprojs: GaryProject[],
-//   filter?: string[],
-// ): Promise<ElementsDefinition> {
-//   if (filter && filter.length > 0) error(501, "bad request");
-//   const dg = new DependencyGraph();
-//   for (const ws of gprojs) {
-//     dg.digestWorkspace(ws);
-//   }
-//   return dg.elements();
-// }
+type PackageJsonDataDefinition = PackageJson &
+  ElementDataWithId & {
+    label: string;
+  };
 
-function keywordNode(): NodeDefinition {
-  return { data: { id: "" } };
-}
+type KeywordDataDefinition = NodeDataDefinition & ElementDataWithId;
+
+type GEdgeDataDefinition = EdgeDataDefinition & ElementDataWithId;
 
 export async function getElements(
   keywordMap: Map<string, PackageJson[]>,
@@ -35,26 +26,19 @@ export async function getElements(
   const mns = new Map<string, NodeDefinition>();
   const mes = new Map<string, EdgeDefinition>();
 
-  // const nodes = [...packageMap.keys()].map<NodeDefinition>((keyword) => {
-  //   return { data: { id: keyword } };
-  // });
-
   keywordMap.forEach((pJs, keyword) => {
-    const kwdData: GElementDataDefinition = getKeywordNode(keyword);
+    const kwdData: KeywordDataDefinition = getKeywordNodeData(keyword);
     mns.set(kwdData.id, {
       data: kwdData,
       classes: ["keyword"],
     });
     for (const pJ of pJs) {
-      const pJData: GElementDataDefinition = getPackageNode(pJ);
+      const pJData: PackageJsonDataDefinition = getPackageNodeData(pJ);
       mns.set(pJData.id, { data: pJData, classes: ["package"] });
 
-      const edgeData: GElementDataDefinition = getEdge(kwdData, pJData);
+      const edgeData = getEdgeData(kwdData, pJData);
       mes.set(edgeData.id, {
-        data: {
-          source: kwdData.id,
-          target: pJData.id,
-        },
+        data: edgeData,
       });
     }
   });
@@ -64,26 +48,27 @@ export async function getElements(
     edges: Array.from(mes.values()),
   };
 
-  function getEdge(
-    kwdData: GElementDataDefinition,
-    pJData: GElementDataDefinition,
-  ): GElementDataDefinition {
+  function getEdgeData(
+    kwdData: KeywordDataDefinition,
+    pJData: PackageJsonDataDefinition,
+  ): GEdgeDataDefinition {
     return {
       id: kwdData.id.concat("|").concat(pJData.id),
-      description: "",
+      source: kwdData.id,
+      target: pJData.id,
     };
   }
 
-  function getPackageNode(pJ: PackageJson): GElementDataDefinition {
+  function getPackageNodeData(pJ: PackageJson): PackageJsonDataDefinition {
     return {
+      ...pJ,
       id: pJ.name.concat("@".concat(pJ.version)),
-      description: pJ.description,
       label: pJ.name,
     };
   }
 
-  function getKeywordNode(keyword: string): GElementDataDefinition {
-    return { id: keyword, label: keyword };
+  function getKeywordNodeData(keyword: string): KeywordDataDefinition {
+    return { id: keyword };
   }
 }
 
