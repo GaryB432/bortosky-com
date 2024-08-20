@@ -1,19 +1,15 @@
 <script lang="ts">
   import LayoutSelect from "$lib/components/LayoutSelect.svelte";
   import MermaidList from "$lib/components/MermaidList.svelte";
+  import { selectedNode } from "$lib/states.svelte";
   import type { LayoutOptions } from "cytoscape";
   import type { PageData } from "./$types";
   import CytoGraph from "./components/CytoGraph.svelte";
-  import { selectedNode } from "$lib/states.svelte";
-    import PackagePanel from "./components/PackagePanel.svelte";
+  import SelectedPackagePanel from "./components/SelectedPackagePanel.svelte";
 
   let { data }: { data: PageData } = $props();
 
   let layout = $state({ name: "dagre" });
-
-  // let m = $derived(selectedNodeData);
-
-  $inspect(data.paramPackages);
 </script>
 
 <svelte:head>
@@ -32,10 +28,9 @@
           layout = newLayout as LayoutOptions;
         }}
       />
-      <div class="temp">
-        {JSON.stringify(selectedNode.data, null, 0)}
-      </div>
-      <PackagePanel></PackagePanel>
+      {#if selectedNode}
+        <SelectedPackagePanel></SelectedPackagePanel>
+      {/if}
       <MermaidList keywordMap={paramPkg.keywordMap}></MermaidList>
     </aside>
   {/each}
@@ -44,7 +39,7 @@
 <style lang="scss">
   .container {
     display: grid;
-    grid-template-columns: 1fr max-content;
+    grid-template-columns: 6fr 1fr;
     width: 100%;
     height: 70vh;
   }

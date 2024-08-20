@@ -41,8 +41,13 @@
     // cy.bind("tap", "node", (event) => {
     //   removeUnconnected(event.target);
     // });
+    cy.bind("mouseover", "node", (e: cytoscape.EventObjectNode) => {
+      console.log(e.target, "on");
+    });
+    cy.bind("mouseout", "node", (e: cytoscape.EventObjectNode) => {
+      console.log(e.target, "off");
+    });
     cy.bind("select", "node", (e: cytoscape.EventObjectNode) => {
-      const n = e.target.data();
       selectedNode.data = e.target.data();
       // selectedNodeData.id = n.id;
       // console.log("select", selectedNode.data!.id, n);
