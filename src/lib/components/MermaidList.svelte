@@ -8,30 +8,69 @@
 </script>
 
 <div class="container">
-  {#each mermaidLines as line}
-    <div>
-      {line}
-    </div>
-  {/each}
+  <div class="buttons">
+    <button class="copy">
+      <svg width="50" height="50" viewBox="0 0 50 50">
+        <circle
+          cx="25"
+          cy="25"
+          r="23"
+          fill="red"
+          stroke="blue"
+          stroke-width="2"
+        />
+      </svg>
+    </button>
+    <button class="open">
+      <svg width="50" height="50" viewBox="0 0 50 50">
+        <circle
+          cx="25"
+          cy="25"
+          r="23"
+          fill="blue"
+          stroke="red"
+          stroke-width="2"
+        />
+      </svg>
+    </button>
+  </div>
+  <div class="lines">
+    {#each mermaidLines as line}
+      <div>
+        {line}
+      </div>
+    {/each}
+  </div>
 </div>
 
 <style lang="scss">
-  .container {
+  .lines {
     font-family: monospace;
-    border: thin solid silver;
+    outline: thin solid var(--color-h1);
     overflow-y: scroll;
-    // width: 100%;
     max-height: 500px;
-    // hyphens: none;
     flex-grow: 1;
     overflow-x: hidden;
     div {
       white-space: pre;
       font-size: 0.5em;
-      // line-height: 1.1em;
-      // hyphens: none;
-      // width: 200px;
-      // overflow-x: hidden;
+    }
+  }
+  .buttons {
+    display: flex;
+    gap: 0.25rem;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items: center;
+    button {
+      display: flex;
+      border: 1px solid silver;
+      align-items: center;
+      svg {
+        margin: 0.2rem;
+        width: 1rem;
+        height: 1rem;
+      }
     }
   }
 </style>
