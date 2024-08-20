@@ -1,9 +1,12 @@
 <script lang="ts">
-  let subject = $state("PackagePanel component");
+  import type { PackageJson } from "$lib/project/project";
+  import { selectedNode } from "$lib/states.svelte";
+
+  let pJ = $derived(selectedNode.data) as PackageJson;
 </script>
 
 <div class="container">
-  {subject} works
+  {pJ.description}
 </div>
 
 <style lang="scss">

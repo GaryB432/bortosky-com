@@ -5,6 +5,7 @@
   import type { PageData } from "./$types";
   import CytoGraph from "./components/CytoGraph.svelte";
   import { selectedNode } from "$lib/states.svelte";
+    import PackagePanel from "./components/PackagePanel.svelte";
 
   let { data }: { data: PageData } = $props();
 
@@ -34,6 +35,7 @@
       <div class="temp">
         {JSON.stringify(selectedNode.data, null, 0)}
       </div>
+      <PackagePanel></PackagePanel>
       <MermaidList keywordMap={paramPkg.keywordMap}></MermaidList>
     </aside>
   {/each}

@@ -16,7 +16,10 @@ type PackageJsonDataDefinition = PackageJson &
     label: string;
   };
 
-type KeywordDataDefinition = NodeDataDefinition & ElementDataWithId;
+type KeywordDataDefinition = NodeDataDefinition & ElementDataWithId &
+  ElementDataWithId & {
+    label: string;
+  };
 
 type GEdgeDataDefinition = EdgeDataDefinition & ElementDataWithId;
 
@@ -68,7 +71,7 @@ export async function getElements(
   }
 
   function getKeywordNodeData(keyword: string): KeywordDataDefinition {
-    return { id: keyword };
+    return { id: keyword, label: keyword };
   }
 }
 
