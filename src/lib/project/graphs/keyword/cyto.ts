@@ -7,7 +7,7 @@ import type {
   NodeDefinition,
 } from "cytoscape";
 
-type GElementDataDefinition = ElementDataDefinition & {
+export type GElementDataDefinition = ElementDataDefinition & {
   description?: string;
   id: string;
   label?: string;

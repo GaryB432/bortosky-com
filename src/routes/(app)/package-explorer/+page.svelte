@@ -4,7 +4,7 @@
   import type { LayoutOptions } from "cytoscape";
   import type { PageData } from "./$types";
   import CytoGraph from "./components/CytoGraph.svelte";
-  import { selectedNodeData } from "$lib/states.svelte";
+  import { selectedNode } from "$lib/states.svelte";
 
   let { data }: { data: PageData } = $props();
 
@@ -32,7 +32,7 @@
         }}
       />
       <div class="temp">
-        {JSON.stringify(selectedNodeData.id, null, 0)}
+        {JSON.stringify(selectedNode.data, null, 0)}
       </div>
       <MermaidList keywordMap={paramPkg.keywordMap}></MermaidList>
     </aside>

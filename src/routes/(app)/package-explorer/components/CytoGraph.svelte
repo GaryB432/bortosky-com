@@ -2,7 +2,7 @@
   import { cssDeclarations } from "$lib/project/graphs/keyword/cyto";
   import cytoscape from "cytoscape";
   import dagre from "cytoscape-dagre";
-  import { selectedNodeData } from "$lib/states.svelte";
+  import { selectedNode } from "$lib/states.svelte";
 
   let {
     elements,
@@ -38,12 +38,14 @@
     // cy.bind("tap", "node", (event: cytoscape.EventObjectNode) => {
     //   removeUnconnected(event.target);
     // });
-    // cy.bind("tap", "node", (event: cytoscape.EventObjectNode) => {
+    // cy.bind("tap", "node", (event) => {
     //   removeUnconnected(event.target);
     // });
-    cy.bind("select", "node", (e) => {
-      selectedNodeData.id = e.target.data().id;
-      console.log("select", selectedNodeData.id);
+    cy.bind("select", "node", (e: cytoscape.EventObjectNode) => {
+      const n = e.target.data();
+      selectedNode.data = e.target.data();
+      // selectedNodeData.id = n.id;
+      console.log("select", selectedNode.data!.id, n);
     });
   });
   // $effect(() => {
