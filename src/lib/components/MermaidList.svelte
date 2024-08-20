@@ -11,26 +11,28 @@
   <div class="buttons">
     <button class="copy">
       <svg width="50" height="50" viewBox="0 0 50 50">
+        <rect
+          x="5"
+          y="10"
+          width="40"
+          height="30"
+          fill="#fff"
+          stroke="#000"
+          stroke-width="1"
+        />
         <circle
           cx="25"
-          cy="25"
-          r="23"
-          fill="red"
-          stroke="blue"
-          stroke-width="2"
+          cy="10"
+          r="5"
+          fill="#000"
+          stroke="#000"
+          stroke-width="1"
         />
       </svg>
     </button>
     <button class="open">
       <svg width="50" height="50" viewBox="0 0 50 50">
-        <circle
-          cx="25"
-          cy="25"
-          r="23"
-          fill="blue"
-          stroke="red"
-          stroke-width="2"
-        />
+        <path d="M 15,15 L 30,35 L 45,15" stroke="black" stroke-width="2" />
       </svg>
     </button>
   </div>
@@ -67,6 +69,7 @@
       border: 1px solid silver;
       align-items: center;
       svg {
+        fill: none;
         margin: 0.2rem;
         width: 1rem;
         height: 1rem;
