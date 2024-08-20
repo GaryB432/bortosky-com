@@ -37,6 +37,11 @@
 </article>
 
 <style lang="scss">
+  aside,
+  aside * {
+    width: 190px;
+  }
+
   .container {
     display: grid;
     grid-template-columns: 6fr 1fr;

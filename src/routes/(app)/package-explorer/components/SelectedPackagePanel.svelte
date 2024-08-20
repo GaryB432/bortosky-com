@@ -3,7 +3,11 @@
   import { selectedNode } from "$lib/states.svelte";
 
   let pJ = $derived(
-    selectedNode.data ?? { name: "", version: "", description: "" },
+    selectedNode.data ?? {
+      name: "",
+      version: "",
+      description: "Select a package node in the graph",
+    },
   ) as PackageJson;
 </script>
 
