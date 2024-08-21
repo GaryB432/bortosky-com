@@ -55,7 +55,6 @@ describe("Cyto", () => {
       [
         {
           "id": "kw-ac",
-          "label": "kw-ac",
         },
         {
           "description": "the house project",
@@ -79,7 +78,6 @@ describe("Cyto", () => {
         },
         {
           "id": "kw-ab",
-          "label": "kw-ab",
         },
         {
           "description": "the kitchen project",
@@ -93,7 +91,6 @@ describe("Cyto", () => {
         },
         {
           "id": "kw-a",
-          "label": "kw-a",
         },
       ]
     `);
