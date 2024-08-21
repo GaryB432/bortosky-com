@@ -109,7 +109,7 @@ export function cssDeclarations(): CssStyleDeclaration[] {
     },
     {
       selector: "node.keyword",
-      style: { "background-color": "#0f0" },
+      style: { "background-color": "#0f0", label: "data(id)" },
     },
     {
       selector: "node.focused",

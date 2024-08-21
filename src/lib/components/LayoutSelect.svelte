@@ -31,7 +31,7 @@
 
   const keys = layoutOpts.map((lo) => lo.name);
 
-  selected = keys.at(0) ?? "";
+  // selected = keys.at(0) ?? "";
 
   // const dispatch = createEventDispatcher<{
   //   selected: { layout: LayoutOptions };

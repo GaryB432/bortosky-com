@@ -16,6 +16,7 @@
   <div class="name">
     {pJ.description}
   </div>
+  <a href={`../package-explorer?p=${pJ.name}`}>More</a>
   <ul>
     {#each pJ.keywords ?? [] as keyword}
       <li>
@@ -42,5 +43,8 @@
   }
   li {
     font-size: 1rem;
+  }
+  a {
+    text-decoration: underline;
   }
 </style>
