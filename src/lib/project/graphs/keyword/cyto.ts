@@ -7,6 +7,10 @@ import type {
   NodeDefinition,
 } from "cytoscape";
 
+type ElementDataWithId = Required<Pick<ElementDataDefinition, "id">>;
+
+type PackageJsonDataDefinition = PackageJson & ElementDataWithId;
+
 export type GElementDataDefinition = ElementDataDefinition & {
   description?: string;
   id: string;
@@ -46,7 +50,7 @@ export async function getElements(
       classes: ["keyword"],
     });
     for (const pJ of pJs) {
-      const pJData: GElementDataDefinition = getPackageNode(pJ);
+      const pJData: PackageJsonDataDefinition = getPackageNode(pJ);
       mns.set(pJData.id, { data: pJData, classes: ["package"] });
 
       const edgeData: GElementDataDefinition = getEdge(kwdData, pJData);
@@ -70,15 +74,18 @@ export async function getElements(
   ): GElementDataDefinition {
     return {
       id: kwdData.id.concat("|").concat(pJData.id),
-      description: "",
     };
   }
 
-  function getPackageNode(pJ: PackageJson): GElementDataDefinition {
+  function getPackageNode(pJ: PackageJson): PackageJsonDataDefinition {
+    const { name, version, description, keywords } = pJ;
+
     return {
       id: pJ.name.concat("@".concat(pJ.version)),
-      description: pJ.description,
-      label: pJ.name,
+      name,
+      version,
+      description,
+      keywords,
     };
   }
 
@@ -91,11 +98,11 @@ export function cssDeclarations(): CssStyleDeclaration[] {
   return [
     {
       selector: "node",
-      style: { "background-color": "#666", label: "data(label)" },
+      style: { "background-color": "#666" },
     },
     {
       selector: "node.package",
-      style: { "background-color": "#f00" },
+      style: { "background-color": "#f00", label: "data(name)" },
     },
     {
       selector: "node.keyword",

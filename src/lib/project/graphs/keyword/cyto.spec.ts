@@ -1,4 +1,3 @@
-import type { Packument } from "$lib/project/npm";
 import type { PackageJson } from "$lib/project/project";
 import { beforeEach, describe, expect, test } from "vitest";
 import { getElements } from "./cyto";
@@ -30,10 +29,7 @@ const someJs: PackageJson[] = [
   },
 ];
 
-const [house, kitchen, bath] = someJs.map((pj) => ({
-  ...pj,
-  keywords: undefined,
-}));
+const [house, kitchen, bath] = someJs;
 
 describe("Cyto", () => {
   beforeEach(() => {});
@@ -64,12 +60,22 @@ describe("Cyto", () => {
         {
           "description": "the house project",
           "id": "house@0.0.0",
-          "label": "house",
+          "keywords": [
+            "DO-NOT-USE",
+            "ROOT-HOUSE-PROJECT",
+          ],
+          "name": "house",
+          "version": "0.0.0",
         },
         {
           "description": "the bathroom project",
           "id": "bathroom@0.0.0",
-          "label": "bathroom",
+          "keywords": [
+            "room",
+            "bathing",
+          ],
+          "name": "bathroom",
+          "version": "0.0.0",
         },
         {
           "id": "kw-ab",
@@ -78,7 +84,12 @@ describe("Cyto", () => {
         {
           "description": "the kitchen project",
           "id": "kitchen@0.0.0",
-          "label": "kitchen",
+          "keywords": [
+            "room",
+            "cooking",
+          ],
+          "name": "kitchen",
+          "version": "0.0.0",
         },
         {
           "id": "kw-a",
