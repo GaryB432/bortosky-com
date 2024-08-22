@@ -53,10 +53,6 @@
     max-height: 500px;
     flex-grow: 1;
     overflow-x: hidden;
-    div {
-      white-space: pre;
-      font-size: 0.5em;
-    }
   }
 
   .open > .lines {

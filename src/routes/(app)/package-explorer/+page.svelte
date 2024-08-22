@@ -37,8 +37,7 @@
 </article>
 
 <style lang="scss">
-  aside,
-  aside * {
+  aside {
     width: 190px;
   }
 
