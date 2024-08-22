@@ -131,7 +131,7 @@ export function getLatestPackage(
     //     "**",
     //     "no latest for:",
     //     subject.name,
-        
+
     //     subject["dist-tags"].latest,
     //     JSON.stringify(Object.keys(subject.versions)),
     //     "**",

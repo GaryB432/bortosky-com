@@ -1,5 +1,6 @@
 <script lang="ts">
   import { cssDeclarations } from "$lib/project/graphs/keyword/cyto";
+  import { selectedNode } from "$lib/states.svelte";
   import cytoscape from "cytoscape";
   import dagre from "cytoscape-dagre";
 
@@ -37,16 +38,29 @@
     // cy.bind("tap", "node", (event: cytoscape.EventObjectNode) => {
     //   removeUnconnected(event.target);
     // });
-    // cy.bind("tap", "node", (event: cytoscape.EventObjectNode) => {
+    // cy.bind("tap", "node", (event) => {
     //   removeUnconnected(event.target);
     // });
-    // cy.bind("select", "node", (e) => {
-    //   console.log("select", e);
-    // });
-    cy.bind("tap", "node", (e) => {
-      console.log(e.target.data());
+    cy.bind("mouseover", "node", (e: cytoscape.EventObjectNode) => {
+      console.log(e.target, "on");
+    });
+    cy.bind("mouseout", "node", (e: cytoscape.EventObjectNode) => {
+      console.log(e.target, "off");
+    });
+    cy.bind("select", "node", (e: cytoscape.EventObjectNode) => {
+      selectedNode.data = e.target.data();
+      // selectedNodeData.id = n.id;
+      // console.log("select", selectedNode.data!.id, n);
     });
   });
+  // $effect(() => {
+  //   console.log("done");
+  //   cy.bind("tap", "node", (e) => {
+  //     const d = e.target.data();
+  //     selectedNodeData.id = d.id;
+  //     console.log(d);
+  //   });
+  // });
 </script>
 
 <div id="cydiv" bind:this={cydiv}></div>

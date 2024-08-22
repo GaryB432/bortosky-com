@@ -16,7 +16,7 @@ export async function ensureLatest(pack: Packument): Promise<Packument> {
       pack.name,
 
       pack["dist-tags"].latest,
-      JSON.stringify(Object.keys(pack.versions)),
+      JSON.stringify(Object.keys(pack.versions).length),
       "**",
     ].join(" ");
     // console.warn(description);

@@ -1,13 +1,22 @@
 import type { PackageJson } from "$lib/project/project";
 import type {
   CssStyleDeclaration,
+  EdgeDataDefinition,
   EdgeDefinition,
   ElementDataDefinition,
   ElementsDefinition,
   NodeDefinition,
 } from "cytoscape";
 
-type GElementDataDefinition = ElementDataDefinition & {
+type ElementDataWithId = Required<Pick<ElementDataDefinition, "id">>;
+
+type PackageJsonDataDefinition = ElementDataWithId & PackageJson;
+
+type KeywordDataDefinition = ElementDataWithId;
+
+type PkEdgeDefinition = ElementDataWithId & EdgeDataDefinition;
+
+export type GElementDataDefinitionx = ElementDataDefinition & {
   description?: string;
   id: string;
   label?: string;
@@ -25,10 +34,6 @@ type GElementDataDefinition = ElementDataDefinition & {
 //   return dg.elements();
 // }
 
-function keywordNode(): NodeDefinition {
-  return { data: { id: "" } };
-}
-
 export async function getElements(
   keywordMap: Map<string, PackageJson[]>,
 ): Promise<ElementsDefinition> {
@@ -40,16 +45,16 @@ export async function getElements(
   // });
 
   keywordMap.forEach((pJs, keyword) => {
-    const kwdData: GElementDataDefinition = getKeywordNode(keyword);
+    const kwdData: KeywordDataDefinition = getKeywordNodeData(keyword);
     mns.set(kwdData.id, {
       data: kwdData,
       classes: ["keyword"],
     });
     for (const pJ of pJs) {
-      const pJData: GElementDataDefinition = getPackageNode(pJ);
+      const pJData: PackageJsonDataDefinition = getPackageNodeData(pJ);
       mns.set(pJData.id, { data: pJData, classes: ["package"] });
 
-      const edgeData: GElementDataDefinition = getEdge(kwdData, pJData);
+      const edgeData: PkEdgeDefinition = getEdge(kwdData, pJData);
       mes.set(edgeData.id, {
         data: {
           source: kwdData.id,
@@ -65,25 +70,30 @@ export async function getElements(
   };
 
   function getEdge(
-    kwdData: GElementDataDefinition,
-    pJData: GElementDataDefinition,
-  ): GElementDataDefinition {
+    kwdData: KeywordDataDefinition,
+    pJData: PackageJsonDataDefinition,
+  ): PkEdgeDefinition {
     return {
       id: kwdData.id.concat("|").concat(pJData.id),
-      description: "",
+      source: kwdData.id,
+      target: pJData.id,
     };
   }
 
-  function getPackageNode(pJ: PackageJson): GElementDataDefinition {
+  function getPackageNodeData(pJ: PackageJson): PackageJsonDataDefinition {
+    const { name, version, description, keywords } = pJ;
+
     return {
       id: pJ.name.concat("@".concat(pJ.version)),
-      description: pJ.description,
-      label: pJ.name,
+      name,
+      version,
+      description,
+      keywords,
     };
   }
 
-  function getKeywordNode(keyword: string): GElementDataDefinition {
-    return { id: keyword, label: keyword };
+  function getKeywordNodeData(keyword: string): KeywordDataDefinition {
+    return { id: keyword };
   }
 }
 
@@ -91,15 +101,15 @@ export function cssDeclarations(): CssStyleDeclaration[] {
   return [
     {
       selector: "node",
-      style: { "background-color": "#666", label: "data(label)" },
+      style: { "background-color": "#666" },
     },
     {
       selector: "node.package",
-      style: { "background-color": "#f00" },
+      style: { "background-color": "#f00", label: "data(name)" },
     },
     {
       selector: "node.keyword",
-      style: { "background-color": "#0f0" },
+      style: { "background-color": "#0f0", label: "data(id)" },
     },
     {
       selector: "node.focused",
