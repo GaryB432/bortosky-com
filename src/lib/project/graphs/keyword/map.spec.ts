@@ -1,4 +1,4 @@
-import type { IService, Packument, PackumentBase } from "$lib/project/npm";
+import type { IService, PackumentBase } from "$lib/project/npm";
 import type { PackageJson } from "$lib/project/project";
 import { beforeEach, describe, expect, test } from "vitest";
 import { getKeywordMap } from "./map";
