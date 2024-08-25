@@ -1,4 +1,4 @@
-import type { IService, Packument } from "$lib/project/npm";
+import type { IService, PackumentBase } from "$lib/project/npm";
 import type { PackageJson } from "$lib/project/project";
 // import { get } from "simple-get";
 
@@ -55,7 +55,7 @@ const someJs: PackageJson[] = [
   },
 ];
 
-const somePacks: Packument[] = someJs.map<Packument>((j, i) => {
+const somePacks: PackumentBase[] = someJs.map<PackumentBase>((j, i) => {
   const {
     name,
     description,
@@ -94,73 +94,24 @@ const somePacks: Packument[] = someJs.map<Packument>((j, i) => {
   };
 });
 
-// function getRandomElement<T>(array: Array<T>): T {
-//   const randomIndex = Math.floor(Math.random() * array.length);
-//   return array[randomIndex];
-// }
-
-// function someDependencies(max?: number): Record<string, string> {
-//   const size = max ?? Math.floor(Math.random() * 8 + 1);
-//   const deps = new Array(size)
-//     .fill(0)
-//     .map(() => getRandomElement(someJs).name)
-//     // .map((g) => g.name)
-//     .sort()
-//     .reduce<Record<string, string>>((a, b) => {
-//       a[b] = "^0.0.0";
-//       return a;
-//     }, {});
-//   return deps;
-// }
-
-export function getLatestPackage(
-  subject: PackageJson | Packument,
-): PackageJson {
-  if ("dist-tags" in subject) {
-    const nn = Object.keys(subject.versions).includes(
-      subject["dist-tags"].latest,
-    );
-
-    return subject.versions[subject["dist-tags"].latest] as PackageJson;
-    // console.log(subject.name, nn)
-    // const latest1 = subject.versions[
-    //   subject["dist-tags"].latest
-    // ] as PackageJson;
-    // if (!latest1) {
-    //   const description = [
-    //     "**",
-    //     "no latest for:",
-    //     subject.name,
-
-    //     subject["dist-tags"].latest,
-    //     JSON.stringify(Object.keys(subject.versions)),
-    //     "**",
-    //   ].join(" ");
-    //   console.warn(description);
-    //   return {
-    //     name: subject.name,
-    //     version: "none",
-    //     description,
-    //   };
-    // }
-    // return latest1;
-  } else {
-    return subject;
+export function getPackageGVersion(subject: PackumentBase): PackageJson {
+  const { "dist-tags": tags } = subject;
+  const gbv = tags["_gb"];
+  const pj = subject.versions[gbv] as PackageJson;
+  // console.log(tags);
+  if (!pj) {
+    throw `${subject.name} is broken`;
   }
+  return pj;
 }
 
 export async function getKeywordMap(
-  subject: PackageJson | Packument,
+  subject: PackumentBase,
   // packages: PackageJson[],
   npm: IService,
   depth = 0,
 ): Promise<Map<string, PackageJson[]>> {
-  // const registry = packages.reduce((a, b) => {
-  //   a.set(b.name, b);
-  //   return a;
-  // }, new Map<string, PackageJson>());
-
-  const subjectJ = getLatestPackage(subject);
+  const subjectJ = getPackageGVersion(subject);
 
   const result: Map<Keyword, PackageJson[]> = new Map();
 
@@ -184,10 +135,11 @@ export async function getKeywordMap(
   ): Promise<void> {
     if (depRecord) {
       for (const dep of Object.keys(depRecord)) {
-        const dpack = await npm.getPackage(dep, depRecord[dep]);
+        const dpack = await npm.getPackument(dep, depRecord[dep]);
         if (dpack) {
-          for (const k of dpack.keywords ?? []) {
-            digestKeyword(k, getLatestPackage(dpack));
+          const pj = getPackageGVersion(dpack);
+          for (const k of pj.keywords ?? []) {
+            digestKeyword(k, pj);
           }
         }
       }
