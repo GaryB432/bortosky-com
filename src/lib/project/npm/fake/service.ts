@@ -1,8 +1,8 @@
-import type { IService, Packument } from "$lib/project/npm";
+import type { IService, PackumentBase } from "$lib/project/npm";
 import type { PackageJson } from "$lib/project/project";
 
 export class FakeService implements IService {
-  public async getPackage(name: string): Promise<Packument | undefined> {
+  public async getPackument(name: string): Promise<PackumentBase | undefined> {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(packMap.get(name));
@@ -39,7 +39,7 @@ const someJs: PackageJson[] = [
 ];
 
 const packMap = someJs
-  .map<Packument>((j, i) => {
+  .map<PackumentBase>((j, i) => {
     const {
       name,
       description,
@@ -77,7 +77,7 @@ const packMap = someJs
       readmeFilename: "",
     };
   })
-  .reduce<Map<string, Packument>>((map, pack) => {
+  .reduce<Map<string, PackumentBase>>((map, pack) => {
     map.set(pack.name, pack);
     return map;
   }, new Map());
