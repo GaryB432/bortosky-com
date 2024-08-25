@@ -11,60 +11,41 @@
     "lint": "nx exec -- eslint ."
   },
   "devDependencies": {
-    "@fontsource/montserrat": "^5.0.13",
+    "@fontsource/montserrat": "^5.0.19",
     "@gb-nx/svelte": "^8.2.0",
     "@gb-nx/workspace": "^5.0.0",
-    "@sveltejs/adapter-vercel": "^4.0.0",
+    "@nx/eslint": "19.6.2",
+    "@sveltejs/adapter-vercel": "^5.4.3",
     "@sveltejs/kit": "^2.0.0",
-    "@sveltejs/vite-plugin-svelte": "^3.0.0",
-    "@types/cookie": "^0.5.1",
-    "@types/cytoscape": "^3.19.12",
+    "@sveltejs/vite-plugin-svelte": "^4.0.0-next.6",
+    "@types/cytoscape": "^3.21.6",
     "@types/cytoscape-dagre": "^2.3.3",
     "@types/eslint": "^9.6.0",
     "@types/simple-get": "^4.0.3",
     "eslint": "^9.0.0",
-    "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-gb": "^9.0.0-alpha.1",
     "eslint-plugin-svelte": "^2.36.0",
     "globals": "^15.0.0",
-    "json-schema-to-typescript": "^13.1.1",
-    "nx": "17.2.8",
-    "prettier": "^3.2.5",
-    "prettier-plugin-svelte": "^3.1.2",
-    "sass": "^1.69.3",
+    "json-schema-to-typescript": "^15.0.1",
+    "nx": "19.6.2",
+    "prettier": "^3.3.3",
+    "prettier-plugin-svelte": "^3.2.6",
+    "sass-embedded": "^1.77.8",
     "svelte": "^5.0.0-next.1",
     "svelte-check": "^3.6.0",
-    "the-new-css-reset": "^1.11.0",
-    "tslib": "^2.4.1",
+    "the-new-css-reset": "^1.11.2",
     "typescript": "^5.0.0",
     "typescript-eslint": "^8.0.0",
     "vite": "^5.0.3",
-    "vitest": "^1.2.0"
+    "vitest": "^2.0.0"
   },
   "dependencies": {
-    "cytoscape": "^3.26.0",
+    "cytoscape": "^3.30.2",
     "cytoscape-dagre": "^2.5.0",
-    "simple-get": "^4.0.1",
     "tippy.js": "^6.3.7"
   },
   "type": "module",
-  "nx": {
-    "targets": {
-      "build": {
-        "outputs": [
-          "{projectRoot}/.svelte-kit",
-          "{projectRoot}/.vercel",
-          "{projectRoot}/build"
-        ]
-      },
-      "test": {
-        "outputs": [
-          "{projectRoot}/coverage",
-          "{projectRoot}/junit"
-        ]
-      }
-    }
-  },
+  "nx": {},
   "bugs": "https://github.com/GaryB432/bortosky-com/issues",
   "repository": "github:GaryB432/bortosky-com"
 }

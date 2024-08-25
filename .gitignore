@@ -2,8 +2,8 @@
 .DS_Store
 .env
 .env.*
-/.nx
-/.nx-cache
+.nx/cache
+.nx/workspace-data
 /.svelte-kit
 /.vercel
 /build

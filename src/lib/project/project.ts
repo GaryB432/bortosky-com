@@ -1,5 +1,10 @@
 /* eslint @typescript-eslint/member-ordering: 0 */
 
+interface Maintainer {
+  name: string;
+  email: string;
+}
+
 export interface Dependency {
   name: string;
   version: string;
@@ -11,7 +16,7 @@ export interface PackageJson {
   name: string;
   version: string;
   license?: string;
-  private?: boolean;
+  private?: boolean | ("false" | "true");
   scripts?: Record<string, string>;
   type?: "module" | "commonjs";
   main?: string;
@@ -44,10 +49,19 @@ export interface PackageJson {
   workspaces?:
     | string[]
     | {
-        packages: string[];
+        packages?: string[];
+        nohoist?: string[];
+        [k: string]: unknown;
       };
   publishConfig?: Record<string, string>;
-  repository?: string | { type?: string; url?: string; directory?: string };
+  repository?:
+    | {
+        type?: string;
+        url?: string;
+        directory?: string;
+        [k: string]: unknown;
+      }
+    | string;
   nx?: NxProjectJson;
   generators?: string;
   schematics?: string;
@@ -58,6 +72,15 @@ export interface PackageJson {
   bugs?: string | { url?: string; email?: string };
   keywords?: string[];
   homepage?: string;
+  maintainers?: Maintainer[];
+  files?: string[];
+  dist?: {
+    shasum?: string;
+    tarball?: string;
+    [k: string]: unknown;
+  };
+  typings?: string;
+  engines?: unknown;
 }
 
 export interface NxProjectJson {

@@ -1,4 +1,4 @@
-import type { IService, Packument } from "$lib/project/npm";
+import type { IService, PackumentBase } from "$lib/project/npm";
 import type { PackageJson } from "$lib/project/project";
 import { beforeEach, describe, expect, test } from "vitest";
 import { getKeywordMap } from "./map";
@@ -55,67 +55,67 @@ import { getKeywordMap } from "./map";
 // {name:"plant",version:"0.0.0",description:"the plant project",keywords:["plant"]},
 // {name:"river",version:"0.0.0",description:"the river project",keywords:["river"]},
 
-const housePack: Required<Packument> = {
-  _id: "",
-  _rev: "",
-  name: "",
-  description: "",
-  "dist-tags": {
-    latest: "",
-  },
-  versions: {
-    "0.0.0": {
-      name: "house",
-      version: "0.0.0",
-      description: "the house project",
-      dependencies: {
-        bathroom: "^0.0.0",
-      },
-      devDependencies: {
-        kitchen: "^0.0.0",
-      },
-    },
-  },
-  readme: "",
-  maintainers: [],
-  time: {},
-  homepage: "",
-  keywords: [],
-  repository: undefined,
-  bugs: undefined,
-  license: "",
-  readmeFilename: "",
-};
+// const housePack: Required<Packument> = {
+//   _id: "",
+//   _rev: "",
+//   name: "",
+//   description: "",
+//   "dist-tags": {
+//     latest: "",
+//   },
+//   versions: {
+//     "0.0.0": {
+//       name: "house",
+//       version: "0.0.0",
+//       description: "the house project",
+//       dependencies: {
+//         bathroom: "^0.0.0",
+//       },
+//       devDependencies: {
+//         kitchen: "^0.0.0",
+//       },
+//     },
+//   },
+//   readme: "",
+//   maintainers: [],
+//   time: {},
+//   homepage: "",
+//   keywords: [],
+//   repository: undefined,
+//   bugs: undefined,
+//   license: "",
+//   readmeFilename: "",
+// };
 
-const pjs: PackageJson[] = [
-  {
-    name: "house",
-    version: "0.0.0",
-    description: "the house project",
-    dependencies: {
-      bathroom: "^0.0.0",
-    },
-    devDependencies: {
-      kitchen: "^0.0.0",
-    },
-    keywords: ["DO-NOT-USE", "ROOT-HOUSE-PROJECT"],
-  },
-  {
-    name: "kitchen",
-    version: "0.0.0",
-    description: "the kitchen project",
-    keywords: ["room", "cooking"],
-  },
-  {
-    name: "bathroom",
-    version: "0.0.0",
-    description: "the bathroom project",
-    keywords: ["room", "bathing"],
-  },
-];
+// const pjs: PackageJson[] = [
+//   {
+//     name: "house",
+//     version: "0.0.0",
+//     description: "the house project",
+//     dependencies: {
+//       bathroom: "^0.0.0",
+//     },
+//     devDependencies: {
+//       kitchen: "^0.0.0",
+//     },
+//     keywords: ["DO-NOT-USE", "ROOT-HOUSE-PROJECT"],
+//   },
+//   {
+//     name: "kitchen",
+//     version: "0.0.0",
+//     description: "the kitchen project",
+//     keywords: ["room", "cooking"],
+//   },
+//   {
+//     name: "bathroom",
+//     version: "0.0.0",
+//     description: "the bathroom project",
+//     keywords: ["room", "bathing"],
+//   },
+// ];
 
 class MockService implements IService {
-  public async getPackage(name: string): Promise<Packument | undefined> {
+  public async getPackument(name: string): Promise<PackumentBase | undefined> {
     console.log("asking for ", name);
 
     return new Promise((resolve) => {
@@ -134,7 +134,7 @@ describe("Map", () => {
   let kmap: Map<string, PackageJson[]>;
 
   beforeEach(async () => {
-    kmap = await getKeywordMap(pjs[0], new MockService());
+    kmap = await getKeywordMap(somePacks[0], new MockService());
   });
   test("getKeywordMap", () => {
     expect(
@@ -308,7 +308,7 @@ const someJs: PackageJson[] = [
   },
 ];
 
-const somePacks: Packument[] = someJs.map<Packument>((j, i) => {
+const somePacks: PackumentBase[] = someJs.map<PackumentBase>((j, i) => {
   const {
     name,
     description,
@@ -318,11 +318,9 @@ const somePacks: Packument[] = someJs.map<Packument>((j, i) => {
     devDependencies,
   } = j;
   return {
-    _id: name,
-    _rev: i.toString(),
     name,
-    description: description,
     "dist-tags": {
+      _gb: version,
       latest: version,
     },
     versions: {
@@ -335,14 +333,5 @@ const somePacks: Packument[] = someJs.map<Packument>((j, i) => {
         devDependencies,
       },
     },
-    readme: "",
-    maintainers: [],
-    time: undefined,
-    homepage: "",
-    keywords,
-    repository: undefined,
-    bugs: undefined,
-    license: "",
-    readmeFilename: "",
   };
 });

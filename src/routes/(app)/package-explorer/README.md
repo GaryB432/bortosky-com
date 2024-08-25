@@ -14,6 +14,8 @@
 
 [registry.npmjs.com/venv/1.0.1](https://registry.npmjs.com/venv/1.0.1)
 
+[node.js - Get versions from npm registry api - Stack Overflow](https://stackoverflow.com/questions/48180999/get-versions-from-npm-registry-api/61369205#61369205)
+
 ## Cytoscape
 
 [Using layouts · Cytoscape.js](https://blog.js.cytoscape.org/2020/05/11/layouts/)

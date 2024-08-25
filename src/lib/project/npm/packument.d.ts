@@ -2,38 +2,33 @@
 
 import type { PackageJson } from "$lib/project/project";
 
-export interface Packument {
-  _id?: string;
-  _rev?: string;
+export interface PackumentBase {
   name: string;
-  description?: string;
   "dist-tags": Record<string, string>;
   versions: Record<string, PackumentVersion>;
-  readme?: string;
-  maintainers?: Maintainer[];
-  time?: Time;
+}
+
+export interface Packument extends PackumentBase {
+  _id?: string;
+  _rev?: string;
+  bugs?: unknown;
+  description?: string;
   homepage?: string;
   keywords?: string[];
-  repository?: unknown;
-  bugs?: unknown;
   license?: string;
+  maintainers?: Maintainer[];
+  readme?: string;
   readmeFilename?: string;
+  repository?: unknown;
+  time?: Time;
 }
 
 interface PackumentVersion extends PackageJson {
-  files?: string[];
-  bin?: unknown;
-  typings?: string;
-  engines?: unknown;
-  bugs?: unknown;
-  jest?: unknown;
   gitHead?: string;
   _id?: string;
   _npmVersion?: string;
   _nodeVersion?: string;
   _npmUser?: NpmUser;
-  dist?: unknown;
-  maintainers?: Maintainer[];
 }
 
 interface NpmUser {
@@ -49,11 +44,6 @@ interface Maintainer {
 type Time = { modified: string; created: string } | Record<string, string>;
 
 interface NpmUser {
-  name: string;
-  email: string;
-}
-
-interface Maintainer {
   name: string;
   email: string;
 }

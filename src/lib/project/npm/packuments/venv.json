@@ -1,36 +1,12 @@
 {
-  "_id": "venv",
-  "_rev": "7-86ca215f54470a9ab54fd8e9b143787b",
   "name": "venv",
-  "description": "Use build-time environment variables in your application",
-  "dist-tags": { "latest": "1.0.1" },
+  "dist-tags": {
+    "latest": "1.0.1"
+  },
   "versions": {
     "0.1.0": {
       "name": "venv",
       "version": "0.1.0",
-      "description": "Use build-time environment variables in your Angular CLI project",
-      "license": "MIT",
-      "repository": {
-        "type": "git",
-        "url": "git+https://github.com/GaryB432/venv.git"
-      },
-      "keywords": ["environment", "variables", "angular", "cli"],
-      "files": ["lib"],
-      "bin": { "venv": "lib/cli.js" },
-      "main": "lib/index.js",
-      "typings": "lib/index.d.ts",
-      "scripts": {
-        "clean": "rimraf lib && rimraf coverage",
-        "format": "prettier --write \"{src,__tests__}/**/*.ts\" --single-quote --trailing-comma es5",
-        "lint": "tslint --force --format verbose \"src/**/*.ts\"",
-        "prepublish": "npm run build",
-        "prebuild": "npm run clean && npm run format && npm run lint && echo Using TypeScript && tsc --version",
-        "build": "tsc --pretty",
-        "test": "jest",
-        "coverage": "jest --coverage",
-        "watch": "npm run build -- --watch",
-        "watch:test": "jest --watch"
-      },
       "dependencies": {
         "ejs": "^2.5.7",
         "fs-extra": "^4.0.1",
@@ -54,22 +30,9 @@
         "tslint-config-prettier": "^1.1.0",
         "typescript": "^2.0.0"
       },
-      "engines": { "node": ">=6.0.0" },
-      "bugs": { "url": "https://github.com/GaryB432/venv/issues" },
-      "homepage": "https://github.com/GaryB432/venv#readme",
-      "jest": {
-        "transform": {
-          ".(ts)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
-        },
-        "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|js)$",
-        "moduleFileExtensions": ["ts", "js"],
-        "testEnvironment": "node"
+      "bin": {
+        "venv": "lib/cli.js"
       },
-      "gitHead": "42465049de306626517e31e4dce3f1d1b5c2ffa6",
-      "_id": "venv@0.1.0",
-      "_npmVersion": "5.2.0",
-      "_nodeVersion": "8.1.3",
-      "_npmUser": { "name": "garyb432", "email": "gary@bortosky.com" },
       "dist": {
         "integrity": "sha512-RMdeiD0OJC+S2w4931iqdi5MB9xe2T/lXZbRrHxbsmQrSA+FwhPk2bIqIwbNDCmThPgNw841Q272O6EFSYhBjQ==",
         "shasum": "32b9f3bd9f501afce0557aa5cd5b7fc5e063a617",
@@ -81,38 +44,13 @@
           }
         ]
       },
-      "maintainers": [{ "name": "garyb432", "email": "gary@bortosky.com" }],
-      "_npmOperationalInternal": {
-        "host": "s3://npm-registry-packages",
-        "tmp": "tmp/venv-0.1.0.tgz_1502592807968_0.1226098423358053"
+      "engines": {
+        "node": ">=6.0.0"
       }
     },
     "0.2.0": {
       "name": "venv",
       "version": "0.2.0",
-      "description": "Use build-time environment variables in your Angular CLI project",
-      "license": "MIT",
-      "repository": {
-        "type": "git",
-        "url": "git+https://github.com/GaryB432/venv.git"
-      },
-      "keywords": ["environment", "variables", "angular", "cli"],
-      "files": ["lib"],
-      "bin": { "venv": "lib/venv.js" },
-      "main": "lib/index.js",
-      "typings": "lib/index.d.ts",
-      "scripts": {
-        "clean": "rimraf lib && rimraf coverage",
-        "format": "prettier --write \"{src,__tests__}/**/*.ts\" --single-quote --trailing-comma es5",
-        "lint": "tslint --force --format verbose \"src/**/*.ts\"",
-        "prepare": "npm run build",
-        "prebuild": "npm run clean && npm run format && npm run lint && echo Using TypeScript && tsc --version",
-        "build": "tsc --pretty",
-        "test": "jest",
-        "coverage": "jest --coverage",
-        "watch": "npm run build -- --watch",
-        "watch:test": "jest --watch"
-      },
       "dependencies": {
         "ejs": "^2.5.7",
         "fs-extra": "^4.0.1",
@@ -136,22 +74,9 @@
         "tslint-config-prettier": "^1.1.0",
         "typescript": "^2.0.0"
       },
-      "engines": { "node": ">=6.0.0" },
-      "bugs": { "url": "https://github.com/GaryB432/venv/issues" },
-      "homepage": "https://github.com/GaryB432/venv#readme",
-      "jest": {
-        "transform": {
-          ".(ts)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
-        },
-        "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|js)$",
-        "moduleFileExtensions": ["ts", "js"],
-        "testEnvironment": "node"
+      "bin": {
+        "venv": "lib/venv.js"
       },
-      "gitHead": "591a03076e20cb8001c16154599a0081c1116f19",
-      "_id": "venv@0.2.0",
-      "_npmVersion": "5.2.0",
-      "_nodeVersion": "8.1.3",
-      "_npmUser": { "name": "garyb432", "email": "gary@bortosky.com" },
       "dist": {
         "integrity": "sha512-M1Ylf5ReOXO1mLhwJk3n6oRwGPlTZa6bPGr73Y8FG8Jj1V3uvaevt2lrPLK/MmAEu1/ctEQw56C7qFEbUOYGlw==",
         "shasum": "38303c9597ca85ba76d4775b039013277b461e8d",
@@ -163,38 +88,13 @@
           }
         ]
       },
-      "maintainers": [{ "name": "garyb432", "email": "gary@bortosky.com" }],
-      "_npmOperationalInternal": {
-        "host": "s3://npm-registry-packages",
-        "tmp": "tmp/venv-0.2.0.tgz_1502594139648_0.6800722414627671"
+      "engines": {
+        "node": ">=6.0.0"
       }
     },
     "0.3.0": {
       "name": "venv",
       "version": "0.3.0",
-      "description": "Use build-time environment variables in your Angular CLI project",
-      "license": "MIT",
-      "repository": {
-        "type": "git",
-        "url": "git+https://github.com/GaryB432/venv.git"
-      },
-      "keywords": ["environment", "variables", "angular", "cli"],
-      "files": ["lib"],
-      "bin": { "venv": "lib/venv.js" },
-      "main": "lib/index.js",
-      "typings": "lib/index.d.ts",
-      "scripts": {
-        "clean": "rimraf lib && rimraf coverage",
-        "format": "prettier --write \"{src,__tests__}/**/*.ts\" --single-quote --trailing-comma es5",
-        "lint": "tslint --force --format verbose \"src/**/*.ts\"",
-        "prepare": "npm run build",
-        "prebuild": "npm run clean && npm run format && npm run lint && echo Using TypeScript && tsc --version",
-        "build": "tsc --pretty",
-        "test": "jest",
-        "coverage": "jest --coverage",
-        "watch": "npm run build -- --watch",
-        "watch:test": "jest --watch"
-      },
       "dependencies": {
         "ejs": "^2.5.7",
         "fs-extra": "^4.0.1",
@@ -219,22 +119,9 @@
         "tslint-config-prettier": "^1.1.0",
         "typescript": "^2.0.0"
       },
-      "engines": { "node": ">=6.0.0" },
-      "bugs": { "url": "https://github.com/GaryB432/venv/issues" },
-      "homepage": "https://github.com/GaryB432/venv#readme",
-      "jest": {
-        "transform": {
-          ".(ts)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
-        },
-        "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|js)$",
-        "moduleFileExtensions": ["ts", "js"],
-        "testEnvironment": "node"
+      "bin": {
+        "venv": "lib/venv.js"
       },
-      "gitHead": "858d428930f0baf5407fc6a585b0b1ce89453e78",
-      "_id": "venv@0.3.0",
-      "_npmVersion": "5.2.0",
-      "_nodeVersion": "8.1.3",
-      "_npmUser": { "name": "garyb432", "email": "gary@bortosky.com" },
       "dist": {
         "integrity": "sha512-WpCYOUKWmYXcZ+vJCvhpzpDqMX5E1h2ZnKgsss5SAi03Og6xWMvp1WXrh5+H1QKRG1KDo2fzDvumoqrXtawrUg==",
         "shasum": "2f133271710cfc26c89133260083f83efb1da435",
@@ -246,38 +133,13 @@
           }
         ]
       },
-      "maintainers": [{ "name": "garyb432", "email": "gary@bortosky.com" }],
-      "_npmOperationalInternal": {
-        "host": "s3://npm-registry-packages",
-        "tmp": "tmp/venv-0.3.0.tgz_1502639685971_0.8066540553700179"
+      "engines": {
+        "node": ">=6.0.0"
       }
     },
     "0.4.0": {
       "name": "venv",
       "version": "0.4.0",
-      "description": "Use build-time environment variables in your Angular CLI project",
-      "license": "MIT",
-      "repository": {
-        "type": "git",
-        "url": "git+https://github.com/GaryB432/venv.git"
-      },
-      "keywords": ["environment", "variables", "angular", "cli"],
-      "files": ["lib"],
-      "bin": { "venv": "lib/venv.js" },
-      "main": "lib/index.js",
-      "typings": "lib/index.d.ts",
-      "scripts": {
-        "clean": "rimraf lib && rimraf coverage",
-        "format": "prettier --write \"{src,__tests__}/**/*.ts\" --single-quote --trailing-comma es5",
-        "lint": "tslint --force --format verbose \"src/**/*.ts\"",
-        "prepare": "npm run build",
-        "prebuild": "npm run clean && npm run format && npm run lint && echo Using TypeScript && tsc --version",
-        "build": "tsc --pretty",
-        "test": "jest",
-        "coverage": "jest --coverage",
-        "watch": "npm run build -- --watch",
-        "watch:test": "jest --watch"
-      },
       "dependencies": {
         "ejs": "^2.5.7",
         "fs-extra": "^4.0.1",
@@ -302,22 +164,9 @@
         "tslint-config-prettier": "^1.1.0",
         "typescript": "^2.0.0"
       },
-      "engines": { "node": ">=6.0.0" },
-      "bugs": { "url": "https://github.com/GaryB432/venv/issues" },
-      "homepage": "https://github.com/GaryB432/venv#readme",
-      "jest": {
-        "transform": {
-          ".(ts)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
-        },
-        "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|js)$",
-        "moduleFileExtensions": ["ts", "js"],
-        "testEnvironment": "node"
+      "bin": {
+        "venv": "lib/venv.js"
       },
-      "gitHead": "4cdea5e56122aeaf890866f317fcdee6ba9ea5ec",
-      "_id": "venv@0.4.0",
-      "_npmVersion": "5.2.0",
-      "_nodeVersion": "8.1.3",
-      "_npmUser": { "name": "garyb432", "email": "gary@bortosky.com" },
       "dist": {
         "integrity": "sha512-vfW+7pi1sbkTdkb22d6GubRzZqSO2hdb0Dm+gfK4VTS9bGfFLBPu9o8TWmZ+OCr9ZvtJDawQ6RGkhgkNwuheqA==",
         "shasum": "4b257707037c21ebc015df9bdf9b35d443a9926a",
@@ -329,38 +178,13 @@
           }
         ]
       },
-      "maintainers": [{ "name": "garyb432", "email": "gary@bortosky.com" }],
-      "_npmOperationalInternal": {
-        "host": "s3://npm-registry-packages",
-        "tmp": "tmp/venv-0.4.0.tgz_1502814229846_0.7866148033645004"
+      "engines": {
+        "node": ">=6.0.0"
       }
     },
     "0.4.1": {
       "name": "venv",
       "version": "0.4.1",
-      "description": "Use build-time environment variables in your Angular CLI project",
-      "license": "MIT",
-      "repository": {
-        "type": "git",
-        "url": "git+https://github.com/GaryB432/venv.git"
-      },
-      "keywords": ["environment", "variables", "angular", "cli"],
-      "files": ["lib"],
-      "bin": { "venv": "lib/venv.js" },
-      "main": "lib/index.js",
-      "typings": "lib/index.d.ts",
-      "scripts": {
-        "clean": "rimraf lib && rimraf coverage",
-        "format": "prettier --write \"{src,__tests__}/**/*.ts\" --single-quote --trailing-comma es5",
-        "lint": "tslint --force --format verbose \"src/**/*.ts\"",
-        "prepare": "npm run build",
-        "prebuild": "npm run clean && npm run format && npm run lint && echo Using TypeScript && tsc --version",
-        "build": "tsc --pretty",
-        "test": "jest",
-        "coverage": "jest --coverage",
-        "watch": "npm run build -- --watch",
-        "watch:test": "jest --watch"
-      },
       "dependencies": {
         "ejs": "^2.5.7",
         "fs-extra": "^4.0.1",
@@ -385,22 +209,9 @@
         "tslint-config-prettier": "^1.1.0",
         "typescript": "^2.0.0"
       },
-      "engines": { "node": ">=6.0.0" },
-      "bugs": { "url": "https://github.com/GaryB432/venv/issues" },
-      "homepage": "https://github.com/GaryB432/venv#readme",
-      "jest": {
-        "transform": {
-          ".(ts)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
-        },
-        "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|js)$",
-        "moduleFileExtensions": ["ts", "js"],
-        "testEnvironment": "node"
+      "bin": {
+        "venv": "lib/venv.js"
       },
-      "gitHead": "b6af70b8ee119b16135cc421bd53285aeb509683",
-      "_id": "venv@0.4.1",
-      "_npmVersion": "5.2.0",
-      "_nodeVersion": "8.1.3",
-      "_npmUser": { "name": "garyb432", "email": "gary@bortosky.com" },
       "dist": {
         "integrity": "sha512-8ZVU3ED8T8Z2Dl5bt/cxvyn5xs5qf8uX04L/8lGoOPvygbS4xeOAau5orvbDvkPNNeUAuKEmx4ybiyLasMqDfg==",
         "shasum": "78d32bacefebad7428661284a7070f47c6ba001f",
@@ -412,38 +223,13 @@
           }
         ]
       },
-      "maintainers": [{ "name": "garyb432", "email": "gary@bortosky.com" }],
-      "_npmOperationalInternal": {
-        "host": "s3://npm-registry-packages",
-        "tmp": "tmp/venv-0.4.1.tgz_1502901641969_0.5740186087787151"
+      "engines": {
+        "node": ">=6.0.0"
       }
     },
     "1.0.0": {
       "name": "venv",
       "version": "1.0.0",
-      "description": "Use build-time environment variables in your Angular CLI project",
-      "license": "MIT",
-      "repository": {
-        "type": "git",
-        "url": "git+https://github.com/GaryB432/venv.git"
-      },
-      "keywords": ["environment", "variables", "angular", "cli"],
-      "files": ["lib"],
-      "bin": { "venv": "lib/venv.js" },
-      "main": "lib/index.js",
-      "typings": "lib/index.d.ts",
-      "scripts": {
-        "clean": "rimraf lib && rimraf coverage",
-        "format": "prettier --write \"{src,__tests__}/**/*.ts\" --single-quote --trailing-comma es5",
-        "lint": "tslint --force --format verbose \"src/**/*.ts\"",
-        "prepare": "npm run build",
-        "prebuild": "npm run clean && npm run format && npm run lint && echo Using TypeScript && tsc --version",
-        "build": "tsc --pretty",
-        "test": "jest",
-        "coverage": "jest --coverage",
-        "watch": "npm run build -- --watch",
-        "watch:test": "jest --watch"
-      },
       "dependencies": {
         "ejs": "^2.5.7",
         "fs-extra": "^4.0.1",
@@ -467,22 +253,9 @@
         "tslint-config-prettier": "^1.1.0",
         "typescript": "^2.0.0"
       },
-      "engines": { "node": ">=6.0.0" },
-      "bugs": { "url": "https://github.com/GaryB432/venv/issues" },
-      "homepage": "https://github.com/GaryB432/venv#readme",
-      "jest": {
-        "transform": {
-          ".(ts)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
-        },
-        "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|js)$",
-        "moduleFileExtensions": ["ts", "js"],
-        "testEnvironment": "node"
+      "bin": {
+        "venv": "lib/venv.js"
       },
-      "gitHead": "42b284975d4115cc3f24724283fc5fa9422324d2",
-      "_id": "venv@1.0.0",
-      "_npmVersion": "5.2.0",
-      "_nodeVersion": "8.1.3",
-      "_npmUser": { "name": "garyb432", "email": "gary@bortosky.com" },
       "dist": {
         "integrity": "sha512-qLJekosiuO9seuQHgg5fCOExBWF5DF3r67jEuZmRIiC1hG+LZtcaiwiCvS3S6F3klxcqT9gZMXjgolD32fHHpQ==",
         "shasum": "850e7d2b04e3f38a01c0ad5f252ca80c602dbbb5",
@@ -494,10 +267,8 @@
           }
         ]
       },
-      "maintainers": [{ "name": "garyb432", "email": "gary@bortosky.com" }],
-      "_npmOperationalInternal": {
-        "host": "s3://npm-registry-packages",
-        "tmp": "tmp/venv-1.0.0.tgz_1503423492247_0.7802104710135609"
+      "engines": {
+        "node": ">=6.0.0"
       }
     },
     "1.0.1": {
@@ -511,7 +282,9 @@
       },
       "keywords": ["environment", "variables", "angular", "cli"],
       "files": ["lib"],
-      "bin": { "venv": "lib/venv.js" },
+      "bin": {
+        "venv": "lib/venv.js"
+      },
       "main": "lib/index.js",
       "typings": "lib/index.d.ts",
       "scripts": {
@@ -549,8 +322,12 @@
         "tslint-config-prettier": "^1.1.0",
         "typescript": "^2.0.0"
       },
-      "engines": { "node": ">=6.0.0" },
-      "bugs": { "url": "https://github.com/GaryB432/venv/issues" },
+      "engines": {
+        "node": ">=6.0.0"
+      },
+      "bugs": {
+        "url": "https://github.com/GaryB432/venv/issues"
+      },
       "homepage": "https://github.com/GaryB432/venv#readme",
       "jest": {
         "transform": {
@@ -564,7 +341,10 @@
       "_id": "venv@1.0.1",
       "_npmVersion": "5.2.0",
       "_nodeVersion": "8.1.3",
-      "_npmUser": { "name": "garyb432", "email": "gary@bortosky.com" },
+      "_npmUser": {
+        "name": "garyb432",
+        "email": "gary@bortosky.com"
+      },
       "dist": {
         "integrity": "sha512-qYTz9RglblAYMX6FsjyCjDD1p1vHAXMEKFj50ttWVVjb2B1jyp5cARGVDDeXFzkImtitKmB+riEkjZDezUEqQw==",
         "shasum": "f5d92e78540513b2e3f081e10418bd58a865bf24",
@@ -576,33 +356,17 @@
           }
         ]
       },
-      "maintainers": [{ "name": "garyb432", "email": "gary@bortosky.com" }],
+      "maintainers": [
+        {
+          "name": "garyb432",
+          "email": "gary@bortosky.com"
+        }
+      ],
       "_npmOperationalInternal": {
         "host": "s3://npm-registry-packages",
         "tmp": "tmp/venv-1.0.1.tgz_1503424665186_0.6870728407520801"
       }
     }
   },
-  "readme": "# venv\r\n\r\n[![Build Status](https://travis-ci.org/GaryB432/venv.svg?branch=master)](https://travis-ci.org/GaryB432/venv)\r\n[![npm version](https://badge.fury.io/js/venv.svg)](https://badge.fury.io/js/venv)\r\n\r\nMake build-time environment variables available to your application.\r\n\r\nVenv uses [EJS](https://ejs.co) to transform a template file using Node's `process.env` map.\r\n\r\n## CLI Usage\r\n\r\nUsage: `venv <cmd> [options]`\r\n\r\nYour build or deploy pipeline could include\r\n\r\n```\r\nnpm install venv -g\r\nvenv process -t src\\environments\\environment.prod.ts\r\n```\r\n\r\n### Commands:\r\n\r\n### process\r\n\r\n - appends `.template` to the filename passed as argument `t`\r\n - transforms that file using `process.env` as the context\r\n - saves the result to the original name supplied on the command line\r\n\r\n### Options:\r\n\r\n```\r\n-t, --templatePath    the path to the template file\r\n-h, --help            show help\r\n-v, --version         current version\r\n```\r\n\r\n#### Example\r\n\r\n> venv process --templatePath assets\\env.js\r\n\r\n__assets\\env.js.template__:\r\n```javascript\r\n(function (window) {\r\n  window.__env = window.__env || {};\r\n  window.__env.BUILD_BUILDNUMBER = '<%= env.BUILD_BUILDNUMBER %>';\r\n}(this));\r\n```\r\n\r\n```html\r\n<html>\r\n\r\n<head>\r\n  <meta charset=\"utf-8\">\r\n  <script src=\"assets/env.js\"></script>\r\n</head>\r\n\r\n<body>\r\n  <script>\r\n    console.log(__env.BUILD_BUILDNUMBER);\r\n  </script>\r\n</body>\r\n\r\n</html>\r\n```\r\n\r\n## Exit Codes\r\n\r\nThe CLI process may exit with the following codes:\r\n\r\n- `0`: Transform succeeded without errors\r\n- `1`: An invalid command line argument or combination thereof was used\r\n- `2`: Transform failed\r\n",
-  "maintainers": [{ "name": "garyb432", "email": "gary@bortosky.com" }],
-  "time": {
-    "modified": "2022-05-23T04:53:53.765Z",
-    "created": "2017-08-13T02:53:28.982Z",
-    "0.1.0": "2017-08-13T02:53:28.982Z",
-    "0.2.0": "2017-08-13T03:15:40.512Z",
-    "0.3.0": "2017-08-13T15:54:46.879Z",
-    "0.4.0": "2017-08-15T16:23:49.937Z",
-    "0.4.1": "2017-08-16T16:40:42.106Z",
-    "1.0.0": "2017-08-22T17:38:13.179Z",
-    "1.0.1": "2017-08-22T17:57:46.084Z"
-  },
-  "homepage": "https://github.com/GaryB432/venv#readme",
-  "keywords": ["environment", "variables", "angular", "cli"],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/GaryB432/venv.git"
-  },
-  "bugs": { "url": "https://github.com/GaryB432/venv/issues" },
-  "license": "MIT",
-  "readmeFilename": "README.md"
+  "modified": "2022-05-23T04:53:53.765Z"
 }
