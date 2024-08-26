@@ -9,7 +9,6 @@
   {#each downloads as d}
     <a class="row" href="/package-explorer/?p={d.package}">{d.package}</a>
     <div class="row downloads">{formatNumber(d.downloads)}</div>
-
   {/each}
 </section>
 

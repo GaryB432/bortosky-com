@@ -1,10 +1,10 @@
-@use "@fontsource/montserrat";
-@use "the-new-css-reset";
-@use "tippy.js/dist/tippy";
-@use "./styles/button.scss";
-@use "./styles/input.scss";
-@use "./styles/select.scss";
-@use "./styles/table.scss";
+@forward "@fontsource/montserrat";
+@forward "the-new-css-reset";
+@forward "tippy.js/dist/tippy";
+@forward "./styles/button.scss";
+@forward "./styles/input.scss";
+@forward "./styles/select.scss";
+@forward "./styles/table.scss";
 
 :root {
   --font-sans: Montserrat, system-ui, sans-serif;

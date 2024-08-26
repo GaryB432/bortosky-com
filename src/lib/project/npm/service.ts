@@ -46,7 +46,6 @@ export class Service implements IService, IDownloadService {
     });
 
     if (!resp.ok) {
-      console.log(resp)
       throw new Error(
         `failed getting packument ${name} (for ${rangeComparator}) from npm -> ${npmUrl}`,
       );
