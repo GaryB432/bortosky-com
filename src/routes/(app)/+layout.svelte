@@ -6,7 +6,9 @@
 <main>
   <div class="top">
     <div>
-      <FamilyLogo />
+      <a href="/">
+        <FamilyLogo />
+      </a>
       Bortosky Family
     </div>
     <a href="//github.com/GaryB432/bortosky-com" target="_blank">
@@ -43,11 +45,6 @@
       font-size: clamp(1.0625rem, 3vw, 1.625rem);
       line-height: clamp(1.5rem, 4vw, 2rem);
     }
-    // .left {
-    //   display: flex;
-    //   margin: 0;
-    //   margin-bottom: 1rem;
-    // }
     svg {
       fill: var(--color-h1);
       height: 1.625rem;
