@@ -46,7 +46,10 @@ export class Service implements IService, IDownloadService {
     });
 
     if (!resp.ok) {
-      throw new Error("failed getting packument from npm");
+      console.log(resp)
+      throw new Error(
+        `failed getting packument ${name} (for ${rangeComparator}) from npm -> ${npmUrl}`,
+      );
     }
 
     const pack: PackumentBase = await resp.json();
@@ -105,7 +108,7 @@ export class Service implements IService, IDownloadService {
     return resp.objects.map((o) => o.package.name);
   }
 
-  private readonly registryUrlBase = "https://registry.npmjs.com";
+  private readonly registryUrlBase = "https://registry.npmjs.org";
 
   private getSearchUrl(text: string, size: number): URL {
     const url = new URL("/-/v1/search", this.registryUrlBase);

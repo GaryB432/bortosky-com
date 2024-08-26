@@ -7,8 +7,9 @@ async function mockFetcher(
   init?: RequestInit,
 ): Promise<Response> {
   return new Promise<Response>((resolve, reject) => {
+    const url = typeof input === "string" ? input : input.toString();
     setTimeout(() => {
-      switch (input) {
+      switch (url) {
         case "https://registry.npmjs.org/venv": {
           if (init) {
             const acceptHeader = new Headers(init.headers).get("Accept");
