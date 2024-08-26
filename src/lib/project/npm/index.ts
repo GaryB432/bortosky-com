@@ -1,2 +1,2 @@
-export * from "./packument.d";
 export * from "./service";
+export * from "./types";

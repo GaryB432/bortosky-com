@@ -1,3 +1,4 @@
+a.button-a,
 button.button-a {
   cursor: pointer;
   line-height: 1;
@@ -16,16 +17,22 @@ button.button-a {
   height: 3em;
 }
 
+a.button-a:disabled,
 button.button-a:disabled {
   color: #ccc;
   background-color: var(--sand-3);
 }
 
+a.button-a.medium,
 button.button-a.medium {
   height: 2em;
   letter-spacing: 1px;
   font-size: 0.875rem;
   padding: 0 1em;
+}
+
+a.button-a {
+  text-decoration: none;
 }
 
 button.svg-button {

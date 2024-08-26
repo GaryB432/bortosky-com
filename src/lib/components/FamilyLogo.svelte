@@ -18,7 +18,7 @@
 
 <style lang="scss">
   svg {
-    width: 4rem;
+    width: 2rem;
     stroke: none;
     padding: 0.5rem;
   }
