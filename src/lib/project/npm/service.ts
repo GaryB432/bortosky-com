@@ -35,7 +35,7 @@ export class Service implements IService, IDownloadService {
 
   public async getPackument(
     name: string,
-    range: string,
+    rangeComparator: string,
   ): Promise<PackumentBase | undefined> {
     const npmUrl = this.registryUrl(name);
     const resp = await this.fetcher(npmUrl, {
@@ -52,6 +52,8 @@ export class Service implements IService, IDownloadService {
     const pack: PackumentBase = await resp.json();
 
     const { "dist-tags": tags } = pack;
+
+    const range = this.adjustRangeString(rangeComparator);
 
     const wanted = range === "latest" ? tags.latest : range;
 
@@ -82,6 +84,12 @@ export class Service implements IService, IDownloadService {
     pack["dist-tags"]["_gb"] = mostRecentSatisfying;
 
     return pack;
+  }
+
+  private adjustRangeString(rangeComparator: string) {
+    const [, part2] = rangeComparator.split(":");
+
+    return part2 ? rangeComparator : "latest";
   }
 
   public async getSomePackages(size: number): Promise<string[]> {
