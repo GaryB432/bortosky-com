@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { formatNumber } from "./utils";
+import { formatNumber, shuffle } from "./utils";
 
 describe("formatNumber", () => {
   test("should format large numbers with commas", () => {
@@ -12,5 +12,11 @@ describe("formatNumber", () => {
 
   test("should handle small numbers without commas", () => {
     expect(formatNumber(123)).toBe("123");
+  });
+});
+
+describe("shuffle", () => {
+  test("doesn't eat elements", () => {
+    expect(shuffle(["a", "c", "b"]).length).toEqual(3);
   });
 });

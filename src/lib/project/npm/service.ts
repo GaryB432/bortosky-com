@@ -14,7 +14,7 @@ type Period = "last-day" | "last-week" | "last-month" | "last-year";
 
 export interface IDownloadService {
   getDownloads(name: string, period: Period): Promise<Download | undefined>;
-  getSomePackages(size: number): Promise<string[]>;
+  getSomePackages(size: number, text: string): Promise<string[]>;
 }
 
 export class Service implements IService, IDownloadService {
@@ -94,8 +94,7 @@ export class Service implements IService, IDownloadService {
     return part2 ? rangeComparator : "latest";
   }
 
-  public async getSomePackages(size: number): Promise<string[]> {
-    const text = "web";
+  public async getSomePackages(size: number, text: string): Promise<string[]> {
     const u = this.getSearchUrl(text, size);
     const fetched = await this.fetcher(u, {
       headers: {

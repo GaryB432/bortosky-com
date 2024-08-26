@@ -3,8 +3,6 @@
   import NpmPackageList from "./package-explorer/components/NpmPackageList.svelte";
   let { data }: { data: PageData } = $props();
   let packName = $state("");
-  let selected = $state("");
-  const npmLogoFactor = 0.1;
 </script>
 
 <h1>Welcome</h1>
@@ -17,10 +15,11 @@
 
 <div class="container">
   <svg
+    class="npm"
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"
-    width="{540 * npmLogoFactor}px"
-    height="{210 * npmLogoFactor}px"
+    width="540px"
+    height="210px"
     viewBox="0 0 18 7"
   >
     <path
@@ -38,8 +37,16 @@
   <a class="button-a" href="/package-explorer/?p={packName}">Explore</a>
 </div>
 
-<NpmPackageList downloads={data.popularDownloads.filter((d) => !!d)}
-></NpmPackageList>
+<section class="categories">
+  {#each data.downloadInfo as cat}
+    <div class="category">
+      <h1>
+        {cat.category}
+      </h1>
+      <NpmPackageList downloads={cat.popularDownloads}></NpmPackageList>
+    </div>
+  {/each}
+</section>
 
 <style>
   .container {
@@ -49,5 +56,17 @@
   }
   a {
     text-decoration: underline;
+  }
+  svg.npm {
+    width: 5rem;
+  }
+
+  .categories {
+    display: flex;
+    gap: 1rem;
+  }
+  .category {
+    padding: 1rem;
+    outline: thin solid silver;
   }
 </style>

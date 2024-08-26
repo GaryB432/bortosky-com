@@ -1,21 +1,33 @@
-import { Service } from "$lib/project/npm";
+import { Service, type Download } from "$lib/project/npm";
+import { shuffle } from "$lib/shared/utils";
 import type { PageLoad } from "./$types";
 
 export const load = (async ({ fetch }) => {
   const svc = new Service(fetch);
 
-  const somePackages = await svc.getSomePackages(20);
+  const downloadInfo: Array<{
+    category: string;
+    popularDownloads: Download[];
+  }> = [];
 
-  const pops = await Promise.all(
-    somePackages.map(async (p) => await svc.getDownloads(p, "last-month")),
-  );
+  const texts = ["web", "framework", "cli"];
 
-  const popularDownloads = pops
-    .filter((d) => !!d)
-    .sort((a, b) => b.downloads - a.downloads);
+  for (const category of texts) {
+    const somePackages = await svc.getSomePackages(200, category);
+    const popularDownloads = (
+      await Promise.all(
+        shuffle(
+          somePackages.map(
+            async (p) => await svc.getDownloads(p, "last-month"),
+          ),
+        ),
+      )
+    )
+      .filter((d) => !!d)
+      .sort((a, b) => b.downloads - a.downloads)
+      .slice(0, 20);
+    downloadInfo.push({ category, popularDownloads });
+  }
 
-  return {
-    somePackages,
-    popularDownloads,
-  };
+  return { downloadInfo };
 }) satisfies PageLoad;
