@@ -1,9 +1,15 @@
 /* eslint @typescript-eslint/member-ordering: 0 */
 
-interface Maintainer {
-  name: string;
-  email: string;
-}
+export type NpmUser = {
+  name?: string;
+  email?: string;
+};
+
+export type NpmUserNamedUser =
+  | Omit<NpmUser, "name">
+  | {
+      username?: string;
+    };
 
 export interface Dependency {
   name: string;
@@ -72,7 +78,7 @@ export interface PackageJson {
   bugs?: string | { url?: string; email?: string };
   keywords?: string[];
   homepage?: string;
-  maintainers?: Maintainer[];
+  maintainers?: NpmUserNamedUser[];
   files?: string[];
   dist?: {
     shasum?: string;
