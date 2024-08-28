@@ -609,8 +609,6 @@
    "scripts": {},
    "private": true,
    "devDependencies": {
-    "@eslint/eslintrc": "2.1.4",
-    "@eslint/js": "9.7.0",
     "@gb-nx/browser": "7.4.0",
     "@gb-nx/svelte": "7.0.1",
     "@nx/esbuild": "17.2.6",
@@ -639,10 +637,7 @@
     "@typescript-eslint/parser": "6.21.0",
     "@vitest/coverage-v8": "1.6.0",
     "@vitest/ui": "1.6.0",
-    "adm-zip": "0.5.14",
-    "ansi-colors": "4.1.3",
-    "axios": "1.7.2",
-    "css-loader": "7.1.2",
+    "adm-zip": "0.5.15",
     "esbuild": "0.19.12",
     "eslint": "8.48.0",
     "eslint-config-prettier": "9.1.0",
@@ -654,25 +649,20 @@
     "jest": "29.7.0",
     "jest-environment-jsdom": "29.7.0",
     "jest-environment-node": "29.7.0",
-    "js-yaml": "4.1.0",
-    "jsonc-eslint-parser": "2.4.0",
     "mini-css-extract-plugin": "2.9.0",
     "node-html-parser": "6.1.13",
     "nx": "17.2.6",
     "prettier": "3.3.3",
     "prettier-plugin-svelte": "3.2.6",
     "react-refresh": "0.10.0",
-    "sade": "1.8.1",
     "sass": "1.77.8",
-    "sass-loader": "14.2.1",
-    "svelte-eslint-parser": "0.39.2",
     "swc-loader": "0.1.15",
-    "ts-jest": "29.2.3",
+    "ts-jest": "29.2.4",
     "ts-node": "10.9.1",
     "twitter-text": "3.1.0",
     "typescript": "5.2.2",
     "url-loader": "4.1.1",
-    "vite": "5.3.5",
+    "vite": "5.4.0",
     "vite-plugin-dts": "2.3.0",
     "vitest": "1.6.0"
    },
@@ -680,8 +670,6 @@
     "apps/web"
    ],
    "dependencies": {
-    "@azure/cosmos": "4.0.0",
-    "@azure/logger": "1.1.3",
     "@nx/devkit": "17.2.6",
     "@swc/helpers": "0.5.12",
     "clipboardy": "4.0.0",
@@ -713,9 +701,6 @@
        "{workspaceRoot}/.eslintignore",
        "{workspaceRoot}/eslint.config.js"
       ]
-     },
-     "check": {
-      "cache": true
      },
      "test:integration": {
       "cache": true,
@@ -786,9 +771,7 @@
    {
     "name": "@human-accomplishment/cosmos",
     "version": "0.0.1",
-    "dependencies": {
-     "@azure/cosmos": "4.0.0"
-    },
+    "dependencies": {},
     "main": "./index.js",
     "module": "./index.mjs",
     "typings": "./index.d.ts"
@@ -821,6 +804,64 @@
     "typings": "./index.d.ts"
    },
    {
+    "name": "@human-accomplishment/web",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+     "dev": "vite dev",
+     "build": "vite build",
+     "preview": "vite preview",
+     "test": "vitest run",
+     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+     "test:integration": "playwright test",
+     "test:watch": "vitest watch"
+    },
+    "type": "module",
+    "devDependencies": {
+     "@azure/cosmos": "4.1.0",
+     "@fontsource/montserrat": "5.0.18",
+     "@playwright/test": "1.46.0",
+     "@sveltejs/adapter-vercel": "4.0.5",
+     "@sveltejs/kit": "2.5.21",
+     "@sveltejs/vite-plugin-svelte": "3.1.1",
+     "svelte": "4.2.18",
+     "svelte-check": "3.8.5",
+     "tslib": "2.6.3",
+     "typescript": "5.2.2",
+     "vite": "5.4.0"
+    },
+    "nx": {
+     "implicitDependencies": [
+      "shared",
+      "data-access",
+      "cosmos"
+     ],
+     "targets": {
+      "check": {
+       "cache": true,
+       "inputs": [
+        "{projectRoot}/src/**/*",
+        "{projectRoot}/static/**/*",
+        "{projectRoot}/*.config.js",
+        "{projectRoot}/tsconfig.json"
+       ],
+       "outputs": [
+        "{projectRoot}/.svelte-kit",
+        "{projectRoot}/.vercel"
+       ]
+      },
+      "test": {
+       "cache": true,
+       "inputs": [
+        "default",
+        "^production"
+       ]
+      }
+     }
+    }
+   },
+   {
     "name": "@human-accomplishment/web-ui",
     "version": "0.0.1",
     "dependencies": {
@@ -835,49 +876,12 @@
     "version": "0.0.1",
     "dependencies": {
      "@human-accomplishment/shared": "0.0.0",
-     "axios": "1.7.2",
+     "axios": "1.7.3",
      "node-html-parser": "6.1.13"
     },
     "main": "./index.js",
     "module": "./index.mjs",
     "typings": "./index.d.ts"
-   },
-   {
-    "name": "web",
-    "version": "0.0.1",
-    "private": true,
-    "scripts": {
-     "dev": "vite dev",
-     "build": "vite build",
-     "preview": "vite preview",
-     "test": "vitest run",
-     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-     "test:integration": "playwright test",
-     "test:watch": "vitest watch"
-    },
-    "type": "module",
-    "dependencies": {
-     "@azure/cosmos": "4.0.0",
-     "@fontsource/montserrat": "5.0.18"
-    },
-    "devDependencies": {
-     "@playwright/test": "1.28.1",
-     "@sveltejs/adapter-vercel": "5.3.2",
-     "@sveltejs/kit": "2.0.0",
-     "@sveltejs/vite-plugin-svelte": "3.0.0",
-     "@types/eslint": "8.56.7",
-     "eslint": "8.48.0",
-     "eslint-plugin-svelte": "2.43.0",
-     "globals": "15.0.0",
-     "svelte": "4.2.18",
-     "svelte-check": "3.6.0",
-     "tslib": "2.6.3",
-     "typescript": "5.2.2",
-     "typescript-eslint": "8.0.0-alpha.20",
-     "vite": "5.3.5",
-     "vitest": "1.6.0"
-    }
    }
   ]
  },
@@ -949,8 +953,8 @@
    "repository": "github:GaryB432/package-man",
    "bugs": "https://github.com/GaryB432/package-man/issues",
    "dependencies": {
-    "@nx/devkit": "19.4.0",
-    "axios": "1.7.3",
+    "@nx/devkit": "19.6.2",
+    "axios": "1.7.4",
     "cli-table3": "0.6.5",
     "commander": "12.1.0",
     "json-schema-library": "9.3.5",
@@ -959,35 +963,35 @@
     "tslib": "2.6.3"
    },
    "devDependencies": {
-    "@nx/esbuild": "19.4.0",
-    "@nx/eslint": "19.4.0",
-    "@nx/eslint-plugin": "19.4.0",
-    "@nx/jest": "19.4.0",
-    "@nx/js": "19.4.0",
-    "@nx/node": "19.4.0",
-    "@nx/plugin": "19.4.0",
-    "@nx/workspace": "19.4.0",
+    "@nx/esbuild": "19.6.2",
+    "@nx/eslint": "19.6.2",
+    "@nx/eslint-plugin": "19.6.2",
+    "@nx/jest": "19.6.2",
+    "@nx/js": "19.6.2",
+    "@nx/node": "19.6.2",
+    "@nx/plugin": "19.6.2",
+    "@nx/workspace": "19.6.2",
     "@swc-node/register": "1.9.2",
     "@swc/cli": "0.3.14",
     "@swc/core": "1.5.29",
     "@swc/helpers": "0.5.12",
     "@types/jest": "29.5.12",
     "@types/node": "18.16.20",
-    "@typescript-eslint/eslint-plugin": "7.18.0",
-    "@typescript-eslint/parser": "7.18.0",
+    "@typescript-eslint/eslint-plugin": "7.16.0",
+    "@typescript-eslint/parser": "7.16.0",
     "esbuild": "0.19.12",
     "eslint": "8.57.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-gb": "2.0.0",
-    "gb-schematics": "3.7.0",
+    "gb-schematics": "3.7.1",
     "jest": "29.7.0",
     "jest-environment-jsdom": "29.7.0",
     "jest-environment-node": "29.7.0",
-    "nx": "19.4.0",
+    "nx": "19.6.2",
     "prettier": "2.8.8",
     "ts-jest": "29.2.4",
     "ts-node": "10.9.1",
-    "typescript": "5.4.5"
+    "typescript": "5.5.4"
    },
    "nx": {
     "includedScripts": []
@@ -1012,7 +1016,7 @@
     "name": "@package-man/ws-plugin",
     "version": "0.0.1",
     "dependencies": {
-     "@nx/devkit": "19.4.0",
+     "@nx/devkit": "19.6.2",
      "tslib": "2.6.3"
     },
     "type": "commonjs",
@@ -1057,9 +1061,9 @@
     "private": true,
     "dependencies": {},
     "devDependencies": {
-     "@nx/js": "19.4.0",
-     "@nx/workspace": "19.4.0",
-     "nx": "19.4.0"
+     "@nx/js": "19.6.2",
+     "@nx/workspace": "19.6.2",
+     "nx": "19.6.2"
     }
    },
    {
@@ -1101,13 +1105,13 @@
     },
     "dependencies": {
      "fast-xml-parser": "4.3.2",
-     "typescript": "5.4.5"
+     "typescript": "5.5.4"
     },
     "devDependencies": {
      "@sveltejs/adapter-vercel": "3.1.0",
      "@sveltejs/kit": "1.27.4",
-     "@typescript-eslint/eslint-plugin": "7.18.0",
-     "@typescript-eslint/parser": "7.18.0",
+     "@typescript-eslint/eslint-plugin": "7.16.0",
+     "@typescript-eslint/parser": "7.16.0",
      "eslint": "8.57.0",
      "eslint-plugin-gb": "2.0.0",
      "eslint-plugin-svelte": "2.35.1",
@@ -1354,54 +1358,43 @@
     "lint": "nx exec -- eslint ."
    },
    "devDependencies": {
-    "@fontsource/montserrat": "5.0.18",
-    "@gb-nx/svelte": "7.0.1",
+    "@fontsource/montserrat": "5.0.19",
+    "@gb-nx/svelte": "8.2.0",
     "@gb-nx/workspace": "5.0.0",
-    "@sveltejs/adapter-vercel": "4.0.5",
-    "@sveltejs/kit": "2.5.18",
-    "@sveltejs/vite-plugin-svelte": "3.1.1",
-    "@types/cookie": "0.5.4",
-    "@types/cytoscape": "3.21.4",
-    "@typescript-eslint/eslint-plugin": "7.16.0",
-    "@typescript-eslint/parser": "7.16.0",
-    "eslint": "8.57.0",
-    "eslint-plugin-svelte": "2.41.0",
-    "json-schema-to-typescript": "13.1.2",
-    "nx": "17.2.8",
-    "prettier": "3.3.2",
-    "prettier-plugin-svelte": "3.2.5",
-    "sass": "1.77.6",
-    "svelte": "5.0.0-next.176",
-    "svelte-check": "3.8.4",
+    "@nx/eslint": "19.6.2",
+    "@sveltejs/adapter-vercel": "5.4.3",
+    "@sveltejs/kit": "2.5.24",
+    "@sveltejs/vite-plugin-svelte": "4.0.0-next.6",
+    "@types/cytoscape": "3.21.6",
+    "@types/cytoscape-dagre": "2.3.3",
+    "@types/eslint": "9.6.0",
+    "@types/simple-get": "4.0.3",
+    "eslint": "9.9.0",
+    "eslint-plugin-gb": "9.0.0-alpha.1",
+    "eslint-plugin-svelte": "2.43.0",
+    "globals": "15.9.0",
+    "json-schema-to-typescript": "15.0.1",
+    "nx": "19.6.2",
+    "prettier": "3.3.3",
+    "prettier-plugin-svelte": "3.2.6",
+    "sass-embedded": "1.77.8",
+    "svelte": "5.0.0-next.236",
+    "svelte-check": "3.8.6",
     "the-new-css-reset": "1.11.2",
-    "tslib": "2.6.3",
-    "typescript": "5.5.3",
-    "vite": "5.3.3",
-    "vitest": "1.6.0"
+    "typescript": "5.5.4",
+    "typescript-eslint": "8.2.0",
+    "vite": "5.4.2",
+    "vitest": "2.0.5"
    },
    "dependencies": {
-    "cytoscape": "3.30.0",
+    "cytoscape": "3.30.2",
+    "cytoscape-dagre": "2.5.0",
     "tippy.js": "6.3.7"
    },
    "type": "module",
-   "nx": {
-    "targets": {
-     "build": {
-      "outputs": [
-       "{projectRoot}/.svelte-kit",
-       "{projectRoot}/.vercel",
-       "{projectRoot}/build"
-      ]
-     },
-     "test": {
-      "outputs": [
-       "{projectRoot}/coverage",
-       "{projectRoot}/junit"
-      ]
-     }
-    }
-   },
-   "bugs": "https://github.com/GaryB432/bortosky-com/issues"
+   "nx": {},
+   "bugs": "https://github.com/GaryB432/bortosky-com/issues",
+   "repository": "github:GaryB432/bortosky-com"
   },
   "projects": []
  },
@@ -1463,92 +1456,32 @@
  {
   "root": {
    "name": "eslint-plugin-gb",
-   "version": "2.0.0",
-   "license": "MIT",
+   "version": "9.0.0-alpha.1",
+   "description": "Eslint rules I like",
+   "main": "index.js",
    "dependencies": {
-    "@typescript-eslint/eslint-plugin": "6.13.2",
-    "tslib": "2.6.2"
+    "globals": "15.9.0"
    },
-   "devDependencies": {
-    "@nx/eslint-plugin": "17.1.3",
-    "@nx/js": "17.1.3",
-    "@nx/vite": "17.1.3",
-    "@nx/workspace": "17.1.3",
-    "@types/node": "18.7.1",
-    "@typescript-eslint/parser": "6.9.1",
-    "@vitest/coverage-c8": "0.32.4",
-    "@vitest/ui": "0.32.4",
-    "eslint": "8.46.0",
-    "eslint-config-prettier": "9.0.0",
-    "nx": "17.1.3",
-    "prettier": "2.8.8",
-    "typescript": "5.2.2",
-    "vite": "4.3.9",
-    "vitest": "0.32.4",
-    "@nx/eslint": "17.1.3"
+   "peerDependencies": {
+    "eslint": "^9.9.0"
    },
-   "type": "commonjs",
-   "main": "./src/index.js",
-   "typings": "./src/index.d.ts",
    "repository": {
     "type": "git",
-    "url": "https://github.com/garyb432/eslint-plugin-gb.git"
+    "url": "git+https://github.com/GaryB432/eslint-plugin-gb.git"
    },
-   "homepage": "https://github.com/GaryB432/eslint-plugin-gb/tree/master/packages/eslint-plugin-gb",
+   "type": "module",
    "keywords": [
     "eslint",
-    "eslintplugin",
     "eslint-plugin",
-    "typescript"
+    "eslintplugin"
    ],
-   "bugs": "https://github.com/GaryB432/eslint-plugin-gb/issues",
-   "nx": {
-    "$schema": "./node_modules/nx/schemas/nx-schema.json",
-    "affected": {
-     "defaultBase": "master"
-    },
-    "targetDefaults": {
-     "build": {
-      "dependsOn": [
-       "^build"
-      ],
-      "inputs": [
-       "production",
-       "^production"
-      ],
-      "cache": true
-     },
-     "lint": {
-      "inputs": [
-       "default",
-       "{workspaceRoot}/.eslintrc.json",
-       "{workspaceRoot}/.eslintignore",
-       "{workspaceRoot}/eslint.config.js"
-      ],
-      "cache": true
-     },
-     "@nx/vite:test": {
-      "inputs": [
-       "default",
-       "^production"
-      ],
-      "cache": true
-     }
-    },
-    "namedInputs": {
-     "default": [
-      "{projectRoot}/**/*",
-      "sharedGlobals"
-     ],
-     "production": [
-      "default",
-      "!{projectRoot}/.eslintrc.json",
-      "!{projectRoot}/eslint.config.js",
-      "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
-      "!{projectRoot}/tsconfig.spec.json"
-     ],
-     "sharedGlobals": []
-    }
+   "license": "ISC",
+   "bugs": {
+    "url": "https://github.com/GaryB432/eslint-plugin-gb/issues"
+   },
+   "homepage": "https://github.com/GaryB432/eslint-plugin-gb#readme",
+   "publishConfig": {
+    "access": "public"
    }
   },
   "projects": []
@@ -1843,25 +1776,25 @@
    "bugs": "https://github.com/GaryB432/gb-schematics/issues",
    "schematics": "./src/collection.json",
    "devDependencies": {
-    "@types/jasmine": "4.3.1",
-    "@types/node": "20.2.1",
-    "@typescript-eslint/eslint-plugin": "5.59.6",
-    "@typescript-eslint/parser": "5.59.6",
-    "eslint": "8.40.0",
-    "eslint-config-prettier": "8.8.0",
+    "@types/jasmine": "4.6.4",
+    "@types/node": "20.14.14",
+    "@typescript-eslint/eslint-plugin": "5.62.0",
+    "@typescript-eslint/parser": "5.62.0",
+    "eslint": "8.57.0",
+    "eslint-config-prettier": "8.10.0",
     "eslint-plugin-gb": "1.5.1",
     "eslint-plugin-prettier": "4.2.1",
-    "jasmine": "5.0.0",
-    "json-schema-to-typescript": "13.0.1",
+    "jasmine": "5.2.0",
+    "json-schema-to-typescript": "13.1.2",
     "minimist": "1.2.8",
-    "prettier": "2.8.8",
+    "prettier": "3.3.3",
     "ts-node": "10.9.2",
-    "typescript": "5.0.4"
+    "typescript": "5.5.4"
    },
    "dependencies": {
-    "@angular-devkit/core": "16.2.1",
-    "@angular-devkit/schematics": "16.2.1",
-    "semver": "7.5.4"
+    "@angular-devkit/core": "18.1.4",
+    "@angular-devkit/schematics": "18.1.4",
+    "semver": "7.6.3"
    }
   },
   "projects": []
