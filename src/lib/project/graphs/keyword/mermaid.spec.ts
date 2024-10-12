@@ -3,7 +3,7 @@ import { makeMermaidGraph } from "./mermaid";
 
 describe("Mermaid", () => {
   test("gets", () => {
-    const bathroom = { name: "bathroom", version: "" };
+    const bathroom = { name: "@bathroom", version: "" };
     const kitchen = { name: "kitchen", version: "" };
     expect(
       makeMermaidGraph(
@@ -17,10 +17,10 @@ describe("Mermaid", () => {
       "```mermaid",
       "graph TD",
       "AA[room]",
-      "AA -.-> bathroom",
+      "AA -.-> &commat;bathroom",
       "AA -.-> kitchen",
       "AB[bathing]",
-      "AB -.-> bathroom",
+      "AB -.-> &commat;bathroom",
       "AC[cooking]",
       "AC -.-> kitchen",
       "```",

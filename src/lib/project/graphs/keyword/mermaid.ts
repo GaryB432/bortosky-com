@@ -11,6 +11,21 @@ function getLabel(n: number): string {
   return firstChar + secondChar;
 }
 
+function escape(inputString: string): string {
+  return inputString.replace(/[@<>]/g, (match) => {
+    switch (match) {
+      case '@':
+        return '&commat;';
+      case '<':
+        return '&lt;';
+      case '>':
+        return '&gt;';
+      default:
+        return match; // If no match is found, return the original character
+    }
+  });
+}
+
 export function makeMermaidGraph(
   packMap: Map<string, PackageJson[]>,
 ): string[] {
@@ -26,7 +41,7 @@ export function makeMermaidGraph(
       const label = getLabel(i);
 
       const keywordLine = `${label}[${k}]`;
-      const packageLines = v.map((pkg) => `${label} -.-> ${pkg.name}`);
+      const packageLines = v.map((pkg) => `${label} -.-> ${escape(pkg.name)}`);
 
       return [keywordLine, ...packageLines];
     }).flat(),

@@ -116,15 +116,12 @@ import { getKeywordMap } from "./map";
 
 class MockService implements IService {
   public async getPackument(name: string): Promise<PackumentBase | undefined> {
-    console.log("asking for ", name);
-
     return new Promise((resolve) => {
       setTimeout(() => {
         const pkg = somePacks.find((p) => p.name === name);
         if (!pkg)
           throw new Error(`${name} is not in the registry you're using`);
         resolve(pkg);
-        console.log(pkg?.name, "found");
       }, 500);
     });
   }
