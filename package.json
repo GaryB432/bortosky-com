@@ -21,9 +21,9 @@
     "@types/cytoscape": "^3.21.6",
     "@types/cytoscape-dagre": "^2.3.3",
     "@types/eslint": "^9.6.0",
-    "@types/simple-get": "^4.0.3",
+    "@types/semver": "^7.5.8",
     "eslint": "^9.0.0",
-    "eslint-plugin-gb": "^9.0.0-alpha.1",
+    "eslint-plugin-gb": "^9.1.0",
     "eslint-plugin-svelte": "^2.36.0",
     "globals": "^15.0.0",
     "json-schema-to-typescript": "^15.0.1",
@@ -42,6 +42,7 @@
   "dependencies": {
     "cytoscape": "^3.30.2",
     "cytoscape-dagre": "^2.5.0",
+    "semver": "^7.6.3",
     "tippy.js": "^6.3.7"
   },
   "type": "module",
