@@ -116,6 +116,7 @@
         }}
       />
       <button
+        aria-label="layout"
         id="btn-layout"
         class="svg-button"
         onclick={() => {

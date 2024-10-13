@@ -28,6 +28,7 @@
       {/each}
     </div>
     <button
+      aria-label="magnifying glass"
       class="icon"
       onclick={() => {
         console.log("ok", value);

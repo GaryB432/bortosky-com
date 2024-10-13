@@ -11,7 +11,11 @@
       </a>
       Bortosky Family
     </div>
-    <a href="//github.com/GaryB432/bortosky-com" target="_blank">
+    <a
+      href="//github.com/GaryB432/bortosky-com"
+      target="_blank"
+      aria-label="github"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 16 16"

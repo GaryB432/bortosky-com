@@ -13,7 +13,7 @@
   <div class="header">
     <div>Mermaid</div>
     <div class="buttons">
-      <button class="copy">
+      <button class="copy" aria-label="copy">
         <svg width="50" height="50" viewBox="0 0 50 50">
           <rect
             x="5"
@@ -34,7 +34,11 @@
           />
         </svg>
       </button>
-      <button class="open" onclick={() => (open = !open)}>
+      <button
+        class="open"
+        onclick={() => (open = !open)}
+        aria-label="open or close"
+      >
         <svg width="50" height="50" viewBox="0 0 50 50">
           <path d="M 15,15 L 30,35 L 45,15" stroke="black" stroke-width="2" />
         </svg>

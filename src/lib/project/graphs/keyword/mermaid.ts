@@ -14,12 +14,12 @@ function getLabel(n: number): string {
 function escape(inputString: string): string {
   return inputString.replace(/[@<>]/g, (match) => {
     switch (match) {
-      case '@':
-        return '&commat;';
-      case '<':
-        return '&lt;';
-      case '>':
-        return '&gt;';
+      case "@":
+        return "&commat;";
+      case "<":
+        return "&lt;";
+      case ">":
+        return "&gt;";
       default:
         return match; // If no match is found, return the original character
     }

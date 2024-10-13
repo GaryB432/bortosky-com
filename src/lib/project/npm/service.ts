@@ -18,6 +18,8 @@ export interface IDownloadService {
 }
 
 export class Service implements IService, IDownloadService {
+  private readonly registryUrlBase = "https://registry.npmjs.org";
+
   public constructor(
     private readonly fetcher: (
       input: string | URL | Request,
@@ -88,12 +90,6 @@ export class Service implements IService, IDownloadService {
     return pack;
   }
 
-  private adjustRangeString(rangeComparator: string) {
-    const [, part2] = rangeComparator.split(":");
-
-    return part2 ? rangeComparator : "latest";
-  }
-
   public async getSomePackages(size: number, text: string): Promise<string[]> {
     const u = this.getSearchUrl(text, size);
     const fetched = await this.fetcher(u, {
@@ -106,7 +102,18 @@ export class Service implements IService, IDownloadService {
     return resp.objects.map((o) => o.package.name);
   }
 
-  private readonly registryUrlBase = "https://registry.npmjs.org";
+  private adjustRangeString(rangeComparator: string) {
+    const [, part2] = rangeComparator.split(":");
+
+    return part2 ? rangeComparator : "latest";
+  }
+
+  private downloadsUrl(period: string, name: string): string | URL | Request {
+    return new URL(
+      `downloads/point/${period}/${name}`,
+      "https://api.npmjs.org",
+    );
+  }
 
   private getSearchUrl(text: string, size: number): URL {
     const url = new URL("/-/v1/search", this.registryUrlBase);
@@ -117,12 +124,5 @@ export class Service implements IService, IDownloadService {
 
   private registryUrl(name: string): URL {
     return new URL(name, this.registryUrlBase);
-  }
-
-  private downloadsUrl(period: string, name: string): string | URL | Request {
-    return new URL(
-      `downloads/point/${period}/${name}`,
-      "https://api.npmjs.org",
-    );
   }
 }
