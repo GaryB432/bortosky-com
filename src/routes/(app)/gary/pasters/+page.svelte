@@ -1,6 +1,7 @@
 <script lang="ts">
   import ClipboardCopy from "$lib/components/ClipboardCopy.svelte";
   import { rand } from "$lib/shared/prng";
+  import { onMount } from "svelte";
 
   // prettier-ignore
   const strings = [
@@ -30,7 +31,7 @@
       .map(() => strings[Math.floor(rand() * strings.length)]);
   }
 
-  $effect(() => {
+  onMount(() => {
     active = pluckRandomStrings();
   });
 </script>

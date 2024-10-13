@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { ElementsDefinition } from "cytoscape";
+  import { onMount } from "svelte";
   import tippy from "tippy.js";
   import { focusedNodes } from "../states.svelte";
   import AddToCollectionButton from "./AddToCollectionButton.svelte";
@@ -7,7 +8,7 @@
 
   let { elements }: { elements: ElementsDefinition } = $props();
 
-  $effect(() => {
+  onMount(() => {
     tippy(".button-a.medium");
   });
 </script>
