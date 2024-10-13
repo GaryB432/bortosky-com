@@ -1,6 +1,7 @@
 <script lang="ts">
   import LayoutSelect from "$lib/components/LayoutSelect.svelte";
   import MermaidList from "$lib/components/MermaidList.svelte";
+  import { type PackageJson } from "$lib/project/project";
   import { selectedNode } from "$lib/states.svelte";
   import type { LayoutOptions } from "cytoscape";
   import type { PageData } from "./$types";
@@ -8,6 +9,8 @@
   import SelectedPackagePanel from "./components/SelectedPackagePanel.svelte";
 
   let { data }: { data: PageData } = $props();
+
+  let selectedpJ = $derived(selectedNode.data as PackageJson);
 
   let layout = $state({ name: "dagre" });
 </script>
@@ -28,8 +31,8 @@
           layout = newLayout as LayoutOptions;
         }}
       />
-      {#if selectedNode}
-        <SelectedPackagePanel></SelectedPackagePanel>
+      {#if selectedpJ && selectedpJ.version}
+        <SelectedPackagePanel pJ={selectedpJ}></SelectedPackagePanel>
       {/if}
       <MermaidList keywordMap={paramPkg.keywordMap}></MermaidList>
     </aside>
