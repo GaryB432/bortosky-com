@@ -7,8 +7,8 @@
    "scripts": {},
    "private": true,
    "devDependencies": {
-    "@eslint/js": "9.11.1",
-    "@gb-nx/browser": "8.5.0",
+    "@eslint/js": "9.12.0",
+    "@gb-nx/browser": "8.6.0",
     "@nx/devkit": "19.8.2",
     "@nx/eslint": "19.8.2",
     "@nx/eslint-plugin": "19.8.2",
@@ -24,7 +24,7 @@
     "@types/node": "18.16.9",
     "adm-zip": "0.5.16",
     "ajv": "8.17.1",
-    "eslint": "9.11.1",
+    "eslint": "9.12.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-gb": "9.1.0",
     "html-webpack-plugin": "5.6.0",
@@ -40,45 +40,9 @@
     "typescript-eslint": "8.8.0"
    },
    "repository": "github:GaryB432/browser-extensions",
-   "bugs": "https://github.com/GaryB432/browser-extensions/issues",
-   "nx": {
-    "extends": "nx/presets/npm.json",
-    "$schema": "./node_modules/nx/schemas/nx-schema.json",
-    "defaultBase": "master",
-    "plugins": [
-     {
-      "plugin": "@nx/jest/plugin",
-      "options": {
-       "targetName": "test"
-      }
-     },
-     {
-      "plugin": "@nx/eslint/plugin",
-      "options": {
-       "targetName": "lint"
-      }
-     }
-    ]
-   }
+   "bugs": "https://github.com/GaryB432/browser-extensions/issues"
   },
-  "projects": [
-   {
-    "name": "button-counter-dev",
-    "private": true,
-    "version": "0.0.0",
-    "type": "module",
-    "scripts": {
-     "dev": "vite",
-     "build": "tsc && vite build",
-     "preview": "vite preview"
-    },
-    "devDependencies": {
-     "typescript": "5.6.2",
-     "vite": "5.4.8",
-     "vitest": "2.1.2"
-    }
-   }
-  ]
+  "projects": []
  },
  {
   "root": {
@@ -127,58 +91,7 @@
     "tslib": "2.6.2"
    },
    "repository": "github:GaryB432/district-map",
-   "bugs": "https://github.com/GaryB432/district-map/issues",
-   "nx": {
-    "$schema": "./node_modules/nx/schemas/nx-schema.json",
-    "defaultBase": "master",
-    "namedInputs": {
-     "default": [
-      "{projectRoot}/**/*",
-      "sharedGlobals"
-     ],
-     "production": [
-      "default",
-      "!{projectRoot}/.eslintrc.json",
-      "!{projectRoot}/eslint.config.js",
-      "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
-      "!{projectRoot}/tsconfig.spec.json",
-      "!{projectRoot}/jest.config.[jt]s",
-      "!{projectRoot}/src/test-setup.[jt]s",
-      "!{projectRoot}/test-setup.[jt]s"
-     ],
-     "sharedGlobals": []
-    },
-    "plugins": [
-     {
-      "plugin": "@nx/webpack/plugin",
-      "options": {
-       "buildTargetName": "build",
-       "serveTargetName": "serve",
-       "previewTargetName": "preview"
-      }
-     },
-     {
-      "plugin": "@nx/eslint/plugin",
-      "options": {
-       "targetName": "lint"
-      }
-     },
-     {
-      "plugin": "@nx/jest/plugin",
-      "options": {
-       "targetName": "test"
-      }
-     }
-    ],
-    "generators": {
-     "@nx/web:application": {
-      "style": "css",
-      "linter": "eslint",
-      "unitTestRunner": "jest",
-      "e2eTestRunner": "none"
-     }
-    }
-   }
+   "bugs": "https://github.com/GaryB432/district-map/issues"
   },
   "projects": []
  },
@@ -215,30 +128,7 @@
     "yargs-parser": "21.1.1"
    }
   },
-  "projects": [
-   {
-    "name": "fun-with-ts",
-    "version": "0.0.0",
-    "description": "fun-with-ts",
-    "private": false,
-    "devDependencies": {
-     "rimraf": "3.0.2",
-     "typescript": "4.9.5"
-    },
-    "files": [
-     "lib"
-    ],
-    "keywords": [],
-    "license": "ISC",
-    "main": "lib/index.js",
-    "scripts": {
-     "prebuild": "rimraf lib",
-     "build": "tsc",
-     "prepare": "npm run build"
-    },
-    "typings": "lib/index.d.ts"
-   }
-  ]
+  "projects": []
  },
  {
   "root": {
@@ -296,161 +186,7 @@
    },
    "bugs": "https://github.com/GaryB432/gb-nx/issues"
   },
-  "projects": [
-   {
-    "name": "@gb-nx/browser",
-    "version": "8.6.0",
-    "main": "src/index.js",
-    "repository": {
-     "type": "git",
-     "url": "https://github.com/GaryB432/gb-nx.git"
-    },
-    "license": "MIT",
-    "bugs": {
-     "url": "https://github.com/GaryB432/gb-nx/issues"
-    },
-    "homepage": "https://github.com/GaryB432/gb-nx/tree/master/packages/browser",
-    "generators": "./generators.json",
-    "executors": "./executors.json",
-    "peerDependencies": {
-     "@nx/jest": ">=17.0.0",
-     "@nx/eslint": ">=17.0.0",
-     "fast-glob": "^3.2.0",
-     "fs-extra": "^11.0.0",
-     "tslib": "^2.6.0"
-    },
-    "publishConfig": {
-     "access": "public"
-    },
-    "dependencies": {
-     "@nx/devkit": "18.0.4",
-     "@nx/webpack": "18.0.4",
-     "adm-zip": "0.5.16",
-     "ajv": "8.17.1"
-    },
-    "nx-migrations": {
-     "migrations": "./migrations.json"
-    }
-   },
-   {
-    "name": "@gb-nx/cli",
-    "version": "5.0.0",
-    "main": "src/index.js",
-    "repository": {
-     "type": "git",
-     "url": "https://github.com/GaryB432/gb-nx.git"
-    },
-    "license": "MIT",
-    "bugs": {
-     "url": "https://github.com/GaryB432/gb-nx/issues"
-    },
-    "keywords": [
-     "nx",
-     "nx-plugin",
-     "cli"
-    ],
-    "homepage": "https://github.com/GaryB432/gb-nx/tree/master/packages/cli",
-    "generators": "./generators.json",
-    "executors": "./executors.json",
-    "peerDependencies": {
-     "tslib": "^2.3.0",
-     "typescript": "^5.2.2"
-    },
-    "dependencies": {
-     "@nx/devkit": "18.0.4",
-     "@nx/eslint": "18.0.4",
-     "@nx/node": "18.0.4"
-    },
-    "publishConfig": {
-     "access": "public"
-    }
-   },
-   {
-    "name": "@gb-nx/svelte",
-    "version": "8.4.1",
-    "main": "src/index.js",
-    "repository": {
-     "type": "git",
-     "url": "git+https://github.com/GaryB432/gb-nx.git"
-    },
-    "license": "MIT",
-    "bugs": {
-     "url": "https://github.com/GaryB432/gb-nx/issues"
-    },
-    "keywords": [
-     "nx",
-     "nx-plugin",
-     "svelte"
-    ],
-    "homepage": "https://github.com/GaryB432/gb-nx/tree/master/packages/svelte",
-    "generators": "./generators.json",
-    "executors": "./executors.json",
-    "peerDependencies": {
-     "@jest/globals": ">=29.7.0",
-     "@phenomnomnominal/tsquery": "~5.0.1",
-     "nx": ">=17.0.0",
-     "prettier": ">=2.0.0",
-     "semver": ">=7.2.0",
-     "tslib": "^2.3.0",
-     "typescript": "^5.2.2"
-    },
-    "dependencies": {
-     "@nx/devkit": "18.0.4",
-     "@nx/eslint": "18.0.4",
-     "@nx/js": "18.0.4"
-    },
-    "publishConfig": {
-     "access": "public"
-    },
-    "nx-migrations": {
-     "migrations": "./migrations.json"
-    }
-   },
-   {
-    "name": "@gb-nx/workspace",
-    "version": "5.0.0",
-    "main": "src/index.js",
-    "repository": {
-     "type": "git",
-     "url": "https://github.com/GaryB432/gb-nx.git"
-    },
-    "license": "MIT",
-    "bugs": {
-     "url": "https://github.com/GaryB432/gb-nx/issues"
-    },
-    "keywords": [
-     "nx",
-     "nx-plugin",
-     "workspace"
-    ],
-    "homepage": "https://github.com/GaryB432/gb-nx/tree/master/packages/workspace",
-    "generators": "./generators.json",
-    "executors": "./executors.json",
-    "nx-migrations": {
-     "migrations": "./migrations.json"
-    },
-    "peerDependencies": {
-     "tslib": "^2.3.0",
-     "typescript": "^5.2.2"
-    },
-    "dependencies": {
-     "@nx/devkit": "18.0.4",
-     "gb-schematics": "3.9.1"
-    },
-    "publishConfig": {
-     "access": "public"
-    }
-   },
-   {
-    "name": "@gb-nx/workspace-plugin",
-    "version": "0.0.1",
-    "type": "commonjs",
-    "generators": "./generators.json",
-    "dependencies": {
-     "@nx/devkit": "18.0.4"
-    }
-   }
-  ]
+  "projects": []
  },
  {
   "root": {
@@ -496,57 +232,7 @@
     "typescript": "5.5.4"
    },
    "repository": "github:GaryB432/gb-portfolio",
-   "bugs": "https://github.com/GaryB432/gb-portfolio/issues",
-   "nx": {
-    "$schema": "./node_modules/nx/schemas/nx-schema.json",
-    "defaultBase": "master",
-    "namedInputs": {
-     "default": [
-      "{projectRoot}/**/*",
-      "sharedGlobals"
-     ],
-     "production": [
-      "default",
-      "!{projectRoot}/.eslintrc.json",
-      "!{projectRoot}/eslint.config.js",
-      "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
-      "!{projectRoot}/tsconfig.spec.json",
-      "!{projectRoot}/jest.config.[jt]s",
-      "!{projectRoot}/src/test-setup.[jt]s",
-      "!{projectRoot}/test-setup.[jt]s"
-     ],
-     "sharedGlobals": []
-    },
-    "targetDefaults": {
-     "@nx/esbuild:esbuild": {
-      "cache": true,
-      "dependsOn": [
-       "^build"
-      ],
-      "inputs": [
-       "production",
-       "^production"
-      ]
-     }
-    },
-    "plugins": [
-     {
-      "plugin": "@nx/eslint/plugin",
-      "options": {
-       "targetName": "lint"
-      }
-     },
-     {
-      "plugin": "@nx/jest/plugin",
-      "options": {
-       "targetName": "test"
-      },
-      "exclude": [
-       "apps/btc-e2e/**/*"
-      ]
-     }
-    ]
-   }
+   "bugs": "https://github.com/GaryB432/gb-portfolio/issues"
   },
   "projects": []
  },
@@ -554,283 +240,339 @@
   "root": {
    "name": "@human-accomplishment/source",
    "version": "0.0.0",
-   "license": "MIT",
-   "scripts": {},
-   "private": true,
-   "devDependencies": {
-    "@gb-nx/browser": "7.4.0",
-    "@gb-nx/svelte": "7.0.1",
-    "@nx/esbuild": "17.2.6",
-    "@nx/eslint": "17.2.6",
-    "@nx/eslint-plugin": "17.2.6",
-    "@nx/jest": "17.2.6",
-    "@nx/js": "17.2.6",
-    "@nx/node": "17.2.6",
-    "@nx/plugin": "17.2.6",
-    "@nx/vite": "17.2.6",
-    "@nx/web": "17.2.6",
-    "@nx/webpack": "17.2.6",
-    "@nx/workspace": "17.2.6",
-    "@svgr/webpack": "8.1.0",
-    "@swc-node/register": "1.6.8",
-    "@swc/cli": "0.1.65",
-    "@swc/core": "1.3.107",
-    "@swc/jest": "0.2.20",
-    "@types/adm-zip": "0.5.5",
-    "@types/chrome": "0.0.254",
-    "@types/google.visualization": "0.0.73",
-    "@types/jest": "29.5.12",
-    "@types/node": "18.16.9",
-    "@types/twitter-text": "3.1.10",
-    "@typescript-eslint/eslint-plugin": "6.21.0",
-    "@typescript-eslint/parser": "6.21.0",
-    "@vitest/coverage-v8": "1.6.0",
-    "@vitest/ui": "1.6.0",
-    "adm-zip": "0.5.15",
-    "esbuild": "0.19.12",
-    "eslint": "8.48.0",
-    "eslint-config-prettier": "9.1.0",
-    "eslint-plugin-gb": "2.0.0",
-    "eslint-plugin-svelte": "2.43.0",
-    "happy-dom": "12.10.3",
-    "html-webpack-plugin": "5.6.0",
-    "inquirer": "8.2.6",
-    "jest": "29.7.0",
-    "jest-environment-jsdom": "29.7.0",
-    "jest-environment-node": "29.7.0",
-    "mini-css-extract-plugin": "2.9.0",
-    "node-html-parser": "6.1.13",
-    "nx": "17.2.6",
-    "prettier": "3.3.3",
-    "prettier-plugin-svelte": "3.2.6",
-    "react-refresh": "0.10.0",
-    "sass": "1.77.8",
-    "swc-loader": "0.1.15",
-    "ts-jest": "29.2.4",
-    "ts-node": "10.9.1",
-    "twitter-text": "3.1.0",
-    "typescript": "5.2.2",
-    "url-loader": "4.1.1",
-    "vite": "5.4.0",
-    "vite-plugin-dts": "2.3.0",
-    "vitest": "1.6.0"
-   },
-   "workspaces": [
-    "apps/web"
-   ],
-   "dependencies": {
-    "@nx/devkit": "17.2.6",
-    "@swc/helpers": "0.5.12",
-    "clipboardy": "4.0.0",
-    "tslib": "2.6.3"
-   },
+   "packageManager": "pnpm@9.12.2",
    "repository": "github:GaryB432/human-accomplishment",
-   "bugs": "https://github.com/GaryB432/human-accomplishment/issues",
-   "nx": {
-    "$schema": "./node_modules/nx/schemas/nx-schema.json",
-    "affected": {
-     "defaultBase": "master"
-    },
-    "targetDefaults": {
-     "build": {
-      "cache": true,
-      "dependsOn": [
-       "^build"
-      ],
-      "inputs": [
-       "production",
-       "^production"
-      ]
-     },
-     "lint": {
-      "cache": true,
-      "inputs": [
-       "default",
-       "{workspaceRoot}/.eslintrc.json",
-       "{workspaceRoot}/.eslintignore",
-       "{workspaceRoot}/eslint.config.js"
-      ]
-     },
-     "test:integration": {
-      "cache": true,
-      "inputs": [
-       "default",
-       "^production"
-      ]
-     },
-     "@nx/vite:test": {
-      "cache": true,
-      "inputs": [
-       "default",
-       "^production"
-      ]
-     },
-     "@nx/jest:jest": {
-      "cache": true,
-      "inputs": [
-       "default",
-       "^production",
-       "{workspaceRoot}/jest.preset.js"
-      ],
-      "options": {
-       "passWithNoTests": true
-      },
-      "configurations": {
-       "ci": {
-        "ci": true,
-        "codeCoverage": true
-       }
-      }
-     }
-    },
-    "namedInputs": {
-     "default": [
-      "{projectRoot}/**/*",
-      "sharedGlobals"
-     ],
-     "production": [
-      "default",
-      "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
-      "!{projectRoot}/tsconfig.spec.json",
-      "!{projectRoot}/.eslintrc.json",
-      "!{projectRoot}/eslint.config.js",
-      "!{projectRoot}/jest.config.[jt]s",
-      "!{projectRoot}/src/test-setup.[jt]s",
-      "!{projectRoot}/test-setup.[jt]s"
-     ],
-     "sharedGlobals": []
-    },
-    "generators": {
-     "@gb-nx/svelte:component": {
-      "project": "web",
-      "directory": "components",
-      "style": "scss",
-      "language": "ts"
-     },
-     "@nx/web:application": {
-      "style": "scss",
-      "linter": "eslint",
-      "unitTestRunner": "jest",
-      "e2eTestRunner": "none"
-     }
-    }
-   }
+   "bugs": "https://github.com/GaryB432/human-accomplishment/issues"
   },
   "projects": [
    {
-    "name": "@human-accomplishment/cosmos",
-    "version": "0.0.1",
-    "dependencies": {},
-    "main": "./index.js",
-    "module": "./index.mjs",
-    "typings": "./index.d.ts"
-   },
-   {
-    "name": "@human-accomplishment/data-access",
-    "version": "0.0.1",
-    "dependencies": {},
-    "main": "./index.js",
-    "module": "./index.mjs",
-    "typings": "./index.d.ts"
-   },
-   {
-    "name": "@human-accomplishment/shared",
-    "version": "0.0.1",
-    "dependencies": {},
-    "main": "./index.js",
-    "module": "./index.mjs",
-    "typings": "./index.d.ts"
-   },
-   {
-    "name": "@human-accomplishment/social-media",
-    "version": "0.0.1",
-    "dependencies": {
-     "@human-accomplishment/shared": "0.0.0",
-     "twitter-text": "3.1.0"
+    "name": "@human-accomplishment/cli",
+    "version": "1.0.0",
+    "description": "",
+    "main": "dist/index.js",
+    "typings": "dist/index.d.ts",
+    "scripts": {
+     "build": "webpack",
+     "lint": "eslint .",
+     "test": "jest"
     },
-    "main": "./index.js",
-    "module": "./index.mjs",
-    "typings": "./index.d.ts"
+    "license": "ISC",
+    "devDependencies": {
+     "@jest/globals": "29.7.0",
+     "@tsconfig/node20": "20.1.4",
+     "@tsconfig/strictest": "2.0.5",
+     "@types/node": "22.9.1",
+     "eslint": "9.15.0",
+     "eslint-plugin-gb": "9.1.0",
+     "globals": "15.12.0",
+     "jest": "29.7.0",
+     "ts-jest": "29.2.5",
+     "ts-loader": "9.5.1",
+     "ts-node": "10.9.2",
+     "tsconfig-paths-webpack-plugin": "4.2.0",
+     "typescript": "5.6.3",
+     "typescript-eslint": "8.15.0",
+     "webpack": "5.96.1",
+     "webpack-cli": "5.1.4"
+    },
+    "dependencies": {
+     "ansi-colors": "4.1.3",
+     "clipboardy": "4.0.0",
+     "inquirer": "12.1.0",
+     "sade": "1.8.1"
+    }
+   },
+   {
+    "name": "@human-accomplishment/extension",
+    "version": "1.0.0",
+    "description": "",
+    "main": "dist/index.js",
+    "typings": "dist/index.d.ts",
+    "scripts": {
+     "build": "webpack --env production",
+     "lint": "eslint .",
+     "test": "jest",
+     "dev": "webpack serve",
+     "watch": "webpack --watch",
+     "zip": "node ./scripts/zip.mjs dist",
+     "xxprebuild": "npm run format",
+     "xxpretest": "npm run lint",
+     "xxwebpack-prod": "npm run pretest && npm run test-ci && webpack --env production",
+     "xxtest-ci": "jest --ci --coverage"
+    },
+    "license": "ISC",
+    "devDependencies": {
+     "@jest/globals": "29.7.0",
+     "@tsconfig/node20": "20.1.4",
+     "@tsconfig/strictest": "2.0.5",
+     "@types/adm-zip": "0.5.6",
+     "@types/chrome": "0.0.280",
+     "adm-zip": "0.5.16",
+     "ajv": "8.17.1",
+     "copy-webpack-plugin": "12.0.2",
+     "css-loader": "7.1.2",
+     "eslint": "9.15.0",
+     "eslint-plugin-gb": "9.1.0",
+     "file-loader": "6.2.0",
+     "fork-ts-checker-webpack-plugin": "9.0.2",
+     "globals": "15.12.0",
+     "html-webpack-plugin": "5.6.3",
+     "jest": "29.7.0",
+     "license-webpack-plugin": "4.0.2",
+     "mini-css-extract-plugin": "2.9.2",
+     "sass-embedded": "1.81.0",
+     "sass-loader": "16.0.3",
+     "style-loader": "4.0.0",
+     "ts-jest": "29.2.5",
+     "ts-loader": "9.5.1",
+     "ts-node": "10.9.2",
+     "tsconfig-paths-webpack-plugin": "4.2.0",
+     "typescript": "5.6.3",
+     "typescript-eslint": "8.15.0",
+     "url-loader": "4.1.1",
+     "webpack": "5.96.1",
+     "webpack-bundle-analyzer": "4.10.2",
+     "webpack-cli": "5.1.4",
+     "webpack-dev-server": "5.1.0",
+     "webpack-merge": "6.0.1"
+    }
    },
    {
     "name": "@human-accomplishment/web",
-    "version": "0.0.1",
+    "version": "5.0.0",
+    "type": "module",
     "private": true,
     "scripts": {
-     "dev": "vite dev",
      "build": "vite build",
-     "preview": "vite preview",
-     "test": "vitest run",
      "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
      "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-     "test:integration": "playwright test",
-     "test:watch": "vitest watch"
+     "dev": "vite dev",
+     "lint": "eslint .",
+     "preview": "vite preview",
+     "test": "vitest --run",
+     "test:e2e": "playwright test",
+     "test:watch": "vitest"
     },
-    "type": "module",
     "devDependencies": {
-     "@azure/cosmos": "4.1.0",
-     "@fontsource/montserrat": "5.0.18",
-     "@playwright/test": "1.46.0",
-     "@sveltejs/adapter-vercel": "4.0.5",
-     "@sveltejs/kit": "2.5.21",
-     "@sveltejs/vite-plugin-svelte": "3.1.1",
-     "svelte": "4.2.18",
-     "svelte-check": "3.8.5",
-     "tslib": "2.6.3",
-     "typescript": "5.2.2",
-     "vite": "5.4.0"
+     "@playwright/test": "1.49.0",
+     "@sveltejs/adapter-vercel": "5.4.7",
+     "@sveltejs/kit": "2.8.1",
+     "@sveltejs/vite-plugin-svelte": "4.0.1",
+     "@types/eslint": "9.6.1",
+     "eslint": "9.15.0",
+     "eslint-config-prettier": "9.1.0",
+     "eslint-plugin-svelte": "2.46.0",
+     "globals": "15.12.0",
+     "happy-dom": "15.11.6",
+     "prettier": "3.3.3",
+     "prettier-plugin-svelte": "3.3.1",
+     "sass-embedded": "1.81.0",
+     "svelte": "5.2.7",
+     "svelte-check": "4.0.9",
+     "typescript": "5.6.3",
+     "typescript-eslint": "8.15.0",
+     "vite": "5.4.11",
+     "vitest": "2.1.5"
     },
-    "nx": {
-     "implicitDependencies": [
-      "shared",
-      "data-access",
-      "cosmos"
-     ],
-     "targets": {
-      "check": {
-       "cache": true,
-       "inputs": [
-        "{projectRoot}/src/**/*",
-        "{projectRoot}/static/**/*",
-        "{projectRoot}/*.config.js",
-        "{projectRoot}/tsconfig.json"
-       ],
-       "outputs": [
-        "{projectRoot}/.svelte-kit",
-        "{projectRoot}/.vercel"
-       ]
-      },
-      "test": {
-       "cache": true,
-       "inputs": [
-        "default",
-        "^production"
-       ]
-      }
-     }
+    "dependencies": {
+     "@azure/cosmos": "4.2.0",
+     "@fontsource/montserrat": "5.1.0"
+    }
+   },
+   {
+    "name": "@human-accomplishment/cosmos",
+    "version": "1.0.0",
+    "main": "dist/index.js",
+    "typings": "dist/index.d.ts",
+    "scripts": {
+     "build": "tsc --build",
+     "lint": "eslint .",
+     "test": "jest"
+    },
+    "license": "ISC",
+    "devDependencies": {
+     "@jest/globals": "29.7.0",
+     "@tsconfig/node20": "20.1.4",
+     "@tsconfig/strictest": "2.0.5",
+     "@types/node": "22.9.1",
+     "eslint": "9.15.0",
+     "globals": "15.12.0",
+     "jest": "29.7.0",
+     "rimraf": "6.0.1",
+     "ts-jest": "29.2.5",
+     "ts-node": "10.9.2",
+     "typescript": "5.6.3",
+     "typescript-eslint": "8.15.0"
+    },
+    "dependencies": {
+     "@azure/cosmos": "4.2.0"
+    }
+   },
+   {
+    "name": "@human-accomplishment/data-access",
+    "version": "1.0.0",
+    "main": "dist/index.js",
+    "typings": "dist/index.d.ts",
+    "scripts": {
+     "build": "tsc --build",
+     "lint": "eslint .",
+     "test": "jest"
+    },
+    "license": "ISC",
+    "devDependencies": {
+     "@jest/globals": "29.7.0",
+     "@tsconfig/node20": "20.1.4",
+     "@tsconfig/strictest": "2.0.5",
+     "@types/node": "22.9.1",
+     "eslint": "9.15.0",
+     "globals": "15.12.0",
+     "jest": "29.7.0",
+     "rimraf": "6.0.1",
+     "ts-jest": "29.2.5",
+     "ts-node": "10.9.2",
+     "typescript": "5.6.3",
+     "typescript-eslint": "8.15.0"
+    },
+    "dependencies": {
+     "@azure/cosmos": "4.2.0"
+    }
+   },
+   {
+    "name": "@human-accomplishment/mongo",
+    "version": "1.0.0",
+    "main": "dist/index.js",
+    "typings": "dist/index.d.ts",
+    "scripts": {
+     "build": "tsc --build",
+     "lint": "eslint .",
+     "test": "jest"
+    },
+    "license": "ISC",
+    "devDependencies": {
+     "@jest/globals": "29.7.0",
+     "@tsconfig/node20": "20.1.4",
+     "@tsconfig/strictest": "2.0.5",
+     "@types/node": "22.9.1",
+     "globals": "15.12.0",
+     "jest": "29.7.0",
+     "rimraf": "6.0.1",
+     "ts-jest": "29.2.5",
+     "ts-node": "10.9.2",
+     "typescript": "5.6.3"
+    },
+    "dependencies": {
+     "mongodb": "6.10.0"
+    }
+   },
+   {
+    "name": "@human-accomplishment/shared",
+    "version": "1.0.0",
+    "main": "dist/index.js",
+    "typings": "dist/index.d.ts",
+    "scripts": {
+     "build": "tsc --build",
+     "lint": "eslint .",
+     "test": "jest"
+    },
+    "license": "ISC",
+    "devDependencies": {
+     "@jest/globals": "29.7.0",
+     "@tsconfig/node20": "20.1.4",
+     "@tsconfig/strictest": "2.0.5",
+     "eslint": "9.15.0",
+     "globals": "15.12.0",
+     "jest": "29.7.0",
+     "rimraf": "6.0.1",
+     "ts-jest": "29.2.5",
+     "ts-node": "10.9.2",
+     "typescript": "5.6.3",
+     "typescript-eslint": "8.15.0"
+    }
+   },
+   {
+    "name": "@human-accomplishment/social-media",
+    "version": "1.0.0",
+    "main": "dist/index.js",
+    "typings": "dist/index.d.ts",
+    "scripts": {
+     "build": "tsc --build",
+     "lint": "eslint .",
+     "test": "jest"
+    },
+    "license": "ISC",
+    "dependencies": {
+     "twitter-text": "3.1.0"
+    },
+    "devDependencies": {
+     "@jest/globals": "29.7.0",
+     "@tsconfig/node20": "20.1.4",
+     "@tsconfig/strictest": "2.0.5",
+     "@types/twitter-text": "3.1.10",
+     "eslint": "9.15.0",
+     "globals": "15.12.0",
+     "jest": "29.7.0",
+     "rimraf": "6.0.1",
+     "ts-jest": "29.2.5",
+     "ts-node": "10.9.2",
+     "typescript": "5.6.3",
+     "typescript-eslint": "8.15.0"
     }
    },
    {
     "name": "@human-accomplishment/web-ui",
-    "version": "0.0.1",
-    "dependencies": {
-     "@human-accomplishment/shared": "0.0.0"
+    "version": "1.0.0",
+    "main": "dist/index.js",
+    "typings": "dist/index.d.ts",
+    "scripts": {
+     "build": "tsc --build",
+     "lint": "eslint .",
+     "test": "jest"
     },
-    "main": "./index.js",
-    "module": "./index.mjs",
-    "typings": "./index.d.ts"
+    "license": "ISC",
+    "devDependencies": {
+     "@jest/globals": "29.7.0",
+     "@tsconfig/node20": "20.1.4",
+     "@tsconfig/strictest": "2.0.5",
+     "globals": "15.12.0",
+     "eslint": "9.15.0",
+     "jest": "29.7.0",
+     "rimraf": "6.0.1",
+     "ts-jest": "29.2.5",
+     "ts-node": "10.9.2",
+     "typescript": "5.6.3",
+     "typescript-eslint": "8.15.0"
+    }
    },
    {
     "name": "@human-accomplishment/wikimedia",
-    "version": "0.0.1",
-    "dependencies": {
-     "@human-accomplishment/shared": "0.0.0",
-     "axios": "1.7.3",
-     "node-html-parser": "6.1.13"
+    "version": "1.0.0",
+    "main": "dist/index.js",
+    "typings": "dist/index.d.ts",
+    "scripts": {
+     "build": "tsc --build",
+     "lint": "eslint .",
+     "test": "jest"
     },
-    "main": "./index.js",
-    "module": "./index.mjs",
-    "typings": "./index.d.ts"
+    "license": "ISC",
+    "devDependencies": {
+     "@jest/globals": "29.7.0",
+     "@tsconfig/node20": "20.1.4",
+     "@tsconfig/strictest": "2.0.5",
+     "@types/node": "22.9.1",
+     "eslint": "9.15.0",
+     "globals": "15.12.0",
+     "jest": "29.7.0",
+     "rimraf": "6.0.1",
+     "ts-jest": "29.2.5",
+     "ts-node": "10.9.2",
+     "typescript": "5.6.3",
+     "typescript-eslint": "8.15.0"
+    },
+    "dependencies": {
+     "@azure/cosmos": "4.2.0",
+     "axios": "1.7.7",
+     "node-html-parser": "6.1.13"
+    }
    }
   ]
  },
@@ -903,13 +645,14 @@
    "bugs": "https://github.com/GaryB432/package-man/issues",
    "dependencies": {
     "@nx/devkit": "19.6.2",
-    "axios": "1.7.7",
+    "axios": "1.7.8",
     "cli-table3": "0.6.5",
     "commander": "12.1.0",
+    "js-yaml": "4.1.0",
     "json-schema-library": "9.3.5",
     "semver": "7.6.3",
-    "simple-git": "3.26.0",
-    "tslib": "2.7.0"
+    "simple-git": "3.27.0",
+    "tslib": "2.8.1"
    },
    "devDependencies": {
     "@gb-nx/workspace": "5.0.0",
@@ -924,14 +667,15 @@
     "@swc-node/register": "1.9.2",
     "@swc/cli": "0.3.14",
     "@swc/core": "1.5.29",
-    "@swc/helpers": "0.5.13",
+    "@swc/helpers": "0.5.15",
     "@types/jest": "29.5.12",
+    "@types/js-yaml": "4.0.9",
     "@types/node": "18.16.20",
     "@typescript-eslint/eslint-plugin": "7.16.0",
     "@typescript-eslint/parser": "7.16.0",
     "chalk": "4.1.2",
     "esbuild": "0.19.12",
-    "eslint": "8.57.0",
+    "eslint": "8.57.1",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-gb": "2.0.0",
     "jest": "29.7.0",
@@ -947,160 +691,101 @@
     "includedScripts": []
    }
   },
+  "projects": []
+ },
+ {
+  "root": {
+   "name": "@pnpm-workspaces/source",
+   "version": "0.0.1",
+   "private": true,
+   "packageManager": "pnpm@9.12.3",
+   "license": "ISC"
+  },
   "projects": [
    {
-    "name": "@helio/source",
-    "version": "0.0.0",
-    "license": "MIT",
-    "scripts": {},
-    "private": true,
-    "dependencies": {},
-    "devDependencies": {
-     "@nx/js": "19.5.0",
-     "@nx/workspace": "19.5.0",
-     "nx": "19.5.0"
-    },
-    "repository": "github:fred/helio"
-   },
-   {
-    "name": "@package-man/ws-plugin",
+    "name": "@pnpm-workspaces/greeter",
     "version": "0.0.1",
-    "dependencies": {
-     "@nx/devkit": "19.6.2",
-     "tslib": "2.7.0"
-    },
-    "type": "commonjs",
-    "main": "./src/index.js",
-    "typings": "./src/index.d.ts",
-    "private": true,
-    "generators": "./generators.json"
-   },
-   {
-    "name": "colorization",
-    "version": "1.0.0",
-    "description": "fun package for colorizing test stuff",
-    "main": "index.js",
     "scripts": {
-     "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "repository": {
-     "type": "git",
-     "url": "git+https://github.com/fred/colorization.git"
-    },
-    "keywords": [
-     "testing",
-     "things",
-     "fun"
-    ],
-    "type": "module",
-    "author": "tester",
-    "license": "ISC",
-    "bugs": {
-     "url": "https://github.com/fred/colorization/issues"
-    },
-    "homepage": "https://github.com/fred/colorization#readme",
-    "dependencies": {
-     "color-generator": "0.1.0"
-    }
-   },
-   {
-    "name": "everywhere",
-    "version": "0.0.0",
-    "license": "MIT",
-    "scripts": {},
-    "private": true,
-    "dependencies": {},
-    "devDependencies": {
-     "@nx/js": "19.6.2",
-     "@nx/workspace": "19.6.2",
-     "nx": "19.6.2"
-    }
-   },
-   {
-    "name": "otherwise",
-    "version": "0.0.0"
-   },
-   {
-    "name": "sluggo",
-    "version": "1.0.0",
-    "main": "index.js",
-    "scripts": {
-     "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "description": "",
-    "dependencies": {
-     "web-id": "2.1.0"
-    },
-    "workspaces": [
-     "apps/are/**"
-    ],
-    "bugs": "https://tmp/todos/fun"
-   },
-   {
-    "name": "web",
-    "version": "0.0.1",
-    "private": true,
-    "scripts": {
-     "dev": "vite dev",
-     "build": "vite build",
-     "preview": "vite preview",
-     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-     "test": "vitest --run",
-     "test:watch": "vitest",
+     "build": "rimraf dist && tsc --listEmittedFiles",
      "lint": "eslint ."
     },
-    "dependencies": {
-     "fast-xml-parser": "4.3.2",
-     "typescript": "5.5.4"
-    },
+    "type": "commonjs",
+    "dependencies": {},
     "devDependencies": {
-     "@sveltejs/adapter-vercel": "3.1.0",
-     "@sveltejs/kit": "1.27.4",
-     "@typescript-eslint/eslint-plugin": "7.16.0",
-     "@typescript-eslint/parser": "7.16.0",
-     "eslint": "8.57.0",
-     "eslint-plugin-gb": "2.0.0",
-     "eslint-plugin-svelte": "2.35.1",
-     "svelte": "4.2.7",
-     "svelte-check": "3.6.0",
-     "tslib": "2.7.0",
-     "vite": "4.4.2",
-     "vitest": "0.34.0"
+     "@tsconfig/node20": "20.1.4",
+     "@tsconfig/strictest": "2.0.5",
+     "eslint": "9.14.0",
+     "eslint-plugin-gb": "9.1.0",
+     "globals": "15.12.0",
+     "rimraf": "6.0.1",
+     "ts-node": "10.9.2",
+     "typescript": "5.6.3",
+     "typescript-eslint": "8.13.0"
+    }
+   },
+   {
+    "name": "@pnpm-workspace/calculations",
+    "license": "ISC",
+    "exports": "./dist/index.js",
+    "files": [
+     "dist"
+    ],
+    "types": "dist/index.d.ts",
+    "scripts": {
+     "build": "rimraf dist && tsc --listEmittedFiles",
+     "lint": "eslint .",
+     "test": "jest"
     },
-    "peerDependencies": {
-     "web-id": "^2.1.0"
+    "type": "commonjs",
+    "devDependencies": {
+     "@jest/globals": "29.7.0",
+     "@tsconfig/node20": "20.1.4",
+     "@tsconfig/strictest": "2.0.5",
+     "eslint": "9.14.0",
+     "eslint-plugin-gb": "9.1.0",
+     "globals": "15.12.0",
+     "jest": "29.7.0",
+     "rimraf": "6.0.1",
+     "ts-jest": "29.2.5",
+     "ts-node": "10.9.2",
+     "typescript": "5.6.3",
+     "typescript-eslint": "8.13.0"
     },
-    "type": "module",
-    "nx": {
-     "namedInputs": {
-      "default": [
-       "{projectRoot}/**/*"
-      ],
-      "production": [
-       "!{projectRoot}/.svelte-kit/*",
-       "!{projectRoot}/.vercel/*",
-       "!{projectRoot}/tests/*"
-      ]
-     },
-     "targets": {
-      "build": {
-       "inputs": [
-        "production",
-        "^production"
-       ],
-       "outputs": [
-        "{projectRoot}/.svelte-kit",
-        "{projectRoot}/.vercel"
-       ],
-       "dependsOn": [
-        "^build"
-       ]
-      }
-     }
+    "engines": {
+     "node": ">=18"
+    }
+   },
+   {
+    "name": "@pnpm-workspaces/shared",
+    "version": "0.0.1",
+    "license": "ISC",
+    "exports": "./dist/index.js",
+    "files": [
+     "dist"
+    ],
+    "types": "dist/index.d.ts",
+    "scripts": {
+     "build": "rimraf dist && tsc --listEmittedFiles",
+     "lint": "eslint .",
+     "test": "jest"
+    },
+    "type": "commonjs",
+    "devDependencies": {
+     "@jest/globals": "29.7.0",
+     "@tsconfig/node20": "20.1.4",
+     "@tsconfig/strictest": "2.0.5",
+     "eslint": "9.14.0",
+     "eslint-plugin-gb": "9.1.0",
+     "globals": "15.12.0",
+     "jest": "29.7.0",
+     "rimraf": "6.0.1",
+     "ts-jest": "29.2.5",
+     "ts-node": "10.9.2",
+     "typescript": "5.6.3",
+     "typescript-eslint": "8.13.0"
+    },
+    "engines": {
+     "node": ">=18"
     }
    }
   ]
@@ -1131,40 +816,7 @@
    },
    "workspaces": [
     "apps/web"
-   ],
-   "nx": {
-    "$schema": "./node_modules/nx/schemas/nx-schema.json",
-    "defaultBase": "master",
-    "targetDefaults": {
-     "build": {
-      "cache": true,
-      "dependsOn": [
-       "^build"
-      ],
-      "inputs": [
-       "production",
-       "^production"
-      ]
-     },
-     "lint": {
-      "cache": true
-     },
-     "e2e": {
-      "cache": true
-     }
-    },
-    "namedInputs": {
-     "default": [
-      "{projectRoot}/**/*",
-      "sharedGlobals"
-     ],
-     "production": [
-      "default"
-     ],
-     "sharedGlobals": []
-    },
-    "useInferencePlugins": false
-   }
+   ]
   },
   "projects": [
    {
@@ -1473,167 +1125,7 @@
     "format": "prettier --write \"**/*.ts\"  \"!**/templates/**\""
    }
   },
-  "projects": [
-   {
-    "name": "generator-gb-utility",
-    "version": "2.0.1",
-    "description": "Utility subgenerators",
-    "files": [
-     "generators/**/*.js",
-     "generators/**/templates/",
-     "util/**/*.js"
-    ],
-    "private": false,
-    "scripts": {
-     "test": "echo \"Error: run tests from root\" && exit 1"
-    },
-    "keywords": [
-     "yeoman-generator"
-    ],
-    "author": "Gary Bortosky <garybort@gmail.com>",
-    "license": "ISC",
-    "dependencies": {
-     "case": "1.6.3",
-     "chalk": "4.1.2",
-     "yeoman-environment": "3.6.0",
-     "yeoman-generator": "5.4.2"
-    },
-    "repository": {
-     "type": "git",
-     "url": "https://github.com/GaryB432/gb-generators.git"
-    },
-    "bugs": {
-     "url": "https://github.com/GaryB432/gb-generators/issues"
-    },
-    "homepage": "https://github.com/GaryB432/gb-generators/tree/master/packages/generator-gb-utility",
-    "gitHead": "347e389b2c6f24414b460547d9840d70201c2717"
-   },
-   {
-    "name": "generator-lerna-typescript",
-    "version": "3.0.1",
-    "description": "Get started with Lerna using TypeScript",
-    "files": [
-     "{generators,utils}/**/*.js",
-     "generators/**/templates/"
-    ],
-    "private": false,
-    "scripts": {
-     "test": "echo \"Error: run tests from root\" && exit 1"
-    },
-    "keywords": [
-     "lerna",
-     "typescript",
-     "monorepo",
-     "yeoman-generator"
-    ],
-    "author": "Gary Bortosky <garybort@gmail.com>",
-    "license": "ISC",
-    "engines": {
-     "node": ">=10"
-    },
-    "dependencies": {
-     "case": "1.6.3",
-     "chalk": "4.1.2",
-     "generator-gb-utility": "2.0.1",
-     "yeoman-environment": "3.6.0",
-     "yeoman-generator": "5.4.2"
-    },
-    "repository": {
-     "type": "git",
-     "url": "https://github.com/GaryB432/gb-generators.git"
-    },
-    "bugs": {
-     "url": "https://github.com/GaryB432/gb-generators/issues"
-    },
-    "homepage": "https://github.com/GaryB432/gb-generators/tree/master/packages/generator-lerna-typescript",
-    "gitHead": "347e389b2c6f24414b460547d9840d70201c2717"
-   },
-   {
-    "name": "generator-web-modules",
-    "version": "2.0.1",
-    "description": "A Yeoman Generator for creating websites with TypeScript, Sass and ES6 modules",
-    "files": [
-     "generators/**/*.js",
-     "generators/**/templates/"
-    ],
-    "private": false,
-    "scripts": {
-     "test": "echo \"Error: run tests from root\" && exit 1"
-    },
-    "keywords": [
-     "yeoman-generator",
-     "typescript",
-     "es6",
-     "modules",
-     "sass",
-     "scss",
-     "eslint"
-    ],
-    "author": "Gary Bortosky <garybort@gmail.com>",
-    "license": "ISC",
-    "engines": {
-     "node": ">=10"
-    },
-    "dependencies": {
-     "case": "1.6.3",
-     "chalk": "4.1.2",
-     "generator-gb-utility": "2.0.1",
-     "yeoman-environment": "3.6.0",
-     "yeoman-generator": "5.4.2"
-    },
-    "repository": {
-     "type": "git",
-     "url": "https://github.com/GaryB432/gb-generators.git"
-    },
-    "bugs": {
-     "url": "https://github.com/GaryB432/gb-generators/issues"
-    },
-    "homepage": "https://github.com/GaryB432/gb-generators/tree/master/packages/generator-web-modules"
-   },
-   {
-    "name": "generator-webpack-ts",
-    "version": "7.0.1",
-    "description": "A Yeoman Generator for creating websites with TypeScript, Sass and Webpack",
-    "files": [
-     "generators/**/*.js",
-     "generators/**/templates/"
-    ],
-    "private": false,
-    "scripts": {
-     "test": "echo \"Error: run tests from root\" && exit 1"
-    },
-    "keywords": [
-     "yeoman-generator",
-     "typescript",
-     "webpack",
-     "workbox",
-     "sass",
-     "scss",
-     "eslint"
-    ],
-    "author": "Gary Bortosky <garybort@gmail.com>",
-    "license": "ISC",
-    "engines": {
-     "node": ">=10"
-    },
-    "dependencies": {
-     "case": "1.6.3",
-     "chalk": "4.1.2",
-     "generator-gb-utility": "2.0.1",
-     "yeoman-environment": "3.6.0",
-     "yeoman-generator": "5.4.2"
-    },
-    "repository": {
-     "type": "git",
-     "url": "https://github.com/GaryB432/gb-generators.git"
-    },
-    "bugs": {
-     "url": "https://github.com/GaryB432/gb-generators/issues"
-    },
-    "homepage": "https://github.com/GaryB432/gb-generators/tree/master/packages/generator-webpack-ts",
-    "gitHead": "347e389b2c6f24414b460547d9840d70201c2717"
-   }
-  ]
+  "projects": []
  },
  {
   "root": {
