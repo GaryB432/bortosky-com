@@ -1,7 +1,4 @@
 <script lang="ts">
-  import type { PageData } from "./$types";
-  import NpmPackageList from "./package-explorer/components/NpmPackageList.svelte";
-  let { data }: { data: PageData } = $props();
   let packName = $state("");
 </script>
 
@@ -37,17 +34,6 @@
   <a class="button-a" href="/package-explorer/?p={packName}">Explore</a>
 </div>
 
-<section class="categories">
-  {#each data.downloadInfo as cat}
-    <div class="category">
-      <h1>
-        {cat.category}
-      </h1>
-      <NpmPackageList downloads={cat.popularDownloads}></NpmPackageList>
-    </div>
-  {/each}
-</section>
-
 <style>
   .container {
     display: flex;
@@ -59,14 +45,5 @@
   }
   svg.npm {
     width: 5rem;
-  }
-
-  .categories {
-    display: flex;
-    gap: 1rem;
-  }
-  .category {
-    padding: 1rem;
-    outline: thin solid silver;
   }
 </style>
