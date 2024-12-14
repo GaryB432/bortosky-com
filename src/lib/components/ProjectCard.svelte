@@ -7,6 +7,7 @@
 
   let nxVersion = $derived(packageVersion(project, "nx"));
   let ngVersion = $derived(packageVersion(project, "@angular/common"));
+  let depLink = $derived(encodeURI(`./dependencies?p=${project.root.name}`));
 
   function packageVersion(
     project: GaryProject,
@@ -26,7 +27,7 @@
 </script>
 
 <div>
-  {project.root.name}
+  <a href={depLink}>{project.root.name}</a>
 </div>
 <div class="description">
   {project.root.description ?? ""}

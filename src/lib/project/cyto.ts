@@ -15,10 +15,14 @@ export async function getDependencyElements(
   gprojs: GaryProject[],
   filter?: string[],
 ): Promise<ElementsDefinition> {
-  if (filter && filter.length > 0) error(501, "bad request");
+  // if (filter && filter.length > 0) error(501, "bad request");
+  filter ??= gprojs.map((p) => p.root.name);
+  console.log(filter);
   const dg = new DependencyGraph();
   for (const ws of gprojs) {
-    dg.digestWorkspace(ws);
+    if (filter.includes(ws.root.name)) {
+      dg.digestWorkspace(ws);
+    }
   }
   return dg.elements();
 }
