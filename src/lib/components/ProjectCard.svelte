@@ -7,6 +7,7 @@
 
   let nxVersion = $derived(packageVersion(project, "nx"));
   let ngVersion = $derived(packageVersion(project, "@angular/common"));
+  let depLink = $derived(encodeURI(`./dependencies?p=${project.root.name}`));
 
   function packageVersion(
     project: GaryProject,
@@ -25,8 +26,12 @@
   }
 </script>
 
-<div>
-  {project.root.name}
+<div class="wavy">
+  <div>
+    <span>
+      <a href={depLink}>{project.root.name}</a>
+    </span>
+  </div>
 </div>
 <div class="description">
   {project.root.description ?? ""}
@@ -66,8 +71,52 @@
 <div class="border"></div>
 
 <style lang="scss">
-  a {
-    display: block;
+  .wavy {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    padding: 7px 0;
+    > div {
+      overflow: hidden;
+      padding: 12px 24px;
+      border-radius: 7px;
+      background-color: white;
+      color: black;
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+
+      span {
+        position: relative;
+        transition: color 0.6s cubic-bezier(0.53, 0.21, 0, 1);
+      }
+
+      &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        // background: rgba(var(--fun-blue), 0.3);
+        background: rgba(var(--fun-blue), 0.3);
+        // background: var(--fun-blue);
+        transform: scaleX(0);
+        transform-origin: 100% 100%;
+        transition: transform 0.6s cubic-bezier(0.53, 0.21, 0, 1);
+      }
+
+      &:hover {
+        &:before {
+          transform-origin: 0 0;
+          transform: scaleX(1);
+        }
+        // span {
+        //   color: white;
+        // }
+      }
+    }
   }
 
   svg[role="graphics-symbol"] {
