@@ -1,6 +1,8 @@
 import { getDependencyElements } from "$lib/project/cyto";
 import type { PageLoad } from "./$types";
 
+export const prerender = false;
+
 export const load = (async ({ parent, url }) => {
   const { projects } = await parent();
 
