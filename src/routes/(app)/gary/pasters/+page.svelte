@@ -87,7 +87,7 @@
         //   #23bc2b 47%,
         //   #23bc2b 48%
         // );
-        background-color: var(--fun-blue);
+        background-color: rgb(var(--fun-blue));
 
         color: white;
 

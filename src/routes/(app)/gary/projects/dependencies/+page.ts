@@ -1,7 +1,9 @@
 import { getDependencyElements } from "$lib/project/cyto";
 import type { PageLoad } from "./$types";
 
-export const load = (async ({ parent }) => {
+export const prerender = false;
+
+export const load = (async ({ parent, url }) => {
   const { projects } = await parent();
 
   const xprojects = [
@@ -47,7 +49,7 @@ export const load = (async ({ parent }) => {
 
   const elements = await getDependencyElements(
     projects,
-    [], // url.searchParams.getAll("p"),
+    url.searchParams.getAll("p"),
   );
 
   return { elements };
