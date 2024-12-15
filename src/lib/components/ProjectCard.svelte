@@ -7,7 +7,7 @@
 
   let nxVersion = $derived(packageVersion(project, "nx"));
   let ngVersion = $derived(packageVersion(project, "@angular/common"));
-  let depLink = $derived(encodeURI(`./dependencies?p=${project.root.name}`));
+  let depLink = $derived(encodeURI(`./dependencies/?p=${project.root.name}`));
 
   function packageVersion(
     project: GaryProject,
