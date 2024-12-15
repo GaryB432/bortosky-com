@@ -8,13 +8,15 @@ import type {
 import { DependencyGraph } from "./dependency-graph";
 import { type GaryProject } from "./project";
 
-const ignoredDeps = new Set(["eslint-plugin-gb"]);
+// const ignoredDeps = new Set(["eslint-plugin-gb"]);
 
 export async function getDependencyElements(
   gprojs: GaryProject[],
   filter?: string[],
 ): Promise<ElementsDefinition> {
-  filter ??= gprojs.map((p) => p.root.name);
+  if (!filter || filter.length === 0) {
+    filter = [];
+  }
   console.log(filter);
   const dg = new DependencyGraph();
   for (const ws of gprojs) {
@@ -39,7 +41,7 @@ export async function getElements(
     depType: "run-time" | "development",
   ) {
     Object.entries(rec ?? {})
-      .filter(([target]) => !ignoredDeps.has(target))
+      // .filter(([target]) => !ignoredDeps.has(target))
       .forEach(([target, aversion]) => {
         mns.set(target, { data: { id: target, aversion }, classes: [DEP] });
         const dpid = `${target}_${source}`;

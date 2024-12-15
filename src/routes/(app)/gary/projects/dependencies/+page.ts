@@ -6,6 +6,8 @@ export const prerender = false;
 export const load = (async ({ parent, url }) => {
   const { projects } = await parent();
 
+  console.log(projects.length);
+
   const xprojects = [
     {
       root: {

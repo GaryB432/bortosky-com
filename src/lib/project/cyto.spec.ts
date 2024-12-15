@@ -20,7 +20,7 @@ describe("Cyto", () => {
               devDependencies: {
                 desk: "*",
                 window: "*",
-                "eslint-plugin-gb": "skipped",
+                "eslint-plugin-gb": "no-longer-skipped",
               },
               dependencies: { throttle: "4", brake: "1" },
             },
@@ -71,7 +71,7 @@ describe("Cyto", () => {
           },
           projects: [],
         },
-      ]),
+      ], ["workspace-a", "workspace-b"]),
     ).toMatchSnapshot();
   });
 });

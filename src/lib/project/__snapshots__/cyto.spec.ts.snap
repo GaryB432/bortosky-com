@@ -404,6 +404,17 @@ exports[`Cyto > getElements 1`] = `
         "development",
       ],
       "data": {
+        "id": "eslint-plugin-gb_workspace-a#wsa-a",
+        "source": "workspace-a#wsa-a",
+        "target": "eslint-plugin-gb",
+      },
+    },
+    {
+      "classes": [
+        "dep",
+        "development",
+      ],
+      "data": {
         "id": "jest_workspace-a",
         "source": "workspace-a",
         "target": "jest",
@@ -477,6 +488,15 @@ exports[`Cyto > getElements 1`] = `
       "data": {
         "aversion": "*",
         "id": "desk",
+      },
+    },
+    {
+      "classes": [
+        "dep",
+      ],
+      "data": {
+        "aversion": "no-longer-skipped",
+        "id": "eslint-plugin-gb",
       },
     },
     {
