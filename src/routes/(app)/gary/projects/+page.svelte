@@ -11,9 +11,8 @@
 </svelte:head>
 
 <section class="views">
-  <a href="./dependencies">dependencies</a>
-  <a href="./cytoscape">cytoscape view</a>
-  <a href="./chart">chart view</a>
+  <a href="./cytoscape/">cytoscape view</a>
+  <a href="./chart/">chart view</a>
 </section>
 
 <svg style="display: none">

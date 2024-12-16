@@ -36,7 +36,7 @@
 <style lang="scss">
   .top {
     --color-h1: white;
-    background-color: var(--fun-blue);
+    background-color: rgb(var(--fun-blue));
     display: flex;
     align-items: center;
     justify-content: space-between;
