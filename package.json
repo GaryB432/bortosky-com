@@ -15,7 +15,7 @@
     "test": "vitest --run"
   },
   "devDependencies": {
-		"@fontsource/montserrat": "^5.1.0",
+    "@fontsource/montserrat": "^5.1.0",
     "@gb-nx/svelte": "^8.4.1",
     "@gb-nx/workspace": "^5.0.0",
     "@sveltejs/adapter-vercel": "^5.5.2",
@@ -23,6 +23,7 @@
     "@sveltejs/vite-plugin-svelte": "^5.0.0",
     "@types/cytoscape": "^3.21.8",
     "@types/cytoscape-dagre": "^2.3.3",
+    "@types/semver": "^7.5.8",
     "eslint": "^9.7.0",
     "eslint-plugin-svelte": "^2.36.0",
     "globals": "^15.0.0",

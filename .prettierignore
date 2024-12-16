@@ -6,4 +6,5 @@
 /.vercel
 /.svelte-kit
 /package
+pnpm-lock.yaml
 static/gary/projects.json
