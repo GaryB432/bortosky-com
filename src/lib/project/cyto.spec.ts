@@ -41,37 +41,40 @@ describe("Cyto", () => {
 
   test("getDepencencyElements", async () => {
     expect(
-      await getDependencyElements([
-        {
-          root: {
-            name: "workspace-a",
-            version: "whatever",
-            devDependencies: { jest: "3.0.0" },
-            dependencies: { album: "4.0.0" },
-          },
-          projects: [
-            {
-              name: "wsa-a",
-              type: "module",
-              devDependencies: {
-                desk: "^1.4.9",
-                window: "5.4.2",
-                "eslint-plugin-gb": "skipped",
-              },
-              dependencies: { throttle: "^4.1.2", brake: "~1.4.6" },
+      await getDependencyElements(
+        [
+          {
+            root: {
+              name: "workspace-a",
+              version: "whatever",
+              devDependencies: { jest: "3.0.0" },
+              dependencies: { album: "4.0.0" },
             },
-          ],
-        },
-        {
-          root: {
-            name: "workspace-b",
-            version: "0",
-            devDependencies: { jest: "^4.0.0" },
-            dependencies: { album: "2" },
+            projects: [
+              {
+                name: "wsa-a",
+                type: "module",
+                devDependencies: {
+                  desk: "^1.4.9",
+                  window: "5.4.2",
+                  "eslint-plugin-gb": "skipped",
+                },
+                dependencies: { throttle: "^4.1.2", brake: "~1.4.6" },
+              },
+            ],
           },
-          projects: [],
-        },
-      ], ["workspace-a", "workspace-b"]),
+          {
+            root: {
+              name: "workspace-b",
+              version: "0",
+              devDependencies: { jest: "^4.0.0" },
+              dependencies: { album: "2" },
+            },
+            projects: [],
+          },
+        ],
+        ["workspace-a", "workspace-b"],
+      ),
     ).toMatchSnapshot();
   });
 });
