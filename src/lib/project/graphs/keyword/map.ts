@@ -1,5 +1,6 @@
 import type { IService, PackumentBase } from "$lib/project/npm";
 import type { PackageJson } from "$lib/project/project";
+import semver from "semver";
 // import { get } from "simple-get";
 
 export type Keyword = string;
@@ -135,11 +136,14 @@ export async function getKeywordMap(
   ): Promise<void> {
     if (depRecord) {
       for (const dep of Object.keys(depRecord)) {
-        const dpack = await npm.getPackument(dep, depRecord[dep]);
-        if (dpack) {
-          const pj = getPackageGVersion(dpack);
-          for (const k of pj.keywords ?? []) {
-            digestKeyword(k, pj);
+        const v = depRecord[dep];
+        if (semver.validRange(v)) {
+          const dpack = await npm.getPackument(dep, v);
+          if (dpack) {
+            const pj = getPackageGVersion(dpack);
+            for (const k of pj.keywords ?? []) {
+              digestKeyword(k, pj);
+            }
           }
         }
       }
