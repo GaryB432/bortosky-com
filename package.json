@@ -3,48 +3,57 @@
   "private": true,
   "version": "0.0.1",
   "type": "module",
-  "packageManager": "pnpm@9.14.2",
+  "packageManager": "pnpm@9.15.4",
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
     "preview": "vite preview",
+    "prepare": "svelte-kit sync || echo ''",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-    "lint": "eslint .",
+    "format": "prettier --write .",
+    "lint": "prettier --check . && eslint .",
     "test:unit": "vitest",
-    "test": "vitest --run"
+    "test": "npm run test:unit -- --run"
   },
   "devDependencies": {
-    "@fontsource/montserrat": "^5.1.0",
-    "@gb-nx/svelte": "^8.4.1",
-    "@gb-nx/workspace": "^5.0.0",
-    "@sveltejs/adapter-vercel": "^5.5.2",
-    "@sveltejs/kit": "^2.9.0",
+    "@eslint/compat": "^1.2.5",
+    "@eslint/js": "^9.18.0",
+    "@fontsource/fira-mono": "^5.0.0",
+    "@sveltejs/adapter-vercel": "^5.6.1",
+    "@sveltejs/kit": "^2.16.0",
     "@sveltejs/vite-plugin-svelte": "^5.0.0",
-    "@types/cytoscape": "^3.21.8",
+    "@types/cytoscape": "^3.21.9",
     "@types/cytoscape-dagre": "^2.3.3",
     "@types/semver": "^7.5.8",
-    "eslint": "^9.7.0",
-    "eslint-plugin-svelte": "^2.36.0",
-    "globals": "^15.0.0",
-    "prettier-plugin-svelte": "^3.3.2",
-    "sass-embedded": "^1.83.0",
+    "eslint": "^9.18.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-gb": "^9.1.0",
+    "eslint-plugin-svelte": "^2.46.1",
+    "globals": "^15.14.0",
+    "prettier": "^3.4.2",
+    "prettier-plugin-svelte": "^3.3.3",
+    "sass-embedded": "^1.83.4",
     "svelte": "^5.0.0",
     "svelte-check": "^4.0.0",
     "the-new-css-reset": "^1.11.3",
     "typescript": "^5.0.0",
-    "typescript-eslint": "^8.0.0",
+    "typescript-eslint": "^8.20.0",
     "vite": "^6.0.0",
-    "vitest": "^2.0.4"
+    "vitest": "^3.0.0"
   },
   "dependencies": {
-    "cytoscape": "^3.30.4",
+    "@fontsource/montserrat": "^5.1.1",
+    "cytoscape": "^3.31.0",
     "cytoscape-dagre": "^2.5.0",
-    "eslint-plugin-gb": "^9.1.0",
-    "semver": "^7.6.3",
+    "semver": "^7.7.1",
     "tippy.js": "^6.3.7"
   },
-  "nx": {},
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  },
   "bugs": "https://github.com/GaryB432/bortosky-com/issues",
   "repository": "github:GaryB432/bortosky-com"
 }
