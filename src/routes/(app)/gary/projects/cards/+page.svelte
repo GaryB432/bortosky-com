@@ -275,12 +275,14 @@
     will-change: transform;
   }
 
+  /* 
   body {
     background: rgb(58 29 43);
     color: rgb(255, 255, 255);
 
     font-size: calc(1em + 0.5vw);
-  }
+  } 
+  */
 
   header,
   main {
@@ -349,6 +351,7 @@
     object-fit: cover;
   }
 
+  /* 
   main h1 {
     font-weight: 300;
     font-size: 3.5em;
@@ -358,6 +361,7 @@
     font-weight: 300;
     font-size: 2.5em;
   }
+  */
 
   main p {
     font-family: sans-serif;
