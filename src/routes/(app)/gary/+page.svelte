@@ -1,3 +1,4 @@
+<!-- @migration-task Error while migrating Svelte code: end is out of bounds -->
 <script lang="ts">
   import { base } from "$app/paths";
   import { qrs } from "$lib/shared/quick-response";

@@ -1,5 +1,5 @@
 @forward "@fontsource/montserrat";
-@forward "the-new-css-reset";
+@forward "../node_modules/the-new-css-reset/css/reset";
 @forward "tippy.js/dist/tippy";
 @forward "./styles/button.scss";
 @forward "./styles/input.scss";
