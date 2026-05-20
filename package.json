@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.1",
   "type": "module",
-  "packageManager": "pnpm@9.15.4",
+  "packageManager": "pnpm@11.1.3",
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
@@ -23,7 +23,6 @@
     "@sveltejs/adapter-vercel": "^5.6.1",
     "@sveltejs/kit": "^2.16.0",
     "@sveltejs/vite-plugin-svelte": "^5.0.0",
-    "@types/cytoscape": "^3.21.9",
     "@types/cytoscape-dagre": "^2.3.3",
     "@types/semver": "^7.5.8",
     "eslint": "^9.18.0",
@@ -48,11 +47,6 @@
     "cytoscape-dagre": "^2.5.0",
     "semver": "^7.7.1",
     "tippy.js": "^6.3.7"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild"
-    ]
   },
   "bugs": "https://github.com/GaryB432/bortosky-com/issues",
   "repository": "github:GaryB432/bortosky-com"
