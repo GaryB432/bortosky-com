@@ -8,6 +8,13 @@ type FullMoon = {
 
 export const load = (({ params }) => {
   const year = Number(params.year);
+  // Validate year: must be an integer between 1900 and 2100
+  if (!Number.isInteger(year) || year < 1900 || year > 2100) {
+    return {
+      fullMoons: [],
+      error: `Invalid year: ${params.year}. Please enter a year between 1900 and 2100.`,
+    };
+  }
 
   const fullMoons = findFullMoons(year).map<FullMoon>((d, _, ds) => {
     const name = likelyMoonName(d, ds);
