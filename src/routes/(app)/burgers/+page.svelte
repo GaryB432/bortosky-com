@@ -1,7 +1,8 @@
 <script lang="ts">
   import { onMount } from "svelte";
 
-  let autoShow: ReturnType<typeof setTimeout>;
+  let autoShow: ReturnType<typeof setTimeout> | undefined = $state();
+  // let autoShow = $state();
 
   onMount(() => {
     let currentActive = 0;

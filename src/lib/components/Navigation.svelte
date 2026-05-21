@@ -1,20 +1,20 @@
 <script lang="ts">
   import { base } from "$app/paths";
-  import { page } from "$app/stores";
+  import { page } from "$app/state";
 </script>
 
 <nav>
   <ul>
-    <li class:active={$page.route.id === "/(app)"}>
+    <li class:active={page.route.id === "/(app)"}>
       <a href="{base}/">Home</a>
     </li>
-    <li class:active={$page.route.id === "/(app)/gary"}>
+    <li class:active={page.route.id === "/(app)/gary"}>
       <a href="{base}/gary">Gary</a>
     </li>
-    <li class:active={$page.route.id === "/(app)/utilities"}>
+    <li class:active={page.route.id === "/(app)/utilities"}>
       <a href="{base}/utilities">Tools</a>
     </li>
-    <li class:active={$page.route.id === "/(app)/privacy-terms"}>
+    <li class:active={page.route.id === "/(app)/privacy-terms"}>
       <a href="{base}/privacy-terms">Privacy and Terms</a>
     </li>
   </ul>

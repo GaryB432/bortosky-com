@@ -9,7 +9,7 @@ import type {
 type Time = { modified: string; created: string } | Record<string, string>;
 
 interface SearchResultPackage extends PackageJson {
-  scope?: "unscoped" | string;
+  scope?: string;
   date?: string;
   links?: {
     npm: string;

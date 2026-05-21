@@ -49,7 +49,7 @@ export const load = (async ({ parent, url }) => {
     },
   ];
 
-  const elements = await getDependencyElements(
+  const elements = getDependencyElements(
     projects,
     url.searchParams.getAll("p"),
   );

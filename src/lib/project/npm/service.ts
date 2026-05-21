@@ -53,7 +53,7 @@ export class Service implements IService, IDownloadService {
       );
     }
 
-    const pack: PackumentBase = await resp.json();
+    const pack = (await resp.json()) as PackumentBase;
 
     const { "dist-tags": tags } = pack;
 
@@ -83,7 +83,7 @@ export class Service implements IService, IDownloadService {
       throw new Error("error from npm");
     }
 
-    const pv: PackumentVersion = await versionResponse.json();
+    const pv = (await versionResponse.json()) as PackumentVersion;
     pack.versions[mostRecentSatisfying] = pv;
     pack["dist-tags"]["_gb"] = mostRecentSatisfying;
 
@@ -97,7 +97,7 @@ export class Service implements IService, IDownloadService {
         Accept: "application/json, text/plain, */*",
       },
     });
-    const resp: SearchResultResponse = await fetched.json();
+    const resp = (await fetched.json()) as SearchResultResponse;
 
     return resp.objects.map((o) => o.package.name);
   }

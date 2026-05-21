@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { page } from "$app/stores";
+  import { page } from "$app/state";
   import { linear, sineOut } from "svelte/easing";
   import { tweened } from "svelte/motion";
 
@@ -32,16 +32,16 @@
   </label>
 
   <ul style="transform: translate({$lefter}px, 0);">
-    <li class:active={$page.route.id === "/(app)"}>
+    <li class:active={page.route.id === "/(app)"}>
       <a href="/"> Home </a>
     </li>
-    <li class:active={$page.route.id === "/(app)/gary"}>
+    <li class:active={page.route.id === "/(app)/gary"}>
       <a href="/gary"> Gary&apos;s Things </a>
     </li>
-    <li class:active={$page.route.id === "/(app)/utilities"}>
+    <li class:active={page.route.id === "/(app)/utilities"}>
       <a href="/utilities"> Tools </a>
     </li>
-    <li class:active={$page.route.id === "/(app)/privacy-terms"}>
+    <li class:active={page.route.id === "/(app)/privacy-terms"}>
       <a href="/privacy-terms"> Privacy and Terms </a>
     </li>
   </ul>
@@ -68,7 +68,7 @@
     padding: 0.8rem 0;
   }
 
-  label:has(input:checked) + ul {
+  label:has(:global(input:checked)) + ul {
     transform: none;
   }
 

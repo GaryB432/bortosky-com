@@ -3,7 +3,8 @@ button.button-a {
   cursor: pointer;
   line-height: 1;
   border-radius: 500px;
-  transition-property: background-color, border-color, color, box-shadow, filter;
+  transition-property:
+    background-color, border-color, color, box-shadow, filter;
   transition-duration: 0.3s;
   border: 1px solid transparent;
   letter-spacing: 2px;

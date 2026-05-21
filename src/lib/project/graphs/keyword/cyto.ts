@@ -34,9 +34,9 @@ export type GElementDataDefinitionx = ElementDataDefinition & {
 //   return dg.elements();
 // }
 
-export async function getElements(
+export function getElements(
   keywordMap: Map<string, PackageJson[]>,
-): Promise<ElementsDefinition> {
+): ElementsDefinition {
   const mns = new Map<string, NodeDefinition>();
   const mes = new Map<string, EdgeDefinition>();
 
