@@ -15,7 +15,7 @@
   onMount(() => {
     // Pass the number of cards to the CSS because it needs it to add some extra padding.
     // Without this extra padding, the last card won’t move with the group but slide over it.
-    if (!Scards) {
+    if (!Scards || !ScardsWrapper) {
       return;
     }
     // const numCards = Scards.length;

@@ -10,10 +10,10 @@ import { type GaryProject } from "./project";
 
 // const ignoredDeps = new Set(["eslint-plugin-gb"]);
 
-export async function getDependencyElements(
+export function getDependencyElements(
   gprojs: GaryProject[],
   filter?: string[],
-): Promise<ElementsDefinition> {
+): ElementsDefinition {
   if (!filter || filter.length === 0) {
     filter = [];
   }
@@ -27,9 +27,7 @@ export async function getDependencyElements(
   return dg.elements();
 }
 
-export async function getElements(
-  gprojs: GaryProject[],
-): Promise<ElementsDefinition> {
+export function getElements(gprojs: GaryProject[]): ElementsDefinition {
   const mns = new Map<string, NodeDefinition>();
   const mes = new Map<string, EdgeDefinition>();
 

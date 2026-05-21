@@ -21,7 +21,7 @@ export const load = (async ({ url, fetch }) => {
       }
       const keywordMap = await getKeywordMap(packument, npm);
 
-      const cytoElements = await getElements(keywordMap);
+      const cytoElements = getElements(keywordMap);
 
       return {
         keywordMap,

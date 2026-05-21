@@ -101,7 +101,7 @@ export function getPackageGVersion(subject: PackumentBase): PackageJson {
   const pj = subject.versions[gbv] as PackageJson;
   // console.log(tags);
   if (!pj) {
-    throw `${subject.name} is broken`;
+    throw new Error(`${subject.name} is broken`);
   }
   return pj;
 }

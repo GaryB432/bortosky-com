@@ -3,9 +3,9 @@ import { getDependencyElements, getElements } from "./cyto";
 import type { GaryProject } from "./project";
 
 describe("Cyto", () => {
-  test("getElements", async () => {
+  test("getElements", () => {
     expect(
-      await getElements([
+      getElements([
         {
           root: {
             name: "workspace-a",
@@ -39,9 +39,9 @@ describe("Cyto", () => {
     ).toMatchSnapshot();
   });
 
-  test("getDepencencyElements", async () => {
+  test("getDepencencyElements", () => {
     expect(
-      await getDependencyElements(
+      getDependencyElements(
         [
           {
             root: {

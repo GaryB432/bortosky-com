@@ -33,12 +33,12 @@ const [house, kitchen, bath] = someJs;
 
 describe("Cyto", () => {
   beforeEach(() => {});
-  test("gets elements", async () => {
+  test("gets elements", () => {
     expect(house.name).toEqual("house");
     expect(kitchen.name).toEqual("kitchen");
     expect(bath.name).toEqual("bathroom");
 
-    const gels = await getElements(
+    const gels = getElements(
       new Map<string, PackageJson[]>([
         ["kw-ac", [house, bath]],
         ["kw-ab", [house, kitchen]],

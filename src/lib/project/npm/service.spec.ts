@@ -7,9 +7,18 @@ async function mockFetcher(
   init?: RequestInit,
 ): Promise<Response> {
   return new Promise<Response>((resolve, reject) => {
-    const url = typeof input === "string" ? input : input.toString();
+    // if (typeof input !== "string") throw new Error("only string supported");
+
+    let inp = input;
+
+    if (input instanceof URL) {
+      inp = input.href;
+    }
+    if (input instanceof Request) {
+      inp = input.url;
+    }
     setTimeout(() => {
-      switch (url) {
+      switch (inp) {
         case "https://registry.npmjs.org/venv": {
           if (init) {
             const acceptHeader = new Headers(init.headers).get("Accept");
@@ -23,14 +32,16 @@ async function mockFetcher(
                 }),
               );
             } else {
-              reject("missing Accept header");
+              reject(new Error("missing Accept header"));
             }
           }
           break;
         }
         case "https://registry.npmjs.org/venv/1.0.1": {
           if (init) {
-            reject("version level requests should not have initializer");
+            reject(
+              new Error("version level requests should not have initializer"),
+            );
           } else {
             resolve(
               new Response(JSON.stringify(venvPack.versions["1.0.1"]), {
@@ -58,7 +69,7 @@ describe("Service", () => {
   beforeEach(() => {
     service = new Service(mockFetcher);
   });
-  test("package getting", async () => {
+  test("package getting", () => {
     expect(service).toBeDefined();
   });
 
