@@ -26,6 +26,7 @@
     "@types/cytoscape-dagre": "^2.3.3",
     "@types/node": "^25.9.0",
     "@types/semver": "^7.5.8",
+    "@types/suncalc": "^1.9.2",
     "@typescript/lib-dom": "npm:@types/web@^0.0.349",
     "@vitest/browser-playwright": "^4.1.6",
     "eslint": "^9.18.0",
@@ -50,6 +51,7 @@
     "cytoscape": "^3.31.0",
     "cytoscape-dagre": "^2.5.0",
     "semver": "^7.7.1",
+    "suncalc": "^1.9.0",
     "tippy.js": "^6.3.7"
   },
   "bugs": "https://github.com/GaryB432/bortosky-com/issues",
