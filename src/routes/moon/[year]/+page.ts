@@ -6,8 +6,8 @@ type FullMoon = {
   name?: string;
 };
 
-export const load = (() => {
-  const year = 2054; //  get this from routeParam
+export const load = (({ params }) => {
+  const year = Number(params.year);
 
   const fullMoons = findFullMoons(year).map<FullMoon>((d, _, ds) => {
     const name = likelyMoonName(d, ds);
@@ -16,8 +16,6 @@ export const load = (() => {
       name,
     };
   });
-
-  console.log(fullMoons);
 
   return { fullMoons };
 }) satisfies PageLoad;
