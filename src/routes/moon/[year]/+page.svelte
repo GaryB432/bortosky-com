@@ -1,10 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
 
-  let { data } = $props();
-
-  let { fullMoons } = $derived(data);
-
   let canvasEl: HTMLCanvasElement | null = $state(null);
 
   //   const f = canvasEl ? canvasEl.
@@ -172,7 +168,3 @@
 </script>
 
 <canvas bind:this={canvasEl}></canvas>
-
-<pre>
-    {JSON.stringify(fullMoons, undefined, 2)}
-</pre>
