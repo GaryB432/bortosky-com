@@ -1,8 +1,8 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { page } from "$app/stores";
   import { getQRPoints } from "./qr";
   import { ParticleEngine } from "./engine";
+  import { resolve } from "$app/paths";
 
   const STAGE_SIZE = 320;
   let canvas: HTMLCanvasElement | undefined = $state();
@@ -89,7 +89,7 @@
   function getFinalTargets(pattern: string) {
     if (!engine) return [];
     const count = engine.particles.length;
-    const url = `${$page.url.origin}/gary/contact/download`;
+    const url = resolve("/gary/contact/download");
 
     if (pattern === "qr") {
       return getQRPoints(url, STAGE_SIZE).points;
@@ -144,7 +144,7 @@
 
     engine = new ParticleEngine(STAGE_SIZE);
 
-    const url = `${$page.url.origin}/gary/contact/download`;
+    const url = resolve("/gary/contact/download");
     const { points, cellSize } = getQRPoints(url, STAGE_SIZE);
 
     engine.init(points.length, cellSize);
