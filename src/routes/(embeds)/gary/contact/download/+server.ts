@@ -5,11 +5,24 @@ import crypto from "node:crypto";
 const currentTimestamp =
   new Date().toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
 
+function requireEnv(value: unknown, name: string): string {
+  if (typeof value !== "string" || value.length === 0) {
+    throw new Error(`Missing or invalid env var: ${name}`);
+  }
+  return value;
+}
+
 export const GET: RequestHandler = () => {
   const otherInformation: string[] = [];
   try {
-    const key = Buffer.from(VERCEL_VCARD_SECRET_KEY, "hex");
-    const iv = Buffer.from(VERCEL_VCARD_IV, "hex");
+    const key = Buffer.from(
+      requireEnv(VERCEL_VCARD_SECRET_KEY, "VERCEL_VCARD_SECRET_KEY"),
+      "hex",
+    );
+    const iv = Buffer.from(
+      requireEnv(VERCEL_VCARD_IV, "VERCEL_VCARD_IV"),
+      "hex",
+    );
     const decipher = crypto.createDecipheriv("aes-256-cbc", key, iv);
     let decrypted = decipher.update(encryptedData, "hex", "utf-8");
     decrypted += decipher.final("utf-8");
