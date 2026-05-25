@@ -6,14 +6,15 @@
 
   const STAGE_SIZE = 320;
   let canvas: HTMLCanvasElement | undefined = $state();
+  let stageFrame: HTMLDivElement | undefined = $state();
   let engine: ParticleEngine | undefined = $state();
   let currentPattern = $state("qr");
   const patterns = ["qr", "random", "settle", "hourglass"] as const;
 
   let innerWidth = $state(0);
   let innerHeight = $state(0);
-  const offsetX = $derived(innerWidth / 2 - STAGE_SIZE / 2);
-  const offsetY = $derived(innerHeight / 2 - STAGE_SIZE / 2);
+  let stageX = 0;
+  let stageY = 0;
 
   let touchStartX = 0;
   let touchStartTime = 0;
@@ -60,8 +61,8 @@
     const pauseTargets = Array.from(
       { length: engine.particles.length },
       () => ({
-        x: Math.random() * innerWidth - offsetX,
-        y: Math.random() * innerHeight - offsetY,
+        x: Math.random() * innerWidth - stageX,
+        y: Math.random() * innerHeight - stageY,
       }),
     );
     engine.setTargets(
@@ -69,7 +70,7 @@
       "pause",
       currentPattern,
       performance.now(),
-      offsetY,
+      stageY,
     );
 
     // Phase 3: Finalize resolution to scale(1), rotate(0) inside stage
@@ -81,9 +82,17 @@
         "finalize",
         currentPattern,
         performance.now(),
-        offsetY,
+        stageY,
       );
     }, 1200);
+  }
+
+  function updateStageOffset() {
+    if (!canvas || !stageFrame) return;
+    const canvasRect = canvas.getBoundingClientRect();
+    const stageRect = stageFrame.getBoundingClientRect();
+    stageX = stageRect.left - canvasRect.left;
+    stageY = stageRect.top - canvasRect.top;
   }
 
   function getFinalTargets(pattern: string) {
@@ -148,19 +157,27 @@
     const { points, cellSize } = getQRPoints(url, STAGE_SIZE);
 
     engine.init(points.length, cellSize);
+    updateStageOffset();
+
+    // Seed particles in the center of the current stage before first animation.
+    for (const particle of engine.particles) {
+      particle.x = STAGE_SIZE / 2;
+      particle.y = STAGE_SIZE / 2;
+      particle.tx = STAGE_SIZE / 2;
+      particle.ty = STAGE_SIZE / 2;
+    }
+
     runChoreography();
 
     let frame: number;
     function loop(time: number) {
       if (engine && ctx) {
-        ctx.save();
+        updateStageOffset();
         ctx.setTransform(1, 0, 0, 1, 0, 0);
-        ctx.fillStyle = "#f4f4f4";
-        ctx.fillRect(0, 0, innerWidth, innerHeight);
-        ctx.restore();
+        ctx.clearRect(0, 0, innerWidth, innerHeight);
 
         ctx.save();
-        ctx.translate(offsetX, offsetY);
+        ctx.translate(stageX, stageY);
         ctx.fillStyle = "#fff";
         ctx.fillRect(0, 0, STAGE_SIZE, STAGE_SIZE);
         engine.update(time);
@@ -185,10 +202,16 @@
 <svelte:window bind:innerWidth bind:innerHeight />
 
 <main class="scene" class:is-non-qr={currentPattern !== "qr"}>
-  <canvas bind:this={canvas} width={innerWidth} height={innerHeight}></canvas>
+  <canvas
+    class="scene-canvas"
+    bind:this={canvas}
+    width={innerWidth}
+    height={innerHeight}
+  ></canvas>
 
   <div class="hud">
     <div
+      bind:this={stageFrame}
       class="stage-frame"
       onpointerdown={handlePointerDown}
       onpointerup={handlePointerUp}
@@ -241,10 +264,12 @@
 
   .scene {
     position: relative;
-    width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     background: radial-gradient(circle at center, #ffffff 0%, #f4f4f4 100%);
-    overflow: hidden;
+    padding: clamp(0.75rem, 2vh, 1.5rem) 1rem max(0.75rem, env(safe-area-inset-bottom));
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
     transition: background 1.2s ease;
 
     &.is-non-qr {
@@ -252,40 +277,39 @@
     }
   }
 
-  canvas {
+  .scene-canvas {
     position: absolute;
-    top: 0;
-    left: 0;
-    display: block;
+    inset: 0;
+    z-index: 0;
     pointer-events: none;
+    display: block;
   }
 
   .hud {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    padding: 2rem 1rem;
+    justify-content: flex-start;
+    gap: 1rem;
+    width: min(100%, 420px);
+    min-height: calc(100dvh - clamp(2.75rem, 7vh, 4.5rem));
+    margin: 0 auto;
   }
 
   .stage-frame {
-    pointer-events: auto;
-    width: 320px;
-    height: 320px;
-    margin-top: auto;
-    margin-bottom: 2rem;
+    width: min(88vw, 340px);
+    height: min(88vw, 340px);
+    margin-top: clamp(1.25rem, 10vh, 5rem);
     cursor: pointer;
     outline: none;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
-    border-radius: 24px;
+    border-radius: 0;
     border: 1px solid rgba(0, 0, 0, 0.05);
-    background: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.01));
+    background: transparent;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
-    backdrop-filter: blur(1px);
     transition: transform 0.2s ease;
 
     &:active {
@@ -294,10 +318,10 @@
   }
 
   .copy {
+    margin-top: auto;
     text-align: center;
     color: #333;
     max-width: 320px;
-    margin-bottom: 1.5rem;
     animation: rise-in 0.6s ease-out both;
   }
 
@@ -317,7 +341,6 @@
   }
 
   .download {
-    pointer-events: auto;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -343,9 +366,9 @@
   }
 
   .pattern-row {
-    pointer-events: auto;
     display: flex;
     gap: 0.5rem;
+    margin: 0 1rem max(1.75rem, calc(env(safe-area-inset-bottom) + 0.75rem));
     padding: 0.4rem;
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.8);
