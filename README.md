@@ -62,3 +62,13 @@ nx format
 nx build site
 nx graph
 ```
+
+## Contact information
+
+The `gary/contact` route contains relatively private information in a downloadable [vCard 4.0](https://datatracker.ietf.org/doc/html/rfc6350)
+
+See external documentation about the at-rest encryption of this data.
+
+[Difference Among vCard Version 2.0, 3.0, & 4.0 | How to Guide](https://www.softaken.com/guide/difference-among-vcard-version-2-0-3-0-4-0/)
+
+[VCF Converter - Free Online vCard File Converter](https://www.vcfconverter.com/)
