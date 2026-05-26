@@ -72,18 +72,6 @@
     </svg>
     <div>Contact</div>
   </a>
-  {#each qrs as qr, i}
-    <a href="./qr/{i}#go">
-      <img
-        src={qr.src}
-        width="150"
-        height="150"
-        alt="contact qr"
-        title={qr.from}
-      />
-      <div class="caption">{qr.caption}</div>
-    </a>
-  {/each}
 </section>
 
 <!-- 
