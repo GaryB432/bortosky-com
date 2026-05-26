@@ -266,7 +266,8 @@
     position: relative;
     min-height: 100vh;
     background: radial-gradient(circle at center, #ffffff 0%, #f4f4f4 100%);
-    padding: clamp(0.75rem, 2vh, 1.5rem) 1rem max(0.75rem, env(safe-area-inset-bottom));
+    padding: clamp(0.75rem, 2vh, 1.5rem) 1rem
+      max(0.75rem, env(safe-area-inset-bottom));
     display: flex;
     justify-content: center;
     align-items: stretch;
