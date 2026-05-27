@@ -46,7 +46,6 @@
   // Generate only the visible slices reactively!
   let visibleCapsules = $derived.by(() => {
     const list: Capsule[] = [];
-    // Cap it safely below your ten million limit
     const end = Math.min(10000000, endSequence);
     for (let i = startSequence; i <= end; i++) {
       list.push(getCapsuleAtSequence(i));
