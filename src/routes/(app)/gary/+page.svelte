@@ -74,37 +74,6 @@
   </a>
 </section>
 
-<!-- 
-
-
-<style lang="scss">
-  .qrs {
-    align-items: center;
-    flex-direction: column;
-    display: flex;
-    gap: 1em;
-    .qr {
-      border: thin solid #ccc;
-      img {
-        width: 300px;
-      }
-      .caption {
-        text-align: center;
-      }
-    }
-  }
-  // .qrs .qr img {
-  //   margin: 8em 0;
-  //   width: 300px;
-  //   height: 300px;
-  // }
-  // .qrs .qr .caption {
-  // }
-
- 
-</style>
- -->
-
 <style lang="scss">
   .container {
     max-width: 90vw;
@@ -118,7 +87,6 @@
     gap: 1rem;
     margin: 1rem 0;
     padding: 0.5rem;
-    img,
     svg {
       width: 100%;
     }
