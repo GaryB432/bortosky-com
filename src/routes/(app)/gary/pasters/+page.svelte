@@ -22,52 +22,66 @@
       rando(nouns),
     ].join(" ");
 
+  // Track the current sequence globally or inside the manager
+  let currentSequence = 1;
+
   function getRandomCapsule(): Capsule {
-    return { sequence: 0, phrase: phrase(), active: false };
+    return {
+      sequence: currentSequence++,
+      phrase: phrase(),
+      active: false,
+    };
   }
 
-  // 2. The infinite "never-done" generator
-  // Typing it as Iterator<string, void> means it yields strings and never returns a final value
   function* infiniteCapsuleStream(): Iterator<Capsule, void> {
     while (true) {
       yield getRandomCapsule();
     }
   }
 
-  // 3. UI Consumer: Fetching "a screen at a time"
   class InfiniteScrollManager {
     private stream = infiniteCapsuleStream();
 
-    // Call this when the page loads, and every time the user scrolls near the bottom
     public loadNextScreen(pageSize: number = 10): Capsule[] {
       const batch: Capsule[] = [];
-
       for (let i = 0; i < pageSize; i++) {
         const result = this.stream.next();
-
-        // Because 'done' is always false, 'value' is guaranteed to be a string
         if (!result.done) {
           batch.push(result.value);
         }
       }
-
       return batch;
     }
   }
 
-  // let phrases: string[] = $state([]);
-
   const scrollManager = new InfiniteScrollManager();
-  // const initialScreen = scrollManager.loadNextScreen(15); // Loads initial 15 sentences
-
   const capsules: Capsule[] = $state([]);
+  let anchorElement: HTMLDivElement; // Reference to our scroll anchor
 
   function reload() {
     capsules.push(...scrollManager.loadNextScreen(15));
   }
 
   onMount(() => {
+    // 1. Initial Load
     reload();
+
+    // 2. Setup Intersection Observer
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          reload();
+        }
+      },
+      {
+        rootMargin: "300px", // Start loading 300px before reaching the bottom
+      },
+    );
+
+    observer.observe(anchorElement);
+
+    // 3. Cleanup observer on destroy
+    return () => observer.disconnect();
   });
 </script>
 
@@ -82,10 +96,12 @@
     reload();
   }}>SPIN</button
 >
+
 <section class="container">
   {#each capsules as cap}
     <div>{cap.sequence}</div>
-    <div class={{ active: cap.active }}>
+    <!-- FIXED: Correct Svelte class binding syntax -->
+    <div class:active={cap.active}>
       {cap.phrase}
     </div>
     <div>
@@ -98,59 +114,21 @@
   {/each}
 </section>
 
+<!-- FIXED: Bind the anchor element to our TypeScript variable -->
+<div bind:this={anchorElement} id="scroll-anchor"></div>
+
 <style lang="scss">
   .container {
     max-width: 60vw;
     display: grid;
+    /* 4 character sequence, flexible phrase, 50px copy button */
     grid-template-columns: 4ch 1fr 50px;
     align-items: center;
     margin: 0 auto;
-    outline: 1px solid red;
+    row-gap: 0.5rem; /* Added spacing between rows */
+
     > div {
-      outline: 3px solid green;
+      font-size: 1rem;
     }
-  }
-
-  // .container {
-  //   display: grid;
-  //   grid-template-columns: 1fr 50px 69px;
-  //   padding: 1em;
-  //   > div {
-
-  //     font-size: 0.8rem;
-  //     display: flex;
-  //     align-items: center;
-  //     justify-content: center;
-  //     .p {
-  //       padding: 0.5rem;
-  //       width: 15ch;
-  //     }
-  //     &.active .p {
-  //       background-color: rgb(var(--fun-blue));
-  //       color: white;
-  //       &::before {
-  //         content: "";
-  //       }
-  //     }
-  //   }
-  // }
-  // i {
-  //   font-size: 0.5em;
-  // }
-
-  @media screen and (min-width: 576px) {
-    /* landscape phones */
-  }
-  @media screen and (min-width: 768px) {
-    /* tablets */
-  }
-  @media screen and (min-width: 992px) {
-    /* desktops */
-  }
-  @media screen and (min-width: 1200px) {
-    /* large desktops */
-  }
-  @media screen and (min-width: 1400px) {
-    /* larger desktops */
   }
 </style>
