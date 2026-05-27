@@ -4,6 +4,12 @@
   import { onMount } from "svelte";
   import { adjectives, nouns } from "./words";
 
+  type Capsule = {
+    sequence: number;
+    phrase: string;
+    active?: boolean;
+  };
+
   function rando<T>(a: T[]): T {
     return a.at(Math.floor(rand() * a.length))!;
   }
@@ -16,10 +22,48 @@
       rando(nouns),
     ].join(" ");
 
-  let phrases: string[] = $state([]);
+  function getRandomCapsule(): Capsule {
+    return { sequence: 0, phrase: phrase(), active: false };
+  }
+
+  // 2. The infinite "never-done" generator
+  // Typing it as Iterator<string, void> means it yields strings and never returns a final value
+  function* infiniteCapsuleStream(): Iterator<Capsule, void> {
+    while (true) {
+      yield getRandomCapsule();
+    }
+  }
+
+  // 3. UI Consumer: Fetching "a screen at a time"
+  class InfiniteScrollManager {
+    private stream = infiniteCapsuleStream();
+
+    // Call this when the page loads, and every time the user scrolls near the bottom
+    public loadNextScreen(pageSize: number = 10): Capsule[] {
+      const batch: Capsule[] = [];
+
+      for (let i = 0; i < pageSize; i++) {
+        const result = this.stream.next();
+
+        // Because 'done' is always false, 'value' is guaranteed to be a string
+        if (!result.done) {
+          batch.push(result.value);
+        }
+      }
+
+      return batch;
+    }
+  }
+
+  // let phrases: string[] = $state([]);
+
+  const scrollManager = new InfiniteScrollManager();
+  // const initialScreen = scrollManager.loadNextScreen(15); // Loads initial 15 sentences
+
+  const capsules: Capsule[] = $state([]);
 
   function reload() {
-    phrases = Array(12).fill(0).map(phrase);
+    capsules.push(...scrollManager.loadNextScreen(15));
   }
 
   onMount(() => {
@@ -39,58 +83,60 @@
   }}>SPIN</button
 >
 <section class="container">
-  {#each phrases as str}
-    <div class={{ active: false }}>
-      <div class="p">
-        {str}
-      </div>
-      <div>
-        <ClipboardCopy
-          width="3em"
-          textToCopy={str}
-          oncopied={(detail: string) => console.log(detail)}
-        />
-      </div>
+  {#each capsules as cap}
+    <div>{cap.sequence}</div>
+    <div class={{ active: cap.active }}>
+      {cap.phrase}
+    </div>
+    <div>
+      <ClipboardCopy
+        width="3em"
+        textToCopy={cap.phrase}
+        oncopied={(detail: string) => console.log(detail)}
+      />
     </div>
   {/each}
 </section>
 
 <style lang="scss">
   .container {
-    padding: 1em;
+    max-width: 60vw;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 4ch 1fr 50px;
+    align-items: center;
+    margin: 0 auto;
+    outline: 1px solid red;
     > div {
-      font-size: 0.8rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      .p {
-        padding: 0.5rem;
-        width: 15ch;
-      }
-      &.active .p {
-        //  background: radial-gradient(
-        //    ellipse at center,
-        //    #f73134 0%,
-        //    #ff0000 47%,
-        //    #ff0000 47%,
-        //    #23bc2b 47%,
-        //    #23bc2b 48%
-        //  );
-        background-color: rgb(var(--fun-blue));
-
-        color: white;
-
-        &::before {
-          content: "";
-        }
-      }
+      outline: 3px solid green;
     }
   }
-  i {
-    font-size: 0.5em;
-  }
+
+  // .container {
+  //   display: grid;
+  //   grid-template-columns: 1fr 50px 69px;
+  //   padding: 1em;
+  //   > div {
+
+  //     font-size: 0.8rem;
+  //     display: flex;
+  //     align-items: center;
+  //     justify-content: center;
+  //     .p {
+  //       padding: 0.5rem;
+  //       width: 15ch;
+  //     }
+  //     &.active .p {
+  //       background-color: rgb(var(--fun-blue));
+  //       color: white;
+  //       &::before {
+  //         content: "";
+  //       }
+  //     }
+  //   }
+  // }
+  // i {
+  //   font-size: 0.5em;
+  // }
 
   @media screen and (min-width: 576px) {
     /* landscape phones */
@@ -99,9 +145,6 @@
     /* tablets */
   }
   @media screen and (min-width: 992px) {
-    .container {
-      grid-template-columns: repeat(4, 1fr);
-    }
     /* desktops */
   }
   @media screen and (min-width: 1200px) {
