@@ -1,12 +1,12 @@
 <!-- @migration-task Error while migrating Svelte code: end is out of bounds -->
 <script lang="ts">
-  import { base } from "$app/paths";
+  import { resolve } from "$app/paths";
   import { qrs } from "$lib/shared/quick-response";
 </script>
 
 <h1>Gary&apos;s Things</h1>
 <section class="container">
-  <a href="{base}/gary/projects">
+  <a href={resolve("/gary/projects/")}>
     <svg
       viewBox="0 0 1024 1024"
       class="icon"
@@ -28,7 +28,7 @@
     </svg>
     <div>Open Source Software Projects</div>
   </a>
-  <a href="{base}/gary/theater">
+  <a href={resolve("/gary/theater/")}>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -56,50 +56,23 @@
     </svg>
     <div>Theater from his youth</div>
   </a>
-  {#each qrs as qr, i}
-    <a href="./qr/{i}#go">
-      <img
-        src={qr.src}
-        width="150"
-        height="150"
-        alt="contact qr"
-        title={qr.from}
-      />
-      <div class="caption">{qr.caption}</div>
-    </a>
-  {/each}
+  <a href={resolve("/gary/contact/")}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      version="1.1"
+      viewBox="0 0 256 256"
+      xml:space="preserve"
+    >
+      <g
+        style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;"
+        transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)"
+      >
+      </g>
+    </svg>
+    <div>Contact</div>
+  </a>
 </section>
-
-<!-- 
-
-
-<style lang="scss">
-  .qrs {
-    align-items: center;
-    flex-direction: column;
-    display: flex;
-    gap: 1em;
-    .qr {
-      border: thin solid #ccc;
-      img {
-        width: 300px;
-      }
-      .caption {
-        text-align: center;
-      }
-    }
-  }
-  // .qrs .qr img {
-  //   margin: 8em 0;
-  //   width: 300px;
-  //   height: 300px;
-  // }
-  // .qrs .qr .caption {
-  // }
-
- 
-</style>
- -->
 
 <style lang="scss">
   .container {
@@ -114,7 +87,6 @@
     gap: 1rem;
     margin: 1rem 0;
     padding: 0.5rem;
-    img,
     svg {
       width: 100%;
     }

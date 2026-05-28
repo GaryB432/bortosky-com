@@ -1,6 +1,7 @@
 <script lang="ts">
   import ClipboardCopy from "$lib/components/ClipboardCopy.svelte";
   import { rand } from "$lib/shared/prng";
+  import { resolve } from "$app/paths";
   import { onMount } from "svelte";
 
   // prettier-ignore
@@ -47,6 +48,8 @@
     active = pluckRandomStrings();
   }}>SPIN</button
 >
+<a class="button-a" href={resolve("/(app)/gary/pasters/phrases")}>Phrases</a>
+
 <section class="container">
   {#each strings as str}
     <div class:active={active.includes(str)}>

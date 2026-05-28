@@ -153,7 +153,7 @@ export class ParticleEngine {
 
         if (pattern === "random") {
           p.targetRotation = (Math.random() - 0.5) * Math.PI * 0.5;
-          p.targetScale = Math.random() * 3 + 1;
+          p.targetScale = Math.random() * 2;
         }
 
         if (pattern === "settle") {

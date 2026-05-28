@@ -67,7 +67,7 @@ nx graph
 
 The `gary/contact` route contains relatively private information in a downloadable [vCard 4.0](https://datatracker.ietf.org/doc/html/rfc6350)
 
-See external knowledge base documentation at headquarters about the [at-rest encryption](src/routes/(embeds)/gary/contact/download/%2Bserver.ts#L67) of this data.
+See external knowledge base documentation at headquarters about the [at-rest encryption](<src/routes/(embeds)/gary/contact/download/%2Bserver.ts#L67>) of this data.
 
 [Difference Among vCard Version 2.0, 3.0, & 4.0 | How to Guide](https://www.softaken.com/guide/difference-among-vcard-version-2-0-3-0-4-0/)
 
