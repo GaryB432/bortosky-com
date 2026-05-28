@@ -28,15 +28,14 @@
     return arr[Math.floor(pseudoRand * arr.length)];
   }
 
-  // 2. RUNES FOR VIRTUAL WINDOW
   let scrollTop = $state(0);
   let viewportHeight = $state(800); // Dynamic fallback
   let viewportEl: HTMLDivElement | null = null;
+  let audioContext: AudioContext | null = null;
 
   const ROW_HEIGHT = 50; // Pixels per grid row
   const BUFFER_COUNT = 10; // Extra padding rows above/below
 
-  // Compute indices dynamically based on scroll position
   let startSequence = $derived(
     Math.max(1, Math.floor(scrollTop / ROW_HEIGHT) - BUFFER_COUNT),
   );
@@ -55,12 +54,59 @@
   });
 
   function moveScroll(rows: number) {
+    if (rows < 0 && scrollTop === 0) {
+      beepAtTop();
+      return;
+    }
+
     const nextTop = Math.max(0, scrollTop + rows * ROW_HEIGHT);
     scrollTop = nextTop;
 
     if (viewportEl) {
       viewportEl.scrollTop = nextTop;
     }
+  }
+
+  function beepAtTop() {
+    const audioWindow = window as Window & {
+      AudioContext?: typeof AudioContext;
+      webkitAudioContext?: typeof AudioContext;
+    };
+    const AudioContextCtor =
+      audioWindow.AudioContext ?? audioWindow.webkitAudioContext;
+
+    if (!AudioContextCtor) {
+      return;
+    }
+
+    const context = (audioContext ??= new AudioContextCtor());
+
+    if (context.state === "suspended") {
+      void context.resume();
+    }
+
+    const now = context.currentTime;
+    const oscillator = context.createOscillator();
+    const gain = context.createGain();
+
+    oscillator.type = "triangle";
+    oscillator.frequency.setValueAtTime(740, now);
+    oscillator.frequency.exponentialRampToValueAtTime(520, now + 0.08);
+
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(0.07, now + 0.015);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.12);
+
+    oscillator.connect(gain);
+    gain.connect(context.destination);
+
+    oscillator.start(now);
+    oscillator.stop(now + 0.14);
+
+    oscillator.onended = () => {
+      oscillator.disconnect();
+      gain.disconnect();
+    };
   }
 
   function handleScroll(e: Event) {
