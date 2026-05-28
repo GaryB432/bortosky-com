@@ -54,10 +54,10 @@
     if (!engine) return;
     clearTimeout(choreographyTimeout);
 
-    // Phase 1: BANG! Explosion across the whole screen
+    // Phase 1: Wide explosion reset.
     engine.explosion();
 
-    // Phase 2: Gentle over-the-top pause spread across screen
+    // Phase 2: Pause targets span the whole screen area.
     const pauseTargets = Array.from(
       { length: engine.particles.length },
       () => ({
@@ -73,7 +73,7 @@
       stageY,
     );
 
-    // Phase 3: Finalize resolution to scale(1), rotate(0) inside stage
+    // Phase 3: Smoothly settle into final pattern and stop.
     choreographyTimeout = setTimeout(() => {
       if (!engine) return;
       const finalTargets = getFinalTargets(currentPattern);

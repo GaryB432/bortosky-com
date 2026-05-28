@@ -23,6 +23,7 @@ export class Particle {
   scale: number = 1;
   targetScale: number = 1;
   vs: number = 0;
+  hardBrake: boolean = false;
 
   constructor(x: number, y: number, size: number) {
     this.x = x;
@@ -39,10 +40,39 @@ export class Particle {
 
     const easing = 0.1;
     const friction = 0.8;
+    const positionEpsilon = this.hardBrake ? 0.3 : 0.02;
+    const velocityEpsilon = this.hardBrake ? 0.3 : 0.02;
+    const rotationEpsilon = this.hardBrake ? 0.01 : 0.002;
+    const scaleEpsilon = this.hardBrake ? 0.01 : 0.002;
 
     // Position
     const dx = this.tx - this.x;
     const dy = this.ty - this.y;
+
+    const dr = this.targetRotation - this.rotation;
+    const ds = this.targetScale - this.scale;
+
+    const isSettled =
+      Math.abs(dx) < positionEpsilon &&
+      Math.abs(dy) < positionEpsilon &&
+      Math.abs(this.vx) < velocityEpsilon &&
+      Math.abs(this.vy) < velocityEpsilon &&
+      Math.abs(dr) < rotationEpsilon &&
+      Math.abs(this.vr) < rotationEpsilon &&
+      Math.abs(ds) < scaleEpsilon &&
+      Math.abs(this.vs) < scaleEpsilon;
+
+    if (isSettled) {
+      this.x = this.tx;
+      this.y = this.ty;
+      this.vx = 0;
+      this.vy = 0;
+      this.rotation = this.targetRotation;
+      this.vr = 0;
+      this.scale = this.targetScale;
+      this.vs = 0;
+      return;
+    }
 
     if (
       Math.abs(dx) < 0.01 &&
@@ -61,10 +91,24 @@ export class Particle {
       this.vy *= friction;
       this.x += this.vx;
       this.y += this.vy;
+
+      if (this.hardBrake) {
+        const nextDx = this.tx - this.x;
+        const nextDy = this.ty - this.y;
+
+        if (Math.abs(nextDx) <= positionEpsilon || Math.sign(nextDx) !== Math.sign(dx)) {
+          this.x = this.tx;
+          this.vx = 0;
+        }
+
+        if (Math.abs(nextDy) <= positionEpsilon || Math.sign(nextDy) !== Math.sign(dy)) {
+          this.y = this.ty;
+          this.vy = 0;
+        }
+      }
     }
 
     // Rotation
-    const dr = this.targetRotation - this.rotation;
     if (Math.abs(dr) < 0.001 && Math.abs(this.vr) < 0.001) {
       this.rotation = this.targetRotation;
       this.vr = 0;
@@ -72,10 +116,20 @@ export class Particle {
       this.vr += dr * (easing * 0.5);
       this.vr *= friction * 0.95;
       this.rotation += this.vr;
+
+      if (this.hardBrake) {
+        const nextDr = this.targetRotation - this.rotation;
+        if (
+          Math.abs(nextDr) <= rotationEpsilon ||
+          Math.sign(nextDr) !== Math.sign(dr)
+        ) {
+          this.rotation = this.targetRotation;
+          this.vr = 0;
+        }
+      }
     }
 
     // Scale
-    const ds = this.targetScale - this.scale;
     if (Math.abs(ds) < 0.001 && Math.abs(this.vs) < 0.001) {
       this.scale = this.targetScale;
       this.vs = 0;
@@ -83,6 +137,14 @@ export class Particle {
       this.vs += ds * easing;
       this.vs *= friction;
       this.scale += this.vs;
+
+      if (this.hardBrake) {
+        const nextDs = this.targetScale - this.scale;
+        if (Math.abs(nextDs) <= scaleEpsilon || Math.sign(nextDs) !== Math.sign(ds)) {
+          this.scale = this.targetScale;
+          this.vs = 0;
+        }
+      }
     }
   }
 }
@@ -107,14 +169,18 @@ export class ParticleEngine {
 
   explosion(): void {
     this.particles.forEach((p) => {
-      p.startTime = 0; // Reset stagger on explosion
+      p.startTime = 0;
+      p.hardBrake = false;
       const angle = Math.random() * Math.PI * 2;
-      const force = Math.random() * 100 + 50;
+      const force = Math.random() * 140 + 80;
       p.vx = Math.cos(angle) * force;
       p.vy = Math.sin(angle) * force;
-
+      p.rotation = (Math.random() - 0.5) * Math.PI * 2;
+      p.targetRotation = p.rotation;
       p.vr = (Math.random() - 0.5) * 2;
-      p.scale = Math.random() * 6 + 3;
+      p.scale = 0.5 + Math.random() * 1.5;
+      p.targetScale = 0.5 + Math.random() * 1.5;
+      p.vs = (Math.random() - 0.5) * 0.3;
     });
   }
 
@@ -137,36 +203,14 @@ export class ParticleEngine {
       }
 
       if (phase === "pause") {
+        p.hardBrake = false;
         p.targetRotation = (Math.random() - 0.5) * Math.PI * 4;
-        p.targetScale = Math.random() * 4 + 2;
-
-        // Hourglass pause: gather near the top of the SCREEN
-        if (pattern === "hourglass") {
-          // Since the context is translated by offsetY, we go negative to reach the top of screen
-          const screenTopY = -offsetY - 50;
-          p.tx = this.stageSize / 2 + (Math.random() - 0.5) * 60;
-          p.ty = screenTopY + (Math.random() - 0.5) * 40;
-        }
+        p.targetScale = 0.5 + Math.random() * 1.5;
       } else {
+        p.hardBrake = true;
         p.targetRotation = 0;
         p.targetScale = 1;
-
-        if (pattern === "random") {
-          p.targetRotation = (Math.random() - 0.5) * Math.PI * 0.5;
-          p.targetScale = Math.random() * 2;
-        }
-
-        if (pattern === "settle") {
-          p.targetRotation = Math.PI / 4;
-          p.targetScale = 0.8;
-        }
-
-        // Hourglass finalize: stagger the fall
-        if (pattern === "hourglass") {
-          p.startTime = currentTime + i * 2; // Staggered flow
-        } else {
-          p.startTime = 0;
-        }
+        p.startTime = 0;
       }
     });
   }
