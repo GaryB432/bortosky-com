@@ -3,6 +3,46 @@ export interface Point {
   y: number;
 }
 
+export const PARTICLE_TUNING = {
+  easing: 0.1,
+  friction: 0.8,
+  settle: {
+    normal: {
+      positionEpsilon: 0.02,
+      velocityEpsilon: 0.02,
+      rotationEpsilon: 0.002,
+      scaleEpsilon: 0.002,
+    },
+    hardBrake: {
+      positionEpsilon: 0.3,
+      velocityEpsilon: 0.3,
+      rotationEpsilon: 0.02,
+      scaleEpsilon: 0.02,
+    },
+  },
+  explosion: {
+    minForce: 80,
+    maxForce: 220,
+    rotationRange: Math.PI * 2,
+    rotationVelocityRange: 2,
+    scaleMin: 0.5,
+    scaleMax: 2.0,
+    scaleVelocityRange: 0.3,
+  },
+  pause: {
+    rotationRange: Math.PI * 4,
+    scaleMin: 0.5,
+    scaleMax: 2.0,
+  },
+  setPose: {
+    scaleMin: 0.82,
+    scaleMax: 0.95,
+  },
+  finalize: {
+    dashEase: 0.38,
+  },
+} as const;
+
 export class Particle {
   x: number;
   y: number;
@@ -38,12 +78,12 @@ export class Particle {
   update(currentTime: number): void {
     if (currentTime < this.startTime) return;
 
-    const easing = 0.1;
-    const friction = 0.8;
-    const positionEpsilon = this.hardBrake ? 0.3 : 0.02;
-    const velocityEpsilon = this.hardBrake ? 0.3 : 0.02;
-    const rotationEpsilon = this.hardBrake ? 0.01 : 0.002;
-    const scaleEpsilon = this.hardBrake ? 0.01 : 0.002;
+    const easing = PARTICLE_TUNING.easing;
+    const friction = PARTICLE_TUNING.friction;
+    const settle = this.hardBrake
+      ? PARTICLE_TUNING.settle.hardBrake
+      : PARTICLE_TUNING.settle.normal;
+    const { positionEpsilon, velocityEpsilon, rotationEpsilon, scaleEpsilon } = settle;
 
     // Position
     const dx = this.tx - this.x;
@@ -51,6 +91,29 @@ export class Particle {
 
     const dr = this.targetRotation - this.rotation;
     const ds = this.targetScale - this.scale;
+
+    if (this.hardBrake) {
+      const dashEase = PARTICLE_TUNING.finalize.dashEase;
+      this.x += dx * dashEase;
+      this.y += dy * dashEase;
+      this.rotation += dr * dashEase;
+      this.scale += ds * dashEase;
+
+      if (Math.abs(this.tx - this.x) <= positionEpsilon) this.x = this.tx;
+      if (Math.abs(this.ty - this.y) <= positionEpsilon) this.y = this.ty;
+      if (Math.abs(this.targetRotation - this.rotation) <= rotationEpsilon) {
+        this.rotation = this.targetRotation;
+      }
+      if (Math.abs(this.targetScale - this.scale) <= scaleEpsilon) {
+        this.scale = this.targetScale;
+      }
+
+      this.vx = 0;
+      this.vy = 0;
+      this.vr = 0;
+      this.vs = 0;
+      return;
+    }
 
     const isSettled =
       Math.abs(dx) < positionEpsilon &&
@@ -91,21 +154,6 @@ export class Particle {
       this.vy *= friction;
       this.x += this.vx;
       this.y += this.vy;
-
-      if (this.hardBrake) {
-        const nextDx = this.tx - this.x;
-        const nextDy = this.ty - this.y;
-
-        if (Math.abs(nextDx) <= positionEpsilon || Math.sign(nextDx) !== Math.sign(dx)) {
-          this.x = this.tx;
-          this.vx = 0;
-        }
-
-        if (Math.abs(nextDy) <= positionEpsilon || Math.sign(nextDy) !== Math.sign(dy)) {
-          this.y = this.ty;
-          this.vy = 0;
-        }
-      }
     }
 
     // Rotation
@@ -116,17 +164,6 @@ export class Particle {
       this.vr += dr * (easing * 0.5);
       this.vr *= friction * 0.95;
       this.rotation += this.vr;
-
-      if (this.hardBrake) {
-        const nextDr = this.targetRotation - this.rotation;
-        if (
-          Math.abs(nextDr) <= rotationEpsilon ||
-          Math.sign(nextDr) !== Math.sign(dr)
-        ) {
-          this.rotation = this.targetRotation;
-          this.vr = 0;
-        }
-      }
     }
 
     // Scale
@@ -137,14 +174,6 @@ export class Particle {
       this.vs += ds * easing;
       this.vs *= friction;
       this.scale += this.vs;
-
-      if (this.hardBrake) {
-        const nextDs = this.targetScale - this.scale;
-        if (Math.abs(nextDs) <= scaleEpsilon || Math.sign(nextDs) !== Math.sign(ds)) {
-          this.scale = this.targetScale;
-          this.vs = 0;
-        }
-      }
     }
   }
 }
@@ -168,25 +197,35 @@ export class ParticleEngine {
   }
 
   explosion(): void {
+    const {
+      minForce,
+      maxForce,
+      rotationRange,
+      rotationVelocityRange,
+      scaleMin,
+      scaleMax,
+      scaleVelocityRange,
+    } = PARTICLE_TUNING.explosion;
+
     this.particles.forEach((p) => {
       p.startTime = 0;
       p.hardBrake = false;
       const angle = Math.random() * Math.PI * 2;
-      const force = Math.random() * 140 + 80;
+      const force = Math.random() * (maxForce - minForce) + minForce;
       p.vx = Math.cos(angle) * force;
       p.vy = Math.sin(angle) * force;
-      p.rotation = (Math.random() - 0.5) * Math.PI * 2;
+      p.rotation = (Math.random() - 0.5) * rotationRange;
       p.targetRotation = p.rotation;
-      p.vr = (Math.random() - 0.5) * 2;
-      p.scale = 0.5 + Math.random() * 1.5;
-      p.targetScale = 0.5 + Math.random() * 1.5;
-      p.vs = (Math.random() - 0.5) * 0.3;
+      p.vr = (Math.random() - 0.5) * rotationVelocityRange;
+      p.scale = Math.random() * (scaleMax - scaleMin) + scaleMin;
+      p.targetScale = Math.random() * (scaleMax - scaleMin) + scaleMin;
+      p.vs = (Math.random() - 0.5) * scaleVelocityRange;
     });
   }
 
   setTargets(
     points: Point[],
-    phase: "pause" | "finalize",
+    phase: "pause" | "set" | "finalize",
     pattern: string,
     currentTime: number,
     offsetY: number = 0,
@@ -204,14 +243,49 @@ export class ParticleEngine {
 
       if (phase === "pause") {
         p.hardBrake = false;
-        p.targetRotation = (Math.random() - 0.5) * Math.PI * 4;
-        p.targetScale = 0.5 + Math.random() * 1.5;
+        p.targetRotation =
+          (Math.random() - 0.5) * PARTICLE_TUNING.pause.rotationRange;
+        p.targetScale =
+          Math.random() *
+            (PARTICLE_TUNING.pause.scaleMax - PARTICLE_TUNING.pause.scaleMin) +
+          PARTICLE_TUNING.pause.scaleMin;
+      } else if (phase === "set") {
+        p.hardBrake = false;
+        p.targetRotation = 0;
+        p.targetScale =
+          Math.random() *
+            (PARTICLE_TUNING.setPose.scaleMax -
+              PARTICLE_TUNING.setPose.scaleMin) +
+          PARTICLE_TUNING.setPose.scaleMin;
       } else {
         p.hardBrake = true;
         p.targetRotation = 0;
         p.targetScale = 1;
         p.startTime = 0;
       }
+    });
+  }
+
+  snapToTargets(points: Point[]): void {
+    this.particles.forEach((p, i) => {
+      const target = points[i] ?? points[points.length - 1];
+      const x = target?.x ?? this.stageSize / 2;
+      const y = target?.y ?? this.stageSize / 2;
+
+      p.x = x;
+      p.y = y;
+      p.tx = x;
+      p.ty = y;
+      p.vx = 0;
+      p.vy = 0;
+      p.rotation = 0;
+      p.targetRotation = 0;
+      p.vr = 0;
+      p.scale = 1;
+      p.targetScale = 1;
+      p.vs = 0;
+      p.hardBrake = false;
+      p.startTime = 0;
     });
   }
 

@@ -16,75 +16,14 @@
   let stageX = 0;
   let stageY = 0;
 
-  let touchStartX = 0;
-  let touchStartTime = 0;
-  let choreographyTimeout: ReturnType<typeof setTimeout>;
-
-  function handlePointerDown(e: PointerEvent) {
-    touchStartX = e.clientX;
-    touchStartTime = performance.now();
-  }
-
-  function handlePointerUp(e: PointerEvent) {
-    const deltaX = e.clientX - touchStartX;
-    const elapsed = performance.now() - touchStartTime;
-    const velocity = Math.abs(deltaX / elapsed);
-
-    // Flick left
-    if (deltaX < -50 && (velocity > 0.5 || deltaX < -100)) {
-      nextPattern();
-    } else if (Math.abs(deltaX) < 10) {
-      // It was a tap
-      nextPattern();
-    }
-  }
-
   function setPattern(p: (typeof patterns)[number]) {
     currentPattern = p;
-    runChoreography();
+    applyPattern();
   }
 
-  function nextPattern() {
-    const idx = patterns.indexOf(currentPattern as any);
-    currentPattern = patterns[(idx + 1) % patterns.length];
-    runChoreography();
-  }
-
-  function runChoreography() {
+  function applyPattern() {
     if (!engine) return;
-    clearTimeout(choreographyTimeout);
-
-    // Phase 1: Wide explosion reset.
-    engine.explosion();
-
-    // Phase 2: Pause targets span the whole screen area.
-    const pauseTargets = Array.from(
-      { length: engine.particles.length },
-      () => ({
-        x: Math.random() * innerWidth - stageX,
-        y: Math.random() * innerHeight - stageY,
-      }),
-    );
-    engine.setTargets(
-      pauseTargets,
-      "pause",
-      currentPattern,
-      performance.now(),
-      stageY,
-    );
-
-    // Phase 3: Smoothly settle into final pattern and stop.
-    choreographyTimeout = setTimeout(() => {
-      if (!engine) return;
-      const finalTargets = getFinalTargets(currentPattern);
-      engine.setTargets(
-        finalTargets,
-        "finalize",
-        currentPattern,
-        performance.now(),
-        stageY,
-      );
-    }, 1200);
+    engine.snapToTargets(getFinalTargets(currentPattern));
   }
 
   function updateStageOffset() {
@@ -159,15 +98,7 @@
     engine.init(points.length, cellSize);
     updateStageOffset();
 
-    // Seed particles in the center of the current stage before first animation.
-    for (const particle of engine.particles) {
-      particle.x = STAGE_SIZE / 2;
-      particle.y = STAGE_SIZE / 2;
-      particle.tx = STAGE_SIZE / 2;
-      particle.ty = STAGE_SIZE / 2;
-    }
-
-    runChoreography();
+    applyPattern();
 
     let frame: number;
     function loop(time: number) {
@@ -190,7 +121,6 @@
 
     return () => {
       cancelAnimationFrame(frame);
-      clearTimeout(choreographyTimeout);
     };
   });
 </script>
@@ -213,11 +143,6 @@
     <div
       bind:this={stageFrame}
       class="stage-frame"
-      onpointerdown={handlePointerDown}
-      onpointerup={handlePointerUp}
-      aria-label="Contact QR Code. Flick or tap to change pattern."
-      role="button"
-      tabindex="0"
     ></div>
 
     <div class="copy">
