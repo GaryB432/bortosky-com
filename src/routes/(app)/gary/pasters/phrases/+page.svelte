@@ -199,7 +199,11 @@
     align-items: center;
     gap: 0.75rem;
     padding: 0.75rem 0 1rem;
-    background: linear-gradient(180deg, var(--sand-1), rgba(230, 228, 220, 0.5));
+    background: linear-gradient(
+      180deg,
+      var(--sand-1),
+      rgba(230, 228, 220, 0.5)
+    );
     border-bottom: 1px solid var(--sand-3);
     position: sticky;
     top: 0;
@@ -253,7 +257,9 @@
       min-width: 2ch;
       text-align: center;
       line-height: 1;
-      transition: transform 180ms ease, letter-spacing 180ms ease;
+      transition:
+        transform 180ms ease,
+        letter-spacing 180ms ease;
     }
 
     &:focus-visible {
@@ -268,7 +274,11 @@
 
   .nav-button.coarse {
     min-width: 7.5rem;
-    background: linear-gradient(180deg, rgb(var(--fun-blue)), rgba(var(--fun-blue), 0.88));
+    background: linear-gradient(
+      180deg,
+      rgb(var(--fun-blue)),
+      rgba(var(--fun-blue), 0.88)
+    );
   }
 
   .nav-button.back {
