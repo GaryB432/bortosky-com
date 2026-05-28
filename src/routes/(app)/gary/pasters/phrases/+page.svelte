@@ -59,7 +59,6 @@
   }
 </script>
 
-<!-- The scrollable viewport container -->
 <div
   class="viewport"
   onscroll={handleScroll}
