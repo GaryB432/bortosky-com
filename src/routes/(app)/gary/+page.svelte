@@ -6,15 +6,16 @@
   type MenuKey = "projects" | "theater" | "contact";
 
   const SWIPE_THRESHOLD = 48;
-  const SWIPE_TIMEOUT_MS = 700;
+  const ANIMATION_DURATION_MS = 520;
   let swipeStartX: number | null = null;
   let swipeStartY: number | null = null;
   let swipeTarget: MenuKey | null = null;
   let animatedMenu: MenuKey | null = null;
+  let suppressClickMenu: MenuKey | null = null;
   let animationTimeout: ReturnType<typeof setTimeout> | null = null;
+  let suppressClickTimeout: ReturnType<typeof setTimeout> | null = null;
 
   function handleSwipeStart(event: PointerEvent, menu: MenuKey) {
-    if (event.pointerType === "mouse") return;
     swipeStartX = event.clientX;
     swipeStartY = event.clientY;
     swipeTarget = menu;
@@ -28,11 +29,14 @@
 
   function triggerAnimation(menu: MenuKey) {
     animatedMenu = menu;
-    if (animationTimeout) clearTimeout(animationTimeout);
+    if (animationTimeout) {
+      clearTimeout(animationTimeout);
+      animationTimeout = null;
+    }
     animationTimeout = setTimeout(() => {
       animatedMenu = null;
       animationTimeout = null;
-    }, SWIPE_TIMEOUT_MS);
+    }, ANIMATION_DURATION_MS);
   }
 
   function handleSwipeEnd(event: PointerEvent) {
@@ -43,10 +47,25 @@
 
     if (deltaX <= -SWIPE_THRESHOLD && Math.abs(deltaX) > Math.abs(deltaY)) {
       triggerAnimation(swipeTarget);
-      event.preventDefault();
+      suppressClickMenu = swipeTarget;
+      if (suppressClickTimeout) clearTimeout(suppressClickTimeout);
+      suppressClickTimeout = setTimeout(() => {
+        suppressClickMenu = null;
+        suppressClickTimeout = null;
+      }, ANIMATION_DURATION_MS);
     }
 
     clearSwipeState();
+  }
+
+  function handleMenuClick(event: MouseEvent, menu: MenuKey) {
+    if (suppressClickMenu !== menu) return;
+    event.preventDefault();
+    suppressClickMenu = null;
+    if (suppressClickTimeout) {
+      clearTimeout(suppressClickTimeout);
+      suppressClickTimeout = null;
+    }
   }
 </script>
 
@@ -58,6 +77,7 @@
     onpointerdown={(event) => handleSwipeStart(event, "projects")}
     onpointerup={handleSwipeEnd}
     onpointercancel={clearSwipeState}
+    onclick={(event) => handleMenuClick(event, "projects")}
   >
     <svg
       viewBox="0 0 1024 1024"
@@ -87,6 +107,7 @@
     onpointerdown={(event) => handleSwipeStart(event, "theater")}
     onpointerup={handleSwipeEnd}
     onpointercancel={clearSwipeState}
+    onclick={(event) => handleMenuClick(event, "theater")}
   >
     <svg
       class:animating={animatedMenu === "theater"}
@@ -122,6 +143,7 @@
     onpointerdown={(event) => handleSwipeStart(event, "contact")}
     onpointerup={handleSwipeEnd}
     onpointercancel={clearSwipeState}
+    onclick={(event) => handleMenuClick(event, "contact")}
   >
     <svg
       class:animating={animatedMenu === "contact"}
@@ -162,6 +184,7 @@
   .container {
     max-width: 90vw;
     margin: 0 auto;
+    --swipe-animation-ms: 520ms;
   }
   a {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
@@ -176,17 +199,17 @@
     }
 
     &.swiped {
-      animation: menu-swipe 420ms ease-out;
+      animation: menu-swipe var(--swipe-animation-ms) ease-out;
     }
   }
 
   svg.animating {
-    animation: icon-bob 520ms cubic-bezier(0.2, 0.8, 0.3, 1);
+    animation: icon-bob var(--swipe-animation-ms) cubic-bezier(0.2, 0.8, 0.3, 1);
     transform-origin: center;
   }
 
   .animating .contact-scan-line {
-    animation: qr-scan 520ms ease-out;
+    animation: qr-scan var(--swipe-animation-ms) ease-out;
   }
 
   @keyframes menu-swipe {
