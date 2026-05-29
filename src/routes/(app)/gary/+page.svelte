@@ -10,7 +10,7 @@
   let swipeStartX: number | null = null;
   let swipeStartY: number | null = null;
   let swipeTarget: MenuKey | null = null;
-  let animatedMenu: MenuKey | null = null;
+  let animatedMenu: MenuKey | null = $state(null);
   let suppressClickMenu: MenuKey | null = null;
   let animationTimeout: ReturnType<typeof setTimeout> | null = null;
   let suppressClickTimeout: ReturnType<typeof setTimeout> | null = null;
