@@ -2,14 +2,128 @@
 <script lang="ts">
   import { resolve } from "$app/paths";
   import { qrs } from "$lib/shared/quick-response";
+
+  type MenuKey = "projects" | "theater" | "contact";
+
+  const SWIPE_THRESHOLD = 48;
+  const SWIPE_MOVE_THRESHOLD = 8;
+  const ANIMATION_DURATION_MS = 520;
+  let swipeStartX: number | null = null;
+  let swipeStartY: number | null = null;
+  let swipeTarget: MenuKey | null = null;
+  let swipePointerId: number | null = null;
+  let swipeElement: HTMLElement | null = null;
+  let swipeRecognized = false;
+  let animatedMenu: MenuKey | null = $state(null);
+  let suppressClickMenu: MenuKey | null = null;
+  let animationTimeout: ReturnType<typeof setTimeout> | null = null;
+  let suppressClickTimeout: ReturnType<typeof setTimeout> | null = null;
+
+  function handleSwipeStart(event: PointerEvent, menu: MenuKey) {
+    swipeStartX = event.clientX;
+    swipeStartY = event.clientY;
+    swipeTarget = menu;
+    swipeRecognized = false;
+    if (event.currentTarget instanceof HTMLElement) {
+      swipeElement = event.currentTarget;
+      swipePointerId = event.pointerId;
+      event.currentTarget.setPointerCapture(event.pointerId);
+    }
+  }
+
+  function clearSwipeState() {
+    if (
+      swipeElement &&
+      swipePointerId !== null &&
+      swipeElement.hasPointerCapture(swipePointerId)
+    ) {
+      swipeElement.releasePointerCapture(swipePointerId);
+    }
+
+    swipeStartX = null;
+    swipeStartY = null;
+    swipeTarget = null;
+    swipePointerId = null;
+    swipeElement = null;
+    swipeRecognized = false;
+  }
+
+  function triggerAnimation(menu: MenuKey) {
+    animatedMenu = menu;
+    if (animationTimeout) {
+      clearTimeout(animationTimeout);
+      animationTimeout = null;
+    }
+    animationTimeout = setTimeout(() => {
+      animatedMenu = null;
+      animationTimeout = null;
+    }, ANIMATION_DURATION_MS);
+  }
+
+  function recognizeSwipe(event: PointerEvent) {
+    if (
+      swipeStartX === null ||
+      swipeStartY === null ||
+      !swipeTarget ||
+      swipeRecognized
+    )
+      return;
+
+    const deltaX = event.clientX - swipeStartX;
+    const deltaY = event.clientY - swipeStartY;
+
+    if (deltaX <= -SWIPE_THRESHOLD && Math.abs(deltaX) > Math.abs(deltaY)) {
+      swipeRecognized = true;
+      triggerAnimation(swipeTarget);
+      suppressClickMenu = swipeTarget;
+      if (suppressClickTimeout) clearTimeout(suppressClickTimeout);
+      suppressClickTimeout = setTimeout(() => {
+        suppressClickMenu = null;
+        suppressClickTimeout = null;
+      }, ANIMATION_DURATION_MS);
+    }
+  }
+
+  function handleSwipeMove(event: PointerEvent) {
+    if (swipeRecognized) return;
+    if (swipeStartX === null || swipeStartY === null) return;
+    const movedX = Math.abs(event.clientX - swipeStartX);
+    const movedY = Math.abs(event.clientY - swipeStartY);
+    if (movedX < SWIPE_MOVE_THRESHOLD && movedY < SWIPE_MOVE_THRESHOLD) return;
+    recognizeSwipe(event);
+  }
+
+  function handleSwipeEnd(event: PointerEvent) {
+    recognizeSwipe(event);
+    clearSwipeState();
+  }
+
+  function handleMenuClick(event: MouseEvent, menu: MenuKey) {
+    if (suppressClickMenu !== menu) return;
+    event.preventDefault();
+    suppressClickMenu = null;
+    if (suppressClickTimeout) {
+      clearTimeout(suppressClickTimeout);
+      suppressClickTimeout = null;
+    }
+  }
 </script>
 
 <h1>Gary&apos;s Things</h1>
 <section class="container">
-  <a href={resolve("/gary/projects/")}>
+  <a
+    href={resolve("/gary/projects/")}
+    class:swiped={animatedMenu === "projects"}
+    onpointerdown={(event) => handleSwipeStart(event, "projects")}
+    onpointermove={handleSwipeMove}
+    onpointerup={handleSwipeEnd}
+    onpointercancel={clearSwipeState}
+    onclick={(event) => handleMenuClick(event, "projects")}
+  >
     <svg
       viewBox="0 0 1024 1024"
       class="icon"
+      class:animating={animatedMenu === "projects"}
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -28,8 +142,17 @@
     </svg>
     <div>Open Source Software Projects</div>
   </a>
-  <a href={resolve("/gary/theater/")}>
+  <a
+    href={resolve("/gary/theater/")}
+    class:swiped={animatedMenu === "theater"}
+    onpointerdown={(event) => handleSwipeStart(event, "theater")}
+    onpointermove={handleSwipeMove}
+    onpointerup={handleSwipeEnd}
+    onpointercancel={clearSwipeState}
+    onclick={(event) => handleMenuClick(event, "theater")}
+  >
     <svg
+      class:animating={animatedMenu === "theater"}
       xmlns="http://www.w3.org/2000/svg"
       xmlns:xlink="http://www.w3.org/1999/xlink"
       version="1.1"
@@ -56,8 +179,17 @@
     </svg>
     <div>Theater from his youth</div>
   </a>
-  <a href={resolve("/gary/contact/")}>
+  <a
+    href={resolve("/gary/contact/")}
+    class:swiped={animatedMenu === "contact"}
+    onpointerdown={(event) => handleSwipeStart(event, "contact")}
+    onpointermove={handleSwipeMove}
+    onpointerup={handleSwipeEnd}
+    onpointercancel={clearSwipeState}
+    onclick={(event) => handleMenuClick(event, "contact")}
+  >
     <svg
+      class:animating={animatedMenu === "contact"}
       xmlns="http://www.w3.org/2000/svg"
       xmlns:xlink="http://www.w3.org/1999/xlink"
       version="1.1"
@@ -68,6 +200,23 @@
         style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;"
         transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)"
       >
+        <path
+          d="M65.8 12.1H24.2c-4.1 0-7.5 3.4-7.5 7.5v50.8c0 4.1 3.4 7.5 7.5 7.5h41.6c4.1 0 7.5-3.4 7.5-7.5V19.6c0-4.1-3.4-7.5-7.5-7.5zm1.2 58.3c0 .7-.6 1.2-1.2 1.2H24.2c-.7 0-1.2-.6-1.2-1.2V19.6c0-.7.6-1.2 1.2-1.2h41.6c.7 0 1.2.6 1.2 1.2v50.8z"
+          style="stroke: none; stroke-width: 1; fill: rgb(5,13,66); opacity: 1;"
+        />
+        <path
+          d="M38.7 65.1h12.5c1.3 0 2.4-1.1 2.4-2.4s-1.1-2.4-2.4-2.4H38.7c-1.3 0-2.4 1.1-2.4 2.4s1.1 2.4 2.4 2.4z"
+          style="stroke: none; stroke-width: 1; fill: rgb(47,75,255); opacity: 1;"
+        />
+        <path
+          d="M32.3 27.4h9.5v3.5h-6v6h-3.5v-9.5zm15.4 0h9.5v9.5h-3.5v-6h-6v-3.5zm-15.4 15.4h3.5v6h6v3.5h-9.5v-9.5zm21.4 0h3.5v9.5h-9.5v-3.5h6v-6z"
+          style="stroke: none; stroke-width: 1; fill: rgb(221,78,67); opacity: 1;"
+        />
+        <path
+          class="contact-scan-line"
+          d="M29.8 39.2h30v3.8h-30z"
+          style="stroke: none; stroke-width: 1; fill: rgb(231,191,85); opacity: 1;"
+        />
       </g>
     </svg>
     <div>Contact</div>
@@ -78,6 +227,7 @@
   .container {
     max-width: 90vw;
     margin: 0 auto;
+    --swipe-animation-ms: 520ms;
   }
   a {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
@@ -87,8 +237,64 @@
     gap: 1rem;
     margin: 1rem 0;
     padding: 0.5rem;
+    touch-action: pan-y pinch-zoom;
     svg {
       width: 100%;
+    }
+
+    &.swiped {
+      animation: menu-swipe var(--swipe-animation-ms) ease-out;
+    }
+  }
+
+  svg.animating {
+    animation: icon-bob var(--swipe-animation-ms) cubic-bezier(0.2, 0.8, 0.3, 1);
+    transform-origin: center;
+  }
+
+  .animating .contact-scan-line {
+    animation: qr-scan var(--swipe-animation-ms) ease-out;
+  }
+
+  @keyframes menu-swipe {
+    0% {
+      transform: translateX(0);
+    }
+    30% {
+      transform: translateX(-10px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes icon-bob {
+    0% {
+      transform: translateX(0) rotate(0deg);
+    }
+    35% {
+      transform: translateX(-6px) rotate(-2deg);
+    }
+    70% {
+      transform: translateX(3px) rotate(1deg);
+    }
+    100% {
+      transform: translateX(0) rotate(0deg);
+    }
+  }
+
+  @keyframes qr-scan {
+    0% {
+      transform: translateY(-6px);
+      opacity: 0.8;
+    }
+    50% {
+      transform: translateY(6px);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 0.8;
     }
   }
 
