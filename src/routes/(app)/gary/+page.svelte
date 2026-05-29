@@ -2,14 +2,67 @@
 <script lang="ts">
   import { resolve } from "$app/paths";
   import { qrs } from "$lib/shared/quick-response";
+
+  type MenuKey = "projects" | "theater" | "contact";
+
+  const SWIPE_THRESHOLD = 48;
+  const SWIPE_TIMEOUT_MS = 700;
+  let swipeStartX: number | null = null;
+  let swipeStartY: number | null = null;
+  let swipeTarget: MenuKey | null = null;
+  let animatedMenu: MenuKey | null = null;
+  let animationTimeout: ReturnType<typeof setTimeout> | null = null;
+
+  function handleSwipeStart(event: PointerEvent, menu: MenuKey) {
+    if (event.pointerType === "mouse") return;
+    swipeStartX = event.clientX;
+    swipeStartY = event.clientY;
+    swipeTarget = menu;
+  }
+
+  function clearSwipeState() {
+    swipeStartX = null;
+    swipeStartY = null;
+    swipeTarget = null;
+  }
+
+  function triggerAnimation(menu: MenuKey) {
+    animatedMenu = menu;
+    if (animationTimeout) clearTimeout(animationTimeout);
+    animationTimeout = setTimeout(() => {
+      animatedMenu = null;
+      animationTimeout = null;
+    }, SWIPE_TIMEOUT_MS);
+  }
+
+  function handleSwipeEnd(event: PointerEvent) {
+    if (swipeStartX === null || swipeStartY === null || !swipeTarget) return;
+
+    const deltaX = event.clientX - swipeStartX;
+    const deltaY = event.clientY - swipeStartY;
+
+    if (deltaX <= -SWIPE_THRESHOLD && Math.abs(deltaX) > Math.abs(deltaY)) {
+      triggerAnimation(swipeTarget);
+      event.preventDefault();
+    }
+
+    clearSwipeState();
+  }
 </script>
 
 <h1>Gary&apos;s Things</h1>
 <section class="container">
-  <a href={resolve("/gary/projects/")}>
+  <a
+    href={resolve("/gary/projects/")}
+    class:swiped={animatedMenu === "projects"}
+    onpointerdown={(event) => handleSwipeStart(event, "projects")}
+    onpointerup={handleSwipeEnd}
+    onpointercancel={clearSwipeState}
+  >
     <svg
       viewBox="0 0 1024 1024"
       class="icon"
+      class:animating={animatedMenu === "projects"}
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -28,8 +81,15 @@
     </svg>
     <div>Open Source Software Projects</div>
   </a>
-  <a href={resolve("/gary/theater/")}>
+  <a
+    href={resolve("/gary/theater/")}
+    class:swiped={animatedMenu === "theater"}
+    onpointerdown={(event) => handleSwipeStart(event, "theater")}
+    onpointerup={handleSwipeEnd}
+    onpointercancel={clearSwipeState}
+  >
     <svg
+      class:animating={animatedMenu === "theater"}
       xmlns="http://www.w3.org/2000/svg"
       xmlns:xlink="http://www.w3.org/1999/xlink"
       version="1.1"
@@ -56,8 +116,15 @@
     </svg>
     <div>Theater from his youth</div>
   </a>
-  <a href={resolve("/gary/contact/")}>
+  <a
+    href={resolve("/gary/contact/")}
+    class:swiped={animatedMenu === "contact"}
+    onpointerdown={(event) => handleSwipeStart(event, "contact")}
+    onpointerup={handleSwipeEnd}
+    onpointercancel={clearSwipeState}
+  >
     <svg
+      class:animating={animatedMenu === "contact"}
       xmlns="http://www.w3.org/2000/svg"
       xmlns:xlink="http://www.w3.org/1999/xlink"
       version="1.1"
@@ -68,6 +135,23 @@
         style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;"
         transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)"
       >
+        <path
+          d="M65.8 12.1H24.2c-4.1 0-7.5 3.4-7.5 7.5v50.8c0 4.1 3.4 7.5 7.5 7.5h41.6c4.1 0 7.5-3.4 7.5-7.5V19.6c0-4.1-3.4-7.5-7.5-7.5zm1.2 58.3c0 .7-.6 1.2-1.2 1.2H24.2c-.7 0-1.2-.6-1.2-1.2V19.6c0-.7.6-1.2 1.2-1.2h41.6c.7 0 1.2.6 1.2 1.2v50.8z"
+          style="stroke: none; stroke-width: 1; fill: rgb(5,13,66); opacity: 1;"
+        />
+        <path
+          d="M38.7 65.1h12.5c1.3 0 2.4-1.1 2.4-2.4s-1.1-2.4-2.4-2.4H38.7c-1.3 0-2.4 1.1-2.4 2.4s1.1 2.4 2.4 2.4z"
+          style="stroke: none; stroke-width: 1; fill: rgb(47,75,255); opacity: 1;"
+        />
+        <path
+          d="M32.3 27.4h9.5v3.5h-6v6h-3.5v-9.5zm15.4 0h9.5v9.5h-3.5v-6h-6v-3.5zm-15.4 15.4h3.5v6h6v3.5h-9.5v-9.5zm21.4 0h3.5v9.5h-9.5v-3.5h6v-6z"
+          style="stroke: none; stroke-width: 1; fill: rgb(221,78,67); opacity: 1;"
+        />
+        <path
+          class="contact-scan-line"
+          d="M29.8 39.2h30v3.8h-30z"
+          style="stroke: none; stroke-width: 1; fill: rgb(231,191,85); opacity: 1;"
+        />
       </g>
     </svg>
     <div>Contact</div>
@@ -89,6 +173,61 @@
     padding: 0.5rem;
     svg {
       width: 100%;
+    }
+
+    &.swiped {
+      animation: menu-swipe 420ms ease-out;
+    }
+  }
+
+  svg.animating {
+    animation: icon-bob 520ms cubic-bezier(0.2, 0.8, 0.3, 1);
+    transform-origin: center;
+  }
+
+  .animating .contact-scan-line {
+    animation: qr-scan 520ms ease-out;
+  }
+
+  @keyframes menu-swipe {
+    0% {
+      transform: translateX(0);
+    }
+    30% {
+      transform: translateX(-10px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes icon-bob {
+    0% {
+      transform: translateX(0) rotate(0deg);
+    }
+    35% {
+      transform: translateX(-6px) rotate(-2deg);
+    }
+    70% {
+      transform: translateX(3px) rotate(1deg);
+    }
+    100% {
+      transform: translateX(0) rotate(0deg);
+    }
+  }
+
+  @keyframes qr-scan {
+    0% {
+      transform: translateY(-6px);
+      opacity: 0.8;
+    }
+    50% {
+      transform: translateY(6px);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 0.8;
     }
   }
 
