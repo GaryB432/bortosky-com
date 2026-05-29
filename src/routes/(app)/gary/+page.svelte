@@ -19,6 +19,7 @@
     swipeStartX = event.clientX;
     swipeStartY = event.clientY;
     swipeTarget = menu;
+    console.log(swipeStartX, menu);
   }
 
   function clearSwipeState() {
@@ -40,6 +41,7 @@
   }
 
   function handleSwipeEnd(event: PointerEvent) {
+    console.log("boutta end", { swipeStartX, swipeStartY, swipeTarget });
     if (swipeStartX === null || swipeStartY === null || !swipeTarget) return;
 
     const deltaX = event.clientX - swipeStartX;
@@ -75,7 +77,10 @@
     href={resolve("/gary/projects/")}
     class:swiped={animatedMenu === "projects"}
     onpointerdown={(event) => handleSwipeStart(event, "projects")}
-    onpointerup={handleSwipeEnd}
+    onpointerup={(event) => {
+      console.log("hmmm never shown");
+      handleSwipeEnd(event);
+    }}
     onpointercancel={clearSwipeState}
     onclick={(event) => handleMenuClick(event, "projects")}
   >
