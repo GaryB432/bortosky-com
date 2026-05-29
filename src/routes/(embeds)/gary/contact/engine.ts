@@ -83,7 +83,8 @@ export class Particle {
     const settle = this.hardBrake
       ? PARTICLE_TUNING.settle.hardBrake
       : PARTICLE_TUNING.settle.normal;
-    const { positionEpsilon, velocityEpsilon, rotationEpsilon, scaleEpsilon } = settle;
+    const { positionEpsilon, velocityEpsilon, rotationEpsilon, scaleEpsilon } =
+      settle;
 
     // Position
     const dx = this.tx - this.x;
