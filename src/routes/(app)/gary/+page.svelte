@@ -6,28 +6,46 @@
   type MenuKey = "projects" | "theater" | "contact";
 
   const SWIPE_THRESHOLD = 48;
+  const SWIPE_MOVE_THRESHOLD = 8;
   const ANIMATION_DURATION_MS = 520;
-  let swipeStartX: number | null = $state(null);
-  let swipeStartY: number | null = $state(null);
-  let swipeTarget: MenuKey | null = $state(null);
+  let swipeStartX: number | null = null;
+  let swipeStartY: number | null = null;
+  let swipeTarget: MenuKey | null = null;
+  let swipePointerId: number | null = null;
+  let swipeElement: HTMLElement | null = null;
+  let swipeRecognized = false;
   let animatedMenu: MenuKey | null = $state(null);
-  let suppressClickMenu: MenuKey | null = $state(null);
-  let animationTimeout: ReturnType<typeof setTimeout> | null = $state(null);
-  let suppressClickTimeout: ReturnType<typeof setTimeout> | null = $state(null);
+  let suppressClickMenu: MenuKey | null = null;
+  let animationTimeout: ReturnType<typeof setTimeout> | null = null;
+  let suppressClickTimeout: ReturnType<typeof setTimeout> | null = null;
 
   function handleSwipeStart(event: PointerEvent, menu: MenuKey) {
     swipeStartX = event.clientX;
     swipeStartY = event.clientY;
     swipeTarget = menu;
+    swipeRecognized = false;
     if (event.currentTarget instanceof HTMLElement) {
+      swipeElement = event.currentTarget;
+      swipePointerId = event.pointerId;
       event.currentTarget.setPointerCapture(event.pointerId);
     }
   }
 
   function clearSwipeState() {
+    if (
+      swipeElement &&
+      swipePointerId !== null &&
+      swipeElement.hasPointerCapture(swipePointerId)
+    ) {
+      swipeElement.releasePointerCapture(swipePointerId);
+    }
+
     swipeStartX = null;
     swipeStartY = null;
     swipeTarget = null;
+    swipePointerId = null;
+    swipeElement = null;
+    swipeRecognized = false;
   }
 
   function triggerAnimation(menu: MenuKey) {
@@ -43,12 +61,19 @@
   }
 
   function recognizeSwipe(event: PointerEvent) {
-    if (swipeStartX === null || swipeStartY === null || !swipeTarget) return;
+    if (
+      swipeStartX === null ||
+      swipeStartY === null ||
+      !swipeTarget ||
+      swipeRecognized
+    )
+      return;
 
     const deltaX = event.clientX - swipeStartX;
     const deltaY = event.clientY - swipeStartY;
 
     if (deltaX <= -SWIPE_THRESHOLD && Math.abs(deltaX) > Math.abs(deltaY)) {
+      swipeRecognized = true;
       triggerAnimation(swipeTarget);
       suppressClickMenu = swipeTarget;
       if (suppressClickTimeout) clearTimeout(suppressClickTimeout);
@@ -56,11 +81,15 @@
         suppressClickMenu = null;
         suppressClickTimeout = null;
       }, ANIMATION_DURATION_MS);
-      clearSwipeState();
     }
   }
 
   function handleSwipeMove(event: PointerEvent) {
+    if (swipeRecognized) return;
+    if (swipeStartX === null || swipeStartY === null) return;
+    const movedX = Math.abs(event.clientX - swipeStartX);
+    const movedY = Math.abs(event.clientY - swipeStartY);
+    if (movedX < SWIPE_MOVE_THRESHOLD && movedY < SWIPE_MOVE_THRESHOLD) return;
     recognizeSwipe(event);
   }
 
@@ -208,7 +237,7 @@
     gap: 1rem;
     margin: 1rem 0;
     padding: 0.5rem;
-    touch-action: pan-y;
+    touch-action: pan-y pinch-zoom;
     svg {
       width: 100%;
     }
