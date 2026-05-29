@@ -9,7 +9,7 @@
   <title>Contact Gary</title>
 </svelte:head>
 
-<div class="vp" style="--qr-size: {STAGE_SIZE}px;">
+<div class="vp" style="--qr-size: {STAGE_SIZE}px">
   <div class="stage">
     <lean-qr value={url}></lean-qr>
   </div>
@@ -80,6 +80,7 @@
     background-color: white;
     width: var(--qr-size);
     height: var(--qr-size);
+    view-transition-name: qr;
   }
 
   .hud {

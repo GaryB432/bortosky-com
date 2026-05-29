@@ -24,6 +24,23 @@
   background-color: var(--color-document-bg);
   color: var(--color-document-text);
 }
+:root::view-transition-old(qr) {
+  animation: fade 2s linear forwards;
+}
+:root::view-transition-new(qr) {
+  animation: fade 3s linear reverse;
+}
+@view-transition {
+  navigation: auto;
+}
+@keyframes fade {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
 :where(html, body) {
   font-family: var(--font-sans);
   line-height: 1.5;
