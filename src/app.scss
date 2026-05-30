@@ -29,36 +29,38 @@
 }
 
 :root {
-  --vt-duration-fast: 420ms;
-  --vt-duration-slow: 720ms;
+  /* Increase to slow down all transition timing for debugging. */
+  --vt-duration-scale: 1;
+  --vt-duration-fast: calc(420ms * var(--vt-duration-scale));
+  --vt-duration-slow: calc(720ms * var(--vt-duration-scale));
   --vt-ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
   --vt-ease-emphasis: cubic-bezier(0.2, 0.8, 0, 1);
 }
 
-:root::view-transition-group(qr) {
+::view-transition-group(qr) {
   animation-duration: var(--vt-duration-slow);
   animation-timing-function: var(--vt-ease-emphasis);
 }
 
-:root::view-transition-old(qr) {
+::view-transition-old(qr) {
   transform-origin: center;
   animation:
     qr-old-out var(--vt-duration-slow) var(--vt-ease-emphasis) both,
     pulse-shadow var(--vt-duration-fast) ease-out both;
 }
 
-:root::view-transition-new(qr) {
+::view-transition-new(qr) {
   transform-origin: center;
   animation:
     qr-new-in var(--vt-duration-slow) var(--vt-ease-emphasis) both,
     settle-shadow var(--vt-duration-fast) ease-out both;
 }
 
-:root::view-transition-old(root) {
+::view-transition-old(root) {
   animation: page-out 220ms ease-out both;
 }
 
-:root::view-transition-new(root) {
+::view-transition-new(root) {
   animation: page-in 300ms ease-out both;
 }
 
@@ -133,13 +135,13 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  :root::view-transition-old(qr),
-  :root::view-transition-new(qr),
-  :root::view-transition-old(root),
-  :root::view-transition-new(root) {
+  ::view-transition-old(qr),
+  ::view-transition-new(qr),
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
     animation-duration: 1ms;
   }
-  :root::view-transition-group(qr) {
+  ::view-transition-group(qr) {
     animation-duration: 1ms;
   }
 }
