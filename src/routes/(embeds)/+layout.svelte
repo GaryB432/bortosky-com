@@ -1,5 +1,18 @@
 <script>
+  import { onNavigate } from "$app/navigation";
   import { resolve } from "$app/paths";
+
+  onNavigate((navigation) => {
+    if (!document.startViewTransition) return;
+
+    return new Promise((resolveNavigation) => {
+      document.startViewTransition(async () => {
+        resolveNavigation();
+        await navigation.complete;
+      });
+    });
+  });
+
   let { children } = $props();
 </script>
 
