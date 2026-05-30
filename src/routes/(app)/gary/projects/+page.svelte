@@ -1,5 +1,6 @@
 <script lang="ts">
   import ProjectCard from "$lib/components/ProjectCard.svelte";
+  import GithubCard from "./cards/GithubCard.svelte";
 
   let { data } = $props();
 
@@ -45,6 +46,8 @@
     </symbol>
   </defs>
 </svg>
+
+<GithubCard></GithubCard>
 
 <div class="container">
   <div class="projects">
