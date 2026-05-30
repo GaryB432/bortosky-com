@@ -1,6 +1,5 @@
 <script lang="ts">
   import ProjectCard from "$lib/components/ProjectCard.svelte";
-  import GithubCard from "./cards/GithubCard.svelte";
 
   let { data } = $props();
 
@@ -47,9 +46,8 @@
   </defs>
 </svg>
 
-<GithubCard></GithubCard>
-
 <div class="container">
+  <img src="https://githubcard.com/GaryB432.svg" alt="" />
   <div class="projects">
     {#each projects as project}
       <ProjectCard {project}></ProjectCard>
@@ -58,9 +56,6 @@
 </div>
 
 <style lang="scss">
-  .container {
-    padding: 2em;
-  }
   .views {
     display: flex;
     align-content: center;
@@ -75,11 +70,35 @@
       text-decoration: underline;
     }
   }
-  .projects {
-    width: fit-content;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 2fr 0.4fr 1fr 1fr;
-    align-items: center;
+  @media screen and (min-width: 576px) {
+    /* landscape phones */
+  }
+  @media screen and (min-width: 768px) {
+    /* tablets */
+    .container {
+      padding: 2em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      & img {
+        max-width: 70vw;
+      }
+    }
+    .projects {
+      width: fit-content;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 2fr 0.4fr 1fr 1fr;
+      align-items: center;
+    }
+  }
+  @media screen and (min-width: 992px) {
+    /* desktops */
+  }
+  @media screen and (min-width: 1200px) {
+    /* large desktops */
+  }
+  @media screen and (min-width: 1400px) {
+    /* larger desktops */
   }
 </style>
