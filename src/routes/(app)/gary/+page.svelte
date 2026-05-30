@@ -2,14 +2,128 @@
 <script lang="ts">
   import { resolve } from "$app/paths";
   import { qrs } from "$lib/shared/quick-response";
+
+  type MenuKey = "projects" | "theater" | "contact";
+
+  const SWIPE_THRESHOLD = 48;
+  const SWIPE_MOVE_THRESHOLD = 8;
+  const ANIMATION_DURATION_MS = 520;
+  let swipeStartX: number | null = null;
+  let swipeStartY: number | null = null;
+  let swipeTarget: MenuKey | null = null;
+  let swipePointerId: number | null = null;
+  let swipeElement: HTMLElement | null = null;
+  let swipeRecognized = false;
+  let animatedMenu: MenuKey | null = $state(null);
+  let suppressClickMenu: MenuKey | null = null;
+  let animationTimeout: ReturnType<typeof setTimeout> | null = null;
+  let suppressClickTimeout: ReturnType<typeof setTimeout> | null = null;
+
+  function handleSwipeStart(event: PointerEvent, menu: MenuKey) {
+    swipeStartX = event.clientX;
+    swipeStartY = event.clientY;
+    swipeTarget = menu;
+    swipeRecognized = false;
+    if (event.currentTarget instanceof HTMLElement) {
+      swipeElement = event.currentTarget;
+      swipePointerId = event.pointerId;
+      event.currentTarget.setPointerCapture(event.pointerId);
+    }
+  }
+
+  function clearSwipeState() {
+    if (
+      swipeElement &&
+      swipePointerId !== null &&
+      swipeElement.hasPointerCapture(swipePointerId)
+    ) {
+      swipeElement.releasePointerCapture(swipePointerId);
+    }
+
+    swipeStartX = null;
+    swipeStartY = null;
+    swipeTarget = null;
+    swipePointerId = null;
+    swipeElement = null;
+    swipeRecognized = false;
+  }
+
+  function triggerAnimation(menu: MenuKey) {
+    animatedMenu = menu;
+    if (animationTimeout) {
+      clearTimeout(animationTimeout);
+      animationTimeout = null;
+    }
+    animationTimeout = setTimeout(() => {
+      animatedMenu = null;
+      animationTimeout = null;
+    }, ANIMATION_DURATION_MS);
+  }
+
+  function recognizeSwipe(event: PointerEvent) {
+    if (
+      swipeStartX === null ||
+      swipeStartY === null ||
+      !swipeTarget ||
+      swipeRecognized
+    )
+      return;
+
+    const deltaX = event.clientX - swipeStartX;
+    const deltaY = event.clientY - swipeStartY;
+
+    if (deltaX <= -SWIPE_THRESHOLD && Math.abs(deltaX) > Math.abs(deltaY)) {
+      swipeRecognized = true;
+      triggerAnimation(swipeTarget);
+      suppressClickMenu = swipeTarget;
+      if (suppressClickTimeout) clearTimeout(suppressClickTimeout);
+      suppressClickTimeout = setTimeout(() => {
+        suppressClickMenu = null;
+        suppressClickTimeout = null;
+      }, ANIMATION_DURATION_MS);
+    }
+  }
+
+  function handleSwipeMove(event: PointerEvent) {
+    if (swipeRecognized) return;
+    if (swipeStartX === null || swipeStartY === null) return;
+    const movedX = Math.abs(event.clientX - swipeStartX);
+    const movedY = Math.abs(event.clientY - swipeStartY);
+    if (movedX < SWIPE_MOVE_THRESHOLD && movedY < SWIPE_MOVE_THRESHOLD) return;
+    recognizeSwipe(event);
+  }
+
+  function handleSwipeEnd(event: PointerEvent) {
+    recognizeSwipe(event);
+    clearSwipeState();
+  }
+
+  function handleMenuClick(event: MouseEvent, menu: MenuKey) {
+    if (suppressClickMenu !== menu) return;
+    event.preventDefault();
+    suppressClickMenu = null;
+    if (suppressClickTimeout) {
+      clearTimeout(suppressClickTimeout);
+      suppressClickTimeout = null;
+    }
+  }
 </script>
 
 <h1>Gary&apos;s Things</h1>
 <section class="container">
-  <a href={resolve("/gary/projects/")}>
+  <a
+    href={resolve("/gary/projects/")}
+    class:swiped={animatedMenu === "projects"}
+    onpointerdown={(event) => handleSwipeStart(event, "projects")}
+    onpointermove={handleSwipeMove}
+    onpointerup={handleSwipeEnd}
+    onpointercancel={clearSwipeState}
+    onclick={(event) => handleMenuClick(event, "projects")}
+  >
     <svg
       viewBox="0 0 1024 1024"
       class="icon"
+      class:animating={animatedMenu === "projects"}
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -28,8 +142,17 @@
     </svg>
     <div>Open Source Software Projects</div>
   </a>
-  <a href={resolve("/gary/theater/")}>
+  <a
+    href={resolve("/gary/theater/")}
+    class:swiped={animatedMenu === "theater"}
+    onpointerdown={(event) => handleSwipeStart(event, "theater")}
+    onpointermove={handleSwipeMove}
+    onpointerup={handleSwipeEnd}
+    onpointercancel={clearSwipeState}
+    onclick={(event) => handleMenuClick(event, "theater")}
+  >
     <svg
+      class:animating={animatedMenu === "theater"}
       xmlns="http://www.w3.org/2000/svg"
       xmlns:xlink="http://www.w3.org/1999/xlink"
       version="1.1"
@@ -56,9 +179,17 @@
     </svg>
     <div>Theater from his youth</div>
   </a>
-  <a href={resolve("/gary/contact/")}>
+  <a
+    href={resolve("/gary/contact/")}
+    class:swiped={animatedMenu === "contact"}
+    onpointerdown={(event) => handleSwipeStart(event, "contact")}
+    onpointermove={handleSwipeMove}
+    onpointerup={handleSwipeEnd}
+    onpointercancel={clearSwipeState}
+    onclick={(event) => handleMenuClick(event, "contact")}
+  >
     <svg
-      style="view-transition-name: qr;"
+      class:animating={animatedMenu === "contact"}
       xmlns="http://www.w3.org/2000/svg"
       xmlns:xlink="http://www.w3.org/1999/xlink"
       version="1.1"
@@ -69,14 +200,23 @@
         style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;"
         transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)"
       >
-        <g>
-          <path
-            d="M 87.642 28.005 c -14.459 -0.578 -28.276 -4.299 -41.07 -11.058 l -2.087 -1.102 l -0.629 2.275 c -7.908 28.607 -4.946 46.618 9.055 55.063 l 0.467 0.282 l 0.545 -0.009 c 16.347 -0.273 27.952 -14.362 35.478 -43.073 L 90 28.099 L 87.642 28.005 z M 51.037 37.632 c 0.03 -0.34 0.137 -0.663 0.257 -0.979 c 0.266 -0.617 0.684 -1.145 1.185 -1.584 c 0.999 -0.876 2.432 -1.351 3.88 -1.205 c 1.447 0.16 2.728 0.911 3.538 1.946 c 0.404 0.523 0.714 1.113 0.864 1.763 c 0.127 0.628 0.18 1.409 -0.263 1.945 c -0.415 -0.503 -0.835 -0.697 -1.276 -0.912 c -0.425 -0.202 -0.828 -0.366 -1.215 -0.499 c -0.772 -0.275 -1.443 -0.399 -2.041 -0.469 c -0.598 -0.047 -1.263 -0.071 -2.061 0.052 c -0.399 0.054 -0.821 0.138 -1.272 0.257 c -0.469 0.13 -0.916 0.244 -1.409 0.674 C 51.051 38.343 51.006 37.974 51.037 37.632 z M 67.38 53.247 c -0.221 0.474 -0.522 0.912 -0.863 1.304 c -0.688 0.785 -1.541 1.408 -2.476 1.882 c -1.866 0.95 -4.156 1.225 -6.322 0.666 c -2.156 -0.599 -4 -1.988 -5.137 -3.747 c -0.571 -0.88 -0.996 -1.847 -1.196 -2.872 c -0.098 -0.511 -0.138 -1.041 -0.09 -1.562 c 0.06 -0.523 0.195 -1.055 0.508 -1.451 c 0.228 0.961 0.746 1.612 1.286 2.255 c 0.542 0.627 1.131 1.183 1.743 1.671 c 1.219 0.994 2.543 1.654 3.873 2.042 c 1.344 0.337 2.822 0.43 4.376 0.183 c 0.776 -0.114 1.564 -0.3 2.348 -0.571 c 0.79 -0.286 1.565 -0.59 2.242 -1.308 C 67.742 52.238 67.591 52.766 67.38 53.247 z M 73.531 42.665 c -0.054 0.333 -0.122 0.666 -0.267 0.975 c -0.144 0.311 -0.368 0.607 -0.657 0.762 c -0.207 -0.619 -0.536 -0.943 -0.875 -1.292 c -0.33 -0.331 -0.652 -0.616 -0.971 -0.863 c -0.63 -0.508 -1.218 -0.822 -1.761 -1.077 c -0.554 -0.235 -1.195 -0.464 -2 -0.614 c -0.4 -0.079 -0.831 -0.139 -1.299 -0.179 c -0.489 -0.037 -0.949 -0.081 -1.563 0.144 c -0.062 -0.323 0.026 -0.683 0.173 -0.991 c 0.145 -0.309 0.355 -0.572 0.574 -0.828 c 0.457 -0.486 1.021 -0.842 1.634 -1.091 c 1.221 -0.488 2.707 -0.495 4.037 0.098 c 1.324 0.605 2.323 1.734 2.746 2.993 C 73.514 41.333 73.61 41.999 73.531 42.665 z"
-            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(231,191,85); fill-rule: nonzero; opacity: 1;"
-            transform=" matrix(1 0 1 1 0 0) "
-            stroke-linecap="round"
-          />
-        </g>
+        <path
+          d="M65.8 12.1H24.2c-4.1 0-7.5 3.4-7.5 7.5v50.8c0 4.1 3.4 7.5 7.5 7.5h41.6c4.1 0 7.5-3.4 7.5-7.5V19.6c0-4.1-3.4-7.5-7.5-7.5zm1.2 58.3c0 .7-.6 1.2-1.2 1.2H24.2c-.7 0-1.2-.6-1.2-1.2V19.6c0-.7.6-1.2 1.2-1.2h41.6c.7 0 1.2.6 1.2 1.2v50.8z"
+          style="stroke: none; stroke-width: 1; fill: rgb(5,13,66); opacity: 1;"
+        />
+        <path
+          d="M38.7 65.1h12.5c1.3 0 2.4-1.1 2.4-2.4s-1.1-2.4-2.4-2.4H38.7c-1.3 0-2.4 1.1-2.4 2.4s1.1 2.4 2.4 2.4z"
+          style="stroke: none; stroke-width: 1; fill: rgb(47,75,255); opacity: 1;"
+        />
+        <path
+          d="M32.3 27.4h9.5v3.5h-6v6h-3.5v-9.5zm15.4 0h9.5v9.5h-3.5v-6h-6v-3.5zm-15.4 15.4h3.5v6h6v3.5h-9.5v-9.5zm21.4 0h3.5v9.5h-9.5v-3.5h6v-6z"
+          style="stroke: none; stroke-width: 1; fill: rgb(221,78,67); opacity: 1;"
+        />
+        <path
+          class="contact-scan-line"
+          d="M29.8 39.2h30v3.8h-30z"
+          style="stroke: none; stroke-width: 1; fill: rgb(231,191,85); opacity: 1;"
+        />
       </g>
     </svg>
     <div>Contact</div>
@@ -87,6 +227,7 @@
   .container {
     max-width: 90vw;
     margin: 0 auto;
+    --swipe-animation-ms: 520ms;
   }
   a {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
@@ -96,8 +237,64 @@
     gap: 1rem;
     margin: 1rem 0;
     padding: 0.5rem;
+    touch-action: pan-y pinch-zoom;
     svg {
       width: 100%;
+    }
+
+    &.swiped {
+      animation: menu-swipe var(--swipe-animation-ms) ease-out;
+    }
+  }
+
+  svg.animating {
+    animation: icon-bob var(--swipe-animation-ms) cubic-bezier(0.2, 0.8, 0.3, 1);
+    transform-origin: center;
+  }
+
+  .animating .contact-scan-line {
+    animation: qr-scan var(--swipe-animation-ms) ease-out;
+  }
+
+  @keyframes menu-swipe {
+    0% {
+      transform: translateX(0);
+    }
+    30% {
+      transform: translateX(-10px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes icon-bob {
+    0% {
+      transform: translateX(0) rotate(0deg);
+    }
+    35% {
+      transform: translateX(-6px) rotate(-2deg);
+    }
+    70% {
+      transform: translateX(3px) rotate(1deg);
+    }
+    100% {
+      transform: translateX(0) rotate(0deg);
+    }
+  }
+
+  @keyframes qr-scan {
+    0% {
+      transform: translateY(-6px);
+      opacity: 0.8;
+    }
+    50% {
+      transform: translateY(6px);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 0.8;
     }
   }
 
