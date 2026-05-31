@@ -10,8 +10,7 @@
   const url = $state(resolve("/gary/contact/download"));
   const qr = $derived(generate(url));
 
-
-  let moduleEntities: ModuleEntity[]=[];
+  let moduleEntities: ModuleEntity[] = [];
 
   let isScanned = $state(false);
 
@@ -165,10 +164,9 @@
 
   function boom() {
     if (isScanned) return;
-    console.log(moduleEntities.length)
+    console.log(moduleEntities.length);
     for (let i = 0; i < moduleEntities.length; i++) {
       const m = moduleEntities[i];
-      console.log(m.x)
 
       if (m.isFinder) {
         const ax = (m.originX - m.x) * 0.08;
