@@ -3,6 +3,30 @@
  */
 
 // ─────────────────────────────────────────────────────────────
+// 3. Lazy shuffle generator — the coolest variant 🎲
+//    Yields one random element at a time, performing swaps
+//    only as needed. Perfect when you don't need ALL n items —
+//    e.g. "pick 5 random words" costs only 5 swaps, not 100.
+//
+//    Usage:
+//      const gen = lazyShuffleGen(myArray);
+//      const [first] = gen;               // 1 swap
+//      const picks = [...take(gen, 5)];   // 5 swaps
+//      const all   = [...gen];            // full shuffle, n swaps
+// ─────────────────────────────────────────────────────────────
+export function* lazyShuffleGen<T>(arr: T[]): Generator<T> {
+  const a = [...arr];
+  let remaining = a.length;
+
+  while (remaining > 0) {
+    const i = Math.floor(Math.random() * remaining);
+    remaining--;
+    [a[i], a[remaining]] = [a[remaining], a[i]];
+    yield a[remaining];
+  }
+}
+
+// ─────────────────────────────────────────────────────────────
 // 1. Classic Fisher-Yates (in-place, full pass)
 //    O(n) time, O(1) space — the baseline.
 // ─────────────────────────────────────────────────────────────
@@ -31,30 +55,6 @@ export function shuffleHalf<T>(arr: T[]): T[] {
     if (i !== j) [a[i], a[j]] = [a[j], a[i]]; // skip identity swaps
   }
   return a;
-}
-
-// ─────────────────────────────────────────────────────────────
-// 3. Lazy shuffle generator — the coolest variant 🎲
-//    Yields one random element at a time, performing swaps
-//    only as needed. Perfect when you don't need ALL n items —
-//    e.g. "pick 5 random words" costs only 5 swaps, not 100.
-//
-//    Usage:
-//      const gen = lazyShuffleGen(myArray);
-//      const [first] = gen;               // 1 swap
-//      const picks = [...take(gen, 5)];   // 5 swaps
-//      const all   = [...gen];            // full shuffle, n swaps
-// ─────────────────────────────────────────────────────────────
-export function* lazyShuffleGen<T>(arr: T[]): Generator<T> {
-  const a = [...arr];
-  let remaining = a.length;
-
-  while (remaining > 0) {
-    const i = Math.floor(Math.random() * remaining);
-    remaining--;
-    [a[i], a[remaining]] = [a[remaining], a[i]];
-    yield a[remaining];
-  }
 }
 
 // Helper: take the first n items from any iterator

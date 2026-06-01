@@ -1,31 +1,33 @@
 import type { PackageJson } from "$lib/project/project";
+
 import { beforeEach, describe, expect, test } from "vitest";
+
 import { getElements } from "./cyto";
 
 const someJs: PackageJson[] = [
   {
-    name: "house",
-    version: "0.0.0",
-    description: "the house project",
     dependencies: {
       bathroom: "^0.0.0",
     },
+    description: "the house project",
     devDependencies: {
       kitchen: "^0.0.0",
     },
     keywords: ["DO-NOT-USE", "ROOT-HOUSE-PROJECT"],
+    name: "house",
+    version: "0.0.0",
   },
   {
-    name: "kitchen",
-    version: "0.0.0",
     description: "the kitchen project",
     keywords: ["room", "cooking"],
+    name: "kitchen",
+    version: "0.0.0",
   },
   {
-    name: "bathroom",
-    version: "0.0.0",
     description: "the bathroom project",
     keywords: ["room", "bathing"],
+    name: "bathroom",
+    version: "0.0.0",
   },
 ];
 
@@ -40,9 +42,9 @@ describe("Cyto", () => {
 
     const gels = getElements(
       new Map<string, PackageJson[]>([
-        ["kw-ac", [house, bath]],
-        ["kw-ab", [house, kitchen]],
         ["kw-a", [house]],
+        ["kw-ab", [house, kitchen]],
+        ["kw-ac", [house, bath]],
       ]),
     );
     expect(gels.nodes.length).toEqual(6);

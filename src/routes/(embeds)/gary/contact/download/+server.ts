@@ -1,5 +1,6 @@
-import { VERCEL_VCARD_IV, VERCEL_VCARD_SECRET_KEY } from "$env/static/private";
 import type { RequestHandler } from "@sveltejs/kit";
+
+import { VERCEL_VCARD_IV, VERCEL_VCARD_SECRET_KEY } from "$env/static/private";
 import crypto from "node:crypto";
 
 const currentTimestamp =
@@ -43,9 +44,9 @@ export const GET: RequestHandler = () => {
 
   return new Response(vCard.join("\r\n"), {
     headers: {
-      "Content-Type": "text/vcard; charset=utf-8",
-      "Content-Disposition": 'inline; filename="Gary_Bortosky.vcf"',
       "Cache-Control": "no-store, no-cache, must-revalidate",
+      "Content-Disposition": 'inline; filename="Gary_Bortosky.vcf"',
+      "Content-Type": "text/vcard; charset=utf-8",
     },
   });
 };

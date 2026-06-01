@@ -1,12 +1,13 @@
+import { error } from "@sveltejs/kit";
 import { getElements } from "$lib/project/graphs/keyword/cyto";
 import { getKeywordMap } from "$lib/project/graphs/keyword/map";
 import { Service } from "$lib/project/npm";
-import { error } from "@sveltejs/kit";
+
 import type { PageLoad } from "./$types";
 
 export const prerender = false;
 
-export const load = (async ({ url, fetch }) => {
+export const load = (async ({ fetch, url }) => {
   const npm = new Service(fetch);
   const ps = url.searchParams.getAll("p").filter((p) => p !== "");
   if (ps.length !== 1) {
@@ -24,8 +25,8 @@ export const load = (async ({ url, fetch }) => {
       const cytoElements = getElements(keywordMap);
 
       return {
-        keywordMap,
         cyto: { elements: cytoElements },
+        keywordMap,
       };
     }),
   );

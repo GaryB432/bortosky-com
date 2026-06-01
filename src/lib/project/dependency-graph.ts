@@ -5,14 +5,15 @@ import type {
   NodeDataDefinition,
   NodeDefinition,
 } from "cytoscape";
+
 import type { GaryProject, NxProjectJson, PackageJson } from "./project";
 
-type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
-
-type NodeDataWithId = WithRequired<NodeDataDefinition, "id" | "label">;
-type EdgeDataWithId = WithRequired<EdgeDataDefinition, "id">;
-
 type DepType = "dev" | "runtime";
+
+type EdgeDataWithId = WithRequired<EdgeDataDefinition, "id">;
+type NodeDataWithId = WithRequired<NodeDataDefinition, "id" | "label">;
+
+type WithRequired<T, K extends keyof T> = { [P in K]-?: T[P] } & T;
 
 export class DependencyGraph {
   private mes = new Map<string, EdgeDefinition>();
@@ -20,7 +21,7 @@ export class DependencyGraph {
 
   public digestWorkspace(ws: GaryProject): void {
     const wsNode = this.getWorkspaceData(ws);
-    this.mns.set(wsNode.id, { data: wsNode, classes: ["ws"] });
+    this.mns.set(wsNode.id, { classes: ["ws"], data: wsNode });
 
     this.digestProject(ws.root, undefined);
 
@@ -32,7 +33,7 @@ export class DependencyGraph {
   public elements(): ElementsDefinition {
     const nodes: NodeDefinition[] = Array.from(this.mns.values());
     const edges: EdgeDefinition[] = Array.from(this.mes.values());
-    return { nodes, edges };
+    return { edges, nodes };
   }
 
   private digestDependencyRecord(
@@ -44,10 +45,10 @@ export class DependencyGraph {
       const pkgNodeData = this.getPackageData(k);
       const versionNodeData = this.getPackageVersionData(k, v);
 
-      this.mns.set(pkgNodeData.id, { data: pkgNodeData, classes: [] });
+      this.mns.set(pkgNodeData.id, { classes: [], data: pkgNodeData });
       this.mns.set(versionNodeData.id, {
-        data: versionNodeData,
         classes: [],
+        data: versionNodeData,
       });
 
       const pvEdgeData = this.edgeForPackageVersionPackage(
@@ -62,27 +63,27 @@ export class DependencyGraph {
       );
 
       this.mes.set(pppvEdgeData.id, {
-        data: pppvEdgeData,
         classes: ["dependency", depType],
+        data: pppvEdgeData,
       });
     }
   }
 
   private digestProject(
-    depender: PackageJson | NxProjectJson,
+    depender: NxProjectJson | PackageJson,
     ws: GaryProject | undefined,
   ): void {
     const dep = depender as PackageJson;
     if (dep.name && (dep.dependencies || dep.devDependencies)) {
       const workspace: GaryProject = ws ?? {
-        root: { name: dep.name, version: "ephemeral" },
         projects: [],
+        root: { name: dep.name, version: "ephemeral" },
       };
       const wsNodeData = this.getWorkspaceData(workspace);
       const dependerNodeData = this.getProjectData(dep, wsNodeData);
       this.mns.set(dependerNodeData.id, {
-        data: dependerNodeData,
         classes: ws ? ["subp"] : ["subp", "root"],
+        data: dependerNodeData,
       });
       const wsProjEdgeData = this.edgeForWorkspaceProject(
         dependerNodeData,
@@ -140,7 +141,7 @@ export class DependencyGraph {
   }
 
   private getProjectData(
-    pj: PackageJson | NxProjectJson,
+    pj: NxProjectJson | PackageJson,
     wsNode: NodeDataWithId,
   ): NodeDataWithId {
     const name = pj.name ?? "root";

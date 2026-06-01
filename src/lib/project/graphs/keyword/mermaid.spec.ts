@@ -1,4 +1,5 @@
 import { describe, expect, test } from "vitest";
+
 import { makeMermaidGraph } from "./mermaid";
 
 describe("Mermaid", () => {
@@ -8,9 +9,9 @@ describe("Mermaid", () => {
     expect(
       makeMermaidGraph(
         new Map([
-          ["room", [bathroom, kitchen]],
           ["bathing", [bathroom]],
           ["cooking", [kitchen]],
+          ["room", [bathroom, kitchen]],
         ]),
       ),
     ).toEqual([

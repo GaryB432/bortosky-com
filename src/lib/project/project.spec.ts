@@ -1,17 +1,18 @@
 import { describe, expect, test } from "vitest";
+
 import { allKeywords } from "./project";
 
 describe("Project", () => {
   test("gets keywords", () => {
     expect(
       allKeywords({
-        root: { name: "C", version: "", keywords: ["b", "a"] },
         projects: [
-          { name: "A", version: "", keywords: ["b", "d"] },
-          { name: "B", version: "", keywords: ["c", "b", "a", "d"] },
-          { name: "E", version: "", keywords: undefined },
-          { name: "D", version: "", keywords: ["b", "a", "d"] },
+          { keywords: ["b", "d"], name: "A", version: "" },
+          { keywords: ["c", "b", "a", "d"], name: "B", version: "" },
+          { keywords: undefined, name: "E", version: "" },
+          { keywords: ["b", "a", "d"], name: "D", version: "" },
         ],
+        root: { keywords: ["b", "a"], name: "C", version: "" },
       }),
     ).toEqual(["a", "b", "c", "d"]);
   });

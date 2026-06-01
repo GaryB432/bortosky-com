@@ -1,6 +1,8 @@
 import type { IService, PackumentBase } from "$lib/project/npm";
 import type { PackageJson } from "$lib/project/project";
+
 import { beforeEach, describe, expect, test } from "vitest";
+
 import { getKeywordMap } from "./map";
 
 // import { when } from "vitest-when";
@@ -145,189 +147,189 @@ describe("Map", () => {
 
 const orderlyPackages: PackageJson[] = [
   {
+    dependencies: {
+      chair: "^0.0.0",
+      field: "^0.0.0",
+      river: "^0.0.0",
+      stone: "^0.0.0",
+    },
+    description: "the apple project",
+    devDependencies: {
+      apple: "^0.0.0",
+      chair: "^0.0.0",
+      house: "^0.0.0",
+      plant: "^0.0.0",
+      stone: "^0.0.0",
+      table: "^0.0.0",
+    },
+    keywords: ["experience", "dictionary"],
     name: "apple",
     version: "0.0.0",
-    description: "the apple project",
-    keywords: ["experience", "dictionary"],
+  },
+  {
     dependencies: {
       chair: "^0.0.0",
       field: "^0.0.0",
-      river: "^0.0.0",
-      stone: "^0.0.0",
-    },
-    devDependencies: {
-      apple: "^0.0.0",
-      chair: "^0.0.0",
-      house: "^0.0.0",
-      plant: "^0.0.0",
       stone: "^0.0.0",
       table: "^0.0.0",
     },
-  },
-  {
+    description: "the chair project",
+    devDependencies: {
+      chair: "^0.0.0",
+      stone: "^0.0.0",
+    },
+    keywords: ["restaurant", "photograph", "helicopter"],
     name: "chair",
     version: "0.0.0",
-    description: "the chair project",
-    keywords: ["restaurant", "photograph", "helicopter"],
-    dependencies: {
-      chair: "^0.0.0",
-      field: "^0.0.0",
-      stone: "^0.0.0",
-      table: "^0.0.0",
-    },
-    devDependencies: {
-      chair: "^0.0.0",
-      stone: "^0.0.0",
-    },
   },
   {
+    dependencies: {
+      table: "^0.0.0",
+    },
+    description: "the table project",
+    devDependencies: {
+      apple: "^0.0.0",
+      plant: "^0.0.0",
+      river: "^0.0.0",
+      table: "^0.0.0",
+    },
+    keywords: [],
     name: "table",
     version: "0.0.0",
-    description: "the table project",
-    keywords: [],
-    dependencies: {
-      table: "^0.0.0",
-    },
-    devDependencies: {
-      apple: "^0.0.0",
-      plant: "^0.0.0",
-      river: "^0.0.0",
-      table: "^0.0.0",
-    },
   },
   {
+    dependencies: {
+      apple: "^0.0.0",
+      chair: "^0.0.0",
+      river: "^0.0.0",
+    },
+    description: "the house project",
+    devDependencies: {
+      apple: "^0.0.0",
+      field: "^0.0.0",
+      river: "^0.0.0",
+      stone: "^0.0.0",
+      table: "^0.0.0",
+    },
+    keywords: ["experience", "instrument", "helicopter", "dictionary"],
     name: "house",
     version: "0.0.0",
-    description: "the house project",
-    keywords: ["experience", "instrument", "helicopter", "dictionary"],
-    dependencies: {
-      apple: "^0.0.0",
-      chair: "^0.0.0",
-      river: "^0.0.0",
-    },
-    devDependencies: {
-      apple: "^0.0.0",
-      field: "^0.0.0",
-      river: "^0.0.0",
-      stone: "^0.0.0",
-      table: "^0.0.0",
-    },
   },
   {
+    dependencies: {
+      apple: "^0.0.0",
+      house: "^0.0.0",
+      table: "^0.0.0",
+    },
+    description: "the stone project",
+    devDependencies: {
+      river: "^0.0.0",
+      stone: "^0.0.0",
+    },
+    keywords: ["helicopter"],
     name: "stone",
     version: "0.0.0",
-    description: "the stone project",
-    keywords: ["helicopter"],
+  },
+  {
     dependencies: {
-      apple: "^0.0.0",
-      house: "^0.0.0",
-      table: "^0.0.0",
+      chair: "^0.0.0",
+      plant: "^0.0.0",
+      river: "^0.0.0",
     },
+    description: "the field project",
     devDependencies: {
       river: "^0.0.0",
       stone: "^0.0.0",
     },
-  },
-  {
+    keywords: ["dictionary", "helicopter", "restaurant"],
     name: "field",
     version: "0.0.0",
-    description: "the field project",
-    keywords: ["dictionary", "helicopter", "restaurant"],
+  },
+  {
     dependencies: {
       chair: "^0.0.0",
-      plant: "^0.0.0",
-      river: "^0.0.0",
-    },
-    devDependencies: {
       river: "^0.0.0",
       stone: "^0.0.0",
     },
-  },
-  {
+    description: "the plant project",
+    devDependencies: {
+      field: "^0.0.0",
+      plant: "^0.0.0",
+      table: "^0.0.0",
+    },
+    keywords: ["dictionary", "restaurant"],
     name: "plant",
     version: "0.0.0",
-    description: "the plant project",
-    keywords: ["dictionary", "restaurant"],
-    dependencies: {
-      chair: "^0.0.0",
-      river: "^0.0.0",
-      stone: "^0.0.0",
-    },
-    devDependencies: {
-      field: "^0.0.0",
-      plant: "^0.0.0",
-      table: "^0.0.0",
-    },
   },
   {
-    name: "river",
-    version: "0.0.0",
-    description: "the river project",
-    keywords: ["photograph", "television", "experience"],
     dependencies: {
       house: "^0.0.0",
       plant: "^0.0.0",
       river: "^0.0.0",
       stone: "^0.0.0",
     },
+    description: "the river project",
     devDependencies: {
       chair: "^0.0.0",
       field: "^0.0.0",
       house: "^0.0.0",
       table: "^0.0.0",
     },
+    keywords: ["photograph", "television", "experience"],
+    name: "river",
+    version: "0.0.0",
   },
 ];
 const someJs: PackageJson[] = [
   {
-    name: "house",
-    version: "0.0.0",
-    description: "the house project",
     dependencies: {
       bathroom: "^0.0.0",
     },
+    description: "the house project",
     devDependencies: {
       kitchen: "^0.0.0",
     },
     keywords: ["DO-NOT-USE", "ROOT-HOUSE-PROJECT"],
+    name: "house",
+    version: "0.0.0",
   },
   {
-    name: "kitchen",
-    version: "0.0.0",
     description: "the kitchen project",
     keywords: ["room", "cooking"],
+    name: "kitchen",
+    version: "0.0.0",
   },
   {
-    name: "bathroom",
-    version: "0.0.0",
     description: "the bathroom project",
     keywords: ["room", "bathing"],
+    name: "bathroom",
+    version: "0.0.0",
   },
 ];
 
 const somePacks: PackumentBase[] = someJs.map<PackumentBase>((j, i) => {
   const {
-    name,
-    description,
-    version,
-    keywords,
     dependencies,
+    description,
     devDependencies,
+    keywords,
+    name,
+    version,
   } = j;
   return {
-    name,
     "dist-tags": {
       _gb: version,
       latest: version,
     },
+    name,
     versions: {
       [version]: {
+        dependencies,
+        description,
+        devDependencies,
+        keywords,
         name,
         version,
-        description,
-        keywords,
-        dependencies,
-        devDependencies,
       },
     },
   };

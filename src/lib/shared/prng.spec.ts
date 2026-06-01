@@ -1,4 +1,5 @@
 import { describe, expect, test } from "vitest";
+
 import { rand } from "./prng";
 
 describe("Prng", () => {

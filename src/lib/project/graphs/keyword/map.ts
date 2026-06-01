@@ -1,5 +1,6 @@
 import type { IService, PackumentBase } from "$lib/project/npm";
 import type { PackageJson } from "$lib/project/project";
+
 import semver from "semver";
 // import { get } from "simple-get";
 
@@ -31,80 +32,69 @@ const someKeywords = [
 
 const someJs: PackageJson[] = [
   {
-    name: "house",
-    version: "0.0.0",
-    description: "the house project",
     dependencies: {
       bathroom: "^0.0.0",
     },
+    description: "the house project",
     devDependencies: {
       kitchen: "^0.0.0",
     },
     keywords: ["DO-NOT-USE", "ROOT-HOUSE-PROJECT"],
+    name: "house",
+    version: "0.0.0",
   },
   {
-    name: "kitchen",
-    version: "0.0.0",
     description: "the kitchen project",
     keywords: ["room", "cooking"],
+    name: "kitchen",
+    version: "0.0.0",
   },
   {
-    name: "bathroom",
-    version: "0.0.0",
     description: "the bathroom project",
     keywords: ["room", "bathing"],
+    name: "bathroom",
+    version: "0.0.0",
   },
 ];
 
 const somePacks: PackumentBase[] = someJs.map<PackumentBase>((j, i) => {
   const {
-    name,
-    description,
-    version,
-    keywords,
     dependencies,
+    description,
     devDependencies,
+    keywords,
+    name,
+    version,
   } = j;
   return {
     _id: name,
     _rev: i.toString(),
-    name,
+    bugs: undefined,
     description: description,
     "dist-tags": {
       latest: version,
     },
-    versions: {
-      [version]: {
-        name,
-        version,
-        description,
-        keywords,
-        dependencies,
-        devDependencies,
-      },
-    },
-    readme: "",
-    maintainers: [],
-    time: undefined,
     homepage: "",
     keywords,
-    repository: undefined,
-    bugs: undefined,
     license: "",
+    maintainers: [],
+    name,
+    readme: "",
     readmeFilename: "",
+    repository: undefined,
+    time: undefined,
+    versions: {
+      [version]: {
+        dependencies,
+        description,
+        devDependencies,
+        keywords,
+        name,
+        version,
+      },
+    },
   };
 });
-
-export function getPackageGVersion(subject: PackumentBase): PackageJson {
-  const { "dist-tags": tags } = subject;
-  const gbv = tags["_gb"];
-  const pj = subject.versions[gbv] as PackageJson;
-  // console.log(tags);
-  if (!pj) {
-    throw new Error(`${subject.name} is broken`);
-  }
-  return pj;
-}
 
 export async function getKeywordMap(
   subject: PackumentBase,
@@ -156,53 +146,64 @@ export async function getKeywordMap(
   return result;
 }
 
+export function getPackageGVersion(subject: PackumentBase): PackageJson {
+  const { "dist-tags": tags } = subject;
+  const gbv = tags["_gb"];
+  const pj = subject.versions[gbv] as PackageJson;
+  // console.log(tags);
+  if (!pj) {
+    throw new Error(`${subject.name} is broken`);
+  }
+  return pj;
+}
+
 const someOldeTimeyJs: PackageJson[] = [
   {
-    name: "apple",
-    version: "0.0.0",
     description: "the apple project",
     keywords: ["apple"],
+    name: "apple",
+    version: "0.0.0",
   },
   {
-    name: "chair",
-    version: "0.0.0",
     description: "the chair project",
     keywords: ["chair"],
+    name: "chair",
+    version: "0.0.0",
   },
   {
-    name: "table",
-    version: "0.0.0",
     description: "the table project",
     keywords: ["table"],
+    name: "table",
+    version: "0.0.0",
   },
   {
-    name: "house",
-    version: "0.0.0",
     description: "the house project",
     keywords: ["house"],
+    name: "house",
+    version: "0.0.0",
   },
   {
-    name: "stone",
-    version: "0.0.0",
     description: "the stone project",
     keywords: ["stone"],
+    name: "stone",
+    version: "0.0.0",
   },
   {
-    name: "field",
-    version: "0.0.0",
     description: "the field project",
     keywords: ["field"],
+    name: "field",
+    version: "0.0.0",
   },
   {
-    name: "plant",
-    version: "0.0.0",
     description: "the plant project",
     keywords: ["plant"],
+    name: "plant",
+    version: "0.0.0",
   },
   {
-    name: "river",
-    version: "0.0.0",
     description: "the river project",
     keywords: ["river"],
+    name: "river",
+    version: "0.0.0",
   },
 ];

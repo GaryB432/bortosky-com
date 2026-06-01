@@ -6,53 +6,12 @@ import type {
   PackageJson,
 } from "$lib/project/project";
 
-type Time = { modified: string; created: string } | Record<string, string>;
-
-interface SearchResultPackage extends PackageJson {
-  scope?: string;
-  date?: string;
-  links?: {
-    npm: string;
-    homepage?: string;
-    repository?: string;
-    bugs?: string;
-  };
-  publisher: NpmUserNamedUser;
-  author?: NpmUser;
-}
-
-interface SearchResultObject {
-  package: SearchResultPackage;
-  flags: { insecure: number };
-  score: {
-    final: number;
-    detail: {
-      quality: number;
-      popularity: number;
-      maintenance: number;
-    };
-  };
-  searchScore: number;
-}
-
-export interface SearchResultResponse {
-  objects: SearchResultObject[];
-  total: number;
-  time: string;
-}
-
 export type Download = {
   downloads: number;
-  start: string;
   end: string;
   package: string;
+  start: string;
 };
-
-export interface PackumentBase {
-  name: string;
-  "dist-tags": Record<string, string>;
-  versions: Record<string, PackumentVersion>;
-}
 
 export interface Packument extends PackumentBase {
   _id?: string;
@@ -69,10 +28,51 @@ export interface Packument extends PackumentBase {
   time?: Time;
 }
 
+export interface PackumentBase {
+  "dist-tags": Record<string, string>;
+  name: string;
+  versions: Record<string, PackumentVersion>;
+}
+
 export interface PackumentVersion extends PackageJson {
-  gitHead?: string;
   _id?: string;
-  _npmVersion?: string;
   _nodeVersion?: string;
   _npmUser?: NpmUser;
+  _npmVersion?: string;
+  gitHead?: string;
 }
+
+export interface SearchResultResponse {
+  objects: SearchResultObject[];
+  time: string;
+  total: number;
+}
+
+interface SearchResultObject {
+  flags: { insecure: number };
+  package: SearchResultPackage;
+  score: {
+    detail: {
+      maintenance: number;
+      popularity: number;
+      quality: number;
+    };
+    final: number;
+  };
+  searchScore: number;
+}
+
+interface SearchResultPackage extends PackageJson {
+  author?: NpmUser;
+  date?: string;
+  links?: {
+    bugs?: string;
+    homepage?: string;
+    npm: string;
+    repository?: string;
+  };
+  publisher: NpmUserNamedUser;
+  scope?: string;
+}
+
+type Time = { created: string; modified: string; } | Record<string, string>;

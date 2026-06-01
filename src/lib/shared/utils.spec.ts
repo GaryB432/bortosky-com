@@ -1,4 +1,5 @@
 import { describe, expect, test } from "vitest";
+
 import { formatNumber, shuffle } from "./utils";
 
 describe("formatNumber", () => {

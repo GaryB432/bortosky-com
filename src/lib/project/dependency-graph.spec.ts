@@ -1,6 +1,8 @@
 import { beforeEach, describe, expect, test } from "vitest";
-import { DependencyGraph } from "./dependency-graph";
+
 import type { GaryProject } from "./project";
+
+import { DependencyGraph } from "./dependency-graph";
 
 /**
  * jest | ^07.0.0 | workspace-a | workspace-a@ws-a | dev
@@ -21,33 +23,33 @@ describe("DependencyGraph", () => {
 
 const subject: GaryProject[] = [
   {
-    root: {
-      name: "workspace-a",
-      version: "whatever",
-      devDependencies: { jest: "3.0.0" },
-      dependencies: { album: "4.0.0" },
-    },
     projects: [
       {
-        name: "wsa-a",
-        version: "",
-        type: "module",
+        dependencies: { brake: "~1.4.6", throttle: "^4.1.2" },
         devDependencies: {
           desk: "^1.4.9",
-          window: "5.4.2",
           "eslint-plugin-gb": "skipped",
+          window: "5.4.2",
         },
-        dependencies: { throttle: "^4.1.2", brake: "~1.4.6" },
+        name: "wsa-a",
+        type: "module",
+        version: "",
       },
     ],
+    root: {
+      dependencies: { album: "4.0.0" },
+      devDependencies: { jest: "3.0.0" },
+      name: "workspace-a",
+      version: "whatever",
+    },
   },
   {
+    projects: [],
     root: {
+      dependencies: { album: "2" },
+      devDependencies: { jest: "^4.0.0" },
       name: "workspace-b",
       version: "0",
-      devDependencies: { jest: "^4.0.0" },
-      dependencies: { album: "2" },
     },
-    projects: [],
   },
 ];

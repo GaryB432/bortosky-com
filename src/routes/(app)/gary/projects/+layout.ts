@@ -1,5 +1,7 @@
-import { base } from "$app/paths";
 import type { GaryProject } from "$lib/project/project";
+
+import { base } from "$app/paths";
+
 import type { LayoutLoad } from "./$types";
 
 export const load = (async ({ fetch }) => {

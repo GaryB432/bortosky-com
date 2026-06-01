@@ -1,9 +1,10 @@
 import { beforeEach, describe, expect, test } from "vitest";
+
 import venvPack from "./packuments/venv.json";
 import { Service } from "./service";
 
 async function mockFetcher(
-  input: string | URL | Request,
+  input: Request | string | URL,
   init?: RequestInit,
 ): Promise<Response> {
   return new Promise<Response>((resolve, reject) => {
@@ -75,7 +76,7 @@ describe("Service", () => {
 
   test("getPackage", async () => {
     const venv = await service.getPackument("venv", "latest");
-    expect(venv?.["dist-tags"]).toEqual({ latest: "1.0.1", _gb: "1.0.1" });
+    expect(venv?.["dist-tags"]).toEqual({ _gb: "1.0.1", latest: "1.0.1" });
     expect(venv?.versions["1.0.1"].keywords).toEqual([
       // expect(venv?.keywords).toEqual([
       "environment",

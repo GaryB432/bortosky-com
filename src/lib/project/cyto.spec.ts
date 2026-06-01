@@ -1,39 +1,41 @@
 import { describe, expect, test } from "vitest";
-import { getDependencyElements, getElements } from "./cyto";
+
 import type { GaryProject } from "./project";
+
+import { getDependencyElements, getElements } from "./cyto";
 
 describe("Cyto", () => {
   test("getElements", () => {
     expect(
       getElements([
         {
-          root: {
-            name: "workspace-a",
-            version: "0",
-            devDependencies: { jest: "3" },
-            dependencies: { album: "4" },
-          },
           projects: [
             {
-              name: "wsa-a",
-              type: "module",
+              dependencies: { brake: "1", throttle: "4" },
               devDependencies: {
                 desk: "*",
-                window: "*",
                 "eslint-plugin-gb": "no-longer-skipped",
+                window: "*",
               },
-              dependencies: { throttle: "4", brake: "1" },
+              name: "wsa-a",
+              type: "module",
             },
           ],
+          root: {
+            dependencies: { album: "4" },
+            devDependencies: { jest: "3" },
+            name: "workspace-a",
+            version: "0",
+          },
         },
         {
+          projects: [],
           root: {
+            dependencies: { album: "2" },
+            devDependencies: { jest: "5" },
             name: "workspace-b",
             version: "0",
-            devDependencies: { jest: "5" },
-            dependencies: { album: "2" },
           },
-          projects: [],
         },
       ]),
     ).toMatchSnapshot();
@@ -44,33 +46,33 @@ describe("Cyto", () => {
       getDependencyElements(
         [
           {
-            root: {
-              name: "workspace-a",
-              version: "whatever",
-              devDependencies: { jest: "3.0.0" },
-              dependencies: { album: "4.0.0" },
-            },
             projects: [
               {
-                name: "wsa-a",
-                type: "module",
+                dependencies: { brake: "~1.4.6", throttle: "^4.1.2" },
                 devDependencies: {
                   desk: "^1.4.9",
-                  window: "5.4.2",
                   "eslint-plugin-gb": "skipped",
+                  window: "5.4.2",
                 },
-                dependencies: { throttle: "^4.1.2", brake: "~1.4.6" },
+                name: "wsa-a",
+                type: "module",
               },
             ],
+            root: {
+              dependencies: { album: "4.0.0" },
+              devDependencies: { jest: "3.0.0" },
+              name: "workspace-a",
+              version: "whatever",
+            },
           },
           {
+            projects: [],
             root: {
+              dependencies: { album: "2" },
+              devDependencies: { jest: "^4.0.0" },
               name: "workspace-b",
               version: "0",
-              devDependencies: { jest: "^4.0.0" },
-              dependencies: { album: "2" },
             },
-            projects: [],
           },
         ],
         ["workspace-a", "workspace-b"],
@@ -81,32 +83,21 @@ describe("Cyto", () => {
 
 const specimenLarge: GaryProject[] = [
   {
+    projects: [],
     root: {
-      name: "bortosky-com",
-      version: "0.0.1",
-      type: "module",
       dependencies: {
         tbd: "0.0.0",
       },
       devDependencies: {
         soon: "^17.10.5",
       },
+      name: "bortosky-com",
       nx: {},
+      type: "module",
+      version: "0.0.1",
     },
-    projects: [],
   },
   {
-    root: {
-      name: "district-map",
-      version: "0.0.0",
-      dependencies: {
-        tbd: "0.0.0",
-      },
-      devDependencies: {
-        soon: "^17.10.5",
-      },
-      workspaces: ["apps/web"],
-    },
     projects: [
       {
         name: "reader",
@@ -114,8 +105,8 @@ const specimenLarge: GaryProject[] = [
         tags: [],
       },
       {
-        name: "reader-e2e",
         implicitDependencies: ["reader"],
+        name: "reader-e2e",
       },
       {
         name: "shared",
@@ -128,19 +119,30 @@ const specimenLarge: GaryProject[] = [
         tags: [],
       },
       {
-        name: "web",
-        version: "0.0.1",
-        type: "module",
         dependencies: {
           dep: "0",
         },
         devDependencies: {
           devdep: "0",
         },
+        name: "web",
         nx: {
           implicitDependencies: ["svg", "shared"],
         },
+        type: "module",
+        version: "0.0.1",
       },
     ],
+    root: {
+      dependencies: {
+        tbd: "0.0.0",
+      },
+      devDependencies: {
+        soon: "^17.10.5",
+      },
+      name: "district-map",
+      version: "0.0.0",
+      workspaces: ["apps/web"],
+    },
   },
 ];

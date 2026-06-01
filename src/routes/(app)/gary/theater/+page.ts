@@ -1,18 +1,19 @@
 import { base } from "$app/paths";
+
 import type { PageLoad } from "./$types";
 
 type ISODate = string;
+
+interface Producer {
+  name: string;
+  productions: Production[];
+}
 
 interface Production {
   opening: ISODate;
   producer: Producer;
   role: string;
   show: string;
-}
-
-interface Producer {
-  name: string;
-  productions: Production[];
 }
 
 export const load: PageLoad = async ({ fetch }) => {

@@ -1,4 +1,5 @@
 import * as semver from "semver";
+
 import type {
   Download,
   PackumentBase,
@@ -6,23 +7,23 @@ import type {
   SearchResultResponse,
 } from "./types";
 
-export interface IService {
-  getPackument(name: string, range: string): Promise<PackumentBase | undefined>;
-}
-
-type Period = "last-day" | "last-week" | "last-month" | "last-year";
-
 export interface IDownloadService {
   getDownloads(name: string, period: Period): Promise<Download | undefined>;
   getSomePackages(size: number, text: string): Promise<string[]>;
 }
 
-export class Service implements IService, IDownloadService {
+export interface IService {
+  getPackument(name: string, range: string): Promise<PackumentBase | undefined>;
+}
+
+type Period = "last-day" | "last-month" | "last-week" | "last-year";
+
+export class Service implements IDownloadService, IService {
   private readonly registryUrlBase = "https://registry.npmjs.org";
 
   public constructor(
     private readonly fetcher: (
-      input: string | URL | Request,
+      input: Request | string | URL,
       init?: RequestInit,
     ) => Promise<Response>,
   ) {}
@@ -108,7 +109,7 @@ export class Service implements IService, IDownloadService {
     return part2 ? rangeComparator : "latest";
   }
 
-  private downloadsUrl(period: string, name: string): string | URL | Request {
+  private downloadsUrl(period: string, name: string): Request | string | URL {
     return new URL(
       `downloads/point/${period}/${name}`,
       "https://api.npmjs.org",

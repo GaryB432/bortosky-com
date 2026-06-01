@@ -8,19 +8,19 @@ import type {
   NodeDefinition,
 } from "cytoscape";
 
-type ElementDataWithId = Required<Pick<ElementDataDefinition, "id">>;
-
-type PackageJsonDataDefinition = ElementDataWithId & PackageJson;
-
-type KeywordDataDefinition = ElementDataWithId;
-
-type PkEdgeDefinition = ElementDataWithId & EdgeDataDefinition;
-
-export type GElementDataDefinitionx = ElementDataDefinition & {
+export type GElementDataDefinitionx = {
   description?: string;
   id: string;
   label?: string;
-};
+} & ElementDataDefinition;
+
+type ElementDataWithId = Required<Pick<ElementDataDefinition, "id">>;
+
+type KeywordDataDefinition = ElementDataWithId;
+
+type PackageJsonDataDefinition = ElementDataWithId & PackageJson;
+
+type PkEdgeDefinition = EdgeDataDefinition & ElementDataWithId;
 
 // export async function getDependencyElements(
 //   gprojs: GaryProject[],
@@ -33,69 +33,6 @@ export type GElementDataDefinitionx = ElementDataDefinition & {
 //   }
 //   return dg.elements();
 // }
-
-export function getElements(
-  keywordMap: Map<string, PackageJson[]>,
-): ElementsDefinition {
-  const mns = new Map<string, NodeDefinition>();
-  const mes = new Map<string, EdgeDefinition>();
-
-  // const nodes = [...packageMap.keys()].map<NodeDefinition>((keyword) => {
-  //   return { data: { id: keyword } };
-  // });
-
-  keywordMap.forEach((pJs, keyword) => {
-    const kwdData: KeywordDataDefinition = getKeywordNodeData(keyword);
-    mns.set(kwdData.id, {
-      data: kwdData,
-      classes: ["keyword"],
-    });
-    for (const pJ of pJs) {
-      const pJData: PackageJsonDataDefinition = getPackageNodeData(pJ);
-      mns.set(pJData.id, { data: pJData, classes: ["package"] });
-
-      const edgeData: PkEdgeDefinition = getEdge(kwdData, pJData);
-      mes.set(edgeData.id, {
-        data: {
-          source: kwdData.id,
-          target: pJData.id,
-        },
-      });
-    }
-  });
-
-  return {
-    nodes: Array.from(mns.values()),
-    edges: Array.from(mes.values()),
-  };
-
-  function getEdge(
-    kwdData: KeywordDataDefinition,
-    pJData: PackageJsonDataDefinition,
-  ): PkEdgeDefinition {
-    return {
-      id: kwdData.id.concat("|").concat(pJData.id),
-      source: kwdData.id,
-      target: pJData.id,
-    };
-  }
-
-  function getPackageNodeData(pJ: PackageJson): PackageJsonDataDefinition {
-    const { name, version, description, keywords } = pJ;
-
-    return {
-      id: pJ.name.concat("@".concat(pJ.version)),
-      name,
-      version,
-      description,
-      keywords,
-    };
-  }
-
-  function getKeywordNodeData(keyword: string): KeywordDataDefinition {
-    return { id: keyword };
-  }
-}
 
 export function cssDeclarations(): CssStyleDeclaration[] {
   return [
@@ -115,18 +52,18 @@ export function cssDeclarations(): CssStyleDeclaration[] {
       selector: "node.focused",
       style: {
         "background-color": "blue",
-        "border-width": 60,
         "border-color": "green",
+        "border-width": 60,
       },
     },
     {
       selector: "edge",
       style: {
-        width: 3,
+        "curve-style": "bezier",
         "line-color": "#ccc",
         "target-arrow-color": "#ccc",
         "target-arrow-shape": "triangle",
-        "curve-style": "bezier",
+        width: 3,
       },
     },
     {
@@ -147,10 +84,73 @@ export function cssDeclarations(): CssStyleDeclaration[] {
       style: {
         "background-color": "yellow",
         "line-color": "yellow",
-        "target-arrow-color": "black",
         "source-arrow-color": "black",
+        "target-arrow-color": "black",
       },
     },
     { selector: "edge:selected", style: { width: 20 } },
   ];
+}
+
+export function getElements(
+  keywordMap: Map<string, PackageJson[]>,
+): ElementsDefinition {
+  const mns = new Map<string, NodeDefinition>();
+  const mes = new Map<string, EdgeDefinition>();
+
+  // const nodes = [...packageMap.keys()].map<NodeDefinition>((keyword) => {
+  //   return { data: { id: keyword } };
+  // });
+
+  keywordMap.forEach((pJs, keyword) => {
+    const kwdData: KeywordDataDefinition = getKeywordNodeData(keyword);
+    mns.set(kwdData.id, {
+      classes: ["keyword"],
+      data: kwdData,
+    });
+    for (const pJ of pJs) {
+      const pJData: PackageJsonDataDefinition = getPackageNodeData(pJ);
+      mns.set(pJData.id, { classes: ["package"], data: pJData });
+
+      const edgeData: PkEdgeDefinition = getEdge(kwdData, pJData);
+      mes.set(edgeData.id, {
+        data: {
+          source: kwdData.id,
+          target: pJData.id,
+        },
+      });
+    }
+  });
+
+  return {
+    edges: Array.from(mes.values()),
+    nodes: Array.from(mns.values()),
+  };
+
+  function getEdge(
+    kwdData: KeywordDataDefinition,
+    pJData: PackageJsonDataDefinition,
+  ): PkEdgeDefinition {
+    return {
+      id: kwdData.id.concat("|").concat(pJData.id),
+      source: kwdData.id,
+      target: pJData.id,
+    };
+  }
+
+  function getPackageNodeData(pJ: PackageJson): PackageJsonDataDefinition {
+    const { description, keywords, name, version } = pJ;
+
+    return {
+      description,
+      id: pJ.name.concat("@".concat(pJ.version)),
+      keywords,
+      name,
+      version,
+    };
+  }
+
+  function getKeywordNodeData(keyword: string): KeywordDataDefinition {
+    return { id: keyword };
+  }
 }

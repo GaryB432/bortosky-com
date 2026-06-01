@@ -15,16 +15,16 @@ export const domains = new Map<string, string[]>([
     ],
   ],
   [
-    "bortosky-com",
-    ["bortosky.com", "www.bortosky.com", "bortosky.app", "www.bortosky.app"],
-  ],
-  [
     "artboard",
     [
       "artboard.bortosky.app",
       "artboard.nabors-place.com",
       "artboard-nu.vercel.app",
     ],
+  ],
+  [
+    "bortosky-com",
+    ["bortosky.com", "www.bortosky.com", "bortosky.app", "www.bortosky.app"],
   ],
   ["compass-pwa", ["compass-pwa.bortosky.app", "compass-pwa.vercel.app"]],
   [
