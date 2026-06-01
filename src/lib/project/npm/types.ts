@@ -75,4 +75,4 @@ interface SearchResultPackage extends PackageJson {
   scope?: string;
 }
 
-type Time = { created: string; modified: string; } | Record<string, string>;
+type Time = { created: string; modified: string } | Record<string, string>;

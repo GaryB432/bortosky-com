@@ -36,7 +36,7 @@ export interface NxProjectJson {
 
 export interface PackageJson {
   bin?: Record<string, string> | string;
-  bugs?: { email?: string; url?: string; } | string;
+  bugs?: { email?: string; url?: string } | string;
   builders?: string;
   dependencies?: Record<string, string>;
   description?: string;
