@@ -21,7 +21,7 @@
     <ol>
       <li class="crumb"><a href={resolve("/(app)")}>Home</a></li>
       <li class="crumb"><a href={resolve("/(app)/gary")}>Gary</a></li>
-      <li class="crumb">Jump Bike 3000</li>
+      <li class="crumb">...</li>
     </ol>
   </nav>
   <div class="block">
