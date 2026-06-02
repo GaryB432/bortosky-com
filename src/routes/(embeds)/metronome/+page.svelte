@@ -284,55 +284,57 @@
   });
 </script>
 
-<main class="kiosk">
-  <h1>metro-clock-nome</h1>
-  <p class="subtitle">
-    One beat per second, playful accents at 10-beat intervals and :00
-  </p>
+<div class="grad-grid">
+  <main class="kiosk">
+    <h1>metro-clock-nome</h1>
+    <p class="subtitle">
+      One beat per second, playful accents at 10-beat intervals and :00
+    </p>
 
-  <div class="pulse-wrap">
-    {#key pulseKey}
-      <div id="pulse" class="pulse {pulseMode}"></div>
-    {/key}
-  </div>
-
-  <section class="meta">
-    <div class="meta-item">
-      <span class="label">Beat Count</span>
-      <span id="beatCount" class="value">{beatCount}</span>
+    <div class="pulse-wrap">
+      {#key pulseKey}
+        <div id="pulse" class="pulse {pulseMode}"></div>
+      {/key}
     </div>
-    <div class="meta-item">
-      <span class="label">10-Beat Cycle</span>
-      <span id="cycle" class="value" class:accent-now={accentNow}
-        >{cycleDisplay}</span
+
+    <section class="meta">
+      <div class="meta-item">
+        <span class="label">Beat Count</span>
+        <span id="beatCount" class="value">{beatCount}</span>
+      </div>
+      <div class="meta-item">
+        <span class="label">10-Beat Cycle</span>
+        <span id="cycle" class="value" class:accent-now={accentNow}
+          >{cycleDisplay}</span
+        >
+      </div>
+    </section>
+
+    <section class="controls">
+      <button id="startBtn" class="start" onclick={start} disabled={running}
+        >Start</button
       >
-    </div>
-  </section>
+      <button id="stopBtn" class="stop" onclick={stop} disabled={!running}
+        >Stop</button
+      >
+      <label class="volume">
+        <span>Volume</span>
+        <input
+          id="volume"
+          type="range"
+          min="0"
+          max="1"
+          step="0.01"
+          bind:value={volume}
+        />
+      </label>
+    </section>
 
-  <section class="controls">
-    <button id="startBtn" class="start" onclick={start} disabled={running}
-      >Start</button
-    >
-    <button id="stopBtn" class="stop" onclick={stop} disabled={!running}
-      >Stop</button
-    >
-    <label class="volume">
-      <span>Volume</span>
-      <input
-        id="volume"
-        type="range"
-        min="0"
-        max="1"
-        step="0.01"
-        bind:value={volume}
-      />
-    </label>
-  </section>
-
-  <p class="status">
-    Status: <strong id="statusText" class={statusTone}>{statusText}</strong>
-  </p>
-</main>
+    <p class="status">
+      Status: <strong id="statusText" class={statusTone}>{statusText}</strong>
+    </p>
+  </main>
+</div>
 
 <style>
   :root {
@@ -352,21 +354,17 @@
   * {
     box-sizing: border-box;
   }
-  :global {
-    html,
-    body {
-      height: 100%;
-      margin: 0;
-    }
-    body {
-      display: grid;
-      place-items: center;
-      background:
-        radial-gradient(circle at 30% 20%, #35237d, transparent 40%),
-        linear-gradient(145deg, var(--bg1), var(--bg2));
-      color: var(--text);
-      font-family: "Avenir Next", "Segoe UI", Inter, system-ui, sans-serif;
-    }
+
+  .grad-grid {
+    display: grid;
+    height: 100%;
+    margin: 0;
+    place-items: center;
+    background:
+      radial-gradient(circle at 30% 20%, #35237d, transparent 40%),
+      linear-gradient(145deg, var(--bg1), var(--bg2));
+    color: var(--text);
+    font-family: "Avenir Next", "Segoe UI", Inter, system-ui, sans-serif;
   }
 
   .kiosk {
