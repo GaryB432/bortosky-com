@@ -8,53 +8,53 @@
   const START_LEAD_THRESHOLD_MS = 150;
 
   type Tone = {
+    amp: number;
     duration: number;
     frequency: number;
-    amp: number;
-    type: OscillatorType;
     offset?: number;
+    type: OscillatorType;
   };
 
   const NORMAL_TONE: Tone = {
+    amp: 0.08,
     duration: 0.09,
     frequency: 880,
-    amp: 0.08,
     type: "triangle",
   };
   const TENTH_TONE_ONE: Tone = {
+    amp: 0.11,
     duration: 0.09,
     frequency: 1046,
-    amp: 0.11,
-    type: "triangle",
     offset: 0,
+    type: "triangle",
   };
   const TENTH_TONE_TWO: Tone = {
+    amp: 0.1,
     duration: 0.1,
     frequency: 659,
-    amp: 0.1,
-    type: "triangle",
     offset: 0.18,
+    type: "triangle",
   };
   const MINUTE_TONE: Tone = {
+    amp: 0.14,
     duration: 0.3,
     frequency: 466,
-    amp: 0.14,
     type: "sine",
   };
 
   let audioCtx: AudioContext | null = null;
   let masterGain: GainNode | null = null;
   let running = $state(false);
-  let schedulerId: ReturnType<typeof setInterval> | null = null;
-  let wakeLock: WakeLockSentinel | null = null;
+  let schedulerId: null | ReturnType<typeof setInterval> = null;
+  let wakeLock: null | WakeLockSentinel = null;
   let startAudioTime = 0;
   let startEpochMs = 0;
   let nextBeatIndex = 0;
   let beatCount = $state(0);
   let accentNow = $state(false);
-  let pulseMode = $state<"" | "beat" | "accent" | "minute">("");
+  let pulseMode = $state<"" | "accent" | "beat" | "minute">("");
   let pulseKey = $state(0);
-  let statusTone = $state<"ok" | "warn" | "stop">("stop");
+  let statusTone = $state<"ok" | "stop" | "warn">("stop");
   let statusText = $state("Stopped");
   let volume = $state(0.35);
   const pulseTimeouts = new Set<ReturnType<typeof setTimeout>>();
@@ -63,24 +63,22 @@
     beatCount === 0 ? "1 / 10" : `${((beatCount - 1) % 10) + 1} / 10`,
   );
 
-  function setStatus(text: string, tone: "ok" | "warn" | "stop" = "warn") {
-    statusText = text;
-    statusTone = tone;
-  }
-
   function clearPulseTimeouts() {
     for (const id of pulseTimeouts) clearTimeout(id);
     pulseTimeouts.clear();
   }
 
-  function updateCounters(beatNumber: number, accent = false) {
-    beatCount = beatNumber;
-    accentNow = accent;
-  }
-
-  function triggerPulse(mode: "beat" | "accent" | "minute") {
-    pulseMode = mode;
-    pulseKey += 1;
+  async function ensureAudio() {
+    if (!audioCtx) {
+      audioCtx = new AudioContext();
+      masterGain = audioCtx.createGain();
+      masterGain.gain.value = volume;
+      masterGain.connect(audioCtx.destination);
+    }
+    if (audioCtx.state !== "running") {
+      setStatus("Resuming", "warn");
+      await audioCtx.resume();
+    }
   }
 
   function makeTone(
@@ -113,6 +111,18 @@
       tone.type,
       tone.amp,
     );
+  }
+
+  async function requestWakeLock() {
+    if (!("wakeLock" in navigator)) return;
+    try {
+      wakeLock = await navigator.wakeLock.request("screen");
+      wakeLock.addEventListener("release", () => {
+        if (running) setStatus("Running (wake lock released)", "warn");
+      });
+    } catch (_) {
+      setStatus("Running (wake lock unavailable)", "warn");
+    }
   }
 
   function scheduleBeat(beatIndex: number) {
@@ -169,29 +179,9 @@
     }
   }
 
-  async function requestWakeLock() {
-    if (!("wakeLock" in navigator)) return;
-    try {
-      wakeLock = await navigator.wakeLock.request("screen");
-      wakeLock.addEventListener("release", () => {
-        if (running) setStatus("Running (wake lock released)", "warn");
-      });
-    } catch (_) {
-      setStatus("Running (wake lock unavailable)", "warn");
-    }
-  }
-
-  async function ensureAudio() {
-    if (!audioCtx) {
-      audioCtx = new AudioContext();
-      masterGain = audioCtx.createGain();
-      masterGain.gain.value = volume;
-      masterGain.connect(audioCtx.destination);
-    }
-    if (audioCtx.state !== "running") {
-      setStatus("Resuming", "warn");
-      await audioCtx.resume();
-    }
+  function setStatus(text: string, tone: "ok" | "stop" | "warn" = "warn") {
+    statusText = text;
+    statusTone = tone;
   }
 
   async function start() {
@@ -242,6 +232,16 @@
       wakeLock = null;
     }
     setStatus("Stopped", "stop");
+  }
+
+  function triggerPulse(mode: "accent" | "beat" | "minute") {
+    pulseMode = mode;
+    pulseKey += 1;
+  }
+
+  function updateCounters(beatNumber: number, accent = false) {
+    beatCount = beatNumber;
+    accentNow = accent;
   }
 
   $effect(() => {
