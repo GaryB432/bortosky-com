@@ -1,60 +1,71 @@
 <script lang="ts">
+  import { onMount } from "svelte";
+
   const BEAT_SECONDS = 1;
   const SCHEDULER_INTERVAL_MS = 40;
   const SCHEDULE_AHEAD_SECONDS = 0.35;
   const LATE_THRESHOLD_SECONDS = 0.08;
   const START_LEAD_THRESHOLD_MS = 150;
-  const NORMAL_TONE = {
+
+  type Tone = {
+    duration: number;
+    frequency: number;
+    amp: number;
+    type: OscillatorType;
+    offset?: number;
+  };
+
+  const NORMAL_TONE: Tone = {
     duration: 0.09,
     frequency: 880,
     amp: 0.08,
     type: "triangle",
   };
-  const TENTH_TONE_ONE = {
+  const TENTH_TONE_ONE: Tone = {
     duration: 0.09,
     frequency: 1046,
     amp: 0.11,
     type: "triangle",
     offset: 0,
   };
-  const TENTH_TONE_TWO = {
+  const TENTH_TONE_TWO: Tone = {
     duration: 0.1,
     frequency: 659,
     amp: 0.1,
     type: "triangle",
     offset: 0.18,
   };
-  const MINUTE_TONE = {
+  const MINUTE_TONE: Tone = {
     duration: 0.3,
     frequency: 466,
     amp: 0.14,
     type: "sine",
   };
 
-  let pulseEl = $state<HTMLElement>();
-  let beatCountEl = $state<HTMLElement>();
-  let cycleEl = $state<HTMLElement>();
-  let startBtn = $state<HTMLButtonElement>();
-  let stopBtn = $state<HTMLButtonElement>();
-  let statusEl = $state<HTMLElement>();
-  let volumeEl = $state<HTMLInputElement >();
-
-    
-
-  let audioCtx: AudioContext;
-  let masterGain: GainNode;
-  let running = false;
-  let schedulerId: number | NodeJS.Timeout | null;
-  let wakeLock: WakeLockSentinel | null;
+  let audioCtx: AudioContext | null = null;
+  let masterGain: GainNode | null = null;
+  let running = $state(false);
+  let schedulerId: ReturnType<typeof setInterval> | null = null;
+  let wakeLock: WakeLockSentinel | null = null;
   let startAudioTime = 0;
   let startEpochMs = 0;
   let nextBeatIndex = 0;
-  let beatCount = 0;
-  const pulseTimeouts = new Set<NodeJS.Timeout>();
+  let beatCount = $state(0);
+  let accentNow = $state(false);
+  let pulseMode = $state<"" | "beat" | "accent" | "minute">("");
+  let pulseKey = $state(0);
+  let statusTone = $state<"ok" | "warn" | "stop">("stop");
+  let statusText = $state("Stopped");
+  let volume = $state(0.35);
+  const pulseTimeouts = new Set<ReturnType<typeof setTimeout>>();
 
-  function setStatus(text:string, tone = "warn") {
-    statusEl!.textContent = text;
-    statusEl!.className = tone;
+  const cycleDisplay = $derived(
+    beatCount === 0 ? "1 / 10" : `${((beatCount - 1) % 10) + 1} / 10`,
+  );
+
+  function setStatus(text: string, tone: "ok" | "warn" | "stop" = "warn") {
+    statusText = text;
+    statusTone = tone;
   }
 
   function clearPulseTimeouts() {
@@ -62,24 +73,28 @@
     pulseTimeouts.clear();
   }
 
-  function updateCounters(beatNumber: number, accent: boolean | undefined) {
-    beatCountEl!.textContent = String(beatNumber);
-    const cycleIndex = ((beatNumber - 1) % 10) + 1;
-    cycleEl!.textContent = `${cycleIndex} / 10`;
-    cycleEl!.classList.toggle("accent-now", accent);
+  function updateCounters(beatNumber: number, accent = false) {
+    beatCount = beatNumber;
+    accentNow = accent;
   }
 
-  function triggerPulse(mode: string) {
-    pulseEl!.classList.remove("beat", "accent", "minute");
-    void pulseEl!.offsetWidth;
-    pulseEl!.classList.add(mode);
+  function triggerPulse(mode: "beat" | "accent" | "minute") {
+    pulseMode = mode;
+    pulseKey += 1;
   }
 
-  function makeTone(time: number | undefined, duration: number, frequency: number, type: string, amp: number) {
-    if (!time) return;
+  function makeTone(
+    time: number,
+    duration: number,
+    frequency: number,
+    type: OscillatorType,
+    amp: number,
+  ) {
+    if (!audioCtx || !masterGain) return;
+
     const osc = audioCtx.createOscillator();
     const gain = audioCtx.createGain();
-    osc.type = "triangle"
+    osc.type = type;
     osc.frequency.setValueAtTime(frequency, time);
     gain.gain.setValueAtTime(0.0001, time);
     gain.gain.exponentialRampToValueAtTime(amp, time + 0.01);
@@ -90,7 +105,7 @@
     osc.stop(time + duration + 0.02);
   }
 
-  function playToneAt(baseTime:number, tone:any) {
+  function playToneAt(baseTime: number, tone: Tone) {
     makeTone(
       baseTime + (tone.offset || 0),
       tone.duration,
@@ -102,6 +117,7 @@
 
   function scheduleBeat(beatIndex: number) {
     if (!audioCtx) return;
+
     const beatTime = startAudioTime + beatIndex * BEAT_SECONDS;
     const beatNumber = beatIndex + 1;
     const beatEpoch = startEpochMs + beatIndex * 1000;
@@ -121,8 +137,9 @@
 
     const delayMs = Math.max(0, (beatTime - audioCtx.currentTime) * 1000);
     const pulseTimer = setTimeout(() => {
+      pulseTimeouts.delete(pulseTimer);
       if (!running) return;
-      beatCount = beatNumber;
+
       updateCounters(beatNumber, isTenAccent);
       triggerPulse(pulseMode);
     }, delayMs);
@@ -130,7 +147,8 @@
   }
 
   function scheduler() {
-    if (!running) return;
+    if (!running || !audioCtx) return;
+
     const now = audioCtx.currentTime;
     const expectedNextTime = startAudioTime + nextBeatIndex * BEAT_SECONDS;
 
@@ -138,10 +156,9 @@
       // Re-anchor to the fixed timeline so brief stalls do not accumulate timing drift.
       nextBeatIndex = Math.floor((now - startAudioTime) / BEAT_SECONDS) + 1;
       const resumedBeatNumber = nextBeatIndex;
-      beatCount = resumedBeatNumber;
       updateCounters(resumedBeatNumber, resumedBeatNumber % 10 === 0);
       setStatus("Resuming", "warn");
-    } else if (statusEl!.textContent !== "Running") {
+    } else if (statusText !== "Running") {
       setStatus("Running", "ok");
     }
 
@@ -168,7 +185,7 @@
     if (!audioCtx) {
       audioCtx = new AudioContext();
       masterGain = audioCtx.createGain();
-      masterGain.gain.value = Number(volumeEl!.value);
+      masterGain.gain.value = volume;
       masterGain.connect(audioCtx.destination);
     }
     if (audioCtx.state !== "running") {
@@ -180,11 +197,12 @@
   async function start() {
     if (running) return;
     await ensureAudio();
+    if (!audioCtx) return;
     await requestWakeLock();
 
     running = true;
-    beatCount = 0;
     updateCounters(0, false);
+
     const nowMs = Date.now();
     const nextSecondMs = Math.ceil(nowMs / 1000) * 1000;
     // If the next boundary is too close, wait one extra second so first beat has safe scheduling lead time.
@@ -197,9 +215,6 @@
     if (schedulerId) clearInterval(schedulerId);
     schedulerId = setInterval(scheduler, SCHEDULER_INTERVAL_MS);
     scheduler();
-
-    startBtn!.disabled = true;
-    stopBtn!.disabled = false;
     setStatus("Running", "ok");
   }
 
@@ -218,7 +233,7 @@
       masterGain.gain.setTargetAtTime(0.0001, now, 0.01);
     }
     if (audioCtx?.state === "running") await audioCtx.suspend();
-    if (masterGain) masterGain.gain.value = Number(volumeEl!.value);
+    if (masterGain) masterGain.gain.value = volume;
 
     if (wakeLock) {
       try {
@@ -226,26 +241,46 @@
       } catch (_) {}
       wakeLock = null;
     }
-    startBtn!.disabled = false;
-    stopBtn!.disabled = true;
     setStatus("Stopped", "stop");
   }
 
-  startBtn!.addEventListener("click", start);
-  stopBtn!.addEventListener("click", stop);
-  volumeEl!.addEventListener("input", () => {
-    if (masterGain) masterGain.gain.value = Number(volumeEl!.value);
+  $effect(() => {
+    if (masterGain) masterGain.gain.value = volume;
   });
 
-  document.addEventListener("visibilitychange", async () => {
-    if (!running) return;
-    if (document.visibilityState === "visible") {
-      await ensureAudio();
-      await requestWakeLock();
-      scheduler();
-    } else {
-      setStatus("Suspended", "warn");
-    }
+  onMount(() => {
+    const handleVisibilityChange = async () => {
+      if (!running) return;
+
+      if (document.visibilityState === "visible") {
+        await ensureAudio();
+        await requestWakeLock();
+        scheduler();
+      } else {
+        setStatus("Suspended", "warn");
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+
+      if (schedulerId) {
+        clearInterval(schedulerId);
+        schedulerId = null;
+      }
+      clearPulseTimeouts();
+
+      if (wakeLock) {
+        wakeLock.release().catch(() => {});
+        wakeLock = null;
+      }
+
+      if (audioCtx && audioCtx.state !== "closed") {
+        audioCtx.close().catch(() => {});
+      }
+    };
   });
 </script>
 
@@ -256,39 +291,46 @@
   </p>
 
   <div class="pulse-wrap">
-    <div id="pulse" class="pulse" bind:this={pulseEl}></div>
+    {#key pulseKey}
+      <div id="pulse" class="pulse {pulseMode}"></div>
+    {/key}
   </div>
 
   <section class="meta">
     <div class="meta-item">
       <span class="label">Beat Count</span>
-      <span id="beatCount" class="value" bind:this={beatCountEl}>0</span>
+      <span id="beatCount" class="value">{beatCount}</span>
     </div>
     <div class="meta-item">
       <span class="label">10-Beat Cycle</span>
-      <span id="cycle" class="value" bind:this={cycleEl}>1 / 10</span>
+      <span id="cycle" class="value" class:accent-now={accentNow}
+        >{cycleDisplay}</span
+      >
     </div>
   </section>
 
   <section class="controls">
-    <button id="startBtn" bind:this={startBtn} class="start">Start</button>
-    <button id="stopBtn" class="stop" bind:this={stopBtn} disabled>Stop</button>
+    <button id="startBtn" class="start" onclick={start} disabled={running}
+      >Start</button
+    >
+    <button id="stopBtn" class="stop" onclick={stop} disabled={!running}
+      >Stop</button
+    >
     <label class="volume">
       <span>Volume</span>
       <input
-      bind:this={volumeEl}
         id="volume"
         type="range"
         min="0"
         max="1"
         step="0.01"
-        value="0.35"
+        bind:value={volume}
       />
     </label>
   </section>
 
   <p class="status">
-    Status: <strong id="statusText" class="stop">Stopped</strong>
+    Status: <strong id="statusText" class={statusTone}>{statusText}</strong>
   </p>
 </main>
 
@@ -310,19 +352,21 @@
   * {
     box-sizing: border-box;
   }
-  html,
-  body {
-    height: 100%;
-    margin: 0;
-  }
-  body {
-    display: grid;
-    place-items: center;
-    background:
-      radial-gradient(circle at 30% 20%, #35237d, transparent 40%),
-      linear-gradient(145deg, var(--bg1), var(--bg2));
-    color: var(--text);
-    font-family: "Avenir Next", "Segoe UI", Inter, system-ui, sans-serif;
+  :global {
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+    }
+    body {
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 30% 20%, #35237d, transparent 40%),
+        linear-gradient(145deg, var(--bg1), var(--bg2));
+      color: var(--text);
+      font-family: "Avenir Next", "Segoe UI", Inter, system-ui, sans-serif;
+    }
   }
 
   .kiosk {
