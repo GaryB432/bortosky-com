@@ -189,6 +189,7 @@
     onclick={(event) => handleMenuClick(event, "contact")}
   >
     <svg
+      style="view-transition-name: qr;"
       class:animating={animatedMenu === "contact"}
       xmlns="http://www.w3.org/2000/svg"
       xmlns:xlink="http://www.w3.org/1999/xlink"
