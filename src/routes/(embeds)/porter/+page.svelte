@@ -38,7 +38,7 @@
       const mag = Math.hypot(vx, vy) || 1;
       const ux = vx / mag;
       const uy = vy / mag;
-      const dist = 50;
+      const dist = activeTheme.cornerLabelShiftPx;
       const heading = {
         angleDeg: Math.atan2(uy, ux) * (180 / Math.PI),
         dx: ux * dist,
@@ -172,7 +172,7 @@
             <text
               class:anim-corner-shift={activeAnimation === "a"}
               style="--heading-dx:{c.heading.dx}px; --heading-dy:{c.heading
-                .dy}px;"
+                .dy}px; --corner-shift-duration:{activeTheme.cornerLabelShiftDurationMs}ms; --corner-shift-easing:{activeTheme.cornerLabelShiftEasing};"
               font-size="22">{c.label}</text
             >
           </g>
@@ -283,7 +283,10 @@
   }
 
   .anim-corner-shift {
-    animation: corner-shift 800ms ease-out forwards;
+    animation-name: corner-shift;
+    animation-duration: var(--corner-shift-duration, 800ms);
+    animation-timing-function: var(--corner-shift-easing, ease-out);
+    animation-fill-mode: forwards;
   }
 
   @keyframes corner-shift {

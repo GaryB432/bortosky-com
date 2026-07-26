@@ -16,9 +16,12 @@ type PorterTheme = {
   labelTertiary: string;
   statusPrimary: string;
   statusSecondary: string;
+  cornerLabelShiftPx: number;
+  cornerLabelShiftDurationMs: number;
+  cornerLabelShiftEasing: string;
 };
 
-export const themes: Record<string, PorterTheme> = {
+export const themes = {
   engineering: {
     name: "Engineering",
     bg: "#0a1128",
@@ -37,6 +40,9 @@ export const themes: Record<string, PorterTheme> = {
     labelTertiary: "#00aaff",
     statusPrimary: "#00aaff",
     statusSecondary: "#00ffcc",
+    cornerLabelShiftPx: 50,
+    cornerLabelShiftDurationMs: 800,
+    cornerLabelShiftEasing: "ease-out",
   },
   mapsLand: {
     name: "Maps Land",
@@ -56,7 +62,10 @@ export const themes: Record<string, PorterTheme> = {
     labelTertiary: "#6f5a3d",
     statusPrimary: "#31565d",
     statusSecondary: "#2f4b2a",
+    cornerLabelShiftPx: 42,
+    cornerLabelShiftDurationMs: 1000,
+    cornerLabelShiftEasing: "cubic-bezier(0.16, 1, 0.3, 1)",
   },
-};
+} satisfies Record<string, PorterTheme>;
 
 export type ThemeKey = keyof typeof themes;
