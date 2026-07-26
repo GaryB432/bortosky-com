@@ -4,6 +4,59 @@
   let { data }: PageProps = $props();
 
   let diamondPoints = $derived(data.corners.map((c) => c.loc.svgstr).join(" "));
+
+  let activeAnimation = $state<string | null>(null);
+
+  let center = $derived.by(() => {
+    const { corners } = data;
+    const n = corners.length || 1;
+    const sum = corners.reduce(
+      (acc, c) => ({ x: acc.x + c.loc.x, y: acc.y + c.loc.y }),
+      { x: 0, y: 0 },
+    );
+    return { x: sum.x / n, y: sum.y / n };
+  });
+
+  let cornerHeadings = $derived.by(() =>
+    data.corners.map((c) => {
+      const vx = c.loc.x - center.x;
+      const vy = c.loc.y - center.y;
+      const mag = Math.hypot(vx, vy) || 1;
+      const ux = vx / mag;
+      const uy = vy / mag;
+      const dist = 50;
+      return {
+        ...c,
+        heading: {
+          angleDeg: Math.atan2(uy, ux) * (180 / Math.PI),
+          dx: ux * dist,
+          dy: uy * dist,
+        },
+      };
+    }),
+  );
+
+  function triggerAnimationA() {
+    activeAnimation = null;
+    requestAnimationFrame(() => {
+      activeAnimation = "a";
+    });
+  }
+
+  function clearAnimation() {
+    activeAnimation = null;
+  }
+
+  const animations = [
+    {
+      name: "a",
+      fn: triggerAnimationA,
+    },
+    {
+      name: "b",
+      fn: clearAnimation,
+    },
+  ];
 </script>
 
 <h1>see you soon</h1>
@@ -89,20 +142,16 @@
       >
         <!-- Corner Labels (Translated relative to node coordinates) -->
 
-        {#each data.corners as c}
-          <text transform="translate({c.loc.x}, {c.loc.y})" font-size="22"
-            >{c.label}</text
-          >
+        {#each cornerHeadings as c}
+          <g transform="translate({c.loc.x}, {c.loc.y})">
+            <text
+              class:anim-corner-shift={activeAnimation === "a"}
+              style="--heading-dx:{c.heading.dx}px; --heading-dy:{c.heading
+                .dy}px;"
+              font-size="22">{c.label}</text
+            >
+          </g>
         {/each}
-
-        <!--          
-          <text transform="translate(510, 300)" font-size="22">{JSON.stringify(data)}</text>
-        
-        <text transform="translate(300, 510)" font-size="22">S</text>
-        <text transform="translate(90, 300)" font-size="22">W</text>
-        
-        
-        -->
 
         <!-- Edge Labels (Translated to midpoints of diamond segments) -->
         <!-- Midpoint NW (210, 210) -->
@@ -151,6 +200,12 @@
   </svg>
 </section>
 
+<section class="controls">
+  {#each animations as anim}
+    <button onclick={anim.fn}>{anim.name} </button>
+  {/each}
+</section>
+
 <style>
   section.vp {
     display: flex;
@@ -159,5 +214,29 @@
   }
   svg {
     height: 600px;
+  }
+
+  .controls {
+    border: thin solid red;
+
+    & > button {
+      all: revert;
+      margin: 2px;
+      width: 10ch;
+    }
+  }
+
+  .anim-corner-shift {
+    animation: corner-shift 800ms ease-out forwards;
+  }
+
+  @keyframes corner-shift {
+    0% {
+      transform: translate(0, 0);
+    }
+
+    100% {
+      transform: translate(var(--heading-dx), var(--heading-dy));
+    }
   }
 </style>
