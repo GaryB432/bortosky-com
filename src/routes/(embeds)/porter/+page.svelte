@@ -2,6 +2,8 @@
   import type { PageProps } from "./$types";
 
   let { data }: PageProps = $props();
+
+  let diamondPoints = $derived(data.corners.map((c) => c.loc.svgstr).join(" "));
 </script>
 
 <h1>see you soon</h1>
@@ -62,7 +64,7 @@
       <!-- Core Geometric Shape -->
       <polygon
         id="diamond-frame"
-        points="300,120 480,300 300,480 120,300"
+        points={diamondPoints}
         fill="#00ffcc"
         fill-opacity="0.03"
         stroke="#00ffcc"
@@ -70,7 +72,7 @@
         filter="url(#glow)"
       />
 
-      <!-- Corner Node Hardware Markers -->
+      <!-- Corner Node Hardware Markers ARE WE USING THESE -->
       <use href="#corner-marker" x="300" y="120" id="node-n" />
       <use href="#corner-marker" x="480" y="300" id="node-e" />
       <use href="#corner-marker" x="300" y="480" id="node-s" />
@@ -86,10 +88,21 @@
         filter="url(#glow)"
       >
         <!-- Corner Labels (Translated relative to node coordinates) -->
-        <text transform="translate(300, 90)" font-size="22">N</text>
-        <text transform="translate(510, 300)" font-size="22">E</text>
+
+        {#each data.corners as c}
+          <text transform="translate({c.loc.x}, {c.loc.y})" font-size="22"
+            >{c.label}</text
+          >
+        {/each}
+
+        <!--          
+          <text transform="translate(510, 300)" font-size="22">{JSON.stringify(data)}</text>
+        
         <text transform="translate(300, 510)" font-size="22">S</text>
         <text transform="translate(90, 300)" font-size="22">W</text>
+        
+        
+        -->
 
         <!-- Edge Labels (Translated to midpoints of diamond segments) -->
         <!-- Midpoint NW (210, 210) -->
@@ -139,7 +152,7 @@
 </section>
 
 <style>
-  section {
+  section.vp {
     display: flex;
     justify-content: center;
     border: thin solid red;

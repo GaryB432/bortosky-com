@@ -3,9 +3,14 @@ export class Vector {
   public readonly y: number = 0;
   public constructor(x: number, y: number) {
     this.x = x;
-    this.x = y;
+    this.y = y;
   }
-  public static create(x: number, y: number) {
+
+  public get svgstr(): string {
+    return `${this.x},${this.y}`;
+  }
+
+  public static create(x: number, y: number): Vector {
     return new Vector(x, y);
   }
 }
