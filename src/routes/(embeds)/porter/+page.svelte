@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { PageProps } from "./$types";
   import type { Corner } from "./+page";
+  import { themes, type ThemeKey } from "./themes";
 
   type CornerHeading = {
     angleDeg: number;
@@ -17,6 +18,8 @@
   let diamondPoints = $derived(data.corners.map((c) => c.loc.svgstr).join(" "));
 
   let activeAnimation = $state<string | null>(null);
+  let activeThemeKey = $state<ThemeKey>("engineering");
+  let activeTheme = $derived(themes[activeThemeKey]);
 
   let center = $derived.by(() => {
     const { corners } = data;
@@ -60,6 +63,10 @@
     activeAnimation = null;
   }
 
+  function setTheme(key: ThemeKey) {
+    activeThemeKey = key;
+  }
+
   const animations = [
     {
       name: "a",
@@ -82,16 +89,16 @@
         <path
           d="M 40 0 L 0 0 0 40"
           fill="none"
-          stroke="#003366"
+          stroke={activeTheme.grid}
           stroke-width="0.5"
-          opacity="0.3"
+          opacity={activeTheme.gridMinorOpacity}
         />
         <path
           d="M 200 0 L 0 0 0 200"
           fill="none"
-          stroke="#003366"
+          stroke={activeTheme.grid}
           stroke-width="1"
-          opacity="0.5"
+          opacity={activeTheme.gridMajorOpacity}
         />
       </pattern>
 
@@ -105,21 +112,26 @@
       <g id="corner-marker">
         <circle
           r="6"
-          fill="#000"
-          stroke="#00ffcc"
+          fill={activeTheme.cornerMarkerFill}
+          stroke={activeTheme.cornerMarkerStroke}
           stroke-width="2"
           filter="url(#glow)"
         />
-        <circle r="2" fill="#00ffcc" />
+        <circle r="2" fill={activeTheme.cornerMarkerDot} />
       </g>
     </defs>
 
     <!-- Background Layer -->
-    <rect width="100%" height="100%" fill="#0a1128" />
+    <rect width="100%" height="100%" fill={activeTheme.bg} />
     <rect width="100%" height="100%" fill="url(#grid)" />
 
     <!-- Center Coordinate Crosshairs -->
-    <g stroke="#003366" stroke-width="1" opacity="0.4" stroke-dasharray="4 8">
+    <g
+      stroke={activeTheme.crosshair}
+      stroke-width="1"
+      opacity="0.4"
+      stroke-dasharray="4 8"
+    >
       <line x1="300" y1="50" x2="300" y2="550" />
       <line x1="50" y1="300" x2="550" y2="300" />
     </g>
@@ -131,9 +143,9 @@
       <polygon
         id="diamond-frame"
         points={diamondPoints}
-        fill="#00ffcc"
-        fill-opacity="0.03"
-        stroke="#00ffcc"
+        fill={activeTheme.diamondFill}
+        fill-opacity={activeTheme.diamondFillOpacity}
+        stroke={activeTheme.diamondStroke}
         stroke-width="3"
         filter="url(#glow)"
       />
@@ -148,7 +160,7 @@
       <g
         font-family="monospace"
         font-weight="bold"
-        fill="#00ffcc"
+        fill={activeTheme.labelPrimary}
         text-anchor="middle"
         dominant-baseline="central"
         filter="url(#glow)"
@@ -171,42 +183,46 @@
         <text
           transform="translate(210, 210) rotate(-45)"
           font-size="14"
-          fill="#88ffea">FRONT</text
+          fill={activeTheme.labelSecondary}>FRONT</text
         >
 
         <!-- Midpoint NE (390, 210) -->
         <text
           transform="translate(390, 210) rotate(45)"
           font-size="14"
-          fill="#88ffea">BACK</text
+          fill={activeTheme.labelSecondary}>BACK</text
         >
 
         <!-- Midpoint SE (390, 390) -->
         <text
           transform="translate(390, 390) rotate(-45)"
           font-size="14"
-          fill="#00aaff">TBD-A</text
+          fill={activeTheme.labelTertiary}>TBD-A</text
         >
 
         <!-- Midpoint SW (210, 390) -->
         <text
           transform="translate(210, 390) rotate(45)"
           font-size="14"
-          fill="#00aaff">TBD-B</text
+          fill={activeTheme.labelTertiary}>TBD-B</text
         >
       </g>
 
       <!-- Center Status Display Overlay -->
       <g
         font-family="monospace"
-        fill="#00aaff"
+        fill={activeTheme.statusPrimary}
         opacity="0.7"
         text-anchor="middle"
       >
         <text x="300" y="290" font-size="12" letter-spacing="2">The Porter</text
         >
-        <text x="300" y="315" font-size="10" fill="#00ffcc" letter-spacing="1"
-          >READY TO ANIMATE</text
+        <text
+          x="300"
+          y="315"
+          font-size="10"
+          fill={activeTheme.statusSecondary}
+          letter-spacing="1">READY TO ANIMATE</text
         >
       </g>
     </g>
@@ -214,9 +230,20 @@
 </section>
 
 <section class="controls">
+  <strong>Animations</strong>
   {#each animations as anim}
     <button onclick={anim.fn}>{anim.name} </button>
   {/each}
+
+  <strong>Themes</strong>
+  <button
+    class:selected={activeThemeKey === "engineering"}
+    onclick={() => setTheme("engineering")}>engineering</button
+  >
+  <button
+    class:selected={activeThemeKey === "mapsLand"}
+    onclick={() => setTheme("mapsLand")}>maps-land</button
+  >
 </section>
 
 <style>
@@ -231,11 +258,27 @@
 
   .controls {
     border: thin solid red;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    align-items: center;
 
     & > button {
       all: revert;
-      margin: 2px;
       width: 10ch;
+      padding: 0.2rem 0.35rem;
+    }
+
+    & > strong {
+      margin-inline: 0.3rem 0;
+      font-size: 0.85rem;
+      letter-spacing: 0.03em;
+      opacity: 0.8;
+    }
+
+    & > button.selected {
+      outline: 2px solid #1f1f1f;
+      outline-offset: 1px;
     }
   }
 
