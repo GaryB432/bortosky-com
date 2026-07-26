@@ -1,5 +1,16 @@
 <script lang="ts">
   import type { PageProps } from "./$types";
+  import type { Corner } from "./+page";
+
+  type CornerHeading = {
+    angleDeg: number;
+    dx: number;
+    dy: number;
+  };
+
+  type CornerWithHeading = Corner & {
+    heading: CornerHeading;
+  };
 
   let { data }: PageProps = $props();
 
@@ -17,7 +28,7 @@
     return { x: sum.x / n, y: sum.y / n };
   });
 
-  let cornerHeadings = $derived.by(() =>
+  let cornerHeadings: CornerWithHeading[] = $derived(
     data.corners.map((c) => {
       const vx = c.loc.x - center.x;
       const vy = c.loc.y - center.y;
@@ -25,13 +36,15 @@
       const ux = vx / mag;
       const uy = vy / mag;
       const dist = 50;
+      const heading = {
+        angleDeg: Math.atan2(uy, ux) * (180 / Math.PI),
+        dx: ux * dist,
+        dy: uy * dist,
+      };
+
       return {
         ...c,
-        heading: {
-          angleDeg: Math.atan2(uy, ux) * (180 / Math.PI),
-          dx: ux * dist,
-          dy: uy * dist,
-        },
+        heading,
       };
     }),
   );
