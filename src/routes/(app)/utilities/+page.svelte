@@ -10,6 +10,7 @@
 <p>Quickly sort some strings separated by newline characters</p>
 <section class="sorter">
   <textarea
+    name="sortspot"
     cols="50"
     rows="10"
     bind:value={sortable}
@@ -38,11 +39,13 @@
   input[type="checkbox"] {
     all: revert;
   }
+  
   .sorter {
     display: flex;
     align-items: center;
     flex-direction: column;
     gap: 1em;
+    justify-content: center;
   }
 
   @media screen and (min-width: 576px) {
