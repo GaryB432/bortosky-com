@@ -79,8 +79,6 @@
   ];
 </script>
 
-<h1>see you soon</h1>
-
 <section class="vp">
   <svg xmlns="http://w3.org" viewBox="0 0 600 600">
     <defs>
@@ -138,93 +136,21 @@
 
     <!-- Main Animation System Group -->
     <!-- Target coordinates for vertices: N(300,120), S(300,480), E(480,300), W(120,300) -->
-    <g id="animation-system">
-      <!-- Core Geometric Shape -->
-      <polygon
-        id="diamond-frame"
-        points={diamondPoints}
-        fill={activeTheme.diamondFill}
-        fill-opacity={activeTheme.diamondFillOpacity}
-        stroke={activeTheme.diamondStroke}
+
+    <g
+      font-family="monospace"
+      font-weight="bold"
+      fill={activeTheme.labelPrimary}
+      text-anchor="middle"
+      dominant-baseline="central"
+      filter="url(#glow)"
+    >
+      <path
+        d="M150,150 l300,0, l0,300 l-300,0 Z"
         stroke-width="3"
-        filter="url(#glow)"
-      />
-
-      <!-- Corner Node Hardware Markers ARE WE USING THESE -->
-      <use href="#corner-marker" x="300" y="120" id="node-n" />
-      <use href="#corner-marker" x="480" y="300" id="node-e" />
-      <use href="#corner-marker" x="300" y="480" id="node-s" />
-      <use href="#corner-marker" x="120" y="300" id="node-w" />
-
-      <!-- Technical Typography (CSS-Styled for Engineering/HUD Vibe) -->
-      <g
-        font-family="monospace"
-        font-weight="bold"
-        fill={activeTheme.labelPrimary}
-        text-anchor="middle"
-        dominant-baseline="central"
-        filter="url(#glow)"
-      >
-        <!-- Corner Labels (Translated relative to node coordinates) -->
-
-        {#each cornerHeadings as c}
-          <g transform="translate({c.loc.x}, {c.loc.y})">
-            <text
-              class:anim-corner-shift={activeAnimation === "a"}
-              style="--heading-dx:{c.heading.dx}px; --heading-dy:{c.heading
-                .dy}px; --corner-shift-duration:{activeTheme.cornerLabelShiftDurationMs}ms; --corner-shift-easing:{activeTheme.cornerLabelShiftEasing};"
-              font-size="22">{c.label}</text
-            >
-          </g>
-        {/each}
-
-        <!-- Edge Labels (Translated to midpoints of diamond segments) -->
-        <!-- Midpoint NW (210, 210) -->
-        <text
-          transform="translate(210, 210) rotate(-45)"
-          font-size="14"
-          fill={activeTheme.labelSecondary}>FRONT</text
-        >
-
-        <!-- Midpoint NE (390, 210) -->
-        <text
-          transform="translate(390, 210) rotate(45)"
-          font-size="14"
-          fill={activeTheme.labelSecondary}>BACK</text
-        >
-
-        <!-- Midpoint SE (390, 390) -->
-        <text
-          transform="translate(390, 390) rotate(-45)"
-          font-size="14"
-          fill={activeTheme.labelTertiary}>TBD-A</text
-        >
-
-        <!-- Midpoint SW (210, 390) -->
-        <text
-          transform="translate(210, 390) rotate(45)"
-          font-size="14"
-          fill={activeTheme.labelTertiary}>TBD-B</text
-        >
-      </g>
-
-      <!-- Center Status Display Overlay -->
-      <g
-        font-family="monospace"
-        fill={activeTheme.statusPrimary}
-        opacity="0.7"
-        text-anchor="middle"
-      >
-        <text x="300" y="290" font-size="12" letter-spacing="2">The Porter</text
-        >
-        <text
-          x="300"
-          y="315"
-          font-size="10"
-          fill={activeTheme.statusSecondary}
-          letter-spacing="1">READY TO ANIMATE</text
-        >
-      </g>
+        stroke={activeTheme.diamondStroke}
+        fill="none"
+      ></path>
     </g>
   </svg>
 </section>
@@ -253,7 +179,7 @@
     border: thin solid red;
   }
   svg {
-    height: 600px;
+    height: 400px;
   }
 
   .controls {
@@ -265,8 +191,7 @@
 
     & > button {
       all: revert;
-      width: 10ch;
-      padding: 0.2rem 0.35rem;
+      padding: 0.5rem 1rem;
     }
 
     & > strong {
