@@ -55,6 +55,7 @@
     }),
   );
 
+
   function triggerAnimationA() {
     activeAnimation = null;
     requestAnimationFrame(() => {
@@ -81,18 +82,43 @@
     },
   ];
 
+  const svgWidth = 600;
+  const svgHeight = 600;
+
+  // Bounding box with a little padding so the points don't clip the edges
+  const bounds = {
+    lonMin: -110.4453,
+    lonMax: -110.4435,
+    latMin: 18.7003,
+    latMax: 18.7017,
+  };
+
+  function project(lon: number, lat: number) {
+    // Normalize lon and lat to a 0.0 to 1.0 range
+    const xNormalized = (lon - bounds.lonMin) / (bounds.lonMax - bounds.lonMin);
+    // Invert Y because SVG coordinates start at the top-left
+    const yNormalized = (bounds.latMax - lat) / (bounds.latMax - bounds.latMin);
+
+    return {
+      x: xNormalized * svgWidth,
+      y: yNormalized * svgHeight,
+    };
+  }
+
   onMount(() => {
     const parser = new DOMParser();
     const doc = parser.parseFromString(osmChangeSet, "application/xml");
     const lmnt = doc.documentElement;
     const create_nodes = lmnt.querySelectorAll("osmChange create node");
+    const t: Vector[] = [];
     // const fdf = Array.from(create_nodes).map(n=> Vector.create(n.getatt))
     for (const node of create_nodes) {
       const lat = parseFloat(node.getAttribute("lat") ?? "0");
       const lon = parseFloat(node.getAttribute("lon") ?? "0");
-      const v = Vector.create(lon, lat);
-      console.log(v);
+      const v = Vector.create(lon - 20, lat - 20);
+      t.push(v);
     }
+    console.log(JSON.stringify(t));
   });
 </script>
 
@@ -200,7 +226,7 @@
         <text
           transform="translate(210, 210) rotate(-45)"
           font-size="14"
-          fill={activeTheme.labelSecondary}>FRONT</text
+          fill={activeTheme.labelTertiary}>TBD-B</text
         >
 
         <!-- Midpoint NE (390, 210) -->
@@ -221,7 +247,7 @@
         <text
           transform="translate(210, 390) rotate(45)"
           font-size="14"
-          fill={activeTheme.labelTertiary}>TBD-B</text
+          fill={activeTheme.labelSecondary}>FRONT</text
         >
       </g>
 
