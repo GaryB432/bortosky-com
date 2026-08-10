@@ -12,11 +12,8 @@
   // UI State switches
   let showMarker = $state(true);
 
-  // Animation progress state (0 to 1)
-  let progress = $state(0);
-
-  // 2. Automatically derive dynamic bounds and center latitude using Svelte 5 $derived
-  let bounds = $derived.by(() => {
+  // 2. Camera Viewport State (supports smooth transitions)
+  const defaultBounds = (() => {
     let lonMin = Infinity,
       lonMax = -Infinity;
     let latMin = Infinity,
@@ -39,24 +36,27 @@
       latMax: latMax + latPad,
       centerLat: (latMin + latMax) / 2,
     };
-  });
+  })();
 
-  // 3. Project points into 600x600 SVG space using cosine-adjusted scaling
+  let currentBounds = $state({ ...defaultBounds });
+  let targetBounds = $state({ ...defaultBounds });
+
+  // 3. Derived projection based on current active bounds
   const svgWidth = 600;
   const svgHeight = 600;
 
   const projectedPoints = $derived.by(() => {
-    const latRad = bounds.centerLat * (Math.PI / 180);
+    const latRad = currentBounds.centerLat * (Math.PI / 180);
     const cosFactor = Math.cos(latRad);
 
-    const lonSpan = (bounds.lonMax - bounds.lonMin) * cosFactor;
-    const latSpan = bounds.latMax - bounds.latMin;
+    const lonSpan = (currentBounds.lonMax - currentBounds.lonMin) * cosFactor;
+    const latSpan = currentBounds.latMax - currentBounds.latMin;
 
     return rawPoints.map((pt) => {
-      const lonDelta = (pt.x - bounds.lonMin) * cosFactor;
+      const lonDelta = (pt.x - currentBounds.lonMin) * cosFactor;
       return {
         x: (lonDelta / lonSpan) * svgWidth,
-        y: ((bounds.latMax - pt.y) / latSpan) * svgHeight,
+        y: ((currentBounds.latMax - pt.y) / latSpan) * svgHeight,
       };
     });
   });
@@ -65,56 +65,84 @@
     projectedPoints.map((pt) => `${pt.x},${pt.y}`).join(" "),
   );
 
-  // 4. Calculate current animated marker position along the polygon perimeter
-  const currentMarkerPos = $derived.by(() => {
-    if (projectedPoints.length === 0) return { x: 0, y: 0 };
+  let markerIndex = $state(1);
+  const currentMarkerPos = $derived(
+    projectedPoints[markerIndex] || { x: 300, y: 300 },
+  );
 
-    const totalPoints = projectedPoints.length;
-    const scaledIndex = progress * totalPoints;
-    const currentIndex = Math.floor(scaledIndex);
-    const nextIndex = (currentIndex + 1) % totalPoints;
-    const t = scaledIndex - currentIndex;
-
-    const p1 = projectedPoints[currentIndex];
-    const p2 = projectedPoints[nextIndex];
-
-    return {
-      x: p1.x + (p2.x - p1.x) * t,
-      y: p1.y + (p2.y - p1.y) * t,
-    };
-  });
-
-  // Animation Loop setup
+  // 4. Choreography Controller: Smoothly lerp current bounds towards target bounds
   onMount(() => {
-    let animationFrameId: number;
+    let animId: number;
 
-    function loop() {
-      progress += 0.004;
-      if (progress > 1) progress = 0;
-      animationFrameId = requestAnimationFrame(loop);
+    function step() {
+      const ease = 0.08;
+
+      currentBounds.lonMin +=
+        (targetBounds.lonMin - currentBounds.lonMin) * ease;
+      currentBounds.lonMax +=
+        (targetBounds.lonMax - currentBounds.lonMax) * ease;
+      currentBounds.latMin +=
+        (targetBounds.latMin - currentBounds.latMin) * ease;
+      currentBounds.latMax +=
+        (targetBounds.latMax - currentBounds.latMax) * ease;
+      currentBounds.centerLat +=
+        (targetBounds.centerLat - currentBounds.centerLat) * ease;
+
+      animId = requestAnimationFrame(step);
     }
 
-    animationFrameId = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(animationFrameId);
+    animId = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(animId);
   });
+
+  // Choreography Actions
+  function flyToNECopper() {
+    // const nePoint = rawPoints.reduce(
+    //   (max, pt) => (pt.x > max.x ? pt : max),
+    //   rawPoints[0],
+    // );
+    const nePoint = rawPoints.at(0)!
+    markerIndex = rawPoints.indexOf(nePoint);
+
+    const span = 0.0003;
+    targetBounds = {
+      lonMin: nePoint.x - span,
+      lonMax: nePoint.x + span,
+      latMin: nePoint.y - span,
+      latMax: nePoint.y + span,
+      centerLat: nePoint.y,
+    };
+  }
+
+  function resetView() {
+    targetBounds = { ...defaultBounds };
+    markerIndex = 1;
+  }
 </script>
 
 <main class="presentation-container">
   <div class="header">
     <h1>OSC Changes Presentation</h1>
-    <p>Standalone Svelte 5 Prototyping Viewport</p>
+    <p>Choreographed Viewport Transitions</p>
   </div>
 
   <!-- Controls Toolbar -->
   <div class="toolbar">
-    <label for="marker-toggle"> Show Animation Dot </label>
-    <input id="marker-toggle" type="checkbox" bind:checked={showMarker} />
+    <button onclick={flyToNECopper} class="btn">Fly-to NE Corner</button>
+    <button onclick={resetView} class="btn btn-secondary">Reset View</button>
+
+    <div class="separator"></div>
+
+    <label for="marker-toggle" class="checkbox-label">
+      <input id="marker-toggle" type="checkbox" bind:checked={showMarker} />
+      Show Change Marker
+    </label>
   </div>
 
   <!-- SVG Map Canvas Container -->
   <div class="canvas-box">
     <svg viewBox="0 0 600 600" width="450" height="450">
-      <!-- Base boundary polygon mapping your points -->
+      <!-- Base boundary polygon -->
       <polygon points={polygonPointsString} class="region-polygon" />
 
       <!-- Vertex Pinpoints -->
@@ -122,12 +150,12 @@
         <circle cx={pt.x} cy={pt.y} r="4" class="vertex-dot" />
       {/each}
 
-      <!-- Toggleable Animated Marker -->
+      <!-- Toggleable Target Marker -->
       {#if showMarker}
         <circle
           cx={currentMarkerPos.x}
           cy={currentMarkerPos.y}
-          r="7"
+          r="8"
           class="animation-marker"
         />
       {/if}
@@ -153,7 +181,7 @@
 
   .header {
     text-align: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
   }
 
   .header h1 {
@@ -181,14 +209,48 @@
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
 
-  .toolbar label {
+  .btn {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+  }
+
+  .btn:hover {
+    background-color: #1d4ed8;
+  }
+
+  .btn-secondary {
+    background-color: #374151;
+  }
+
+  .btn-secondary:hover {
+    background-color: #4b5563;
+  }
+
+  .separator {
+    width: 1px;
+    height: 20px;
+    background-color: #374151;
+    margin: 0 0.25rem;
+  }
+
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     font-size: 0.875rem;
     font-weight: 500;
     cursor: pointer;
     user-select: none;
   }
 
-  .toolbar input[type="checkbox"] {
+  .checkbox-label input[type="checkbox"] {
     width: 1rem;
     height: 1rem;
     cursor: pointer;
@@ -216,6 +278,7 @@
     stroke: #3b82f6;
     stroke-width: 2.5px;
     stroke-linejoin: round;
+    transition: all 0.05s linear;
   }
 
   .vertex-dot {
@@ -224,7 +287,9 @@
 
   .animation-marker {
     fill: #ef4444;
-    transition: transform 75ms linear;
+    transition:
+      cx 0.05s linear,
+      cy 0.05s linear;
     filter: drop-shadow(0px 0px 6px rgba(239, 68, 68, 0.8));
   }
 </style>
