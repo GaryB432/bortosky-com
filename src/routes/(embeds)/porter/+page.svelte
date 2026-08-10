@@ -1,6 +1,10 @@
 <script lang="ts">
+  import osmChangeSet from "$lib/data/porter/changes.osc?raw";
+  import { onMount } from "svelte";
   import type { PageProps } from "./$types";
+  import { Vector } from "$lib/shared/vector";
   import type { Corner } from "./+page";
+
   import { themes, type ThemeKey } from "./themes";
 
   type CornerHeading = {
@@ -77,6 +81,20 @@
       fn: clearAnimation,
     },
   ];
+
+  onMount(() => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(osmChangeSet, "application/xml");
+    const lmnt = doc.documentElement;
+    const create_nodes = lmnt.querySelectorAll("osmChange create node");
+    // const fdf = Array.from(create_nodes).map(n=> Vector.create(n.getatt))
+    for (const node of create_nodes) {
+      const lat = parseFloat(node.getAttribute("lat") ?? "0");
+      const lon = parseFloat(node.getAttribute("lon") ?? "0");
+      const v = Vector.create(lon, lat);
+      console.log(v);
+    }
+  });
 </script>
 
 <section class="vp">
