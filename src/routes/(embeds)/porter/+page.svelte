@@ -1,244 +1,230 @@
 <script lang="ts">
-  import osmChangeSet from "$lib/data/porter/changes.osc?raw";
   import { onMount } from "svelte";
-  import type { PageProps } from "./$types";
-  import { Vector } from "$lib/shared/vector";
-  import type { Corner } from "./+page";
 
-  import { themes, type ThemeKey } from "./themes";
+  // 1. Hard-coded points
+  const rawPoints = $state([
+    { x: -110.44446701644054, y: 18.701513717453203 },
+    { x: -110.44380027958378, y: 18.701025112562903 },
+    { x: -110.44439180527074, y: 18.700512708393774 },
+    { x: -110.44506464033043, y: 18.70101083509708 },
+  ]);
 
-  type CornerHeading = {
-    angleDeg: number;
-    dx: number;
-    dy: number;
-  };
+  // UI State switches
+  let showMarker = $state(true);
 
-  type CornerWithHeading = Corner & {
-    heading: CornerHeading;
-  };
+  // Animation progress state (0 to 1)
+  let progress = $state(0);
 
-  let { data }: PageProps = $props();
+  // 2. Automatically derive dynamic bounds and center latitude using Svelte 5 $derived
+  let bounds = $derived.by(() => {
+    let lonMin = Infinity,
+      lonMax = -Infinity;
+    let latMin = Infinity,
+      latMax = -Infinity;
 
-  let diamondPoints = $derived(data.corners.map((c) => c.loc.svgstr).join(" "));
+    rawPoints.forEach((pt) => {
+      if (pt.x < lonMin) lonMin = pt.x;
+      if (pt.x > lonMax) lonMax = pt.x;
+      if (pt.y < latMin) latMin = pt.y;
+      if (pt.y > latMax) latMax = pt.y;
+    });
 
-  let activeAnimation = $state<string | null>(null);
-  let activeThemeKey = $state<ThemeKey>("engineering");
-  let activeTheme = $derived(themes[activeThemeKey]);
+    const lonPad = (lonMax - lonMin) * 0.05 || 0.0001;
+    const latPad = (latMax - latMin) * 0.05 || 0.0001;
 
-  let center = $derived.by(() => {
-    const { corners } = data;
-    const n = corners.length || 1;
-    const sum = corners.reduce(
-      (acc, c) => ({ x: acc.x + c.loc.x, y: acc.y + c.loc.y }),
-      { x: 0, y: 0 },
-    );
-    return { x: sum.x / n, y: sum.y / n };
+    return {
+      lonMin: lonMin - lonPad,
+      lonMax: lonMax + lonPad,
+      latMin: latMin - latPad,
+      latMax: latMax + latPad,
+      centerLat: (latMin + latMax) / 2,
+    };
   });
 
-  let cornerHeadings: CornerWithHeading[] = $derived(
-    data.corners.map((c) => {
-      const vx = c.loc.x - center.x;
-      const vy = c.loc.y - center.y;
-      const mag = Math.hypot(vx, vy) || 1;
-      const ux = vx / mag;
-      const uy = vy / mag;
-      const dist = activeTheme.cornerLabelShiftPx;
-      const heading = {
-        angleDeg: Math.atan2(uy, ux) * (180 / Math.PI),
-        dx: ux * dist,
-        dy: uy * dist,
-      };
+  // 3. Project points into 600x600 SVG space using cosine-adjusted scaling
+  const svgWidth = 600;
+  const svgHeight = 600;
 
+  const projectedPoints = $derived.by(() => {
+    const latRad = bounds.centerLat * (Math.PI / 180);
+    const cosFactor = Math.cos(latRad);
+
+    const lonSpan = (bounds.lonMax - bounds.lonMin) * cosFactor;
+    const latSpan = bounds.latMax - bounds.latMin;
+
+    return rawPoints.map((pt) => {
+      const lonDelta = (pt.x - bounds.lonMin) * cosFactor;
       return {
-        ...c,
-        heading,
+        x: (lonDelta / lonSpan) * svgWidth,
+        y: ((bounds.latMax - pt.y) / latSpan) * svgHeight,
       };
-    }),
+    });
+  });
+
+  const polygonPointsString = $derived(
+    projectedPoints.map((pt) => `${pt.x},${pt.y}`).join(" "),
   );
 
-  function triggerAnimationA() {
-    activeAnimation = null;
-    requestAnimationFrame(() => {
-      activeAnimation = "a";
-    });
-  }
+  // 4. Calculate current animated marker position along the polygon perimeter
+  const currentMarkerPos = $derived.by(() => {
+    if (projectedPoints.length === 0) return { x: 0, y: 0 };
 
-  function clearAnimation() {
-    activeAnimation = null;
-  }
+    const totalPoints = projectedPoints.length;
+    const scaledIndex = progress * totalPoints;
+    const currentIndex = Math.floor(scaledIndex);
+    const nextIndex = (currentIndex + 1) % totalPoints;
+    const t = scaledIndex - currentIndex;
 
-  function setTheme(key: ThemeKey) {
-    activeThemeKey = key;
-  }
+    const p1 = projectedPoints[currentIndex];
+    const p2 = projectedPoints[nextIndex];
 
-  const animations = [
-    {
-      name: "a",
-      fn: triggerAnimationA,
-    },
-    {
-      name: "b",
-      fn: clearAnimation,
-    },
-  ];
+    return {
+      x: p1.x + (p2.x - p1.x) * t,
+      y: p1.y + (p2.y - p1.y) * t,
+    };
+  });
 
+  // Animation Loop setup
   onMount(() => {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(osmChangeSet, "application/xml");
-    const lmnt = doc.documentElement;
-    const create_nodes = lmnt.querySelectorAll("osmChange create node");
-    // const fdf = Array.from(create_nodes).map(n=> Vector.create(n.getatt))
-    for (const node of create_nodes) {
-      const lat = parseFloat(node.getAttribute("lat") ?? "0");
-      const lon = parseFloat(node.getAttribute("lon") ?? "0");
-      const v = Vector.create(lon, lat);
-      console.log(v);
+    let animationFrameId: number;
+
+    function loop() {
+      progress += 0.004;
+      if (progress > 1) progress = 0;
+      animationFrameId = requestAnimationFrame(loop);
     }
+
+    animationFrameId = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(animationFrameId);
   });
 </script>
 
-<section class="vp">
-  <svg xmlns="http://w3.org" viewBox="0 0 600 600">
-    <defs>
-      <!-- Technical Blueprint Grid Background -->
-      <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-        <path
-          d="M 40 0 L 0 0 0 40"
-          fill="none"
-          stroke={activeTheme.grid}
-          stroke-width="0.5"
-          opacity={activeTheme.gridMinorOpacity}
-        />
-        <path
-          d="M 200 0 L 0 0 0 200"
-          fill="none"
-          stroke={activeTheme.grid}
-          stroke-width="1"
-          opacity={activeTheme.gridMajorOpacity}
-        />
-      </pattern>
+<main class="presentation-container">
+  <div class="header">
+    <h1>OSC Changes Presentation</h1>
+    <p>Standalone Svelte 5 Prototyping Viewport</p>
+  </div>
 
-      <!-- UI Glow Effects for Engineering Aesthetic -->
-      <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-        <feGaussianBlur stdDeviation="4" result="blur" />
-        <feComposite in="SourceGraphic" in2="blur" operator="over" />
-      </filter>
+  <!-- Controls Toolbar -->
+  <div class="toolbar">
+    <label for="marker-toggle"> Show Animation Dot </label>
+    <input id="marker-toggle" type="checkbox" bind:checked={showMarker} />
+  </div>
 
-      <!-- Reusable Corner Label Template -->
-      <g id="corner-marker">
+  <!-- SVG Map Canvas Container -->
+  <div class="canvas-box">
+    <svg viewBox="0 0 600 600" width="450" height="450">
+      <!-- Base boundary polygon mapping your points -->
+      <polygon points={polygonPointsString} class="region-polygon" />
+
+      <!-- Vertex Pinpoints -->
+      {#each projectedPoints as pt}
+        <circle cx={pt.x} cy={pt.y} r="4" class="vertex-dot" />
+      {/each}
+
+      <!-- Toggleable Animated Marker -->
+      {#if showMarker}
         <circle
-          r="6"
-          fill={activeTheme.cornerMarkerFill}
-          stroke={activeTheme.cornerMarkerStroke}
-          stroke-width="2"
-          filter="url(#glow)"
+          cx={currentMarkerPos.x}
+          cy={currentMarkerPos.y}
+          r="7"
+          class="animation-marker"
         />
-        <circle r="2" fill={activeTheme.cornerMarkerDot} />
-      </g>
-    </defs>
-
-    <!-- Background Layer -->
-    <rect width="100%" height="100%" fill={activeTheme.bg} />
-    <rect width="100%" height="100%" fill="url(#grid)" />
-
-    <!-- Center Coordinate Crosshairs -->
-    <g
-      stroke={activeTheme.crosshair}
-      stroke-width="1"
-      opacity="0.4"
-      stroke-dasharray="4 8"
-    >
-      <line x1="300" y1="50" x2="300" y2="550" />
-      <line x1="50" y1="300" x2="550" y2="300" />
-    </g>
-
-    <!-- Main Animation System Group -->
-    <!-- Target coordinates for vertices: N(300,120), S(300,480), E(480,300), W(120,300) -->
-
-    <g
-      font-family="monospace"
-      font-weight="bold"
-      fill={activeTheme.labelPrimary}
-      text-anchor="middle"
-      dominant-baseline="central"
-      filter="url(#glow)"
-    >
-      <path
-        d="M150,150 l300,0, l0,300 l-300,0 Z"
-        stroke-width="3"
-        stroke={activeTheme.diamondStroke}
-        fill="none"
-      ></path>
-    </g>
-  </svg>
-</section>
-
-<section class="controls">
-  <strong>Animations</strong>
-  {#each animations as anim}
-    <button onclick={anim.fn}>{anim.name} </button>
-  {/each}
-
-  <strong>Themes</strong>
-  <button
-    class:selected={activeThemeKey === "engineering"}
-    onclick={() => setTheme("engineering")}>engineering</button
-  >
-  <button
-    class:selected={activeThemeKey === "mapsLand"}
-    onclick={() => setTheme("mapsLand")}>maps-land</button
-  >
-</section>
+      {/if}
+    </svg>
+  </div>
+</main>
 
 <style>
-  section.vp {
+  .presentation-container {
     display: flex;
-    justify-content: center;
-    border: thin solid red;
-  }
-  svg {
-    height: 400px;
-  }
-
-  .controls {
-    border: thin solid red;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem;
+    flex-direction: column;
     align-items: center;
-
-    & > button {
-      all: revert;
-      padding: 0.5rem 1rem;
-    }
-
-    & > strong {
-      margin-inline: 0.3rem 0;
-      font-size: 0.85rem;
-      letter-spacing: 0.03em;
-      opacity: 0.8;
-    }
-
-    & > button.selected {
-      outline: 2px solid #1f1f1f;
-      outline-offset: 1px;
-    }
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #0a0a0a;
+    color: #f3f4f6;
+    font-family:
+      system-ui,
+      -apple-system,
+      sans-serif;
+    padding: 1.5rem;
   }
 
-  .anim-corner-shift {
-    animation-name: corner-shift;
-    animation-duration: var(--corner-shift-duration, 800ms);
-    animation-timing-function: var(--corner-shift-easing, ease-out);
-    animation-fill-mode: forwards;
+  .header {
+    text-align: center;
+    margin-bottom: 1.5rem;
   }
 
-  @keyframes corner-shift {
-    0% {
-      transform: translate(0, 0);
-    }
+  .header h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: -0.025em;
+  }
 
-    100% {
-      transform: translate(var(--heading-dx), var(--heading-dy));
-    }
+  .header p {
+    font-size: 0.875rem;
+    color: #9ca3af;
+    margin-top: 0.25rem;
+  }
+
+  .toolbar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    background-color: #171717;
+    border: 1px solid #262626;
+    padding: 0.625rem 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+
+  .toolbar label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .toolbar input[type="checkbox"] {
+    width: 1rem;
+    height: 1rem;
+    cursor: pointer;
+    accent-color: #3b82f6;
+  }
+
+  .canvas-box {
+    background-color: #171717;
+    border: 1px solid #262626;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+  }
+
+  .canvas-box svg {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 0.375rem;
+    background-color: #030712;
+  }
+
+  .region-polygon {
+    fill: rgba(59, 130, 246, 0.15);
+    stroke: #3b82f6;
+    stroke-width: 2.5px;
+    stroke-linejoin: round;
+  }
+
+  .vertex-dot {
+    fill: #60a5fa;
+  }
+
+  .animation-marker {
+    fill: #ef4444;
+    transition: transform 75ms linear;
+    filter: drop-shadow(0px 0px 6px rgba(239, 68, 68, 0.8));
   }
 </style>
