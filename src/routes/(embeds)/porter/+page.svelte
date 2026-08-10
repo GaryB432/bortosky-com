@@ -1,7 +1,8 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import { tweened } from "svelte/motion";
+  import { cubicOut } from "svelte/easing";
 
-  // 1. Hard-coded points
+  // 1. Hard-coded building polygon points
   const rawPoints = [
     { x: -110.44446701644054, y: 18.701513717453203 },
     { x: -110.44380027958378, y: 18.701025112562903 },
@@ -11,7 +12,7 @@
 
   let showMarker = $state(true);
 
-  // 2. Project points ONCE into a fixed 600x600 local pixel space
+  // 2. Project points ONCE into a fixed 600x600 master coordinate space (5-mile domain)
   const centroid = {
     x: rawPoints.reduce((sum, pt) => sum + pt.x, 0) / rawPoints.length,
     y: rawPoints.reduce((sum, pt) => sum + pt.y, 0) / rawPoints.length,
@@ -19,66 +20,45 @@
   const centerLatRad = centroid.y * (Math.PI / 180);
   const cosFactor = Math.cos(centerLatRad);
 
-  // Static 5-mile / building pixel boundaries in our base space
-  const baseSpan = 0.072; // 5-mile span
-  const baseLonMin = centroid.x - baseSpan;
-  const baseLonMax = centroid.x + baseSpan;
-  const baseLatMin = centroid.y - baseSpan;
-  const baseLatMax = centroid.y + baseSpan;
+  const domainSpan = 0.072; // ~5-mile domain span reference
+  const domainLonMin = centroid.x - domainSpan;
+  const domainLonMax = centroid.x + domainSpan;
+  const domainLatMin = centroid.y - domainSpan;
+  const domainLatMax = centroid.y + domainSpan;
 
   const svgWidth = 600;
   const svgHeight = 600;
 
   const staticProjectedPoints = rawPoints.map((pt) => {
-    const lonDelta = (pt.x - baseLonMin) * cosFactor;
-    const lonSpan = (baseLonMax - baseLonMin) * cosFactor;
-    const latSpan = baseLatMax - baseLatMin;
+    const lonDelta = (pt.x - domainLonMin) * cosFactor;
+    const lonSpan = (domainLonMax - domainLonMin) * cosFactor;
+    const latSpan = domainLatMax - domainLatMin;
     return {
       x: (lonDelta / lonSpan) * svgWidth,
-      y: ((baseLatMax - pt.y) / latSpan) * svgHeight,
+      y: ((domainLatMax - pt.y) / latSpan) * svgHeight,
     };
   });
 
   const polygonPointsString = staticProjectedPoints
     .map((pt) => `${pt.x},${pt.y}`)
     .join(" ");
-  let markerIndex = $state(1);
-  const currentMarkerPos = $derived(staticProjectedPoints[markerIndex]);
+  const currentMarkerPos = staticProjectedPoints[1]; // NE corner marker anchor
 
-  // 3. ViewBox State (x, y, width, height)
-  // We animate these four numbers instead of recalculating the points!
-  let vbX = $state(0);
-  let vbY = $state(0);
-  let vbWidth = $state(600);
-  let vbHeight = $state(600);
+  // 3. Define Tweened ViewBox Store
+  const overviewVb = { x: 0, y: 0, width: 600, height: 600 };
 
-  // Target ViewBox values for choreography
-  let targetVb = { x: 0, y: 0, width: 600, height: 600 };
-
-  // Computed string for the SVG viewBox attribute
-  const viewBoxString = $derived(`${vbX} ${vbY} ${vbWidth} ${vbHeight}`);
-
-  // 4. Smooth Lerp Loop for ViewBox Animation
-  onMount(() => {
-    let animId: number;
-
-    function step() {
-      const ease = 0.08;
-      vbX += (targetVb.x - vbX) * ease;
-      vbY += (targetVb.y - vbY) * ease;
-      vbWidth += (targetVb.width - vbWidth) * ease;
-      vbHeight += (targetVb.height - vbHeight) * ease;
-
-      animId = requestAnimationFrame(step);
-    }
-
-    animId = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(animId);
+  const vb = tweened(overviewVb, {
+    duration: 800,
+    easing: cubicOut,
   });
 
-  // Choreography Actions modifying the ViewBox window
+  // Derived string for the SVG viewBox attribute
+  const viewBoxString = $derived(
+    `${$vb.x} ${$vb.y} ${$vb.width} ${$vb.height}`,
+  );
+
+  // 4. Choreography Actions (Just update the tweened store target values!)
   function flyToBuilding() {
-    // Find min/max in our already-projected static pixel space
     let minX = Infinity,
       maxX = -Infinity;
     let minY = Infinity,
@@ -91,30 +71,30 @@
       if (pt.y > maxY) maxY = pt.y;
     });
 
-    const padding = 50;
-    targetVb = {
+    const padding = 60;
+    vb.set({
       x: minX - padding,
       y: minY - padding,
       width: maxX - minX + padding * 2,
       height: maxY - minY + padding * 2,
-    };
+    });
   }
 
-  function resetToFiveMileOverview() {
-    targetVb = { x: 0, y: 0, width: 600, height: 600 };
+  function resetToOverview() {
+    vb.set(overviewVb);
   }
 </script>
 
 <main class="presentation-container">
   <div class="header">
     <h1>OSC Changes Presentation</h1>
-    <p>True SVG viewBox Panning & Zooming</p>
+    <p>Tweened Viewport Animations</p>
   </div>
 
   <div class="toolbar">
-    <button onclick={flyToBuilding} class="btn">Fly-to Building</button>
-    <button onclick={resetToFiveMileOverview} class="btn btn-secondary"
-      >Reset (5-Mile Overview)</button
+    <button onclick={flyToBuilding} class="btn">Fly to Building</button>
+    <button onclick={resetToOverview} class="btn btn-secondary"
+      >Reset to 5-Mile Overview</button
     >
 
     <div class="separator"></div>
@@ -126,14 +106,28 @@
   </div>
 
   <div class="canvas-box">
-    <!-- Notice viewBox is now dynamic, while the points inside remain completely static -->
     <svg viewBox={viewBoxString} width="450" height="450">
+      <!-- 5-Mile Master Frame Reference -->
+      <rect
+        x="0"
+        y="0"
+        width="600"
+        height="600"
+        fill="none"
+        stroke="#262626"
+        stroke-width="2"
+        stroke-dasharray="8 8"
+      />
+
+      <!-- Building Footprint -->
       <polygon points={polygonPointsString} class="region-polygon" />
 
+      <!-- Building Vertices -->
       {#each staticProjectedPoints as pt}
         <circle cx={pt.x} cy={pt.y} r="4" class="vertex-dot" />
       {/each}
 
+      <!-- Change Marker -->
       {#if showMarker}
         <circle
           cx={currentMarkerPos.x}
@@ -214,6 +208,7 @@
     gap: 0.5rem;
     font-size: 0.875rem;
     cursor: pointer;
+    user-select: none;
   }
   .canvas-box {
     background-color: #171717;
