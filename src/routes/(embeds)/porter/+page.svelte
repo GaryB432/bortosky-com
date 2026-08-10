@@ -1,92 +1,73 @@
 <script lang="ts">
   import { onMount } from "svelte";
 
-  // 1. Hard-coded points (building base)
-  const rawPoints = $state([
+  // 1. Hard-coded points
+  const rawPoints = [
     { x: -110.44446701644054, y: 18.701513717453203 },
     { x: -110.44380027958378, y: 18.701025112562903 },
     { x: -110.44439180527074, y: 18.700512708393774 },
     { x: -110.44506464033043, y: 18.70101083509708 },
-  ]);
+  ];
 
-  // UI State switches
   let showMarker = $state(true);
 
-  // 2. Compute Centroid of the Building Base
-  const centroid = (() => {
-    let sumX = 0,
-      sumY = 0;
-    rawPoints.forEach((pt) => {
-      sumX += pt.x;
-      sumY += pt.y;
-    });
-    return {
-      x: sumX / rawPoints.length,
-      y: sumY / rawPoints.length,
-    };
-  })();
-
-  // 3. Define 5-Mile Overview vs. Building-Level Zoom States
-  // 1 degree lat ~ 69 miles. 5 miles ~ 0.072 degrees offset from center.
-  const FIVE_MILE_SPAN = 0.072;
-
-  const defaultBounds = {
-    lonMin: centroid.x - FIVE_MILE_SPAN,
-    lonMax: centroid.x + FIVE_MILE_SPAN,
-    latMin: centroid.y - FIVE_MILE_SPAN,
-    latMax: centroid.y + FIVE_MILE_SPAN,
-    centerLat: centroid.y,
+  // 2. Project points ONCE into a fixed 600x600 local pixel space
+  const centroid = {
+    x: rawPoints.reduce((sum, pt) => sum + pt.x, 0) / rawPoints.length,
+    y: rawPoints.reduce((sum, pt) => sum + pt.y, 0) / rawPoints.length,
   };
+  const centerLatRad = centroid.y * (Math.PI / 180);
+  const cosFactor = Math.cos(centerLatRad);
 
-  let currentBounds = $state({ ...defaultBounds });
-  let targetBounds = $state({ ...defaultBounds });
+  // Static 5-mile / building pixel boundaries in our base space
+  const baseSpan = 0.072; // 5-mile span
+  const baseLonMin = centroid.x - baseSpan;
+  const baseLonMax = centroid.x + baseSpan;
+  const baseLatMin = centroid.y - baseSpan;
+  const baseLatMax = centroid.y + baseSpan;
 
-  // 4. Derived projection based on current active bounds
   const svgWidth = 600;
   const svgHeight = 600;
 
-  const projectedPoints = $derived.by(() => {
-    const latRad = currentBounds.centerLat * (Math.PI / 180);
-    const cosFactor = Math.cos(latRad);
-
-    const lonSpan = (currentBounds.lonMax - currentBounds.lonMin) * cosFactor;
-    const latSpan = currentBounds.latMax - currentBounds.latMin;
-
-    return rawPoints.map((pt) => {
-      const lonDelta = (pt.x - currentBounds.lonMin) * cosFactor;
-      return {
-        x: (lonDelta / lonSpan) * svgWidth,
-        y: ((currentBounds.latMax - pt.y) / latSpan) * svgHeight,
-      };
-    });
+  const staticProjectedPoints = rawPoints.map((pt) => {
+    const lonDelta = (pt.x - baseLonMin) * cosFactor;
+    const lonSpan = (baseLonMax - baseLonMin) * cosFactor;
+    const latSpan = baseLatMax - baseLatMin;
+    return {
+      x: (lonDelta / lonSpan) * svgWidth,
+      y: ((baseLatMax - pt.y) / latSpan) * svgHeight,
+    };
   });
 
-  const polygonPointsString = $derived(
-    projectedPoints.map((pt) => `${pt.x},${pt.y}`).join(" "),
-  );
-
+  const polygonPointsString = staticProjectedPoints
+    .map((pt) => `${pt.x},${pt.y}`)
+    .join(" ");
   let markerIndex = $state(1);
-  const currentMarkerPos = $derived(
-    projectedPoints[markerIndex] || { x: 300, y: 300 },
-  );
+  const currentMarkerPos = $derived(staticProjectedPoints[markerIndex]);
 
-  // 5. Choreography Controller: Smoothly lerp current bounds towards target bounds
+  // 3. ViewBox State (x, y, width, height)
+  // We animate these four numbers instead of recalculating the points!
+  let vbX = $state(0);
+  let vbY = $state(0);
+  let vbWidth = $state(600);
+  let vbHeight = $state(600);
+
+  // Target ViewBox values for choreography
+  let targetVb = { x: 0, y: 0, width: 600, height: 600 };
+
+  // Computed string for the SVG viewBox attribute
+  const viewBoxString = $derived(`${vbX} ${vbY} ${vbWidth} ${vbHeight}`);
+
+  // 4. Smooth Lerp Loop for ViewBox Animation
   onMount(() => {
     let animId: number;
 
     function step() {
       const ease = 0.08;
-
-      currentBounds.lonMin +=
-        (targetBounds.lonMin - currentBounds.lonMin) * ease;
-      currentBounds.lonMax +=
-        (targetBounds.lonMax - currentBounds.lonMax) * ease;
-      currentBounds.latMin +=
-        (targetBounds.latMin - currentBounds.latMin) * ease;
-      currentBounds.latMax +=
-        (targetBounds.latMax - currentBounds.latMax) * ease;
-      currentBounds.centerLat +=
-        (targetBounds.centerLat - currentBounds.centerLat) * ease;
+      vbX += (targetVb.x - vbX) * ease;
+      vbY += (targetVb.y - vbY) * ease;
+      vbWidth += (targetVb.width - vbWidth) * ease;
+      vbHeight += (targetVb.height - vbHeight) * ease;
 
       animId = requestAnimationFrame(step);
     }
@@ -95,45 +76,41 @@
     return () => cancelAnimationFrame(animId);
   });
 
-  // Choreography Actions
+  // Choreography Actions modifying the ViewBox window
   function flyToBuilding() {
-    // Zoom tight into the building footprint
-    let lonMin = Infinity,
-      lonMax = -Infinity;
-    let latMin = Infinity,
-      latMax = -Infinity;
+    // Find min/max in our already-projected static pixel space
+    let minX = Infinity,
+      maxX = -Infinity;
+    let minY = Infinity,
+      maxY = -Infinity;
 
-    rawPoints.forEach((pt) => {
-      if (pt.x < lonMin) lonMin = pt.x;
-      if (pt.x > lonMax) lonMax = pt.x;
-      if (pt.y < latMin) latMin = pt.y;
-      if (pt.y > latMax) latMax = pt.y;
+    staticProjectedPoints.forEach((pt) => {
+      if (pt.x < minX) minX = pt.x;
+      if (pt.x > maxX) maxX = pt.x;
+      if (pt.y < minY) minY = pt.y;
+      if (pt.y > maxY) maxY = pt.y;
     });
 
-    const lonPad = (lonMax - lonMin) * 0.2;
-    const latPad = (latMax - latMin) * 0.2;
-
-    targetBounds = {
-      lonMin: lonMin - lonPad,
-      lonMax: lonMax + lonPad,
-      latMin: latMin - latPad,
-      latMax: latMax + latPad,
-      centerLat: centroid.y,
+    const padding = 50;
+    targetVb = {
+      x: minX - padding,
+      y: minY - padding,
+      width: maxX - minX + padding * 2,
+      height: maxY - minY + padding * 2,
     };
   }
 
   function resetToFiveMileOverview() {
-    targetBounds = { ...defaultBounds };
+    targetVb = { x: 0, y: 0, width: 600, height: 600 };
   }
 </script>
 
 <main class="presentation-container">
   <div class="header">
     <h1>OSC Changes Presentation</h1>
-    <p>5-Mile Overview to Building Zoom Choreography</p>
+    <p>True SVG viewBox Panning & Zooming</p>
   </div>
 
-  <!-- Controls Toolbar -->
   <div class="toolbar">
     <button onclick={flyToBuilding} class="btn">Fly-to Building</button>
     <button onclick={resetToFiveMileOverview} class="btn btn-secondary"
@@ -148,18 +125,15 @@
     </label>
   </div>
 
-  <!-- SVG Map Canvas Container -->
   <div class="canvas-box">
-    <svg viewBox="0 0 600 600" width="450" height="450">
-      <!-- Base boundary polygon -->
+    <!-- Notice viewBox is now dynamic, while the points inside remain completely static -->
+    <svg viewBox={viewBoxString} width="450" height="450">
       <polygon points={polygonPointsString} class="region-polygon" />
 
-      <!-- Vertex Pinpoints -->
-      {#each projectedPoints as pt}
+      {#each staticProjectedPoints as pt}
         <circle cx={pt.x} cy={pt.y} r="4" class="vertex-dot" />
       {/each}
 
-      <!-- Toggleable Target Marker -->
       {#if showMarker}
         <circle
           cx={currentMarkerPos.x}
@@ -187,25 +161,20 @@
       sans-serif;
     padding: 1.5rem;
   }
-
   .header {
     text-align: center;
     margin-bottom: 1.25rem;
   }
-
   .header h1 {
     font-size: 1.5rem;
     font-weight: 700;
     margin: 0;
-    letter-spacing: -0.025em;
   }
-
   .header p {
     font-size: 0.875rem;
     color: #9ca3af;
     margin-top: 0.25rem;
   }
-
   .toolbar {
     display: flex;
     align-items: center;
@@ -215,65 +184,43 @@
     border: 1px solid #262626;
     padding: 0.625rem 1rem;
     border-radius: 0.5rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
-
   .btn {
     background-color: #2563eb;
     color: white;
     border: none;
     padding: 0.4rem 0.8rem;
-    font-size: 0.875rem;
-    font-weight: 500;
     border-radius: 0.375rem;
     cursor: pointer;
-    transition: background-color 0.15s ease;
   }
-
   .btn:hover {
     background-color: #1d4ed8;
   }
-
   .btn-secondary {
     background-color: #374151;
   }
-
   .btn-secondary:hover {
     background-color: #4b5563;
   }
-
   .separator {
     width: 1px;
     height: 20px;
     background-color: #374151;
     margin: 0 0.25rem;
   }
-
   .checkbox-label {
     display: flex;
     align-items: center;
     gap: 0.5rem;
     font-size: 0.875rem;
-    font-weight: 500;
     cursor: pointer;
-    user-select: none;
   }
-
-  .checkbox-label input[type="checkbox"] {
-    width: 1rem;
-    height: 1rem;
-    cursor: pointer;
-    accent-color: #3b82f6;
-  }
-
   .canvas-box {
     background-color: #171717;
     border: 1px solid #262626;
     padding: 1rem;
     border-radius: 0.75rem;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
   }
-
   .canvas-box svg {
     width: 100%;
     max-width: 500px;
@@ -281,24 +228,17 @@
     border-radius: 0.375rem;
     background-color: #030712;
   }
-
   .region-polygon {
     fill: rgba(59, 130, 246, 0.15);
     stroke: #3b82f6;
     stroke-width: 2.5px;
     stroke-linejoin: round;
-    transition: all 0.05s linear;
   }
-
   .vertex-dot {
     fill: #60a5fa;
   }
-
   .animation-marker {
     fill: #ef4444;
-    transition:
-      cx 0.05s linear,
-      cy 0.05s linear;
     filter: drop-shadow(0px 0px 6px rgba(239, 68, 68, 0.8));
   }
 </style>
