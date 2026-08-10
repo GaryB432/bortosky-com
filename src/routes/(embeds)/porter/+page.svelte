@@ -1,4 +1,7 @@
 <script lang="ts">
+  import osmChangeSet from "$lib/data/porter/changes.osc?raw";
+  import { Vector } from "$lib/shared/vector";
+  import { onMount } from "svelte";
   import type { PageProps } from "./$types";
   import type { Corner } from "./+page";
   import { themes, type ThemeKey } from "./themes";
@@ -77,6 +80,20 @@
       fn: clearAnimation,
     },
   ];
+
+  onMount(() => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(osmChangeSet, "application/xml");
+    const lmnt = doc.documentElement;
+    const create_nodes = lmnt.querySelectorAll("osmChange create node");
+    // const fdf = Array.from(create_nodes).map(n=> Vector.create(n.getatt))
+    for (const node of create_nodes) {
+      const lat = parseFloat(node.getAttribute("lat") ?? "0");
+      const lon = parseFloat(node.getAttribute("lon") ?? "0");
+      const v = Vector.create(lon, lat);
+      console.log(v);
+    }
+  });
 </script>
 
 <h1>see you soon</h1>
