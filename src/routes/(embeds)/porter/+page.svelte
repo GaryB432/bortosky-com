@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
 
-  // 1. Hard-coded points
+  // 1. Hard-coded points (building base)
   const rawPoints = $state([
     { x: -110.44446701644054, y: 18.701513717453203 },
     { x: -110.44380027958378, y: 18.701025112562903 },
@@ -12,36 +12,36 @@
   // UI State switches
   let showMarker = $state(true);
 
-  // 2. Camera Viewport State (supports smooth transitions)
-  const defaultBounds = (() => {
-    let lonMin = Infinity,
-      lonMax = -Infinity;
-    let latMin = Infinity,
-      latMax = -Infinity;
-
+  // 2. Compute Centroid of the Building Base
+  const centroid = (() => {
+    let sumX = 0,
+      sumY = 0;
     rawPoints.forEach((pt) => {
-      if (pt.x < lonMin) lonMin = pt.x;
-      if (pt.x > lonMax) lonMax = pt.x;
-      if (pt.y < latMin) latMin = pt.y;
-      if (pt.y > latMax) latMax = pt.y;
+      sumX += pt.x;
+      sumY += pt.y;
     });
-
-    const lonPad = (lonMax - lonMin) * 0.05 || 0.0001;
-    const latPad = (latMax - latMin) * 0.05 || 0.0001;
-
     return {
-      lonMin: lonMin - lonPad,
-      lonMax: lonMax + lonPad,
-      latMin: latMin - latPad,
-      latMax: latMax + latPad,
-      centerLat: (latMin + latMax) / 2,
+      x: sumX / rawPoints.length,
+      y: sumY / rawPoints.length,
     };
   })();
+
+  // 3. Define 5-Mile Overview vs. Building-Level Zoom States
+  // 1 degree lat ~ 69 miles. 5 miles ~ 0.072 degrees offset from center.
+  const FIVE_MILE_SPAN = 0.072;
+
+  const defaultBounds = {
+    lonMin: centroid.x - FIVE_MILE_SPAN,
+    lonMax: centroid.x + FIVE_MILE_SPAN,
+    latMin: centroid.y - FIVE_MILE_SPAN,
+    latMax: centroid.y + FIVE_MILE_SPAN,
+    centerLat: centroid.y,
+  };
 
   let currentBounds = $state({ ...defaultBounds });
   let targetBounds = $state({ ...defaultBounds });
 
-  // 3. Derived projection based on current active bounds
+  // 4. Derived projection based on current active bounds
   const svgWidth = 600;
   const svgHeight = 600;
 
@@ -70,7 +70,7 @@
     projectedPoints[markerIndex] || { x: 300, y: 300 },
   );
 
-  // 4. Choreography Controller: Smoothly lerp current bounds towards target bounds
+  // 5. Choreography Controller: Smoothly lerp current bounds towards target bounds
   onMount(() => {
     let animId: number;
 
@@ -96,40 +96,49 @@
   });
 
   // Choreography Actions
-  function flyToNECopper() {
-    // const nePoint = rawPoints.reduce(
-    //   (max, pt) => (pt.x > max.x ? pt : max),
-    //   rawPoints[0],
-    // );
-    const nePoint = rawPoints.at(0)!
-    markerIndex = rawPoints.indexOf(nePoint);
+  function flyToBuilding() {
+    // Zoom tight into the building footprint
+    let lonMin = Infinity,
+      lonMax = -Infinity;
+    let latMin = Infinity,
+      latMax = -Infinity;
 
-    const span = 0.0003;
+    rawPoints.forEach((pt) => {
+      if (pt.x < lonMin) lonMin = pt.x;
+      if (pt.x > lonMax) lonMax = pt.x;
+      if (pt.y < latMin) latMin = pt.y;
+      if (pt.y > latMax) latMax = pt.y;
+    });
+
+    const lonPad = (lonMax - lonMin) * 0.2;
+    const latPad = (latMax - latMin) * 0.2;
+
     targetBounds = {
-      lonMin: nePoint.x - span,
-      lonMax: nePoint.x + span,
-      latMin: nePoint.y - span,
-      latMax: nePoint.y + span,
-      centerLat: nePoint.y,
+      lonMin: lonMin - lonPad,
+      lonMax: lonMax + lonPad,
+      latMin: latMin - latPad,
+      latMax: latMax + latPad,
+      centerLat: centroid.y,
     };
   }
 
-  function resetView() {
+  function resetToFiveMileOverview() {
     targetBounds = { ...defaultBounds };
-    markerIndex = 1;
   }
 </script>
 
 <main class="presentation-container">
   <div class="header">
     <h1>OSC Changes Presentation</h1>
-    <p>Choreographed Viewport Transitions</p>
+    <p>5-Mile Overview to Building Zoom Choreography</p>
   </div>
 
   <!-- Controls Toolbar -->
   <div class="toolbar">
-    <button onclick={flyToNECopper} class="btn">Fly-to NE Corner</button>
-    <button onclick={resetView} class="btn btn-secondary">Reset View</button>
+    <button onclick={flyToBuilding} class="btn">Fly-to Building</button>
+    <button onclick={resetToFiveMileOverview} class="btn btn-secondary"
+      >Reset (5-Mile Overview)</button
+    >
 
     <div class="separator"></div>
 
