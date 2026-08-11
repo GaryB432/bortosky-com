@@ -4,10 +4,10 @@
 
   // 1. Hard-coded building polygon points
   const rawPoints = [
-    { x: -110.44446701644054, y: 18.701513717453203 },
-    { x: -110.44380027958378, y: 18.701025112562903 },
-    { x: -110.44439180527074, y: 18.700512708393774 },
-    { x: -110.44506464033043, y: 18.70101083509708 },
+    { x: -90.44446701644054, y: 38.701513717453203 },
+    { x: -90.44380027958378, y: 38.701025112562903 },
+    { x: -90.44439180527074, y: 38.700512708393774 },
+    { x: -90.44506464033043, y: 38.70101083509708 },
   ];
 
   let showMarker = $state(true);
@@ -20,11 +20,11 @@
   const centerLatRad = centroid.y * (Math.PI / 180);
   const cosFactor = Math.cos(centerLatRad);
 
-  const domainSpan = 0.072; // ~5-mile domain span reference
-  const domainLonMin = centroid.x - domainSpan;
-  const domainLonMax = centroid.x + domainSpan;
-  const domainLatMin = centroid.y - domainSpan;
-  const domainLatMax = centroid.y + domainSpan;
+  const overviewSpan = 0.072; // ~5-mile domain span reference
+  const domainLonMin = centroid.x - overviewSpan;
+  const domainLonMax = centroid.x + overviewSpan;
+  const domainLatMin = centroid.y - overviewSpan;
+  const domainLatMax = centroid.y + overviewSpan;
 
   const svgWidth = 600;
   const svgHeight = 600;
@@ -42,7 +42,7 @@
   const polygonPointsString = staticProjectedPoints
     .map((pt) => `${pt.x},${pt.y}`)
     .join(" ");
-  const currentMarkerPos = staticProjectedPoints[1]; // NE corner marker anchor
+  // const currentMarkerPos = staticProjectedPoints[1]; // NE corner marker anchor
 
   // 3. Define Tweened ViewBox Store
   const overviewVb = { x: 0, y: 0, width: 600, height: 600 };
@@ -52,12 +52,11 @@
     easing: cubicOut,
   });
 
-  // Derived string for the SVG viewBox attribute
   const viewBoxString = $derived(
     `${$vb.x} ${$vb.y} ${$vb.width} ${$vb.height}`,
   );
 
-  // 4. Choreography Actions (Just update the tweened store target values!)
+  // 4. Choreography Actions
   function flyToBuilding() {
     let minX = Infinity,
       maxX = -Infinity;
@@ -71,7 +70,8 @@
       if (pt.y > maxY) maxY = pt.y;
     });
 
-    const padding = 60;
+    // Balanced padding so the building is nicely framed and legible
+    const padding = 35;
     vb.set({
       x: minX - padding,
       y: minY - padding,
@@ -127,7 +127,7 @@
         <circle cx={pt.x} cy={pt.y} r="4" class="vertex-dot" />
       {/each}
 
-      <!-- Change Marker -->
+      <!-- Change Marker
       {#if showMarker}
         <circle
           cx={currentMarkerPos.x}
@@ -135,7 +135,7 @@
           r="8"
           class="animation-marker"
         />
-      {/if}
+      {/if} -->
     </svg>
   </div>
 </main>
@@ -232,8 +232,5 @@
   .vertex-dot {
     fill: #60a5fa;
   }
-  .animation-marker {
-    fill: #ef4444;
-    filter: drop-shadow(0px 0px 6px rgba(239, 68, 68, 0.8));
-  }
+ 
 </style>
