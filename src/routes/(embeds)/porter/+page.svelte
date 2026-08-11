@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { tweened } from "svelte/motion";
+  import { Tween } from "svelte/motion";
   import { cubicOut } from "svelte/easing";
 
   // 1. Hard-coded building polygon points
@@ -42,18 +42,18 @@
   const polygonPointsString = staticProjectedPoints
     .map((pt) => `${pt.x},${pt.y}`)
     .join(" ");
+  const overviewVb = { x: 0, y: 0, width: 600, height: 600 };
   // const currentMarkerPos = staticProjectedPoints[1]; // NE corner marker anchor
 
   // 3. Define Tweened ViewBox Store
-  const overviewVb = { x: 0, y: 0, width: 600, height: 600 };
 
-  const vb = tweened(overviewVb, {
+  const vb = new Tween(overviewVb, {
     duration: 800,
     easing: cubicOut,
   });
 
   const viewBoxString = $derived(
-    `${$vb.x} ${$vb.y} ${$vb.width} ${$vb.height}`,
+    `${vb.current.x} ${vb.current.y} ${vb.current.width} ${vb.current.height}`,
   );
 
   // 4. Choreography Actions
@@ -232,5 +232,4 @@
   .vertex-dot {
     fill: #60a5fa;
   }
- 
 </style>
