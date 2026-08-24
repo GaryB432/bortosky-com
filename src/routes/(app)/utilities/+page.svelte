@@ -44,8 +44,14 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    gap: 1em;
-    justify-content: center;
+    align-items: center;
+  }
+
+  .bot {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem;
   }
 
   @media screen and (min-width: 576px) {
