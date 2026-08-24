@@ -42,7 +42,7 @@
   }
 
   textarea {
-    width: 60dvw;
+    max-width: 40ch;
   }
   .sorter {
     display: flex;
