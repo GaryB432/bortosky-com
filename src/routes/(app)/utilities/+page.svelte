@@ -50,7 +50,7 @@
     flex-direction: column;
     align-items: center;
   }
-  
+
   .bot {
     display: flex;
     align-items: center;
