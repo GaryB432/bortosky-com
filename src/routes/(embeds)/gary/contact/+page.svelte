@@ -1,104 +1,12 @@
 <script lang="ts">
-  import { resolve } from "$app/paths";
-  import { generate } from "lean-qr";
-  import { onMount } from "svelte";
-
   const STAGE_SIZE = 320;
 
-  let ctx: CanvasRenderingContext2D | null = $state(null);
-
-  // const url = $state(resolve("/gary/contact/download"));
-  // const qr = $derived(generate("url"));
-
-  let moduleEntities: ModuleEntity[] = [];
-
   let isScanned = $state(false);
-
-  let canvasElement: HTMLCanvasElement;
-
-  interface ModuleEntity {
-    x: number;
-    y: number;
-    vx: number;
-    vy: number;
-    size: number;
-    isFinder: boolean;
-    originX: number;
-    originY: number;
-  }
 
   function handleSuccess() {
     if (isScanned) return;
     isScanned = true;
   }
-
-  onMount(() => {
-    // if (!canvasElement) return;
-    // ctx = canvasElement.getContext("2d", { alpha: false });
-    // if (!ctx) return;
-
-    // ctx.imageSmoothingEnabled = false;
-
-    // // const rawString = qr.toString({ pad: 0 });
-
-    // // const gridMatrixSize = qr.size;
-    // const paddingModules = 4;
-    // // const totalVirtualModules = gridMatrixSize + paddingModules * 2;
-    // // const moduleRenderSize = STAGE_SIZE / totalVirtualModules;
-    // // const offset = paddingModules * moduleRenderSize;
-
-    // // moduleEntities = pullQrModuleParticles(
-    // //   rawString.split("\n"),
-    // //   moduleRenderSize,
-    // //   offset,
-    // //   gridMatrixSize,
-    // // );
-
-    // // let animationFrameId: number = renderLoop(moduleEntities, moduleRenderSize);
-
-    // return () => {
-    //   cancelAnimationFrame(animationFrameId);
-    // };
-  });
-
-  function pullQrModuleParticles(
-    rows: string[],
-    moduleRenderSize: number,
-    offset: number,
-    gridMatrixSize: number,
-  ): ModuleEntity[] {
-    const moduleEntities: ModuleEntity[] = [];
-    rows.forEach((row, y) => {
-      for (let charIndex = 0; charIndex < row.length; charIndex += 2) {
-        const cellChunk = row.slice(charIndex, charIndex + 2);
-        const x = charIndex / 2;
-
-        if (cellChunk.includes("#")) {
-          const targetX = x * moduleRenderSize + offset;
-          const targetY = y * moduleRenderSize + offset;
-
-          const isTopLeft = x < 7 && y < 7;
-          const isTopRight = x >= gridMatrixSize - 7 && y < 7;
-          const isBottomLeft = x < 7 && y >= gridMatrixSize - 7;
-          const isFinder = isTopLeft || isTopRight || isBottomLeft;
-
-          moduleEntities.push({
-            x: targetX + (Math.random() - 0.5) * 120,
-            y: targetY + (Math.random() - 0.5) * 120,
-            originX: targetX,
-            originY: targetY,
-            vx: (Math.random() - 0.5) * 15,
-            vy: (Math.random() - 0.5) * 15,
-            size: moduleRenderSize + 0.3,
-            isFinder,
-          });
-        }
-      }
-    });
-    return moduleEntities;
-  }
-
-
 </script>
 
 <svelte:head>
@@ -108,8 +16,8 @@
 <div class="vp" class:success={isScanned} style="--qr-size: {STAGE_SIZE}px">
   <button onclick={handleSuccess}>
     <div class="stage">
-    <img src="/gary/qr/gb.png" alt="">
-     
+      <img src="/gary/qr/gb.png" alt="" />
+
       <div class="scanner-line"></div>
 
       {#if isScanned}
@@ -120,19 +28,9 @@
 
   <div class="hud">
     <div class="copy">
-      <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-      <!-- svelte-ignore a11y_click_events_have_key_events -->
       <h1>
         {isScanned ? "Gary Added!" : "Snap To Add Gary"}
       </h1>
-
-      <!-- Clicking triggers download AND fires the success animation -->
-      <!-- 
-      <a class="download" href={url} target="_blank" rel="noreferrer">
-        {isScanned ? "✓ Saved" : "Add to Contacts"}
-      </a>
-
-       -->
     </div>
   </div>
 </div>
